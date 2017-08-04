@@ -8,9 +8,9 @@
 		<artifactId>smartfactory</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>legorobot</artifactId>
+	<artifactId>factory-container</artifactId>
 	<packaging>jar</packaging>
-	<name>legorobot</name>
+	<name>factory-container</name>
 	<dependencies>
 		<dependency>
 			<groupId>smartfactory</groupId>
@@ -33,7 +33,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>smartfactory.legorobot.LegoRobot</mainClass>
+							<mainClass>smartfactory.factory.Factory</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

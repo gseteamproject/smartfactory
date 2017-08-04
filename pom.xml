@@ -7,8 +7,8 @@
 	<packaging>pom</packaging>
 	<modules>
 		<module>core</module>
-		<module>factory</module>
-		<module>legorobot</module>
+		<module>factory-container</module>
+		<module>lego-container</module>
 	</modules>
 
 	<dependencies>
