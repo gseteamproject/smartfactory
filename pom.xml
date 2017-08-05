@@ -9,6 +9,7 @@
 		<module>core</module>
 		<module>factory-container</module>
 		<module>lego-container</module>
+		<module>remote-container</module>
 	</modules>
 
 	<dependencies>
