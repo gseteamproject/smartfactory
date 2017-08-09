@@ -1,0 +1,12 @@
+
+<configuration>
+	<jade-platform>
+		<name></name>
+		<type></type>
+		<host></host>
+		<local-host></local-host>
+	</jade-platform>
+	<agents>
+		<agent></agent>
+	</agents>
+</configuration>
