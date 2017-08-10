@@ -2,6 +2,8 @@ package smartfactory.configuration;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.jdom2.Element;
+import smartfactory.utility.XMLFile;
 
 public class Configuration {
 
@@ -9,14 +11,18 @@ public class Configuration {
 
 	private AgentsConfiguration agents;
 
+	private XMLFile configurationFile;
+
 	public Configuration() {
 		platform = new PlatformConfiguration();
 		agents = new AgentsConfiguration();
+		configurationFile = new XMLFile("configuration.xml");
 	}
 
-	public Configuration(PlatformConfiguration platform, AgentsConfiguration agents) {
+	public Configuration(PlatformConfiguration platform, AgentsConfiguration agents, XMLFile configurationFile) {
 		this.platform = platform;
 		this.agents = agents;
+		this.configurationFile = configurationFile;
 	}
 
 	public String[] getStartupParameters() {
@@ -27,5 +33,8 @@ public class Configuration {
 	}
 
 	public void load() {
+		Element root = configurationFile.getRootElement();
+		platform.load(root.getChild("jade-container"));
+		agents.load(root.getChild("agents"));
 	}
 }
