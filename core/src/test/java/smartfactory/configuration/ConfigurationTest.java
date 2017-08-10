@@ -74,7 +74,7 @@ public class ConfigurationTest {
 				oneOf(configurationFile_mock).getRootElement();
 				will(returnValue(rootElement_mock));
 
-				oneOf(rootElement_mock).getChild("jade-container");
+				oneOf(rootElement_mock).getChild("jade-platform");
 				will(returnValue(platformConfigurationRootElement_mock));
 
 				oneOf(platformConfiguration_mock).load(platformConfigurationRootElement_mock);

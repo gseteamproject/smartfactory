@@ -1,0 +1,12 @@
+<configuration>
+	<jade-platform>
+		<container-name>Factory-Container</container-name>
+		<container-type>MainContainer</container-type>
+		<gui>true</gui>
+		<host>192.168.100.11</host>
+		<local-host>192.168.100.11</local-host>
+	</jade-platform>
+	<agents>
+		<agent></agent>
+	</agents>
+</configuration>

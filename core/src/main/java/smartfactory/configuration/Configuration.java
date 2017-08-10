@@ -34,7 +34,7 @@ public class Configuration {
 
 	public void load() {
 		Element root = configurationFile.getRootElement();
-		platform.load(root.getChild("jade-container"));
+		platform.load(root.getChild("jade-platform"));
 		agents.load(root.getChild("agents"));
 	}
 }

@@ -1,8 +1,9 @@
-
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
 	<jade-platform>
-		<name></name>
-		<type></type>
+		<container-name></container-name>
+		<container-type></container-type>
+		<gui></gui>
 		<host></host>
 		<local-host></local-host>
 	</jade-platform>

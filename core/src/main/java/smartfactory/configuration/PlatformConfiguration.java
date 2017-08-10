@@ -40,13 +40,13 @@ public class PlatformConfiguration {
 		}
 	}
 
-	public void appendGui(List<String> parameters) {
+	void appendGui(List<String> parameters) {
 		if (gui) {
 			parameters.add("-gui");
 		}
 	}
 
-	public void appendContainerType(List<String> parameters) {
+	void appendContainerType(List<String> parameters) {
 		switch (containerType == null ? ContainerType.MainContainer : containerType) {
 		case Container:
 			parameters.add("-container");
@@ -57,22 +57,75 @@ public class PlatformConfiguration {
 		}
 	}
 
-	public void appendHost(List<String> parameters) {
+	void appendHost(List<String> parameters) {
 		if (StringUtils.isNotEmpty(host)) {
 			parameters.add("-host");
 			parameters.add(host);
 		}
 	}
 
-	public void appendLocalHost(List<String> parameters) {
+	void appendLocalHost(List<String> parameters) {
 		if (StringUtils.isNotEmpty(localhost)) {
 			parameters.add("-local-host");
 			parameters.add(localhost);
 		}
 	}
 
-	public void load(Element child) {
-		// TODO Auto-generated method stub
+	public void load(Element root) {
+		loadContainerName(root);
+		loadContainerType(root);
+		loadGui(root);
+		loadHost(root);
+		loadLocalHost(root);
+	}
 
+	void loadContainerName(Element root) {
+		Element element = root.getChild("container-name");
+		if (element == null) {
+			containerName = null;
+		} else {
+			containerName = element.getTextTrim();
+		}
+	}
+
+	void loadContainerType(Element root) {
+		Element element = root.getChild("container-type");
+		if (element == null) {
+			containerType = ContainerType.MainContainer;
+		} else {
+			String text = element.getTextTrim();
+			if (text.compareToIgnoreCase("container") == 0) {
+				containerType = ContainerType.Container;
+			} else {
+				containerType = ContainerType.MainContainer;
+			}
+		}
+	}
+
+	void loadGui(Element root) {
+		Element element = root.getChild("gui");
+		if (element == null) {
+			gui = false;
+		} else {
+			gui = Boolean.parseBoolean(element.getTextTrim());
+		}
+	}
+
+	void loadHost(Element root) {
+		Element element = root.getChild("host");
+		if (element == null) {
+			host = null;
+		} else {
+			host = element.getTextTrim();
+		}
+	}
+
+	void loadLocalHost(Element root) {
+		Element element = root.getChild("local-host");
+		if (element == null) {
+			localhost = null;
+		} else {
+			localhost = element.getTextTrim();
+		}
 	}
 }
