@@ -27,6 +27,6 @@ public class ContainerLauncher {
 
 	public void start() {
 		configuration.load();
-		jade.launch(configuration.getCommandLineParameters());
+		jade.launch(configuration.getStartupParameters());
 	}
 }

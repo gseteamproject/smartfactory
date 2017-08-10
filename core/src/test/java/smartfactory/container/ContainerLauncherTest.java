@@ -43,7 +43,7 @@ public class ContainerLauncherTest {
 			{
 				oneOf(configuration_mock).load();
 
-				oneOf(configuration_mock).getCommandLineParameters();
+				oneOf(configuration_mock).getStartupParameters();
 				will(returnValue(commandLineParameters));
 
 				oneOf(jade_mock).launch(commandLineParameters);
