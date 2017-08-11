@@ -9,17 +9,17 @@ public class Configuration {
 
 	private PlatformConfiguration platform;
 
-	private AgentsConfiguration agents;
+	private AgentConfigurations agents;
 
 	private XMLFile configurationFile;
 
 	public Configuration() {
 		platform = new PlatformConfiguration();
-		agents = new AgentsConfiguration();
+		agents = new AgentConfigurations();
 		configurationFile = new XMLFile("configuration.xml");
 	}
 
-	public Configuration(PlatformConfiguration platform, AgentsConfiguration agents, XMLFile configurationFile) {
+	public Configuration(PlatformConfiguration platform, AgentConfigurations agents, XMLFile configurationFile) {
 		this.platform = platform;
 		this.agents = agents;
 		this.configurationFile = configurationFile;
@@ -28,7 +28,7 @@ public class Configuration {
 	public String[] getStartupParameters() {
 		List<String> parameters = new ArrayList<String>();
 		parameters.addAll(platform.getStartupParameters());
-		parameters.addAll(agents.getStartupParameters());
+		parameters.add(agents.getStartupParameters());
 		return parameters.toArray(new String[parameters.size()]);
 	}
 

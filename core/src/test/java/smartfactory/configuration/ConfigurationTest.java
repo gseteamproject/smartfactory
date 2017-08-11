@@ -23,7 +23,7 @@ public class ConfigurationTest {
 	};
 
 	PlatformConfiguration platformConfiguration_mock;
-	AgentsConfiguration agentsConfiguration_mock;
+	AgentConfigurations agentsConfiguration_mock;
 	XMLFile configurationFile_mock;
 
 	Configuration configuration;
@@ -31,7 +31,7 @@ public class ConfigurationTest {
 	@Before
 	public void startUp() {
 		platformConfiguration_mock = context.mock(PlatformConfiguration.class);
-		agentsConfiguration_mock = context.mock(AgentsConfiguration.class);
+		agentsConfiguration_mock = context.mock(AgentConfigurations.class);
 		configurationFile_mock = context.mock(XMLFile.class);
 
 		configuration = new Configuration(platformConfiguration_mock, agentsConfiguration_mock, configurationFile_mock);
@@ -44,10 +44,9 @@ public class ConfigurationTest {
 
 	@Test
 	public void getStartupParameters() {
-		List<String> platformParameters = new ArrayList<String>();
+		final List<String> platformParameters = new ArrayList<String>();
 		platformParameters.add("-gui");
-		List<String> agentsParameters = new ArrayList<String>();
-		agentsParameters.add("sniffer:jade.tools.sniffer.Sniffer(l*);");
+		final String agentsParameters = "sniffer:jade.tools.sniffer.Sniffer(l*);";
 
 		context.checking(new Expectations() {
 			{

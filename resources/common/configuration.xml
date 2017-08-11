@@ -8,6 +8,12 @@
 		<local-host></local-host>
 	</jade-platform>
 	<agents>
-		<agent></agent>
+		<agent>
+			<name></name>
+			<class-name></class-name>
+			<parameters>
+				<parameter></parameter>
+			</parameters>
+		</agent>
 	</agents>
 </configuration>
