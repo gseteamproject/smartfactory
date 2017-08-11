@@ -33,7 +33,7 @@ public class PlatformConfiguration {
 		return parameters;
 	}
 
-	public void appendContainerName(List<String> parameters) {
+	void appendContainerName(List<String> parameters) {
 		if (StringUtils.isNotEmpty(containerName)) {
 			parameters.add("-container-name");
 			parameters.add(containerName);
