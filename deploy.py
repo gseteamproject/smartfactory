@@ -28,7 +28,7 @@ class Deploy:
             shutil.rmtree(self.deploy_dir_base)
 
     def create_folders(self):
-        print("creating folders for deployment ...")
+        print("creating deployment structure ...")
         os.mkdir(self.deploy_dir_base)
         os.mkdir(self.deploy_dir_factory_container)
         os.mkdir(self.deploy_dir_lego_container_1)
