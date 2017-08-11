@@ -21,7 +21,6 @@ public class XMLFile {
 			Document doc = builder.build(new FileInputStream(fileName));
 			return doc.getRootElement();
 		} catch (JDOMException | IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
