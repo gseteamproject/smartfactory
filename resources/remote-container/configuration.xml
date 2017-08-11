@@ -7,6 +7,13 @@
 		<local-host>192.168.100.11</local-host>
 	</jade-platform>
 	<agents>
-		<agent></agent>
+		<agent>
+			<name>remote</name>
+			<class-name>jade.core.Agent</class-name>
+			<parameters>
+				<parameter>1</parameter>
+				<parameter>2</parameter>
+			</parameters>
+		</agent>
 	</agents>
 </configuration>
