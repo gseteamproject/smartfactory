@@ -1,19 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="WARN">
 	<Appenders>
-		<File name="File" fileName="log.log">
+		<RollingFile name="RollingFile" fileName="application.log" filePattern="application-%d{yyyy-MM-dd}.log">
 			<PatternLayout
-				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF" />
-		</File>
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
+			<Policies>
+				<TimeBasedTriggeringPolicy interval="1"
+					modulate="true" />
+			</Policies>
+		</RollingFile>
 		<Console name="Console" target="SYSTEM_OUT">
 			<PatternLayout
-				pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH" />
+				pattern="[%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n" />
 		</Console>
 	</Appenders>
 	<Loggers>
 		<Root level="all">
 			<AppenderRef ref="Console" />
-			<AppenderRef ref="File" />
+			<AppenderRef ref="RollingFile" />
 		</Root>
 	</Loggers>
 </Configuration>

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class AgentConfiguration {
 
@@ -39,11 +41,13 @@ public class AgentConfiguration {
 	void loadName(Element root) {
 		Element element = root.getChild("name");
 		name = element.getTextTrim();
+		logger.info("name : {}", name);
 	}
 
 	void loadClassName(Element root) {
 		Element element = root.getChild("class-name");
 		className = element.getTextTrim();
+		logger.info("class-name : {}", className);
 	}
 
 	void loadParameters(Element root) {
@@ -54,5 +58,8 @@ public class AgentConfiguration {
 				parameters.add(e.getTextTrim());
 			}
 		}
+		logger.info("parameters : {}", parameters);
 	}
+
+	final Logger logger = LoggerFactory.getLogger(AgentConfiguration.class);
 }

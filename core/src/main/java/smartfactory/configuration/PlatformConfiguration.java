@@ -5,6 +5,8 @@ import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
 import org.jdom2.Element;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import smartfactory.container.ContainerType;
 
@@ -86,6 +88,7 @@ public class PlatformConfiguration {
 		} else {
 			containerName = element.getTextTrim();
 		}
+		logger.info("container-name: {}", containerName);
 	}
 
 	void loadContainerType(Element root) {
@@ -100,6 +103,7 @@ public class PlatformConfiguration {
 				containerType = ContainerType.MainContainer;
 			}
 		}
+		logger.info("container-type: {}", containerType);
 	}
 
 	void loadGui(Element root) {
@@ -109,6 +113,7 @@ public class PlatformConfiguration {
 		} else {
 			gui = Boolean.parseBoolean(element.getTextTrim());
 		}
+		logger.info("gui : {}", gui);
 	}
 
 	void loadHost(Element root) {
@@ -118,6 +123,7 @@ public class PlatformConfiguration {
 		} else {
 			host = element.getTextTrim();
 		}
+		logger.info("host : {}", host);
 	}
 
 	void loadLocalHost(Element root) {
@@ -127,5 +133,8 @@ public class PlatformConfiguration {
 		} else {
 			localhost = element.getTextTrim();
 		}
+		logger.info("local-host : {}", localhost);
 	}
+
+	final Logger logger = LoggerFactory.getLogger(PlatformConfiguration.class);
 }
