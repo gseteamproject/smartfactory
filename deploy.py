@@ -1,6 +1,8 @@
 import argparse
 import os
 import shutil
+import subprocess
+import time
 
 
 class Deploy:
@@ -22,6 +24,11 @@ class Deploy:
         self.resources_dir_lego_container_2 = self.resources_dir + "\\lego-container-2"
         self.resources_dir_remote_container = self.resources_dir + "\\remote-container"
 
+        self.jar_name_factory_container = "factory-container-0.0.1-SNAPSHOT.jar"
+        self.jar_name_lego_container_1 = "lego-container-0.0.1-SNAPSHOT.jar"
+        self.jar_name_lego_container_2 = "lego-container-0.0.1-SNAPSHOT.jar"
+        self.jar_name_remote_container = "remote-container-0.0.1-SNAPSHOT.jar"
+
     def clean(self):
         print("deleting all artifacts from previous deployment ...")
         if os.path.exists(self.deploy_dir_base):
@@ -37,13 +44,13 @@ class Deploy:
 
     def copy_jar_files(self):
         print("deploying jar files ...")
-        shutil.copy2(self.jar_dir_factory_container + "\\factory-container-0.0.1-SNAPSHOT.jar",
+        shutil.copy2(self.jar_dir_factory_container + "\\" + self.jar_name_factory_container,
                      self.deploy_dir_factory_container)
-        shutil.copy2(self.jar_dir_lego_container_1 + "\\lego-container-0.0.1-SNAPSHOT.jar",
+        shutil.copy2(self.jar_dir_lego_container_1 + "\\" + self.jar_name_lego_container_1,
                      self.deploy_dir_lego_container_1)
-        shutil.copy2(self.jar_dir_lego_container_2 + "\\lego-container-0.0.1-SNAPSHOT.jar",
+        shutil.copy2(self.jar_dir_lego_container_2 + "\\" + self.jar_name_lego_container_2,
                      self.deploy_dir_lego_container_2)
-        shutil.copy2(self.jar_dir_remote_container + "\\remote-container-0.0.1-SNAPSHOT.jar",
+        shutil.copy2(self.jar_dir_remote_container + "\\" + self.jar_name_remote_container,
                      self.deploy_dir_remote_container)
 
     def copy_configuration_files(self):
@@ -52,6 +59,23 @@ class Deploy:
         shutil.copy2(self.resources_dir_lego_container_1 + "\\configuration.xml", self.deploy_dir_lego_container_1)
         shutil.copy2(self.resources_dir_lego_container_2 + "\\configuration.xml", self.deploy_dir_lego_container_2)
         shutil.copy2(self.resources_dir_remote_container + "\\configuration.xml", self.deploy_dir_remote_container)
+
+    def launch_jar_files(self):
+        print("launching ...")
+        current_dir = os.getcwd()
+        print("launching factory container ...")
+        os.chdir(current_dir + "\\" + self.deploy_dir_factory_container)
+        subprocess.Popen("java -jar " + self.jar_name_factory_container, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+        time.sleep(2)
+        print("launching lego container 1 ...")
+        os.chdir(current_dir + "\\" + self.deploy_dir_lego_container_1)
+        subprocess.Popen("java -jar " + self.jar_name_lego_container_1, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+        print("launching lego container 2 ...")
+        os.chdir(current_dir + "\\" + self.deploy_dir_lego_container_2)
+        subprocess.Popen("java -jar " + self.jar_name_lego_container_2, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+        print("launching remote container  ...")
+        os.chdir(current_dir + "\\" + self.deploy_dir_remote_container)
+        subprocess.Popen("java -jar " + self.jar_name_remote_container, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
 
 
 class Application:
@@ -62,7 +86,7 @@ class Application:
         parser = argparse.ArgumentParser()
         parser.add_argument("-a", "--artifact",
                             help="specify artifacts to deploy",
-                            choices=["all", "clean", "configuration", "jar"])
+                            choices=["all", "clean", "configuration", "jar", "launch"])
         args = parser.parse_args()
         if args.artifact == "all":
             self.action_all()
@@ -72,6 +96,8 @@ class Application:
             self.action_configuration()
         elif args.artifact == "jar":
             self.action_jar()
+        elif args.artifact == "launch":
+            self.action_launch()
         else:
             parser.print_usage()
 
@@ -92,6 +118,10 @@ class Application:
 
     def action_jar(self):
         self.deploy.copy_jar_files()
+        print("done")
+
+    def action_launch(self):
+        self.deploy.launch_jar_files()
         print("done")
 
 
