@@ -61,5 +61,5 @@ public class AgentConfiguration {
 		logger.info("parameters : {}", parameters);
 	}
 
-	final Logger logger = LoggerFactory.getLogger(AgentConfiguration.class);
+	final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

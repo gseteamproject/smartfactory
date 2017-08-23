@@ -6,6 +6,8 @@ import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
 import org.jdom2.input.SAXBuilder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class XMLFile {
 
@@ -21,8 +23,10 @@ public class XMLFile {
 			Document doc = builder.build(new FileInputStream(fileName));
 			return doc.getRootElement();
 		} catch (JDOMException | IOException e) {
-			e.printStackTrace();
+			logger.error("", e);
 		}
 		return null;
 	}
+
+	final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

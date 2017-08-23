@@ -1,5 +1,8 @@
 package smartfactory.container;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.Boot;
 import smartfactory.configuration.Configuration;
 
@@ -26,7 +29,13 @@ public class ContainerLauncher {
 	}
 
 	public void start() {
-		configuration.load();
-		jade.launch(configuration.getStartupParameters());
+		try {
+			configuration.load();
+			jade.launch(configuration.getStartupParameters());
+		} catch (Exception e) {
+			logger.error("", e);
+		}
 	}
+
+	final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
