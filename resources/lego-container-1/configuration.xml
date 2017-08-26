@@ -8,7 +8,7 @@
 	</jade-platform>
 	<agents>
 		<agent>
-			<name>lego-1</name>
+			<name>lego</name>
 			<class-name>smartfactory.lego.agents.LegoAgent</class-name>
 		</agent>
 	</agents>
