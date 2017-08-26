@@ -5,123 +5,131 @@ import subprocess
 import time
 
 
-class Deploy:
+deploy_dir_base = "target"
+resources_dir_base = "resources"
+
+
+class Artifact:
+    def __init__(self, artifact_name, instance_name):
+        self.deploy_dir = deploy_dir_base + "\\" + instance_name
+        self.sources_dir = artifact_name + "\\" + deploy_dir_base
+        self.resources_dir = resources_dir_base + "\\" + instance_name
+        self.jar_name = artifact_name + "-0.0.1-SNAPSHOT.jar"
+
+    def create_deploy_dir(self):
+        os.mkdir(self.deploy_dir)
+
+    def copy_jar_file(self):
+        shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
+
+    def copy_configuration_file(self):
+        shutil.copy2(self.resources_dir + "\\configuration.xml", self.deploy_dir)
+
+    def launch(self, base_dir):
+        os.chdir(base_dir + "\\" + self.deploy_dir)
+        subprocess.Popen("java -jar " + self.jar_name, shell=True, close_fds=True)
+
+
+class Automation:
     def __init__(self):
-        self.deploy_dir_base = "target"
-        self.deploy_dir_factory_container = self.deploy_dir_base + "\\factory-container"
-        self.deploy_dir_lego_container_1 = self.deploy_dir_base + "\\lego-container-1"
-        self.deploy_dir_lego_container_2 = self.deploy_dir_base + "\\lego-container-2"
-        self.deploy_dir_remote_container = self.deploy_dir_base + "\\remote-container"
-
-        self.jar_dir_factory_container = "factory-container\\target"
-        self.jar_dir_lego_container_1 = "lego-container\\target"
-        self.jar_dir_lego_container_2 = "lego-container\\target"
-        self.jar_dir_remote_container = "remote-container\\target"
-
-        self.resources_dir = "resources"
-        self.resources_dir_factory_container = self.resources_dir + "\\factory-container"
-        self.resources_dir_lego_container_1 = self.resources_dir + "\\lego-container-1"
-        self.resources_dir_lego_container_2 = self.resources_dir + "\\lego-container-2"
-        self.resources_dir_remote_container = self.resources_dir + "\\remote-container"
-
-        self.jar_name_factory_container = "factory-container-0.0.1-SNAPSHOT.jar"
-        self.jar_name_lego_container_1 = "lego-container-0.0.1-SNAPSHOT.jar"
-        self.jar_name_lego_container_2 = "lego-container-0.0.1-SNAPSHOT.jar"
-        self.jar_name_remote_container = "remote-container-0.0.1-SNAPSHOT.jar"
+        self.artifacts = [
+            Artifact("factory-container", "factory-container"),
+            Artifact("lego-container", "lego-container-1"),
+            Artifact("lego-container", "lego-container-2"),
+            Artifact("remote-container", "remote-container"),
+        ]
 
     def clean(self):
         print("deleting all artifacts from previous deployment ...")
-        if os.path.exists(self.deploy_dir_base):
-            shutil.rmtree(self.deploy_dir_base)
+        if os.path.exists(deploy_dir_base):
+            shutil.rmtree(deploy_dir_base)
 
     def create_folders(self):
         print("creating deployment structure ...")
-        os.mkdir(self.deploy_dir_base)
-        os.mkdir(self.deploy_dir_factory_container)
-        os.mkdir(self.deploy_dir_lego_container_1)
-        os.mkdir(self.deploy_dir_lego_container_2)
-        os.mkdir(self.deploy_dir_remote_container)
+        os.mkdir(deploy_dir_base)
+        for artifact in self.artifacts:
+            artifact.create_deploy_dir()
 
     def copy_jar_files(self):
         print("deploying jar files ...")
-        shutil.copy2(self.jar_dir_factory_container + "\\" + self.jar_name_factory_container,
-                     self.deploy_dir_factory_container)
-        shutil.copy2(self.jar_dir_lego_container_1 + "\\" + self.jar_name_lego_container_1,
-                     self.deploy_dir_lego_container_1)
-        shutil.copy2(self.jar_dir_lego_container_2 + "\\" + self.jar_name_lego_container_2,
-                     self.deploy_dir_lego_container_2)
-        shutil.copy2(self.jar_dir_remote_container + "\\" + self.jar_name_remote_container,
-                     self.deploy_dir_remote_container)
+        for artifact in self.artifacts:
+            artifact.copy_jar_file()
 
     def copy_configuration_files(self):
         print("deploying configuration files ...")
-        shutil.copy2(self.resources_dir_factory_container + "\\configuration.xml", self.deploy_dir_factory_container)
-        shutil.copy2(self.resources_dir_lego_container_1 + "\\configuration.xml", self.deploy_dir_lego_container_1)
-        shutil.copy2(self.resources_dir_lego_container_2 + "\\configuration.xml", self.deploy_dir_lego_container_2)
-        shutil.copy2(self.resources_dir_remote_container + "\\configuration.xml", self.deploy_dir_remote_container)
+        for artifact in self.artifacts:
+            artifact.copy_configuration_file()
 
     def launch_jar_files(self):
         print("launching ...")
         current_dir = os.getcwd()
-        print("launching factory container ...")
-        os.chdir(current_dir + "\\" + self.deploy_dir_factory_container)
-        subprocess.Popen("java -jar " + self.jar_name_factory_container, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
-        time.sleep(2)
-        print("launching lego container 1 ...")
-        os.chdir(current_dir + "\\" + self.deploy_dir_lego_container_1)
-        subprocess.Popen("java -jar " + self.jar_name_lego_container_1, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
-        print("launching lego container 2 ...")
-        os.chdir(current_dir + "\\" + self.deploy_dir_lego_container_2)
-        subprocess.Popen("java -jar " + self.jar_name_lego_container_2, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
-        print("launching remote container  ...")
-        os.chdir(current_dir + "\\" + self.deploy_dir_remote_container)
-        subprocess.Popen("java -jar " + self.jar_name_remote_container, shell=True, stdin=None, stdout=None, stderr=None, close_fds=True)
+        for artifact in self.artifacts:
+            artifact.launch(current_dir)
+            time.sleep(2)
+
+
+class ApplicationAction:
+    def __init__(self, action_name, action_callback):
+        self.action_name = action_name
+        self.action_callback = action_callback
+
+    def execute(self):
+        self.action_callback()
+        print("done")
 
 
 class Application:
     def __init__(self):
-        self.deploy = Deploy()
+        self.automation = Automation()
+        self.application_actions = [
+            ApplicationAction("deploy-all", self.action_deploy_all),
+            ApplicationAction("deploy-configuration", self.action_deploy_configuration),
+            ApplicationAction("deploy-jar", self.action_deploy_jar),
+            ApplicationAction("clean-all", self.action_clean_all),
+            ApplicationAction("launch-all", self.action_launch_all)
+        ]
 
     def run(self):
+        choices = []
+        for application_action in self.application_actions:
+            choices.append(application_action.action_name)
+
         parser = argparse.ArgumentParser()
-        parser.add_argument("-a", "--artifact",
-                            help="specify artifacts to deploy",
-                            choices=["all", "clean", "configuration", "jar", "launch"])
+        parser.add_argument("action", help="specify action to perform", choices=choices)
+
         args = parser.parse_args()
-        if args.artifact == "all":
-            self.action_all()
-        elif args.artifact == "clean":
-            self.action_clean()
-        elif args.artifact == "configuration":
-            self.action_configuration()
-        elif args.artifact == "jar":
-            self.action_jar()
-        elif args.artifact == "launch":
-            self.action_launch()
-        else:
+
+        is_application_action_found = False
+        for application_action in self.application_actions:
+            if args.action == application_action.action_name:
+                application_action.action_callback()
+                is_application_action_found = True
+                break
+
+        if not is_application_action_found:
             parser.print_usage()
 
-    def action_all(self):
-        self.deploy.clean()
-        self.deploy.create_folders()
-        self.deploy.copy_jar_files()
-        self.deploy.copy_configuration_files()
+    def action_deploy_all(self):
+        self.automation.clean()
+        self.automation.create_folders()
+        self.automation.copy_jar_files()
+        self.automation.copy_configuration_files()
         print("done")
 
-    def action_clean(self):
-        self.deploy.clean()
+    def action_clean_all(self):
+        self.automation.clean()
         print("done")
 
-    def action_configuration(self):
-        self.deploy.copy_configuration_files()
+    def action_deploy_configuration(self):
+        self.automation.copy_configuration_files()
         print("done")
 
-    def action_jar(self):
-        self.deploy.copy_jar_files()
+    def action_deploy_jar(self):
+        self.automation.copy_jar_files()
         print("done")
 
-    def action_launch(self):
-        self.deploy.launch_jar_files()
+    def action_launch_all(self):
+        self.automation.launch_jar_files()
         print("done")
 
 
