@@ -9,11 +9,7 @@
 	<agents>
 		<agent>
 			<name>lego-2</name>
-			<class-name>jade.core.Agent</class-name>
-			<parameters>
-				<parameter>1</parameter>
-				<parameter>2</parameter>
-			</parameters>
+			<class-name>smartfactory.lego.agents.LegoAgent</class-name>
 		</agent>
 	</agents>
 </configuration>
