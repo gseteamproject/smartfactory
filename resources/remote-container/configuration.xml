@@ -2,7 +2,7 @@
 	<jade-platform>
 		<container-name>Remote-Container</container-name>
 		<container-type>Container</container-type>
-		<gui>false</gui>
+		<gui>true</gui>
 		<host>192.168.100.11</host>
 		<local-host>192.168.100.11</local-host>
 	</jade-platform>
