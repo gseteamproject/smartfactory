@@ -8,12 +8,8 @@
 	</jade-platform>
 	<agents>
 		<agent>
-			<name>factory</name>
-			<class-name>jade.core.Agent</class-name>
-			<parameters>
-				<parameter>1</parameter>
-				<parameter>2</parameter>
-			</parameters>
+			<name>warehouse</name>
+			<class-name>smartfactory.factory.agents.WarehouseAgent</class-name>
 		</agent>
 	</agents>
 </configuration>
