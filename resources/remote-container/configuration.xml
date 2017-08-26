@@ -8,12 +8,8 @@
 	</jade-platform>
 	<agents>
 		<agent>
-			<name>remote</name>
-			<class-name>jade.core.Agent</class-name>
-			<parameters>
-				<parameter>1</parameter>
-				<parameter>2</parameter>
-			</parameters>
+			<name>customer</name>
+			<class-name>smartfactory.remote.agents.CustomerAgent</class-name>			
 		</agent>
 	</agents>
 </configuration>
