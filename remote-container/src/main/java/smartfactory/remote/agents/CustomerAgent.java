@@ -1,10 +1,11 @@
 package smartfactory.remote.agents;
 
 import jade.core.Agent;
+import smartfactory.remote.views.CustomerView;
 
 public class CustomerAgent extends Agent {
 
-	private static final long serialVersionUID = -2432898217068138400L;
+	CustomerView view;
 
 	@Override
 	protected void setup() {
@@ -17,8 +18,18 @@ public class CustomerAgent extends Agent {
 	}
 
 	private void initializeGUI() {
+		view = new CustomerView();
+		view.agent = this;
+		view.setVisible(true);
 	}
 
 	private void finalizeGUI() {
+		view.setVisible(false);
+		view.dispose();
 	}
+
+	public void addBlock() {
+	}
+
+	private static final long serialVersionUID = -2432898217068138400L;
 }
