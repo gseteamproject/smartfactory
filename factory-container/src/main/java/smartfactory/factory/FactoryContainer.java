@@ -1,10 +1,6 @@
 package smartfactory.factory;
 
-import smartfactory.container.ContainerLauncher;
+import smartfactory.container.Container;
 
-public class FactoryContainer {
-
-	public static void main(String args[]) {
-		new ContainerLauncher().start();
-	}
+public class FactoryContainer extends Container {
 }

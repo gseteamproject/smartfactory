@@ -1,10 +1,6 @@
 package smartfactory.remote;
 
-import smartfactory.container.ContainerLauncher;
+import smartfactory.container.Container;
 
-public class RemoteContainer {
-	
-	public static void main(String[] args) {
-		new ContainerLauncher().start();
-	}
+public class RemoteContainer extends Container {
 }
