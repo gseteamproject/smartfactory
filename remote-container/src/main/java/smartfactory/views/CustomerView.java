@@ -1,8 +1,8 @@
-package smartfactory.remote.views;
+package smartfactory.views;
 
 import javax.swing.JFrame;
 
-import smartfactory.remote.agents.CustomerAgent;
+import smartfactory.agents.CustomerAgent;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;

@@ -33,7 +33,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>smartfactory.factory.FactoryContainer</mainClass>
+							<mainClass>smartfactory.container.FactoryContainer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

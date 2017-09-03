@@ -30,7 +30,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>smartfactory.remote.RemoteContainer</mainClass>
+							<mainClass>smartfactory.container.RemoteContainer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

@@ -1,4 +1,4 @@
-package smartfactory.remote.agents;
+package smartfactory.agents;
 
 import jade.core.Agent;
 

@@ -1,4 +1,4 @@
-package smartfactory.lego.agents;
+package smartfactory.agents;
 
 import jade.core.Agent;
 

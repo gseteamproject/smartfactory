@@ -1,7 +1,7 @@
-package smartfactory.remote.agents;
+package smartfactory.agents;
 
 import jade.core.Agent;
-import smartfactory.remote.views.CustomerView;
+import smartfactory.views.CustomerView;
 
 public class CustomerAgent extends Agent {
 

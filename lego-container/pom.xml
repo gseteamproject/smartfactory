@@ -33,7 +33,7 @@
 					</descriptorRefs>
 					<archive>
 						<manifest>
-							<mainClass>smartfactory.lego.LegoContainer</mainClass>
+							<mainClass>smartfactory.container.LegoContainer</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

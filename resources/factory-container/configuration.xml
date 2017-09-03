@@ -9,7 +9,7 @@
 	<agents>
 		<agent>
 			<name>warehouse</name>
-			<class-name>smartfactory.factory.agents.WarehouseAgent</class-name>
+			<class-name>smartfactory.agents.WarehouseAgent</class-name>
 		</agent>
 	</agents>
 </configuration>

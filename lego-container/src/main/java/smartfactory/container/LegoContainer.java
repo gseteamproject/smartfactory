@@ -1,4 +1,4 @@
-package smartfactory.lego;
+package smartfactory.container;
 
 import smartfactory.container.Container;
 

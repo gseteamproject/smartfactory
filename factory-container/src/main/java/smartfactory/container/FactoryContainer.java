@@ -1,4 +1,4 @@
-package smartfactory.factory;
+package smartfactory.container;
 
 import smartfactory.container.Container;
 

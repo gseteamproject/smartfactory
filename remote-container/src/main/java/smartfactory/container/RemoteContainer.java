@@ -1,4 +1,4 @@
-package smartfactory.remote;
+package smartfactory.container;
 
 import smartfactory.container.Container;
 

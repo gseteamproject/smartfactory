@@ -9,7 +9,7 @@
 	<agents>
 		<agent>
 			<name>customer</name>
-			<class-name>smartfactory.remote.agents.CustomerAgent</class-name>			
+			<class-name>smartfactory.agents.CustomerAgent</class-name>
 		</agent>
 	</agents>
 </configuration>

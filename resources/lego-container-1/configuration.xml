@@ -9,7 +9,7 @@
 	<agents>
 		<agent>
 			<name>lego-1</name>
-			<class-name>smartfactory.lego.agents.LegoAgent</class-name>
+			<class-name>smartfactory.agents.LegoAgent</class-name>
 		</agent>
 	</agents>
 </configuration>
