@@ -20,6 +20,7 @@ class Artifact:
         os.mkdir(self.deploy_dir)
 
     def copy_jar_file(self):
+        shutil.copytree(self.sources_dir + "\\lib", self.deploy_dir + "\\lib")
         shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
 
     def copy_configuration_file(self):
