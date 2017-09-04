@@ -17,13 +17,18 @@ class Artifact:
         self.jar_name = artifact_name + "-0.0.1-SNAPSHOT.jar"
 
     def create_deploy_dir(self):
-        os.mkdir(self.deploy_dir)
+        os.makedirs(self.deploy_dir, exist_ok=True)
 
-    def copy_jar_file(self):
-        shutil.copytree(self.sources_dir + "\\lib", self.deploy_dir + "\\lib")
+    def copy_jar(self):
+        self.create_deploy_dir()
         shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
 
-    def copy_configuration_file(self):
+    def copy_lib(self):
+        self.create_deploy_dir()
+        shutil.copytree(self.sources_dir + "\\lib", self.deploy_dir + "\\lib")
+
+    def copy_configuration(self):
+        self.create_deploy_dir()
         shutil.copy2(self.resources_dir + "\\configuration.xml", self.deploy_dir)
 
     def launch(self, base_dir):
@@ -40,8 +45,8 @@ class Automation:
             Artifact("remote-container", "remote-container"),
         ]
 
-    def clean(self):
-        print("deleting all artifacts from previous deployment ...")
+    def clear(self):
+        print("deleting previous deployment ...")
         if os.path.exists(deploy_dir_base):
             shutil.rmtree(deploy_dir_base)
 
@@ -52,14 +57,19 @@ class Automation:
             artifact.create_deploy_dir()
 
     def copy_jar_files(self):
-        print("deploying jar files ...")
+        print("copying jar files ...")
         for artifact in self.artifacts:
-            artifact.copy_jar_file()
+            artifact.copy_jar()
+
+    def copy_lib_files(self):
+        print("copying lib files ...")
+        for artifact in self.artifacts:
+            artifact.copy_lib()
 
     def copy_configuration_files(self):
-        print("deploying configuration files ...")
+        print("copying configuration files ...")
         for artifact in self.artifacts:
-            artifact.copy_configuration_file()
+            artifact.copy_configuration()
 
     def launch_jar_files(self):
         print("launching ...")
@@ -83,10 +93,11 @@ class Application:
     def __init__(self):
         self.automation = Automation()
         self.application_actions = [
-            ApplicationAction("deploy-all", self.action_deploy_all),
-            ApplicationAction("deploy-configuration", self.action_deploy_configuration),
-            ApplicationAction("deploy-jar", self.action_deploy_jar),
-            ApplicationAction("clean-all", self.action_clean_all),
+            ApplicationAction("copy-all", self.action_copy_all),
+            ApplicationAction("copy-configuration", self.action_copy_configuration),
+            ApplicationAction("copy-jar", self.action_copy_jar),
+            ApplicationAction("copy-lib", self.action_copy_lib),
+            ApplicationAction("clear-all", self.action_clear_all),
             ApplicationAction("launch-all", self.action_launch_all)
         ]
 
@@ -110,23 +121,27 @@ class Application:
         if not is_application_action_found:
             parser.print_usage()
 
-    def action_deploy_all(self):
-        self.automation.clean()
-        self.automation.create_folders()
+    def action_copy_all(self):
+        self.automation.clear()
         self.automation.copy_jar_files()
+        self.automation.copy_lib_files()
         self.automation.copy_configuration_files()
         print("done")
 
-    def action_clean_all(self):
-        self.automation.clean()
+    def action_clear_all(self):
+        self.automation.clear()
         print("done")
 
-    def action_deploy_configuration(self):
+    def action_copy_configuration(self):
         self.automation.copy_configuration_files()
         print("done")
 
-    def action_deploy_jar(self):
+    def action_copy_jar(self):
         self.automation.copy_jar_files()
+        print("done")
+
+    def action_copy_lib(self):
+        self.automation.copy_lib_files()
         print("done")
 
     def action_launch_all(self):
