@@ -1,34 +1,24 @@
 package smartfactory.agents;
 
-import jade.core.Agent;
-import smartfactory.views.CustomerView;
+import smartfactory.behaviours.LaunchAgent;
+import smartfactory.presenters.CustomerPresenter;
 
-public class CustomerAgent extends Agent {
+public class CustomerAgent extends SmartFactoryAgent {
 
-	CustomerView view;
-
-	@Override
-	protected void setup() {
-		initializeGUI();
-	}
+	CustomerPresenter presenter = new CustomerPresenter(this);
 
 	@Override
-	protected void takeDown() {
-		finalizeGUI();
+	protected void initializeGUI() {
+		presenter.show();
 	}
 
-	private void initializeGUI() {
-		view = new CustomerView();
-		view.agent = this;
-		view.setVisible(true);
-	}
-
-	private void finalizeGUI() {
-		view.setVisible(false);
-		view.dispose();
+	@Override
+	protected void finalizeGUI() {
+		presenter.hide();
 	}
 
 	public void addBlock() {
+		addBehaviour(new LaunchAgent(this, BlockAgent.getUniqueName(), BlockAgent.class.getName()));
 	}
 
 	private static final long serialVersionUID = -2432898217068138400L;

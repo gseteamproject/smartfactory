@@ -2,7 +2,7 @@ package smartfactory.views;
 
 import javax.swing.JFrame;
 
-import smartfactory.agents.CustomerAgent;
+import smartfactory.presenters.CustomerPresenter;
 
 import javax.swing.JButton;
 import java.awt.FlowLayout;
@@ -14,13 +14,13 @@ import java.awt.event.WindowEvent;
 
 public class CustomerView extends JFrame {
 
-	public CustomerAgent agent;
+	private CustomerPresenter presenter;
 
 	public CustomerView() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
-				agent.doDelete();
+				presenter.destroy();
 			}
 		});
 
@@ -34,6 +34,11 @@ public class CustomerView extends JFrame {
 		getContentPane().add(btnNewButton);
 	}
 
+	public CustomerView(CustomerPresenter presenter) {
+		this();
+		this.presenter = presenter;
+	}
+
 	private final Action actionAddBlock = new SwingAction();
 
 	private class SwingAction extends AbstractAction {
@@ -43,7 +48,7 @@ public class CustomerView extends JFrame {
 		}
 
 		public void actionPerformed(ActionEvent e) {
-			agent.addBlock();
+			presenter.addBlock();
 		}
 
 		private static final long serialVersionUID = -4172778835430238878L;
