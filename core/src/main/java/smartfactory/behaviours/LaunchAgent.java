@@ -27,7 +27,7 @@ public class LaunchAgent extends OneShotBehaviour {
 		}
 	}
 
-	final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final long serialVersionUID = -3738136280724031758L;
 }

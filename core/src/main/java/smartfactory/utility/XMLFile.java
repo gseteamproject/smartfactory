@@ -28,5 +28,5 @@ public class XMLFile {
 		return null;
 	}
 
-	final Logger logger = LoggerFactory.getLogger(this.getClass());
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
