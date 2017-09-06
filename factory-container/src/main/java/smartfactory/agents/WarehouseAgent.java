@@ -5,12 +5,14 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import smartfactory.behaviours.StoreNetResponder;
 
 public class WarehouseAgent extends Agent {
 
 	@Override
 	protected void setup() {
 		registerServices();
+		addBehaviour(new StoreNetResponder(this));
 	}
 
 	@Override

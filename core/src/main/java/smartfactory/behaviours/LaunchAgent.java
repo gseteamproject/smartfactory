@@ -9,19 +9,19 @@ import jade.wrapper.StaleProxyException;
 
 public class LaunchAgent extends OneShotBehaviour {
 
-	private String agentName;
-	private String agentClass;
+	private String launchingAgentName;
+	private String launchingAgentClass;
 
-	public LaunchAgent(Agent owner, String agentName, String agentClass) {
-		super(owner);
-		this.agentClass = agentClass;
-		this.agentName = agentName;
+	public LaunchAgent(Agent agent, String launchingAgentName, String launchingAgentClass) {
+		super(agent);
+		this.launchingAgentClass = launchingAgentClass;
+		this.launchingAgentName = launchingAgentName;
 	}
 
 	@Override
 	public void action() {
 		try {
-			myAgent.getContainerController().createNewAgent(agentName, agentClass, null).start();
+			myAgent.getContainerController().createNewAgent(launchingAgentName, launchingAgentClass, null).start();
 		} catch (StaleProxyException e) {
 			logger.error("", e);
 		}
