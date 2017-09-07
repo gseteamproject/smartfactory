@@ -6,11 +6,14 @@ import smartfactory.models.Product;
 
 public class ProductMainBehaviour extends FSMBehaviour {
 
-	private Product product;
-
-	public ProductMainBehaviour(Agent agent, Product product) {
+	public ProductMainBehaviour(Agent agent) {
 		super(agent);
-		this.product = product;
+
+		registerFirstState(new DetermineRequiredService(myAgent, getDataStore()), "determineRequiredState");
+	}
+
+	public void setProduct(Product product) {
+		getDataStore().put("product", product);
 	}
 
 	private static final long serialVersionUID = -7091209844136813253L;
