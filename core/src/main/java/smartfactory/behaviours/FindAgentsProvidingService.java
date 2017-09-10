@@ -9,7 +9,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public class FindAgentsProvidingService extends ProductSubBehaviour {
-	
+
 	public FindAgentsProvidingService(Behaviour behaviour) {
 		super(behaviour);
 	}
@@ -19,7 +19,7 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 	@Override
 	public void action() {
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
-		agentDescriptionTemplate.addServices(dataStoreAccessor.getRequiredService());
+		agentDescriptionTemplate.addServices(getDataStore().getRequiredService());
 
 		List<DFAgentDescription> agentsDescription = new ArrayList<DFAgentDescription>();
 		try {
@@ -31,7 +31,7 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 			exception.printStackTrace();
 		}
 
-		dataStoreAccessor.setAgentsProvidingService(agentsDescription);
+		getDataStore().setAgentsProvidingService(agentsDescription);
 	}
 
 	private static final long serialVersionUID = -6169428362127495247L;

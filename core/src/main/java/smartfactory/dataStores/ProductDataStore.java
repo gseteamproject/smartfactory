@@ -1,4 +1,4 @@
-package smartfactory.accessors;
+package smartfactory.dataStores;
 
 import java.util.List;
 
@@ -7,31 +7,31 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.models.Product;
 
-public class ProductBehaviourDataStoreAccessor {
+public class ProductDataStore extends DataStore {
 
-	private DataStore dataStore;
+	private static final long serialVersionUID = 6575511248639460129L;
 
-	public ProductBehaviourDataStoreAccessor(DataStore dataStore) {
-		this.dataStore = dataStore;
+	public ProductDataStore() {
+		super();
 	}
 
 	public void setProduct(Product product) {
-		dataStore.put("product", product);
+		put("product", product);
 	}
 
 	public Product getProduct() {
-		return (Product) dataStore.get("product");
+		return (Product) get("product");
 	}
 
 	public void setRequiredService(ServiceDescription service) {
-		dataStore.put("requiredService", service);
+		put("requiredService", service);
 	}
 
 	public ServiceDescription getRequiredService() {
-		return (ServiceDescription) dataStore.get("requiredService");
+		return (ServiceDescription) get("requiredService");
 	}
 
 	public void setAgentsProvidingService(List<DFAgentDescription> agentsDescription) {
-		dataStore.put("agentsDescription", agentsDescription);
+		put("agentsDescription", agentsDescription);
 	}
 }
