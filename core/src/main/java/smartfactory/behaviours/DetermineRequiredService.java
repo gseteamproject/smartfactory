@@ -16,7 +16,7 @@ public class DetermineRequiredService extends OneShotBehaviour {
 	@Override
 	public void action() {
 		ServiceDescription requiredService = new ServiceDescription();
-		requiredService.setName(getProduct().getRequiredService());
+		requiredService.setName(getProduct().getRequiredServiceName());
 
 		setRequiredService(requiredService);
 	}

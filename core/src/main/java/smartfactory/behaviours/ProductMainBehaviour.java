@@ -9,7 +9,8 @@ public class ProductMainBehaviour extends FSMBehaviour {
 	public ProductMainBehaviour(Agent agent) {
 		super(agent);
 
-		registerFirstState(new DetermineRequiredService(myAgent, getDataStore()), "determineRequiredState");
+		registerFirstState(new DetermineRequiredService(myAgent, getDataStore()), "determineRequiredService");
+		registerState(new FindAgentsProvidingService(myAgent, getDataStore()), "findAgentsProvidingService");
 	}
 
 	public void setProduct(Product product) {

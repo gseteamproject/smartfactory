@@ -77,7 +77,7 @@ public class DetermineRequiredServiceTest {
 				oneOf(dataStore_mock).get("product");
 				will(returnValue(product_mock));
 
-				oneOf(product_mock).getRequiredService();
+				oneOf(product_mock).getRequiredServiceName();
 				will(returnValue(serviceName));
 
 				oneOf(dataStore_mock).put(with("requiredService"),

@@ -2,7 +2,7 @@ package smartfactory.models;
 
 public class Product {
 
-	public String getRequiredService() {
+	public String getRequiredServiceName() {
 		// TODO Auto-generated method stub
 		return null;
 	}
