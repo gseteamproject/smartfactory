@@ -7,11 +7,11 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.models.Product;
 
-public class ProductBehaviourDataStoreAccessor {
+public class ProductBehaviourDataAccessor {
 
 	private DataStore dataStore;
 
-	public ProductBehaviourDataStoreAccessor(DataStore dataStore) {
+	public ProductBehaviourDataAccessor(DataStore dataStore) {
 		this.dataStore = dataStore;
 	}
 

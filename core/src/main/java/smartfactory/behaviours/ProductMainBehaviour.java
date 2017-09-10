@@ -1,55 +1,52 @@
 package smartfactory.behaviours;
 
 import jade.core.Agent;
+import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
-import smartfactory.accessors.ProductBehaviourDataStoreAccessor;
+import smartfactory.accessors.ProductBehaviourDataAccessor;
 
 public class ProductMainBehaviour extends FSMBehaviour {
 
-	protected ProductBehaviourDataStoreAccessor dataStoreAccessor;
+	protected ProductBehaviourDataAccessor productBehaviourDataAccessor;
 
 	public ProductMainBehaviour(Agent agent) {
 		super(agent);
-		dataStoreAccessor = new ProductBehaviourDataStoreAccessor(getDataStore());
+		productBehaviourDataAccessor = new ProductBehaviourDataAccessor(getDataStore());
 
-		registerFirstState(new DetermineRequiredService(this), DetermineRequiredService.class.getSimpleName());
-		registerState(new FindAgentsProvidingService(this), FindAgentsProvidingService.class.getSimpleName());
-		registerState(new SelectAgentToPerformService(this), SelectAgentToPerformService.class.getSimpleName());
-		registerState(new AskSelectedAgentToPerformService(this),
-				AskSelectedAgentToPerformService.class.getSimpleName());
-		registerState(new TransitProductToNextState(this), TransitProductToNextState.class.getSimpleName());
-		registerLastState(new ProductIsInLastState(this), ProductIsInLastState.class.getSimpleName());
+		Behaviour b1 = new DetermineRequiredService(this);
+		Behaviour b2 = new FindAgentsProvidingService(this);
+		Behaviour b3 = new SelectAgentToPerformService(this);
+		Behaviour b4 = new AskSelectedAgentToPerformService(this);
+		Behaviour b5 = new TransitProductToNextState(this);
+		Behaviour b6 = new ProductIsInLastState(this);
 
-		registerTransition(DetermineRequiredService.class.getSimpleName(),
-				FindAgentsProvidingService.class.getSimpleName(), DetermineRequiredService.RequiredServiceIsDetermined);
-		registerTransition(FindAgentsProvidingService.class.getSimpleName(),
-				SelectAgentToPerformService.class.getSimpleName(),
-				FindAgentsProvidingService.AgentsProvidingServiceFound);
-		registerTransition(SelectAgentToPerformService.class.getSimpleName(),
-				AskSelectedAgentToPerformService.class.getSimpleName(),
-				SelectAgentToPerformService.AgentToPerformServiceIsSelected);
-		registerTransition(SelectAgentToPerformService.class.getSimpleName(),
-				FindAgentsProvidingService.class.getSimpleName(),
-				SelectAgentToPerformService.AgentToPerformServiceIsNotSelected,
-				new String[] { SelectAgentToPerformService.class.getSimpleName(),
-						FindAgentsProvidingService.class.getSimpleName() });
-		registerTransition(AskSelectedAgentToPerformService.class.getSimpleName(),
-				TransitProductToNextState.class.getSimpleName(),
-				AskSelectedAgentToPerformService.ServicePerformedSuccessfully);
-		registerTransition(AskSelectedAgentToPerformService.class.getSimpleName(),
-				SelectAgentToPerformService.class.getSimpleName(),
-				AskSelectedAgentToPerformService.ServicePerformedUnSuccessfully,
-				new String[] { AskSelectedAgentToPerformService.class.getSimpleName(),
-						SelectAgentToPerformService.class.getSimpleName(), });
-		registerTransition(TransitProductToNextState.class.getSimpleName(), ProductIsInLastState.class.getSimpleName(),
-				TransitProductToNextState.ProductIsNotInTheLastState);
-		registerTransition(TransitProductToNextState.class.getSimpleName(),
-				DetermineRequiredService.class.getSimpleName(), TransitProductToNextState.ProductIsInTheLastState,
-				new String[] { DetermineRequiredService.class.getSimpleName(),
-						FindAgentsProvidingService.class.getSimpleName(),
-						SelectAgentToPerformService.class.getSimpleName(),
-						AskSelectedAgentToPerformService.class.getSimpleName(),
-						TransitProductToNextState.class.getSimpleName() });
+		int b1_b2 = DetermineRequiredService.RequiredServiceIsDetermined;
+		int b2_b3 = FindAgentsProvidingService.AgentsProvidingServiceFound;
+		int b3_b4 = SelectAgentToPerformService.AgentToPerformServiceIsSelected;
+		int b3_b2 = SelectAgentToPerformService.AgentToPerformServiceIsNotSelected;
+		int b4_b5 = AskSelectedAgentToPerformService.ServicePerformedSuccessfully;
+		int b4_b3 = AskSelectedAgentToPerformService.ServicePerformedUnSuccessfully;
+		int b5_b6 = TransitProductToNextState.ProductIsNotInTheLastState;
+		int b5_b1 = TransitProductToNextState.ProductIsInTheLastState;
+
+		registerFirstState(b1, b1.getBehaviourName());
+		registerState(b2, b2.getBehaviourName());
+		registerState(b3, b3.getBehaviourName());
+		registerState(b4, b4.getBehaviourName());
+		registerState(b5, b5.getBehaviourName());
+		registerLastState(b6, b6.getBehaviourName());
+
+		registerTransition(b1.getBehaviourName(), b2.getBehaviourName(), b1_b2);
+		registerTransition(b2.getBehaviourName(), b3.getBehaviourName(), b2_b3);
+		registerTransition(b3.getBehaviourName(), b4.getBehaviourName(), b3_b4);
+		registerTransition(b3.getBehaviourName(), b2.getBehaviourName(), b3_b2,
+				new String[] { b2.getBehaviourName(), b3.getBehaviourName() });
+		registerTransition(b4.getBehaviourName(), b5.getBehaviourName(), b4_b5);
+		registerTransition(b4.getBehaviourName(), b3.getBehaviourName(), b4_b3,
+				new String[] { b3.getBehaviourName(), b4.getBehaviourName() });
+		registerTransition(b5.getBehaviourName(), b6.getBehaviourName(), b5_b6);
+		registerTransition(b5.getBehaviourName(), b1.getBehaviourName(), b5_b1, new String[] { b1.getBehaviourName(),
+				b2.getBehaviourName(), b3.getBehaviourName(), b4.getBehaviourName(), b5.getBehaviourName() });
 	}
 
 	private static final long serialVersionUID = -7091209844136813253L;

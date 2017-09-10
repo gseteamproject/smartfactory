@@ -10,7 +10,7 @@ public class DetermineRequiredService extends ProductSubBehaviour {
 	public DetermineRequiredService(Behaviour behaviour) {
 		super(behaviour);
 	}
-
+	
 	@Override
 	public void action() {
 		ServiceDescription requiredService = new ServiceDescription();
