@@ -34,6 +34,20 @@ public class DetermineRequiredServiceTest {
 	public void setUp() {
 		agent_mock = context.mock(Agent.class);
 		dataStore_mock = context.mock(DataStore.class);
+		behaviour_mock = context.mock(Behaviour.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(behaviour_mock).getAgent();
+				will(returnValue(agent_mock));
+
+				oneOf(behaviour_mock).getDataStore();
+				will(returnValue(dataStore_mock));
+				
+				oneOf(behaviour_mock).getDataStore();
+				will(returnValue(dataStore_mock));
+			}
+		});
 
 		determineRequiredService = new DetermineRequiredService(behaviour_mock);
 	}
@@ -44,36 +58,6 @@ public class DetermineRequiredServiceTest {
 	}
 
 	@Test
-	@Ignore
-	public void getProduct() {
-		final Product product_mock = context.mock(Product.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(dataStore_mock).get("product");
-				will(returnValue(product_mock));
-			}
-		});
-
-		//Assert.assertEquals(product_mock, determineRequiredService.getProduct());
-	}
-
-	@Test
-	@Ignore
-	public void setRequiredService() {
-		final ServiceDescription service_mock = context.mock(ServiceDescription.class);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(dataStore_mock).put("requiredService", service_mock);
-			}
-		});
-
-		//determineRequiredService.setRequiredService(service_mock);
-	}
-
-	@Test
-	@Ignore
 	public void action() {
 		final Product product_mock = context.mock(Product.class);
 		final String serviceName = "serviceName";
