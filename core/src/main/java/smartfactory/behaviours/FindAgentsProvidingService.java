@@ -1,17 +1,23 @@
 package smartfactory.behaviours;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Arrays;
 import jade.core.behaviours.Behaviour;
-import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import smartfactory.platform.AgentPlatform;
+import smartfactory.platform.JADEPlatform;
 
 public class FindAgentsProvidingService extends ProductSubBehaviour {
 
+	private AgentPlatform jade;
+
 	public FindAgentsProvidingService(Behaviour behaviour) {
+		this(behaviour, new JADEPlatform());
+	}
+
+	public FindAgentsProvidingService(Behaviour behaviour, AgentPlatform jade) {
 		super(behaviour);
+		this.jade = jade;
 	}
 
 	final public static int AgentsProvidingServiceFound = 0;
@@ -21,17 +27,11 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(getDataStore().getRequiredService());
 
-		List<DFAgentDescription> agentsDescription = new ArrayList<DFAgentDescription>();
 		try {
-			DFAgentDescription[] agentDescriptions = DFService.search(myAgent, agentDescriptionTemplate);
-			for (DFAgentDescription agentDescription : agentDescriptions) {
-				agentsDescription.add(agentDescription);
-			}
+			getDataStore().setAgentsProvidingService(Arrays.asList(jade.search(myAgent, agentDescriptionTemplate)));
 		} catch (FIPAException exception) {
 			exception.printStackTrace();
 		}
-
-		getDataStore().setAgentsProvidingService(agentsDescription);
 	}
 
 	private static final long serialVersionUID = -6169428362127495247L;

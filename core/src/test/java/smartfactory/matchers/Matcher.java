@@ -44,6 +44,12 @@ public class Matcher<T> extends TypeSafeMatcher<T> {
 			}
 		}
 
+		protected void compare(String name, Object expected, Object actual) throws MatcherException {
+			if (expected != actual) {
+				throw new MatcherException(String.format("%s - expected: %d, actual: %d", name, expected, actual));
+			}
+		}
+
 		final static private int TOLERANCE = 1000;
 	}
 

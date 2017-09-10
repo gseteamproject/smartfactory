@@ -1,26 +1,20 @@
 package smartfactory.container;
 
-import jade.Boot;
 import smartfactory.configuration.Configuration;
+import smartfactory.platform.AgentPlatform;
+import smartfactory.platform.JADEPlatform;
 
 public class ContainerLauncher {
 
 	private Configuration configuration;
 
-	private JADEPlatform jade;
+	private AgentPlatform jade;
 
 	public ContainerLauncher() {
-		configuration = new Configuration();
-
-		jade = new JADEPlatform() {
-			@Override
-			public void launch(String[] args) {
-				Boot.main(args);
-			}
-		};
+		this(new JADEPlatform(), new Configuration());
 	}
 
-	public ContainerLauncher(JADEPlatform jade, Configuration configuration) {
+	public ContainerLauncher(AgentPlatform jade, Configuration configuration) {
 		this.configuration = configuration;
 		this.jade = jade;
 	}

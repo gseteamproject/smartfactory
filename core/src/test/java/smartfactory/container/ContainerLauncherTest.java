@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.configuration.Configuration;
+import smartfactory.platform.AgentPlatform;
 
 public class ContainerLauncherTest {
 
@@ -18,14 +19,14 @@ public class ContainerLauncherTest {
 	};
 
 	Configuration configuration_mock;
-	JADEPlatform jade_mock;
+	AgentPlatform jade_mock;
 
 	ContainerLauncher containerLauncher;
 
 	@Before
 	public void setUp() {
 		configuration_mock = context.mock(Configuration.class);
-		jade_mock = context.mock(JADEPlatform.class);
+		jade_mock = context.mock(AgentPlatform.class);
 
 		containerLauncher = new ContainerLauncher(jade_mock, configuration_mock);
 	}
