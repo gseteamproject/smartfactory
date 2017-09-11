@@ -13,6 +13,12 @@ public class AskSelectedAgentToPerformService extends ProductSubBehaviour {
 
 	@Override
 	public void action() {
+		// TODO : implementation
+	}
+
+	@Override
+	public int onEnd() {
+		return ServicePerformedSuccessfully;
 	}
 
 	private static final long serialVersionUID = 1797435133895300883L;

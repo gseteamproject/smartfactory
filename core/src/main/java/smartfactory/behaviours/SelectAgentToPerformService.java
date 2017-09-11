@@ -3,7 +3,7 @@ package smartfactory.behaviours;
 import jade.core.behaviours.Behaviour;
 
 public class SelectAgentToPerformService extends ProductSubBehaviour {
-	
+
 	public SelectAgentToPerformService(Behaviour behaviour) {
 		super(behaviour);
 	}
@@ -13,6 +13,12 @@ public class SelectAgentToPerformService extends ProductSubBehaviour {
 
 	@Override
 	public void action() {
+		// TODO : implementation
+	}
+
+	@Override
+	public int onEnd() {
+		return AgentToPerformServiceIsSelected;
 	}
 
 	private static final long serialVersionUID = 4019502062871394333L;

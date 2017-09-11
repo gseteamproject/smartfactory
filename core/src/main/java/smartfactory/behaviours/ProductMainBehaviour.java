@@ -24,8 +24,8 @@ public class ProductMainBehaviour extends FSMBehaviour {
 		int b3_b2 = SelectAgentToPerformService.AgentToPerformServiceIsNotSelected;
 		int b4_b5 = AskSelectedAgentToPerformService.ServicePerformedSuccessfully;
 		int b4_b3 = AskSelectedAgentToPerformService.ServicePerformedUnSuccessfully;
-		int b5_b6 = TransitProductToNextState.ProductIsNotInTheLastState;
-		int b5_b1 = TransitProductToNextState.ProductIsInTheLastState;
+		int b5_b6 = TransitProductToNextState.ProductIsInTheLastState;
+		int b5_b1 = TransitProductToNextState.ProductIsNotInTheLastState;
 
 		registerFirstState(b1, b1.getBehaviourName());
 		registerState(b2, b2.getBehaviourName());

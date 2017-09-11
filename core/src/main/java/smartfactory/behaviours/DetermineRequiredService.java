@@ -18,5 +18,10 @@ public class DetermineRequiredService extends ProductSubBehaviour {
 		getDataStore().setRequiredService(requiredService);
 	}
 
+	@Override
+	public int onEnd() {
+		return RequiredServiceIsDetermined;
+	}
+
 	private static final long serialVersionUID = -2422289734697182917L;
 }

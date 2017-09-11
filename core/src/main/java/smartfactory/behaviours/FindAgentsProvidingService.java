@@ -34,5 +34,10 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 		}
 	}
 
+	@Override
+	public int onEnd() {
+		return AgentsProvidingServiceFound;
+	}
+
 	private static final long serialVersionUID = -6169428362127495247L;
 }

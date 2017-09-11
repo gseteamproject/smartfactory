@@ -5,12 +5,17 @@ import jade.core.Agent;
 public class SmartFactoryAgent extends Agent {
 
 	@Override
-	protected void setup() {
+	final protected void setup() {
+		initializeData();
 		initializeGUI();
+		initializeBehaviours();
+		registerLanguages();
+		registerOntologies();
+		registerServices();
 	}
 
 	@Override
-	protected void takeDown() {
+	final protected void takeDown() {
 		finalizeGUI();
 	}
 
@@ -18,6 +23,24 @@ public class SmartFactoryAgent extends Agent {
 	}
 
 	protected void finalizeGUI() {
+	}
+
+	protected void initializeBehaviours() {
+	}
+
+	protected void initializeData() {
+	}
+
+	protected void registerServices() {
+	}
+
+	protected void deregisterServices() {
+	}
+
+	protected void registerLanguages() {
+	}
+
+	protected void registerOntologies() {
 	}
 
 	private static final long serialVersionUID = -5660298497795218024L;

@@ -8,12 +8,17 @@ public class TransitProductToNextState extends ProductSubBehaviour {
 		super(behaviour);
 	}
 
-	public static final int ProductIsNotInTheLastState = 0;
-	public static final int ProductIsInTheLastState = 1;
+	public static final int ProductIsInTheLastState = 0;
+	public static final int ProductIsNotInTheLastState = 1;
 
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
+	}
+
+	@Override
+	public int onEnd() {
+		return ProductIsInTheLastState;
 	}
 
 	private static final long serialVersionUID = -4593835134099389482L;
