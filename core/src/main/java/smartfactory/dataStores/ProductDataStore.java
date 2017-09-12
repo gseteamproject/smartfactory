@@ -34,4 +34,12 @@ public class ProductDataStore extends DataStore {
 	public void setAgentsProvidingService(List<DFAgentDescription> agentsDescription) {
 		put("agentsDescription", agentsDescription);
 	}
+
+	public void setRequiredServiceName(String serviceName) {
+		put("requiredServiceName", serviceName);
+	}
+
+	public String getRequiredServiceName() {
+		return (String) get("requiredServiceName");
+	}
 }

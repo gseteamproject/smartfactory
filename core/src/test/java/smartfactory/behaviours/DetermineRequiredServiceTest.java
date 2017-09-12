@@ -4,13 +4,13 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.matchers.ServiceDescriptionMatcher;
 import smartfactory.models.Product;
 
 public class DetermineRequiredServiceTest {
@@ -22,6 +22,7 @@ public class DetermineRequiredServiceTest {
 	};
 
 	Agent agent_mock;
+
 	ProductDataStore productDataStore_mock;
 	Behaviour behaviour_mock;
 
@@ -52,7 +53,7 @@ public class DetermineRequiredServiceTest {
 	}
 
 	@Test
-	public void action() {
+	public void action_serviceIsDetermined() {
 		final Product product_mock = context.mock(Product.class);
 		final String serviceName = "serviceName";
 
@@ -64,11 +65,32 @@ public class DetermineRequiredServiceTest {
 				oneOf(product_mock).getRequiredServiceName();
 				will(returnValue(serviceName));
 
-				oneOf(productDataStore_mock)
-						.setRequiredService(with(new ServiceDescriptionMatcher().expectName(serviceName)));
+				oneOf(productDataStore_mock).setRequiredServiceName(serviceName);
 			}
 		});
 
 		determineRequiredService.action();
+		Assert.assertEquals(DetermineRequiredService.ServiceIsDetermined, determineRequiredService.onEnd());
+	}
+
+	@Test
+	public void action_serviceIsNotDetermined() {
+		final Product product_mock = context.mock(Product.class);
+		final String serviceName = null;
+
+		context.checking(new Expectations() {
+			{
+				oneOf(productDataStore_mock).getProduct();
+				will(returnValue(product_mock));
+
+				oneOf(product_mock).getRequiredServiceName();
+				will(returnValue(serviceName));
+
+				oneOf(productDataStore_mock).setRequiredServiceName(serviceName);
+			}
+		});
+
+		determineRequiredService.action();
+		Assert.assertEquals(DetermineRequiredService.ServiceIsNotDetermined, determineRequiredService.onEnd());
 	}
 }

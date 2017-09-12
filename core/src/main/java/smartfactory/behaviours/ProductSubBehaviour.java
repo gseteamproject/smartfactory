@@ -16,5 +16,9 @@ public abstract class ProductSubBehaviour extends OneShotBehaviour {
 		return (ProductDataStore) super.getDataStore();
 	}
 
+	public String getAgentName() {
+		return getAgent().getLocalName();
+	}
+
 	private static final long serialVersionUID = 6289152061141729888L;
 }

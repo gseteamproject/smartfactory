@@ -11,7 +11,6 @@ public class ProductIsInLastState extends ProductSubBehaviour {
 	@Override
 	public void action() {
 		// TODO Auto-generated method stub
-
 	}
 
 	private static final long serialVersionUID = -6264847325552695878L;
