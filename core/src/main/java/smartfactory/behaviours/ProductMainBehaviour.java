@@ -4,12 +4,16 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
+import smartfactory.models.Product;
 
 public class ProductMainBehaviour extends FSMBehaviour {
 
-	public ProductMainBehaviour(Agent agent) {
+	public ProductMainBehaviour(Agent agent, Product product) {
 		super(agent);
-		setDataStore(new ProductDataStore());
+
+		ProductDataStore productDataStore = new ProductDataStore();
+		productDataStore.setProduct(product);
+		setDataStore(productDataStore);
 
 		Behaviour b1 = new DetermineRequiredService(this);
 		Behaviour b2 = new FindAgentsProvidingService(this);
