@@ -1,8 +1,6 @@
 package smartfactory.agents;
 
-import jade.core.Agent;
-
-public class LegoAgent extends Agent {
+public class LegoAgent extends SmartFactoryAgent {
 
 	private static final long serialVersionUID = 8580835111885945247L;
 }

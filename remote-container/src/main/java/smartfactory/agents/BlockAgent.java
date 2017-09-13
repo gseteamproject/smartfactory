@@ -1,20 +1,15 @@
 package smartfactory.agents;
 
-import jade.core.Agent;
 import smartfactory.behaviours.FindStoreService;
 import smartfactory.models.Block;
 
-public class BlockAgent extends Agent {
+public class BlockAgent extends SmartFactoryAgent {
 
 	private Block block = new Block();
 
 	@Override
-	protected void setup() {
+	protected void initializeBehaviours() {
 		addBehaviour(new FindStoreService(this));
-	}
-
-	@Override
-	protected void takeDown() {
 	}
 
 	static public String getUniqueName() {

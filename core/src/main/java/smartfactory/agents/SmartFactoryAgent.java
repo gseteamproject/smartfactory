@@ -14,14 +14,14 @@ public class SmartFactoryAgent extends Agent {
 		initializeBehaviours();
 		initializeLanguage();
 		registerServices();
-		logger.info("{} : started", getLocalName());
+		logger.info("started");
 	}
 
 	@Override
 	final protected void takeDown() {
 		deregisterServices();
 		finalizeGUI();
-		logger.info("{} : stopped", getLocalName());
+		logger.info("stopped");
 	}
 
 	protected void initializeGUI() {
