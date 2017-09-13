@@ -16,6 +16,7 @@ public abstract class ProductSubBehaviour extends OneShotBehaviour {
 		return (ProductDataStore) super.getDataStore();
 	}
 
+	@Deprecated
 	public String getAgentName() {
 		return getAgent().getLocalName();
 	}

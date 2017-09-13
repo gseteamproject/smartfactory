@@ -53,7 +53,7 @@ public class DetermineRequiredServiceTest {
 	}
 
 	@Test
-	public void action_serviceIsDetermined() {
+	public void action_serviceDetermined() {
 		final Product product_mock = context.mock(Product.class);
 		final String serviceName = "serviceName";
 
@@ -70,11 +70,11 @@ public class DetermineRequiredServiceTest {
 		});
 
 		determineRequiredService.action();
-		Assert.assertEquals(DetermineRequiredService.ServiceIsDetermined, determineRequiredService.onEnd());
+		Assert.assertEquals(DetermineRequiredService.ServiceDetermined, determineRequiredService.onEnd());
 	}
 
 	@Test
-	public void action_serviceIsNotDetermined() {
+	public void action_serviceNotDetermined() {
 		final Product product_mock = context.mock(Product.class);
 		final String serviceName = null;
 
@@ -91,6 +91,6 @@ public class DetermineRequiredServiceTest {
 		});
 
 		determineRequiredService.action();
-		Assert.assertEquals(DetermineRequiredService.ServiceIsNotDetermined, determineRequiredService.onEnd());
+		Assert.assertEquals(DetermineRequiredService.ServiceNotDetermined, determineRequiredService.onEnd());
 	}
 }

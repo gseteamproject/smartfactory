@@ -11,7 +11,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.models.Product;
 
@@ -54,21 +53,21 @@ public class ProductDataStoreTest {
 	}
 
 	@Test
-	public void getRequiredService() {
-		final ServiceDescription service_mock = context.mock(ServiceDescription.class);
+	public void getRequiredServiceName() {
+		final String serviceName = "serviceName";
 
-		productDataStore.put("requiredService", service_mock);
+		productDataStore.put("requiredServiceName", serviceName);
 
-		Assert.assertEquals(service_mock, productDataStore.getRequiredService());
+		Assert.assertEquals(serviceName, productDataStore.getRequiredServiceName());
 	}
 
 	@Test
-	public void setRequiredService() {
-		final ServiceDescription service_mock = context.mock(ServiceDescription.class);
+	public void setRequiredServiceName() {
+		final String serviceName = "serviceName";
 
-		productDataStore.setRequiredService(service_mock);
+		productDataStore.setRequiredServiceName(serviceName);
 
-		Assert.assertEquals(service_mock, productDataStore.get("requiredService"));
+		Assert.assertEquals(serviceName, productDataStore.get("requiredServiceName"));
 	}
 
 	@Test

@@ -8,8 +8,8 @@ import jade.core.behaviours.Behaviour;
 
 public class DetermineRequiredService extends ProductSubBehaviour {
 
-	final static public int ServiceIsDetermined = 0;
-	final static public int ServiceIsNotDetermined = 1;
+	final static public int ServiceDetermined = 0;
+	final static public int ServiceNotDetermined = 1;
 
 	private String serviceName;
 
@@ -21,15 +21,15 @@ public class DetermineRequiredService extends ProductSubBehaviour {
 	public void action() {
 		serviceName = getDataStore().getProduct().getRequiredServiceName();
 		getDataStore().setRequiredServiceName(serviceName);
-		logger.info("{} : required service name is \"{}\"", getAgentName(), serviceName);
+		logger.info("required service \"{}\"", serviceName);
 	}
 
 	@Override
 	public int onEnd() {
 		if (StringUtils.isEmpty(serviceName)) {
-			return ServiceIsNotDetermined;
+			return ServiceNotDetermined;
 		}
-		return ServiceIsDetermined;
+		return ServiceDetermined;
 	}
 
 	private static final long serialVersionUID = -2422289734697182917L;

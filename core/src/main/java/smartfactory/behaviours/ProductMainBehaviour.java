@@ -23,8 +23,8 @@ public class ProductMainBehaviour extends FSMBehaviour {
 		Behaviour b6 = new ProductIsInLastState(this);
 		Behaviour b7 = new ProductProcessIsIncorrect(this);
 
-		int b1_b2 = DetermineRequiredService.ServiceIsDetermined;
-		int b1_b7 = DetermineRequiredService.ServiceIsNotDetermined;
+		int b1_b2 = DetermineRequiredService.ServiceDetermined;
+		int b1_b7 = DetermineRequiredService.ServiceNotDetermined;
 		int b2_b3 = FindAgentsProvidingService.AgentsProvidingServiceFound;
 		int b3_b4 = SelectAgentToPerformService.AgentToPerformServiceIsSelected;
 		int b3_b2 = SelectAgentToPerformService.AgentToPerformServiceIsNotSelected;

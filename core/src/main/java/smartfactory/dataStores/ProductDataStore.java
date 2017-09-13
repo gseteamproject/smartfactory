@@ -4,7 +4,6 @@ import java.util.List;
 
 import jade.core.behaviours.DataStore;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.models.Product;
 
 public class ProductDataStore extends DataStore {
@@ -21,14 +20,6 @@ public class ProductDataStore extends DataStore {
 
 	public Product getProduct() {
 		return (Product) get("product");
-	}
-
-	public void setRequiredService(ServiceDescription service) {
-		put("requiredService", service);
-	}
-
-	public ServiceDescription getRequiredService() {
-		return (ServiceDescription) get("requiredService");
 	}
 
 	public void setAgentsProvidingService(List<DFAgentDescription> agentsDescription) {

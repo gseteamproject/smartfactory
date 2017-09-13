@@ -13,7 +13,6 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.matchers.DFAgentDescriptionMatcher;
 import smartfactory.platform.AgentPlatform;
@@ -60,16 +59,17 @@ public class FindAgentsProvidingServiceTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void action() throws FIPAException {
-		final ServiceDescription requiredService_mock = context.mock(ServiceDescription.class);
+		final String requiredServiceName = "serviceName";
 		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[0];
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getRequiredService();
-				will(returnValue(requiredService_mock));
+				oneOf(productDataStore_mock).getRequiredServiceName();
+				will(returnValue(requiredServiceName));
 
-				oneOf(jadePlatform_mock).search(with(agent_mock), with(new DFAgentDescriptionMatcher()
-						.expectServices(new ServiceDescription[] { requiredService_mock })));
+				// TODO : add Matcher inside Matcher
+				// TODO : check for ServiceDescription
+				oneOf(jadePlatform_mock).search(with(agent_mock), with(new DFAgentDescriptionMatcher()));
 				will(returnValue(agentDescriptions));
 
 				oneOf(productDataStore_mock).setAgentsProvidingService(with(any(List.class)));
