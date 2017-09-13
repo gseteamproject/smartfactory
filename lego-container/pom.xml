@@ -34,7 +34,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>smartfactory.container.LegoContainer</mainClass>
+							<mainClass>smartfactory.container.Container</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
