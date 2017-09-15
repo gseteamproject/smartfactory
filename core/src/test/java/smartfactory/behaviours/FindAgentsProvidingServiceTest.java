@@ -2,10 +2,13 @@ package smartfactory.behaviours;
 
 import java.util.List;
 
+import org.hamcrest.Description;
+import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -13,8 +16,8 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.matchers.DFAgentDescriptionMatcher;
 import smartfactory.platform.AgentPlatform;
 
 public class FindAgentsProvidingServiceTest {
@@ -56,26 +59,103 @@ public class FindAgentsProvidingServiceTest {
 		context.assertIsSatisfied();
 	}
 
-	@SuppressWarnings("unchecked")
 	@Test
-	public void action() throws FIPAException {
+	public void action_agentsFound() throws FIPAException {
 		final String requiredServiceName = "serviceName";
-		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[0];
+		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] { new DFAgentDescription() };
 
 		context.checking(new Expectations() {
 			{
 				oneOf(productDataStore_mock).getRequiredServiceName();
 				will(returnValue(requiredServiceName));
 
-				// TODO : add Matcher inside Matcher
-				// TODO : check for ServiceDescription
-				oneOf(jadePlatform_mock).search(with(agent_mock), with(new DFAgentDescriptionMatcher()));
+				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
+
+					@Override
+					public void describeTo(Description description) {
+						description.appendText("serviceDescription template doesn't match");
+					}
+
+					@Override
+					protected boolean matchesSafely(DFAgentDescription item) {
+						ServiceDescription serviceDesription = (ServiceDescription) item.getAllServices().next();
+						if (serviceDesription.getName().equalsIgnoreCase(requiredServiceName)) {
+							return true;
+						}
+						return false;
+					}
+				}));
 				will(returnValue(agentDescriptions));
 
-				oneOf(productDataStore_mock).setAgentsProvidingService(with(any(List.class)));
+				oneOf(productDataStore_mock)
+						.setAgentsProvidingService(with(new TypeSafeMatcher<List<DFAgentDescription>>() {
+							@Override
+							public void describeTo(Description description) {
+								description.appendText("agentDescription doesn't match");
+							}
+
+							@Override
+							protected boolean matchesSafely(List<DFAgentDescription> item) {
+								if (item.get(0) != agentDescriptions[0]) {
+									return false;
+								}
+								return true;
+							}
+						}));
 			}
 		});
 
 		findAgentsProvidingService.action();
+		Assert.assertEquals(FindAgentsProvidingService.AgentsFound, findAgentsProvidingService.onEnd());
+	}
+
+	@Test
+	public void action_agentsNotFound() throws FIPAException {
+		final String requiredServiceName = "serviceName";
+		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] {};
+
+		context.checking(new Expectations() {
+			{
+				oneOf(productDataStore_mock).getRequiredServiceName();
+				will(returnValue(requiredServiceName));
+
+				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
+
+					@Override
+					public void describeTo(Description description) {
+						description.appendText("serviceDescription template doesn't match");
+					}
+
+					@Override
+					protected boolean matchesSafely(DFAgentDescription item) {
+						ServiceDescription serviceDesription = (ServiceDescription) item.getAllServices().next();
+						if (serviceDesription.getName().equalsIgnoreCase(requiredServiceName)) {
+							return true;
+						}
+						return false;
+					}
+				}));
+				will(returnValue(agentDescriptions));
+
+				oneOf(productDataStore_mock)
+						.setAgentsProvidingService(with(new TypeSafeMatcher<List<DFAgentDescription>>() {
+							@Override
+							public void describeTo(Description description) {
+								description.appendText("agentDescription doesn't match");
+							}
+
+							@Override
+							protected boolean matchesSafely(List<DFAgentDescription> item) {
+								if (item.size() != 0) {
+									return false;
+								}
+								return true;
+							}
+						}));
+			}
+		});
+
+		findAgentsProvidingService.action();
+		Assert.assertEquals(FindAgentsProvidingService.AgentsNotFound, findAgentsProvidingService.onEnd());
 	}
 }

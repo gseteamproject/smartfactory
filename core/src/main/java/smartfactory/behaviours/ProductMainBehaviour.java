@@ -22,10 +22,12 @@ public class ProductMainBehaviour extends FSMBehaviour {
 		Behaviour b5 = new TransitProductToNextState(this);
 		Behaviour b6 = new ProductIsInLastState(this);
 		Behaviour b7 = new ProductProcessIsIncorrect(this);
+		Behaviour b8 = new NoAgentsProvidingService(this);
 
 		int b1_b2 = DetermineRequiredService.ServiceDetermined;
 		int b1_b7 = DetermineRequiredService.ServiceNotDetermined;
-		int b2_b3 = FindAgentsProvidingService.AgentsProvidingServiceFound;
+		int b2_b3 = FindAgentsProvidingService.AgentsFound;
+		int b2_b8 = FindAgentsProvidingService.AgentsNotFound;
 		int b3_b4 = SelectAgentToPerformService.AgentToPerformServiceIsSelected;
 		int b3_b2 = SelectAgentToPerformService.AgentToPerformServiceIsNotSelected;
 		int b4_b5 = AskSelectedAgentToPerformService.ServicePerformedSuccessfully;
@@ -40,10 +42,12 @@ public class ProductMainBehaviour extends FSMBehaviour {
 		registerState(b5, b5.getBehaviourName());
 		registerLastState(b6, b6.getBehaviourName());
 		registerLastState(b7, b7.getBehaviourName());
+		registerLastState(b8, b8.getBehaviourName());
 
 		registerTransition(b1.getBehaviourName(), b2.getBehaviourName(), b1_b2);
 		registerTransition(b1.getBehaviourName(), b7.getBehaviourName(), b1_b7);
 		registerTransition(b2.getBehaviourName(), b3.getBehaviourName(), b2_b3);
+		registerTransition(b2.getBehaviourName(), b8.getBehaviourName(), b2_b8);
 		registerTransition(b3.getBehaviourName(), b4.getBehaviourName(), b3_b4);
 		registerTransition(b3.getBehaviourName(), b2.getBehaviourName(), b3_b2,
 				new String[] { b2.getBehaviourName(), b3.getBehaviourName() });

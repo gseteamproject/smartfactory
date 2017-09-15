@@ -6,6 +6,7 @@ import java.util.List;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
+//TODO : add Matcher inside Matcher
 public class Matcher<T> extends TypeSafeMatcher<T> {
 
 	protected List<MatcherExpectation> expectations = new ArrayList<MatcherExpectation>();

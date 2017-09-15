@@ -1,6 +1,7 @@
 package smartfactory.behaviours;
 
 import java.util.Arrays;
+import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -16,7 +17,7 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 
 	private AgentPlatform jade;
 
-	private DFAgentDescription[] agentsProvidingService;
+	private List<DFAgentDescription> agentsProvidingService;
 
 	public FindAgentsProvidingService(Behaviour behaviour) {
 		this(behaviour, new JADEPlatform());
@@ -27,8 +28,8 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 		this.jade = jade;
 	}
 
-	final public static int AgentsProvidingServiceFound = 0;
-	final public static int AgentsProvidingServiceNotFound = 1;
+	final public static int AgentsFound = 0;
+	final public static int AgentsNotFound = 1;
 
 	@Override
 	public void action() {
@@ -39,8 +40,10 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
 		try {
-			agentsProvidingService = jade.search(myAgent, agentDescriptionTemplate);
-			getDataStore().setAgentsProvidingService(Arrays.asList(agentsProvidingService));
+			agentsProvidingService = Arrays.asList(jade.search(myAgent, agentDescriptionTemplate));
+			getDataStore().setAgentsProvidingService(agentsProvidingService);
+			logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
+					serviceDescriptionTemplate.getName());
 		} catch (FIPAException e) {
 			logger.error("", e);
 		}
@@ -48,10 +51,7 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 
 	@Override
 	public int onEnd() {
-		if (agentsProvidingService == null || agentsProvidingService.length < 1) {
-			return AgentsProvidingServiceNotFound;
-		}
-		return AgentsProvidingServiceFound;
+		return agentsProvidingService.size() > 0 ? AgentsFound : AgentsNotFound;
 	}
 
 	private static final long serialVersionUID = -6169428362127495247L;
