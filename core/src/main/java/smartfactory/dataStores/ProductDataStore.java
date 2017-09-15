@@ -26,11 +26,20 @@ public class ProductDataStore extends DataStore {
 		put("agentsDescription", agentsDescription);
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<DFAgentDescription> getAgentsProvidingService() {
+		return (List<DFAgentDescription>) get("agentsDescription");
+	}
+
 	public void setRequiredServiceName(String serviceName) {
 		put("requiredServiceName", serviceName);
 	}
 
 	public String getRequiredServiceName() {
 		return (String) get("requiredServiceName");
+	}
+
+	public void setAgentProvidingService(DFAgentDescription agentDescription) {
+		put("agentDescription", agentDescription);
 	}
 }

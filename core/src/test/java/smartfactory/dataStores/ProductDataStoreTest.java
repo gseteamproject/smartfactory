@@ -78,4 +78,22 @@ public class ProductDataStoreTest {
 
 		Assert.assertEquals(agentsProvidingService, productDataStore.get("agentsDescription"));
 	}
+
+	@Test
+	public void getAgentsProvidingService() {
+		final List<DFAgentDescription> agentsProvidingService = new ArrayList<DFAgentDescription>();
+
+		productDataStore.put("agentsDescription", agentsProvidingService);
+
+		Assert.assertEquals(agentsProvidingService, productDataStore.getAgentsProvidingService());
+	}
+
+	@Test
+	public void setAgentProvidingService() {
+		final DFAgentDescription agentDescription = new DFAgentDescription();
+
+		productDataStore.setAgentProvidingService(agentDescription);
+
+		Assert.assertEquals(agentDescription, productDataStore.get("agentDescription"));
+	}
 }

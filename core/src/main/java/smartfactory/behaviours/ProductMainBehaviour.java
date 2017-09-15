@@ -28,8 +28,8 @@ public class ProductMainBehaviour extends FSMBehaviour {
 		int b1_b7 = DetermineRequiredService.ServiceNotDetermined;
 		int b2_b3 = FindAgentsProvidingService.AgentsFound;
 		int b2_b8 = FindAgentsProvidingService.AgentsNotFound;
-		int b3_b4 = SelectAgentToPerformService.AgentToPerformServiceIsSelected;
-		int b3_b2 = SelectAgentToPerformService.AgentToPerformServiceIsNotSelected;
+		int b3_b4 = SelectAgentToPerformService.AgentSelected;
+		int b3_b2 = SelectAgentToPerformService.AgentNotSelected;
 		int b4_b5 = AskSelectedAgentToPerformService.ServicePerformedSuccessfully;
 		int b4_b3 = AskSelectedAgentToPerformService.ServicePerformedUnSuccessfully;
 		int b5_b6 = TransitProductToNextState.ProductIsInTheLastState;
