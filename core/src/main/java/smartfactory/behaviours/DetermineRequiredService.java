@@ -5,8 +5,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import smartfactory.dataStores.ProductDataStore;
 
-public class DetermineRequiredService extends ProductSubBehaviour {
+public class DetermineRequiredService extends OneShotBehaviour implements ProductBehaviour {
 
 	final static public int ServiceDetermined = 0;
 	final static public int ServiceNotDetermined = 1;
@@ -14,13 +16,14 @@ public class DetermineRequiredService extends ProductSubBehaviour {
 	private String serviceName;
 
 	public DetermineRequiredService(Behaviour behaviour) {
-		super(behaviour);
+		super(behaviour.getAgent());
+		setDataStore(behaviour.getDataStore());
 	}
 
 	@Override
 	public void action() {
-		serviceName = getDataStore().getProduct().getRequiredServiceName();
-		getDataStore().setRequiredServiceName(serviceName);
+		serviceName = getProductDataStore().getProduct().getRequiredServiceName();
+		getProductDataStore().setRequiredServiceName(serviceName);
 		logger.info("required service \"{}\"", serviceName);
 	}
 
@@ -30,6 +33,11 @@ public class DetermineRequiredService extends ProductSubBehaviour {
 			return ServiceNotDetermined;
 		}
 		return ServiceDetermined;
+	}
+
+	@Override
+	public ProductDataStore getProductDataStore() {
+		return (ProductDataStore) getDataStore();
 	}
 
 	private static final long serialVersionUID = -2422289734697182917L;

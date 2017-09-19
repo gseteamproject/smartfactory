@@ -6,7 +6,7 @@ import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.models.Product;
 
-public class ProductMainBehaviour extends FSMBehaviour {
+public class ProductMainBehaviour extends FSMBehaviour implements ProductBehaviour {
 
 	public ProductMainBehaviour(Agent agent, Product product) {
 		super(agent);
@@ -60,4 +60,9 @@ public class ProductMainBehaviour extends FSMBehaviour {
 	}
 
 	private static final long serialVersionUID = -7091209844136813253L;
+
+	@Override
+	public ProductDataStore getProductDataStore() {
+		return (ProductDataStore) getDataStore();
+	}
 }

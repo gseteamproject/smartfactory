@@ -4,7 +4,7 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 
-public abstract class ProductSubBehaviour extends OneShotBehaviour {
+public abstract class ProductSubBehaviour extends OneShotBehaviour implements ProductBehaviour{
 
 	public ProductSubBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
@@ -14,11 +14,6 @@ public abstract class ProductSubBehaviour extends OneShotBehaviour {
 	@Override
 	public ProductDataStore getDataStore() {
 		return (ProductDataStore) super.getDataStore();
-	}
-
-	@Deprecated
-	public String getAgentName() {
-		return getAgent().getLocalName();
 	}
 
 	private static final long serialVersionUID = 6289152061141729888L;

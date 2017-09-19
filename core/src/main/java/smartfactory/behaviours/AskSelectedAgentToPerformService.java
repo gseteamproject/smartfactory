@@ -1,25 +1,83 @@
 package smartfactory.behaviours;
 
-import jade.core.behaviours.Behaviour;
+import java.util.List;
+import java.util.Vector;
 
-public class AskSelectedAgentToPerformService extends ProductSubBehaviour {
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import jade.core.behaviours.Behaviour;
+import jade.domain.FIPANames;
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.lang.acl.ACLMessage;
+import jade.proto.AchieveREInitiator;
+import smartfactory.dataStores.ProductDataStore;
+
+public class AskSelectedAgentToPerformService extends AchieveREInitiator implements ProductBehaviour {
 
 	final static public int ServicePerformedSuccessfully = 0;
 	final static public int ServicePerformedUnSuccessfully = 1;
 
+	private boolean servicePerformedSuccessfully;
+
 	public AskSelectedAgentToPerformService(Behaviour behaviour) {
-		super(behaviour);
+		super(behaviour.getAgent(), null);
+		setDataStore(behaviour.getDataStore());
+	}
+
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	protected Vector prepareRequests(ACLMessage request) {
+		request = new ACLMessage(ACLMessage.REQUEST);
+		request.addReceiver(getProductDataStore().getAgentProvidingService().getName());
+		request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+
+		Vector l = new Vector(1);
+		l.addElement(request);
+		return l;
 	}
 
 	@Override
-	public void action() {
-		// TODO : implementation
+	protected void handleAgree(ACLMessage agree) {
+		logger.info("\"{}\" agent agreed", getProductDataStore().getAgentProvidingService().getName());
+	}
+
+	@Override
+	protected void handleRefuse(ACLMessage refuse) {
+		logger.info("\"{}\" agent refused", getProductDataStore().getAgentProvidingService().getName());
+		servicePerformedSuccessfully = false;
+		removeAgentProvidingService();
+	}
+
+	@Override
+	protected void handleInform(ACLMessage inform) {
+		logger.info("\"{}\" agent successfully performed", getProductDataStore().getAgentProvidingService().getName());
+		servicePerformedSuccessfully = true;
+	}
+
+	@Override
+	protected void handleFailure(ACLMessage failure) {
+		logger.info("\"{}\" agent failed to perform", getProductDataStore().getAgentProvidingService().getName());
+		servicePerformedSuccessfully = false;
+		removeAgentProvidingService();
+	}
+
+	public void removeAgentProvidingService() {
+		DFAgentDescription agentProvidingService = getProductDataStore().getAgentProvidingService();
+		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getAgentsProvidingService();
+		agentsProvidingService.remove(agentProvidingService);
 	}
 
 	@Override
 	public int onEnd() {
-		return ServicePerformedSuccessfully;
+		return servicePerformedSuccessfully == true ? ServicePerformedSuccessfully : ServicePerformedUnSuccessfully;
+	}
+
+	@Override
+	public ProductDataStore getProductDataStore() {
+		return (ProductDataStore) super.getDataStore();
 	}
 
 	private static final long serialVersionUID = 1797435133895300883L;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

@@ -1,17 +1,29 @@
 package smartfactory.behaviours;
 
-import jade.core.behaviours.Behaviour;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class ProductIsInLastState extends ProductSubBehaviour {
+import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import smartfactory.dataStores.ProductDataStore;
+
+public class ProductIsInLastState extends OneShotBehaviour implements ProductBehaviour {
 
 	public ProductIsInLastState(Behaviour behaviour) {
-		super(behaviour);
+		super(behaviour.getAgent());
+		setDataStore(behaviour.getDataStore());
 	}
 
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
+		logger.info("product is in last state");
+	}
+
+	@Override
+	public ProductDataStore getProductDataStore() {
+		return (ProductDataStore) getDataStore();
 	}
 
 	private static final long serialVersionUID = -6264847325552695878L;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

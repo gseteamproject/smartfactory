@@ -42,4 +42,8 @@ public class ProductDataStore extends DataStore {
 	public void setAgentProvidingService(DFAgentDescription agentDescription) {
 		put("agentDescription", agentDescription);
 	}
+
+	public DFAgentDescription getAgentProvidingService() {
+		return (DFAgentDescription) get("agentDescription");
+	}
 }

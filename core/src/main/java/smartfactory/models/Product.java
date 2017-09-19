@@ -7,4 +7,12 @@ public class Product {
 		return null;
 	}
 
+	public void moveToNextState() {
+		// TODO Auto-generated method stub
+	}
+
+	public boolean isInTheLastState() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 }

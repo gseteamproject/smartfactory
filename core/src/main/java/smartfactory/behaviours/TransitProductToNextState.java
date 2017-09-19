@@ -1,11 +1,17 @@
 package smartfactory.behaviours;
 
-import jade.core.behaviours.Behaviour;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-public class TransitProductToNextState extends ProductSubBehaviour {
+import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
+import smartfactory.dataStores.ProductDataStore;
+
+public class TransitProductToNextState extends OneShotBehaviour implements ProductBehaviour {
 
 	public TransitProductToNextState(Behaviour behaviour) {
-		super(behaviour);
+		super(behaviour.getAgent());
+		setDataStore(behaviour.getDataStore());
 	}
 
 	public static final int ProductIsInTheLastState = 0;
@@ -13,13 +19,20 @@ public class TransitProductToNextState extends ProductSubBehaviour {
 
 	@Override
 	public void action() {
-		// TODO Auto-generated method stub
+		getProductDataStore().getProduct().moveToNextState();
+		logger.info("associated product moved to next state");
 	}
 
 	@Override
 	public int onEnd() {
-		return ProductIsInTheLastState;
+		return getProductDataStore().getProduct().isInTheLastState() ? ProductIsInTheLastState : ProductIsNotInTheLastState;
+	}
+
+	@Override
+	public ProductDataStore getProductDataStore() {
+		return (ProductDataStore) getDataStore();
 	}
 
 	private static final long serialVersionUID = -4593835134099389482L;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

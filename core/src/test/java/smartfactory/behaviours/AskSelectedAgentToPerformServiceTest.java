@@ -50,7 +50,7 @@ public class AskSelectedAgentToPerformServiceTest {
 	}
 
 	@Test
-	public void action() {
-		askSelectedAgentToPerformService.action();
+	public void removeAgentProvidingService() {
+		// TODO : implement
 	}
 }

@@ -7,13 +7,15 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.core.behaviours.Behaviour;
+import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import smartfactory.dataStores.ProductDataStore;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.platform.JADEPlatform;
 
-public class FindAgentsProvidingService extends ProductSubBehaviour {
+public class FindAgentsProvidingService extends OneShotBehaviour implements ProductBehaviour {
 
 	private AgentPlatform jade;
 
@@ -24,7 +26,8 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 	}
 
 	public FindAgentsProvidingService(Behaviour behaviour, AgentPlatform jade) {
-		super(behaviour);
+		super(behaviour.getAgent());
+		setDataStore(behaviour.getDataStore());
 		this.jade = jade;
 	}
 
@@ -34,14 +37,14 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 	@Override
 	public void action() {
 		ServiceDescription serviceDescriptionTemplate = new ServiceDescription();
-		serviceDescriptionTemplate.setName(getDataStore().getRequiredServiceName());
+		serviceDescriptionTemplate.setName(getProductDataStore().getRequiredServiceName());
 
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
 		try {
 			agentsProvidingService = Arrays.asList(jade.search(myAgent, agentDescriptionTemplate));
-			getDataStore().setAgentsProvidingService(agentsProvidingService);
+			getProductDataStore().setAgentsProvidingService(agentsProvidingService);
 			logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
 					serviceDescriptionTemplate.getName());
 		} catch (FIPAException e) {
@@ -52,6 +55,11 @@ public class FindAgentsProvidingService extends ProductSubBehaviour {
 	@Override
 	public int onEnd() {
 		return agentsProvidingService.size() > 0 ? AgentsFound : AgentsNotFound;
+	}
+
+	@Override
+	public ProductDataStore getProductDataStore() {
+		return (ProductDataStore) getDataStore();
 	}
 
 	private static final long serialVersionUID = -6169428362127495247L;
