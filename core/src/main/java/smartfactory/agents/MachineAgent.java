@@ -4,6 +4,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import smartfactory.behaviours.AnswerSelectedAgentToPerformService;
 
 public class MachineAgent extends SmartFactoryAgent {
 
@@ -38,6 +39,11 @@ public class MachineAgent extends SmartFactoryAgent {
 		} catch (FIPAException exception) {
 			exception.printStackTrace();
 		}
+	}
+
+	@Override
+	protected void initializeBehaviours() {
+		addBehaviour(new AnswerSelectedAgentToPerformService(this));
 	}
 
 	public String[] getAgentServices() {
