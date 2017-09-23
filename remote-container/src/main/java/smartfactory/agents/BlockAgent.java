@@ -1,19 +1,17 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.FindStoreService;
 import smartfactory.models.Block;
+import smartfactory.models.Product;
 
-public class BlockAgent extends SmartFactoryAgent {
-
-	private Block block = new Block();
-
-	@Override
-	protected void initializeBehaviours() {
-		addBehaviour(new FindStoreService(this));
-	}
+public class BlockAgent extends ProductAgent {
 
 	static public String getUniqueName() {
 		return "block-" + Long.toString(System.currentTimeMillis());
+	}
+
+	@Override
+	public Product createProduct() {
+		return new Block();
 	}
 
 	private static final long serialVersionUID = 9181639673522822855L;
