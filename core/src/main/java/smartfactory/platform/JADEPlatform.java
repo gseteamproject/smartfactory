@@ -1,5 +1,8 @@
 package smartfactory.platform;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.Boot;
 import jade.core.Agent;
 import jade.domain.DFService;
@@ -14,7 +17,14 @@ public class JADEPlatform implements AgentPlatform {
 	}
 
 	@Override
-	public DFAgentDescription[] search(Agent a, DFAgentDescription dfd) throws FIPAException {
-		return DFService.search(a, dfd);
+	public DFAgentDescription[] search(Agent a, DFAgentDescription dfd) {
+		try {
+			return DFService.search(a, dfd);
+		} catch (FIPAException e) {
+			logger.error("", e);
+		}
+		return new DFAgentDescription[0];
 	}
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

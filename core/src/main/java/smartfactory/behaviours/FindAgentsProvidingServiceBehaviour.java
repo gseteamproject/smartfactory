@@ -8,7 +8,6 @@ import org.slf4j.LoggerFactory;
 
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
@@ -30,14 +29,11 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
-		try {
-			agentsProvidingService = Arrays.asList(getProductDataStore().getAgentPlatform().search(myAgent, agentDescriptionTemplate));
-			getProductDataStore().getOrder().agentsDescription = agentsProvidingService;
-			logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
-					serviceDescriptionTemplate.getName());
-		} catch (FIPAException e) {
-			logger.error("", e);
-		}
+		agentsProvidingService = Arrays
+				.asList(getProductDataStore().getAgentPlatform().search(myAgent, agentDescriptionTemplate));
+		getProductDataStore().getOrder().agentsDescription = agentsProvidingService;
+		logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
+				serviceDescriptionTemplate.getName());
 	}
 
 	@Override
