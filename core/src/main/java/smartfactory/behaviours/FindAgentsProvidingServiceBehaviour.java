@@ -15,17 +15,17 @@ import smartfactory.dataStores.ProductDataStore;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.platform.JADEPlatform;
 
-public class FindAgentsProvidingService extends OneShotBehaviour implements ProductBehaviour {
+public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
 	private AgentPlatform jade;
 
 	private List<DFAgentDescription> agentsProvidingService;
 
-	public FindAgentsProvidingService(Behaviour behaviour) {
+	public FindAgentsProvidingServiceBehaviour(Behaviour behaviour) {
 		this(behaviour, new JADEPlatform());
 	}
 
-	public FindAgentsProvidingService(Behaviour behaviour, AgentPlatform jade) {
+	public FindAgentsProvidingServiceBehaviour(Behaviour behaviour, AgentPlatform jade) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 		this.jade = jade;

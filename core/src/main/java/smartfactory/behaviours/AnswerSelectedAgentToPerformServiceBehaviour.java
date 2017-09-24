@@ -11,9 +11,9 @@ import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREResponder;
 
-public class AnswerSelectedAgentToPerformService extends AchieveREResponder {
+public class AnswerSelectedAgentToPerformServiceBehaviour extends AchieveREResponder {
 
-	public AnswerSelectedAgentToPerformService(Agent a) {
+	public AnswerSelectedAgentToPerformServiceBehaviour(Agent a) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
 	}
 

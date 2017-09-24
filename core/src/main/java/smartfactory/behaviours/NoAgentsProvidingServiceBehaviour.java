@@ -7,9 +7,9 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 
-public class NoAgentsProvidingService extends OneShotBehaviour implements ProductBehaviour {
+public class NoAgentsProvidingServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
-	public NoAgentsProvidingService(Behaviour behaviour) {
+	public NoAgentsProvidingServiceBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}

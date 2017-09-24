@@ -32,7 +32,7 @@ public class FindAgentsProvidingServiceTest {
 	Behaviour behaviour_mock;
 	AgentPlatform jadePlatform_mock;
 
-	FindAgentsProvidingService findAgentsProvidingService;
+	FindAgentsProvidingServiceBehaviour findAgentsProvidingService;
 
 	@Before
 	public void setUp() {
@@ -51,7 +51,7 @@ public class FindAgentsProvidingServiceTest {
 			}
 		});
 
-		findAgentsProvidingService = new FindAgentsProvidingService(behaviour_mock, jadePlatform_mock);
+		findAgentsProvidingService = new FindAgentsProvidingServiceBehaviour(behaviour_mock, jadePlatform_mock);
 	}
 
 	@After
@@ -106,7 +106,7 @@ public class FindAgentsProvidingServiceTest {
 		});
 
 		findAgentsProvidingService.action();
-		Assert.assertEquals(FindAgentsProvidingService.AgentsFound, findAgentsProvidingService.onEnd());
+		Assert.assertEquals(FindAgentsProvidingServiceBehaviour.AgentsFound, findAgentsProvidingService.onEnd());
 	}
 
 	@Test
@@ -156,6 +156,6 @@ public class FindAgentsProvidingServiceTest {
 		});
 
 		findAgentsProvidingService.action();
-		Assert.assertEquals(FindAgentsProvidingService.AgentsNotFound, findAgentsProvidingService.onEnd());
+		Assert.assertEquals(FindAgentsProvidingServiceBehaviour.AgentsNotFound, findAgentsProvidingService.onEnd());
 	}
 }

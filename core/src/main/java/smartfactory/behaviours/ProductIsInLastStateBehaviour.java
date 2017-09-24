@@ -7,9 +7,9 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 
-public class ProductIsInLastState extends OneShotBehaviour implements ProductBehaviour {
+public class ProductIsInLastStateBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
-	public ProductIsInLastState(Behaviour behaviour) {
+	public ProductIsInLastStateBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}

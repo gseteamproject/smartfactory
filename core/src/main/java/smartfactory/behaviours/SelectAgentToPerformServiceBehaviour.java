@@ -10,11 +10,11 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.dataStores.ProductDataStore;
 
-public class SelectAgentToPerformService extends OneShotBehaviour implements ProductBehaviour {
+public class SelectAgentToPerformServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
 	private DFAgentDescription agentProvidingService;
 
-	public SelectAgentToPerformService(Behaviour behaviour) {
+	public SelectAgentToPerformServiceBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}

@@ -1,6 +1,6 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.LaunchAgent;
+import smartfactory.behaviours.LaunchAgentBehaviour;
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerAgent extends SmartFactoryAgent {
@@ -18,7 +18,7 @@ public class CustomerAgent extends SmartFactoryAgent {
 	}
 
 	public void addBlock() {
-		addBehaviour(new LaunchAgent(this, BlockAgent.getUniqueName(), BlockAgent.class.getName()));
+		addBehaviour(new LaunchAgentBehaviour(this, BlockAgent.getUniqueName(), BlockAgent.class.getName()));
 	}
 
 	private static final long serialVersionUID = -2432898217068138400L;

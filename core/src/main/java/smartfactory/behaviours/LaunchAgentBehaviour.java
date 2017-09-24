@@ -7,12 +7,12 @@ import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.wrapper.StaleProxyException;
 
-public class LaunchAgent extends OneShotBehaviour {
+public class LaunchAgentBehaviour extends OneShotBehaviour {
 
 	private String launchingAgentName;
 	private String launchingAgentClass;
 
-	public LaunchAgent(Agent agent, String launchingAgentName, String launchingAgentClass) {
+	public LaunchAgentBehaviour(Agent agent, String launchingAgentName, String launchingAgentClass) {
 		super(agent);
 		this.launchingAgentClass = launchingAgentClass;
 		this.launchingAgentName = launchingAgentName;

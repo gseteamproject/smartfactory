@@ -8,14 +8,14 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 
-public class DetermineRequiredService extends OneShotBehaviour implements ProductBehaviour {
+public class DetermineRequiredServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
 	final static public int ServiceDetermined = 0;
 	final static public int ServiceNotDetermined = 1;
 
 	private String serviceName;
 
-	public DetermineRequiredService(Behaviour behaviour) {
+	public DetermineRequiredServiceBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}

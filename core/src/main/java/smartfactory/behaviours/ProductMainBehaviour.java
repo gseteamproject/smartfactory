@@ -15,25 +15,25 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 		productDataStore.setProduct(product);
 		setDataStore(productDataStore);
 
-		Behaviour b1 = new DetermineRequiredService(this);
-		Behaviour b2 = new FindAgentsProvidingService(this);
-		Behaviour b3 = new SelectAgentToPerformService(this);
-		Behaviour b4 = new AskSelectedAgentToPerformService(this);
-		Behaviour b5 = new TransitProductToNextState(this);
-		Behaviour b6 = new ProductIsInLastState(this);
-		Behaviour b7 = new ProductProcessIsIncorrect(this);
-		Behaviour b8 = new NoAgentsProvidingService(this);
+		Behaviour b1 = new DetermineRequiredServiceBehaviour(this);
+		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(this);
+		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(this);
+		Behaviour b4 = new AskSelectedAgentToPerformServiceBehaviour(this);
+		Behaviour b5 = new TransitProductToNextStateBehaviour(this);
+		Behaviour b6 = new ProductIsInLastStateBehaviour(this);
+		Behaviour b7 = new ProductProcessIsIncorrectBehaviour(this);
+		Behaviour b8 = new NoAgentsProvidingServiceBehaviour(this);
 
-		int b1_b2 = DetermineRequiredService.ServiceDetermined;
-		int b1_b7 = DetermineRequiredService.ServiceNotDetermined;
-		int b2_b3 = FindAgentsProvidingService.AgentsFound;
-		int b2_b8 = FindAgentsProvidingService.AgentsNotFound;
-		int b3_b4 = SelectAgentToPerformService.AgentSelected;
-		int b3_b2 = SelectAgentToPerformService.AgentNotSelected;
-		int b4_b5 = AskSelectedAgentToPerformService.ServicePerformedSuccessfully;
-		int b4_b3 = AskSelectedAgentToPerformService.ServicePerformedUnSuccessfully;
-		int b5_b6 = TransitProductToNextState.ProductIsInTheLastState;
-		int b5_b1 = TransitProductToNextState.ProductIsNotInTheLastState;
+		int b1_b2 = DetermineRequiredServiceBehaviour.ServiceDetermined;
+		int b1_b7 = DetermineRequiredServiceBehaviour.ServiceNotDetermined;
+		int b2_b3 = FindAgentsProvidingServiceBehaviour.AgentsFound;
+		int b2_b8 = FindAgentsProvidingServiceBehaviour.AgentsNotFound;
+		int b3_b4 = SelectAgentToPerformServiceBehaviour.AgentSelected;
+		int b3_b2 = SelectAgentToPerformServiceBehaviour.AgentNotSelected;
+		int b4_b5 = AskSelectedAgentToPerformServiceBehaviour.ServicePerformedSuccessfully;
+		int b4_b3 = AskSelectedAgentToPerformServiceBehaviour.ServicePerformedUnSuccessfully;
+		int b5_b6 = TransitProductToNextStateBehaviour.ProductIsInTheLastState;
+		int b5_b1 = TransitProductToNextStateBehaviour.ProductIsNotInTheLastState;
 
 		registerFirstState(b1, b1.getBehaviourName());
 		registerState(b2, b2.getBehaviourName());

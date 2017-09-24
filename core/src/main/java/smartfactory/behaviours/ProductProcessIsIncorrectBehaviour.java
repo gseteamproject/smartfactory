@@ -7,9 +7,9 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 
-public class ProductProcessIsIncorrect extends OneShotBehaviour implements ProductBehaviour {
+public class ProductProcessIsIncorrectBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
-	public ProductProcessIsIncorrect(Behaviour behaviour) {
+	public ProductProcessIsIncorrectBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}

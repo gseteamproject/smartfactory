@@ -13,14 +13,14 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREInitiator;
 import smartfactory.dataStores.ProductDataStore;
 
-public class AskSelectedAgentToPerformService extends AchieveREInitiator implements ProductBehaviour {
+public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiator implements ProductBehaviour {
 
 	final static public int ServicePerformedSuccessfully = 0;
 	final static public int ServicePerformedUnSuccessfully = 1;
 
 	private boolean servicePerformedSuccessfully;
 
-	public AskSelectedAgentToPerformService(Behaviour behaviour) {
+	public AskSelectedAgentToPerformServiceBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent(), null);
 		setDataStore(behaviour.getDataStore());
 	}

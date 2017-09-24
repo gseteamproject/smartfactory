@@ -7,9 +7,9 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 
-public class TransitProductToNextState extends OneShotBehaviour implements ProductBehaviour {
+public class TransitProductToNextStateBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
-	public TransitProductToNextState(Behaviour behaviour) {
+	public TransitProductToNextStateBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}

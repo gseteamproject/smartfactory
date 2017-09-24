@@ -26,7 +26,7 @@ public class DetermineRequiredServiceTest {
 	ProductDataStore productDataStore_mock;
 	Behaviour behaviour_mock;
 
-	DetermineRequiredService determineRequiredService;
+	DetermineRequiredServiceBehaviour determineRequiredService;
 
 	@Before
 	public void setUp() {
@@ -44,7 +44,7 @@ public class DetermineRequiredServiceTest {
 			}
 		});
 
-		determineRequiredService = new DetermineRequiredService(behaviour_mock);
+		determineRequiredService = new DetermineRequiredServiceBehaviour(behaviour_mock);
 	}
 
 	@After
@@ -70,7 +70,7 @@ public class DetermineRequiredServiceTest {
 		});
 
 		determineRequiredService.action();
-		Assert.assertEquals(DetermineRequiredService.ServiceDetermined, determineRequiredService.onEnd());
+		Assert.assertEquals(DetermineRequiredServiceBehaviour.ServiceDetermined, determineRequiredService.onEnd());
 	}
 
 	@Test
@@ -91,6 +91,6 @@ public class DetermineRequiredServiceTest {
 		});
 
 		determineRequiredService.action();
-		Assert.assertEquals(DetermineRequiredService.ServiceNotDetermined, determineRequiredService.onEnd());
+		Assert.assertEquals(DetermineRequiredServiceBehaviour.ServiceNotDetermined, determineRequiredService.onEnd());
 	}
 }

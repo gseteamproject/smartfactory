@@ -23,7 +23,7 @@ public class AskSelectedAgentToPerformServiceTest {
 	ProductDataStore productDataStore_mock;
 	Behaviour behaviour_mock;
 
-	AskSelectedAgentToPerformService askSelectedAgentToPerformService;
+	AskSelectedAgentToPerformServiceBehaviour askSelectedAgentToPerformService;
 
 	@Before
 	public void setUp() {
@@ -41,7 +41,7 @@ public class AskSelectedAgentToPerformServiceTest {
 			}
 		});
 
-		askSelectedAgentToPerformService = new AskSelectedAgentToPerformService(behaviour_mock);
+		askSelectedAgentToPerformService = new AskSelectedAgentToPerformServiceBehaviour(behaviour_mock);
 	}
 
 	@After

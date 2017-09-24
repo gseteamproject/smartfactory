@@ -29,7 +29,7 @@ public class SelectAgentToPerformServiceTest {
 	ProductDataStore productDataStore_mock;
 	Behaviour behaviour_mock;
 
-	SelectAgentToPerformService selectAgentToPerformService;
+	SelectAgentToPerformServiceBehaviour selectAgentToPerformService;
 
 	@Before
 	public void setUp() {
@@ -47,7 +47,7 @@ public class SelectAgentToPerformServiceTest {
 			}
 		});
 
-		selectAgentToPerformService = new SelectAgentToPerformService(behaviour_mock);
+		selectAgentToPerformService = new SelectAgentToPerformServiceBehaviour(behaviour_mock);
 	}
 
 	@After
@@ -71,7 +71,7 @@ public class SelectAgentToPerformServiceTest {
 		});
 
 		selectAgentToPerformService.action();
-		Assert.assertEquals(SelectAgentToPerformService.AgentSelected, selectAgentToPerformService.onEnd());
+		Assert.assertEquals(SelectAgentToPerformServiceBehaviour.AgentSelected, selectAgentToPerformService.onEnd());
 	}
 
 	@Test
@@ -88,6 +88,6 @@ public class SelectAgentToPerformServiceTest {
 		});
 
 		selectAgentToPerformService.action();
-		Assert.assertEquals(SelectAgentToPerformService.AgentNotSelected, selectAgentToPerformService.onEnd());
+		Assert.assertEquals(SelectAgentToPerformServiceBehaviour.AgentNotSelected, selectAgentToPerformService.onEnd());
 	}
 }
