@@ -11,9 +11,11 @@ public class Product {
 		// TODO Auto-generated method stub
 	}
 
-	public boolean isInTheLastState() {
-		// TODO Auto-generated method stub
-		return true;
+	public static final int IsInTheLastState = 0;
+	public static final int IsNotInTheLastState = 1;
+
+	public int isInTheLastState() {
+		return IsInTheLastState;
 	}
 
 	public Order createOrder() {

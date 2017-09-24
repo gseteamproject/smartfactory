@@ -42,10 +42,10 @@ public class Block extends Product {
 	}
 
 	@Override
-	public boolean isInTheLastState() {
+	public int isInTheLastState() {
 		if (state != BlockState.initial) {
-			return true;
+			return IsInTheLastState;
 		}
-		return false;
+		return IsNotInTheLastState;
 	}
 }
