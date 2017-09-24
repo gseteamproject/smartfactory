@@ -31,9 +31,6 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 		this.jade = jade;
 	}
 
-	final public static int AgentsFound = 0;
-	final public static int AgentsNotFound = 1;
-
 	@Override
 	public void action() {
 		ServiceDescription serviceDescriptionTemplate = new ServiceDescription();
@@ -44,7 +41,7 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 
 		try {
 			agentsProvidingService = Arrays.asList(jade.search(myAgent, agentDescriptionTemplate));
-			getProductDataStore().setAgentsProvidingService(agentsProvidingService);
+			getProductDataStore().getOrder().agentsDescription = agentsProvidingService;
 			logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
 					serviceDescriptionTemplate.getName());
 		} catch (FIPAException e) {
@@ -54,7 +51,7 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 
 	@Override
 	public int onEnd() {
-		return agentsProvidingService.size() > 0 ? AgentsFound : AgentsNotFound;
+		return getProductDataStore().getOrder().isAgentsFound();
 	}
 
 	@Override

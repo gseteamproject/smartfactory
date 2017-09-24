@@ -24,7 +24,7 @@ public class SelectAgentToPerformServiceBehaviour extends OneShotBehaviour imple
 
 	@Override
 	public void action() {
-		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getAgentsProvidingService();
+		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getOrder().agentsDescription;
 		if (agentsProvidingService.size() > 0) {
 			agentProvidingService = agentsProvidingService.get(0);
 			logger.info("\"{}\" agent selected", agentProvidingService.getName());

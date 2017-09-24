@@ -1,8 +1,5 @@
 package smartfactory.dataStores;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
@@ -50,42 +47,6 @@ public class ProductDataStoreTest {
 		productDataStore.setProduct(product_mock);
 
 		Assert.assertEquals(product_mock, productDataStore.get("product"));
-	}
-
-	@Test
-	public void getRequiredServiceName() {
-		final String serviceName = "serviceName";
-
-		productDataStore.put("requiredServiceName", serviceName);
-
-		Assert.assertEquals(serviceName, productDataStore.getRequiredServiceName());
-	}
-
-	@Test
-	public void setRequiredServiceName() {
-		final String serviceName = "serviceName";
-
-		productDataStore.setRequiredServiceName(serviceName);
-
-		Assert.assertEquals(serviceName, productDataStore.get("requiredServiceName"));
-	}
-
-	@Test
-	public void setAgentsProvidingService() {
-		final List<DFAgentDescription> agentsProvidingService = new ArrayList<DFAgentDescription>();
-
-		productDataStore.setAgentsProvidingService(agentsProvidingService);
-
-		Assert.assertEquals(agentsProvidingService, productDataStore.get("agentsDescription"));
-	}
-
-	@Test
-	public void getAgentsProvidingService() {
-		final List<DFAgentDescription> agentsProvidingService = new ArrayList<DFAgentDescription>();
-
-		productDataStore.put("agentsDescription", agentsProvidingService);
-
-		Assert.assertEquals(agentsProvidingService, productDataStore.getAgentsProvidingService());
 	}
 
 	@Test

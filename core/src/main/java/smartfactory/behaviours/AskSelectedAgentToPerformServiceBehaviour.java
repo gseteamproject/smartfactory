@@ -64,7 +64,7 @@ public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiato
 
 	public void removeAgentProvidingService() {
 		DFAgentDescription agentProvidingService = getProductDataStore().getAgentProvidingService();
-		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getAgentsProvidingService();
+		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getOrder().agentsDescription;
 		agentsProvidingService.remove(agentProvidingService);
 	}
 

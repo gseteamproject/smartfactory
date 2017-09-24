@@ -29,8 +29,8 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 
 		int b1_b2 = Order.ServiceDetermined;
 		int b1_b7 = Order.ServiceNotDetermined;
-		int b2_b3 = FindAgentsProvidingServiceBehaviour.AgentsFound;
-		int b2_b8 = FindAgentsProvidingServiceBehaviour.AgentsNotFound;
+		int b2_b3 = Order.AgentsFound;
+		int b2_b8 = Order.AgentsNotFound;
 		int b3_b4 = SelectAgentToPerformServiceBehaviour.AgentSelected;
 		int b3_b2 = SelectAgentToPerformServiceBehaviour.AgentNotSelected;
 		int b4_b5 = AskSelectedAgentToPerformServiceBehaviour.ServicePerformedSuccessfully;

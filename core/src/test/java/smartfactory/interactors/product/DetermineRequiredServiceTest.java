@@ -37,7 +37,7 @@ public class DetermineRequiredServiceTest {
 	}
 
 	@Test
-	public void action() {
+	public void execute() {
 		final Product product_mock = context.mock(Product.class);
 		final Order order_mock = context.mock(Order.class);
 
@@ -57,7 +57,7 @@ public class DetermineRequiredServiceTest {
 	}
 
 	@Test
-	public void onEnd() {
+	public void next() {
 		final Order order_mock = context.mock(Order.class);
 		final int isServiceDetermined = Order.ServiceDetermined;
 

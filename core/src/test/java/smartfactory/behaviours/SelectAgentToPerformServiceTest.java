@@ -15,6 +15,7 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.dataStores.ProductDataStore;
+import smartfactory.models.Order;
 
 public class SelectAgentToPerformServiceTest {
 
@@ -60,11 +61,13 @@ public class SelectAgentToPerformServiceTest {
 		final DFAgentDescription agentProvidingService = new DFAgentDescription();
 		final List<DFAgentDescription> agentsProvidingService = Arrays
 				.asList(new DFAgentDescription[] { agentProvidingService });
+		final Order order_mock = context.mock(Order.class);
+		order_mock.agentsDescription = agentsProvidingService;
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getAgentsProvidingService();
-				will(returnValue(agentsProvidingService));
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
 				oneOf(productDataStore_mock).setAgentProvidingService(agentProvidingService);
 			}
@@ -77,11 +80,13 @@ public class SelectAgentToPerformServiceTest {
 	@Test
 	public void action_agentNotSelected() {
 		final List<DFAgentDescription> agentsProvidingService = Arrays.asList(new DFAgentDescription[] {});
+		final Order order_mock = context.mock(Order.class);
+		order_mock.agentsDescription = agentsProvidingService;
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getAgentsProvidingService();
-				will(returnValue(agentsProvidingService));
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
 				oneOf(productDataStore_mock).setAgentProvidingService(null);
 			}

@@ -1,7 +1,5 @@
 package smartfactory.behaviours;
 
-import java.util.List;
-
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
@@ -90,26 +88,30 @@ public class FindAgentsProvidingServiceTest {
 				}));
 				will(returnValue(agentDescriptions));
 
-				oneOf(productDataStore_mock)
-						.setAgentsProvidingService(with(new TypeSafeMatcher<List<DFAgentDescription>>() {
-							@Override
-							public void describeTo(Description description) {
-								description.appendText("agentDescription doesn't match");
-							}
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
-							@Override
-							protected boolean matchesSafely(List<DFAgentDescription> item) {
-								if (item.get(0) != agentDescriptions[0]) {
-									return false;
-								}
-								return true;
-							}
-						}));
+				/*
+				 * // TODO add matcher for Order .setAgentsProvidingService(with(new
+				 * TypeSafeMatcher<List<DFAgentDescription>>() {
+				 * 
+				 * @Override public void describeTo(Description description) {
+				 * description.appendText("agentDescription doesn't match"); }
+				 * 
+				 * @Override protected boolean matchesSafely(List<DFAgentDescription> item) { if
+				 * (item.get(0) != agentDescriptions[0]) { return false; } return true; } }));
+				 */
+
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
+
+				oneOf(order_mock).isAgentsFound();
+				will(returnValue(Order.AgentsFound));
 			}
 		});
 
 		findAgentsProvidingService.action();
-		Assert.assertEquals(FindAgentsProvidingServiceBehaviour.AgentsFound, findAgentsProvidingService.onEnd());
+		Assert.assertEquals(Order.AgentsFound, findAgentsProvidingService.onEnd());
 	}
 
 	@Test
@@ -142,25 +144,28 @@ public class FindAgentsProvidingServiceTest {
 				}));
 				will(returnValue(agentDescriptions));
 
-				oneOf(productDataStore_mock)
-						.setAgentsProvidingService(with(new TypeSafeMatcher<List<DFAgentDescription>>() {
-							@Override
-							public void describeTo(Description description) {
-								description.appendText("agentDescription doesn't match");
-							}
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
+				/*
+				 * TODO : add matcher for Order .setAgentsProvidingService(with(new
+				 * TypeSafeMatcher<List<DFAgentDescription>>() {
+				 * 
+				 * @Override public void describeTo(Description description) {
+				 * description.appendText("agentDescription doesn't match"); }
+				 * 
+				 * @Override protected boolean matchesSafely(List<DFAgentDescription> item) { if
+				 * (item.size() != 0) { return false; } return true; } }));
+				 */
 
-							@Override
-							protected boolean matchesSafely(List<DFAgentDescription> item) {
-								if (item.size() != 0) {
-									return false;
-								}
-								return true;
-							}
-						}));
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
+
+				oneOf(order_mock).isAgentsFound();
+				will(returnValue(Order.AgentsNotFound));
 			}
 		});
 
 		findAgentsProvidingService.action();
-		Assert.assertEquals(FindAgentsProvidingServiceBehaviour.AgentsNotFound, findAgentsProvidingService.onEnd());
+		Assert.assertEquals(Order.AgentsNotFound, findAgentsProvidingService.onEnd());
 	}
 }

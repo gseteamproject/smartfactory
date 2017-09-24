@@ -26,5 +26,12 @@ public class Order {
 
 	public List<DFAgentDescription> agentsDescription;
 
-	DFAgentDescription agentDescription;
+	final public static int AgentsFound = 0;
+	final public static int AgentsNotFound = 1;
+
+	public int isAgentsFound() {
+		return agentsDescription.size() > 0 ? AgentsFound : AgentsNotFound;
+	}
+
+	public DFAgentDescription agentDescription;
 }
