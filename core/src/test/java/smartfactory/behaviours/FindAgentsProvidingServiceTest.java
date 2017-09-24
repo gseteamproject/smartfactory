@@ -18,6 +18,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
+import smartfactory.models.Order;
 import smartfactory.platform.AgentPlatform;
 
 public class FindAgentsProvidingServiceTest {
@@ -62,12 +63,14 @@ public class FindAgentsProvidingServiceTest {
 	@Test
 	public void action_agentsFound() throws FIPAException {
 		final String requiredServiceName = "serviceName";
+		final Order order_mock = context.mock(Order.class);
+		order_mock.serviceName = requiredServiceName;
 		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] { new DFAgentDescription() };
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getRequiredServiceName();
-				will(returnValue(requiredServiceName));
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
 				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
 
@@ -112,12 +115,14 @@ public class FindAgentsProvidingServiceTest {
 	@Test
 	public void action_agentsNotFound() throws FIPAException {
 		final String requiredServiceName = "serviceName";
+		final Order order_mock = context.mock(Order.class);
+		order_mock.serviceName = requiredServiceName;
 		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] {};
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getRequiredServiceName();
-				will(returnValue(requiredServiceName));
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
 				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
 

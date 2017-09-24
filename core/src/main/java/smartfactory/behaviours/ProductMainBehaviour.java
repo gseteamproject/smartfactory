@@ -4,6 +4,8 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
+import smartfactory.interactors.product.DetermineRequiredService;
+import smartfactory.models.Order;
 import smartfactory.models.Product;
 
 public class ProductMainBehaviour extends FSMBehaviour implements ProductBehaviour {
@@ -13,9 +15,10 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 
 		ProductDataStore productDataStore = new ProductDataStore();
 		productDataStore.setProduct(product);
+		productDataStore.setOrder(new Order());
 		setDataStore(productDataStore);
 
-		Behaviour b1 = new DetermineRequiredServiceBehaviour(this);
+		Behaviour b1 = new OneShotInteractorBehaviour(new DetermineRequiredService(productDataStore));
 		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(this);
 		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(this);
 		Behaviour b4 = new AskSelectedAgentToPerformServiceBehaviour(this);
@@ -24,8 +27,8 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 		Behaviour b7 = new ProductProcessIsIncorrectBehaviour(this);
 		Behaviour b8 = new NoAgentsProvidingServiceBehaviour(this);
 
-		int b1_b2 = DetermineRequiredServiceBehaviour.ServiceDetermined;
-		int b1_b7 = DetermineRequiredServiceBehaviour.ServiceNotDetermined;
+		int b1_b2 = Order.ServiceDetermined;
+		int b1_b7 = Order.ServiceNotDetermined;
 		int b2_b3 = FindAgentsProvidingServiceBehaviour.AgentsFound;
 		int b2_b8 = FindAgentsProvidingServiceBehaviour.AgentsNotFound;
 		int b3_b4 = SelectAgentToPerformServiceBehaviour.AgentSelected;

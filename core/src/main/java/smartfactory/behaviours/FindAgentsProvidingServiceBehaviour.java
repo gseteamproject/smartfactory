@@ -37,7 +37,7 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 	@Override
 	public void action() {
 		ServiceDescription serviceDescriptionTemplate = new ServiceDescription();
-		serviceDescriptionTemplate.setName(getProductDataStore().getRequiredServiceName());
+		serviceDescriptionTemplate.setName(getProductDataStore().getOrder().serviceName);
 
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);

@@ -15,4 +15,10 @@ public class Product {
 		// TODO Auto-generated method stub
 		return true;
 	}
+
+	public Order createOrder() {
+		Order order = new Order();
+		order.serviceName = getRequiredServiceName();
+		return order;
+	}
 }

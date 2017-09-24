@@ -4,6 +4,7 @@ import java.util.List;
 
 import jade.core.behaviours.DataStore;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import smartfactory.models.Order;
 import smartfactory.models.Product;
 
 public class ProductDataStore extends DataStore {
@@ -31,10 +32,12 @@ public class ProductDataStore extends DataStore {
 		return (List<DFAgentDescription>) get("agentsDescription");
 	}
 
+	@Deprecated
 	public void setRequiredServiceName(String serviceName) {
 		put("requiredServiceName", serviceName);
 	}
 
+	@Deprecated
 	public String getRequiredServiceName() {
 		return (String) get("requiredServiceName");
 	}
@@ -45,5 +48,13 @@ public class ProductDataStore extends DataStore {
 
 	public DFAgentDescription getAgentProvidingService() {
 		return (DFAgentDescription) get("agentDescription");
+	}
+
+	public void setOrder(Order order) {
+		put("order", order);
+	}
+
+	public Order getOrder() {
+		return (Order) get("order");
 	}
 }
