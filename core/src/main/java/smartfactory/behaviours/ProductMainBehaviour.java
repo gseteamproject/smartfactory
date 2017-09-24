@@ -17,7 +17,7 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 		ProductDataStore productDataStore = new ProductDataStore();
 		productDataStore.setProduct(product);
 		productDataStore.setOrder(new Order());
-		productDataStore.setAgentPlatform(new JADEPlatform());
+		productDataStore.setAgentPlatform(new JADEPlatform(agent));
 		setDataStore(productDataStore);
 
 		Behaviour b1 = new OneShotInteractorBehaviour(new DetermineRequiredService(productDataStore));

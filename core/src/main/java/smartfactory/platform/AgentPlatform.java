@@ -1,11 +1,12 @@
 package smartfactory.platform;
 
-import jade.core.Agent;
+import java.util.List;
+
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public interface AgentPlatform {
 
 	public void launch(String args[]);
 
-	public DFAgentDescription[] search(Agent a, DFAgentDescription dfd);
+	public List<DFAgentDescription> search(DFAgentDescription dfd);
 }

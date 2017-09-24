@@ -1,6 +1,5 @@
 package smartfactory.behaviours;
 
-import java.util.Arrays;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -13,8 +12,6 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
 
 public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
-
-	private List<DFAgentDescription> agentsProvidingService;
 
 	public FindAgentsProvidingServiceBehaviour(Behaviour behaviour) {
 		super(behaviour.getAgent());
@@ -29,8 +26,8 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
-		agentsProvidingService = Arrays
-				.asList(getProductDataStore().getAgentPlatform().search(myAgent, agentDescriptionTemplate));
+		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getAgentPlatform()
+				.search(agentDescriptionTemplate);
 		getProductDataStore().getOrder().agentsDescription = agentsProvidingService;
 		logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
 				serviceDescriptionTemplate.getName());

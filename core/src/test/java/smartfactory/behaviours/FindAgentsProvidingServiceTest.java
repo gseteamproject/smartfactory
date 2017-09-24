@@ -1,5 +1,8 @@
 package smartfactory.behaviours;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 import org.jmock.Expectations;
@@ -61,7 +64,8 @@ public class FindAgentsProvidingServiceTest {
 		final String requiredServiceName = "serviceName";
 		final Order order_mock = context.mock(Order.class);
 		order_mock.serviceName = requiredServiceName;
-		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] { new DFAgentDescription() };
+		final List<DFAgentDescription> agentDescriptions = new ArrayList<DFAgentDescription>();
+		agentDescriptions.add(new DFAgentDescription());
 		final AgentPlatform jadePlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
@@ -72,7 +76,7 @@ public class FindAgentsProvidingServiceTest {
 				oneOf(productDataStore_mock).getAgentPlatform();
 				will(returnValue(jadePlatform_mock));
 
-				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
+				oneOf(jadePlatform_mock).search(with(new TypeSafeMatcher<DFAgentDescription>() {
 
 					@Override
 					public void describeTo(Description description) {
@@ -121,7 +125,7 @@ public class FindAgentsProvidingServiceTest {
 		final String requiredServiceName = "serviceName";
 		final Order order_mock = context.mock(Order.class);
 		order_mock.serviceName = requiredServiceName;
-		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] {};
+		final List<DFAgentDescription> agentDescriptions = new ArrayList<DFAgentDescription>();
 		final AgentPlatform jadePlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
@@ -132,7 +136,7 @@ public class FindAgentsProvidingServiceTest {
 				oneOf(productDataStore_mock).getAgentPlatform();
 				will(returnValue(jadePlatform_mock));
 
-				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
+				oneOf(jadePlatform_mock).search(with(new TypeSafeMatcher<DFAgentDescription>() {
 
 					@Override
 					public void describeTo(Description description) {
