@@ -5,6 +5,7 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.product.DetermineRequiredService;
+import smartfactory.interactors.product.FindAgentsProvidingService;
 import smartfactory.models.Order;
 import smartfactory.models.Product;
 import smartfactory.platform.JADEPlatform;
@@ -21,7 +22,7 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 		setDataStore(productDataStore);
 
 		Behaviour b1 = new OneShotInteractorBehaviour(new DetermineRequiredService(productDataStore));
-		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(this);
+		Behaviour b2 = new OneShotInteractorBehaviour(new FindAgentsProvidingService(productDataStore));
 		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(this);
 		Behaviour b4 = new AskSelectedAgentToPerformServiceBehaviour(this);
 		Behaviour b5 = new TransitProductToNextStateBehaviour(this);
