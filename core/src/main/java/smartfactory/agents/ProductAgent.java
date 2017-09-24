@@ -1,6 +1,6 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.ProductMainBehaviour;
+import smartfactory.behaviours.ProductBehaviour;
 import smartfactory.models.Product;
 
 public class ProductAgent extends SmartFactoryAgent {
@@ -18,7 +18,7 @@ public class ProductAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new ProductMainBehaviour(this, product));
+		addBehaviour(new ProductBehaviour(this, product));
 	}
 
 	private static final long serialVersionUID = 8653196782936628098L;

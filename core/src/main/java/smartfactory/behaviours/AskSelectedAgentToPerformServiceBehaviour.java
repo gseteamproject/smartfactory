@@ -13,7 +13,7 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREInitiator;
 import smartfactory.dataStores.ProductDataStore;
 
-public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiator implements ProductBehaviour {
+public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiator {
 
 	final static public int ServicePerformedSuccessfully = 0;
 	final static public int ServicePerformedUnSuccessfully = 1;
@@ -73,7 +73,6 @@ public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiato
 		return servicePerformedSuccessfully == true ? ServicePerformedSuccessfully : ServicePerformedUnSuccessfully;
 	}
 
-	@Override
 	public ProductDataStore getProductDataStore() {
 		return (ProductDataStore) super.getDataStore();
 	}

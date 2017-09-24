@@ -10,7 +10,7 @@ import org.junit.Test;
 import jade.core.Agent;
 import smartfactory.models.Product;
 
-public class ProductMainBehaviourTest {
+public class ProductBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -21,14 +21,14 @@ public class ProductMainBehaviourTest {
 	Agent agent_mock;
 	Product product_mock;
 
-	ProductMainBehaviour productMainBehaviour;
+	ProductBehaviour productMainBehaviour;
 
 	@Before
 	public void setUp() {
 		agent_mock = context.mock(Agent.class);
 		product_mock = context.mock(Product.class);
 
-		productMainBehaviour = new ProductMainBehaviour(agent_mock, product_mock);
+		productMainBehaviour = new ProductBehaviour(agent_mock, product_mock);
 	}
 
 	@After
