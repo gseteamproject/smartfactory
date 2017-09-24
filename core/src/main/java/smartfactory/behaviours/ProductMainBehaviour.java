@@ -7,6 +7,7 @@ import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.product.DetermineRequiredService;
 import smartfactory.models.Order;
 import smartfactory.models.Product;
+import smartfactory.platform.JADEPlatform;
 
 public class ProductMainBehaviour extends FSMBehaviour implements ProductBehaviour {
 
@@ -16,6 +17,7 @@ public class ProductMainBehaviour extends FSMBehaviour implements ProductBehavio
 		ProductDataStore productDataStore = new ProductDataStore();
 		productDataStore.setProduct(product);
 		productDataStore.setOrder(new Order());
+		productDataStore.setAgentPlatform(new JADEPlatform());
 		setDataStore(productDataStore);
 
 		Behaviour b1 = new OneShotInteractorBehaviour(new DetermineRequiredService(productDataStore));

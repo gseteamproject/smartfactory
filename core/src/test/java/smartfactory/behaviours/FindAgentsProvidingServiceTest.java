@@ -29,7 +29,6 @@ public class FindAgentsProvidingServiceTest {
 	Agent agent_mock;
 	ProductDataStore productDataStore_mock;
 	Behaviour behaviour_mock;
-	AgentPlatform jadePlatform_mock;
 
 	FindAgentsProvidingServiceBehaviour findAgentsProvidingService;
 
@@ -38,7 +37,6 @@ public class FindAgentsProvidingServiceTest {
 		agent_mock = context.mock(Agent.class);
 		productDataStore_mock = context.mock(ProductDataStore.class);
 		behaviour_mock = context.mock(Behaviour.class);
-		jadePlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
 			{
@@ -50,7 +48,7 @@ public class FindAgentsProvidingServiceTest {
 			}
 		});
 
-		findAgentsProvidingService = new FindAgentsProvidingServiceBehaviour(behaviour_mock, jadePlatform_mock);
+		findAgentsProvidingService = new FindAgentsProvidingServiceBehaviour(behaviour_mock);
 	}
 
 	@After
@@ -64,11 +62,15 @@ public class FindAgentsProvidingServiceTest {
 		final Order order_mock = context.mock(Order.class);
 		order_mock.serviceName = requiredServiceName;
 		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] { new DFAgentDescription() };
+		final AgentPlatform jadePlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(productDataStore_mock).getOrder();
 				will(returnValue(order_mock));
+
+				oneOf(productDataStore_mock).getAgentPlatform();
+				will(returnValue(jadePlatform_mock));
 
 				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
 
@@ -120,11 +122,15 @@ public class FindAgentsProvidingServiceTest {
 		final Order order_mock = context.mock(Order.class);
 		order_mock.serviceName = requiredServiceName;
 		final DFAgentDescription[] agentDescriptions = new DFAgentDescription[] {};
+		final AgentPlatform jadePlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(productDataStore_mock).getOrder();
 				will(returnValue(order_mock));
+
+				oneOf(productDataStore_mock).getAgentPlatform();
+				will(returnValue(jadePlatform_mock));
 
 				oneOf(jadePlatform_mock).search(with(agent_mock), with(new TypeSafeMatcher<DFAgentDescription>() {
 

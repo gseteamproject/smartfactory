@@ -4,6 +4,7 @@ import jade.core.behaviours.DataStore;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.models.Order;
 import smartfactory.models.Product;
+import smartfactory.platform.AgentPlatform;
 
 public class ProductDataStore extends DataStore {
 
@@ -35,5 +36,13 @@ public class ProductDataStore extends DataStore {
 
 	public Order getOrder() {
 		return (Order) get("order");
+	}
+
+	public AgentPlatform getAgentPlatform() {
+		return (AgentPlatform) get("agentPlatform");
+	}
+
+	public void setAgentPlatform(AgentPlatform agentPlatform) {
+		put("agentPlatform", agentPlatform);
 	}
 }

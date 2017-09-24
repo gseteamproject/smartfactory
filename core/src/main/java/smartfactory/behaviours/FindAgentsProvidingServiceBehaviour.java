@@ -12,23 +12,14 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.platform.AgentPlatform;
-import smartfactory.platform.JADEPlatform;
 
 public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
-
-	private AgentPlatform jade;
 
 	private List<DFAgentDescription> agentsProvidingService;
 
 	public FindAgentsProvidingServiceBehaviour(Behaviour behaviour) {
-		this(behaviour, new JADEPlatform());
-	}
-
-	public FindAgentsProvidingServiceBehaviour(Behaviour behaviour, AgentPlatform jade) {
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
-		this.jade = jade;
 	}
 
 	@Override
@@ -40,7 +31,7 @@ public class FindAgentsProvidingServiceBehaviour extends OneShotBehaviour implem
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
 		try {
-			agentsProvidingService = Arrays.asList(jade.search(myAgent, agentDescriptionTemplate));
+			agentsProvidingService = Arrays.asList(getProductDataStore().getAgentPlatform().search(myAgent, agentDescriptionTemplate));
 			getProductDataStore().getOrder().agentsDescription = agentsProvidingService;
 			logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
 					serviceDescriptionTemplate.getName());
