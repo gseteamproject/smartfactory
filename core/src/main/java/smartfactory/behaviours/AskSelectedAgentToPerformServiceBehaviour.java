@@ -29,7 +29,7 @@ public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiato
 	@Override
 	protected Vector prepareRequests(ACLMessage request) {
 		request = new ACLMessage(ACLMessage.REQUEST);
-		request.addReceiver(getProductDataStore().getAgentProvidingService().getName());
+		request.addReceiver(getProductDataStore().getOrder().agentDescription.getName());
 		request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 
 		Vector l = new Vector(1);
@@ -39,31 +39,31 @@ public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiato
 
 	@Override
 	protected void handleAgree(ACLMessage agree) {
-		logger.info("\"{}\" agent agreed", getProductDataStore().getAgentProvidingService().getName());
+		logger.info("\"{}\" agent agreed", getProductDataStore().getOrder().agentDescription.getName());
 	}
 
 	@Override
 	protected void handleRefuse(ACLMessage refuse) {
-		logger.info("\"{}\" agent refused", getProductDataStore().getAgentProvidingService().getName());
+		logger.info("\"{}\" agent refused", getProductDataStore().getOrder().agentDescription.getName());
 		servicePerformedSuccessfully = false;
 		removeAgentProvidingService();
 	}
 
 	@Override
 	protected void handleInform(ACLMessage inform) {
-		logger.info("\"{}\" agent successfully performed", getProductDataStore().getAgentProvidingService().getName());
+		logger.info("\"{}\" agent successfully performed", getProductDataStore().getOrder().agentDescription.getName());
 		servicePerformedSuccessfully = true;
 	}
 
 	@Override
 	protected void handleFailure(ACLMessage failure) {
-		logger.info("\"{}\" agent failed to perform", getProductDataStore().getAgentProvidingService().getName());
+		logger.info("\"{}\" agent failed to perform", getProductDataStore().getOrder().agentDescription.getName());
 		servicePerformedSuccessfully = false;
 		removeAgentProvidingService();
 	}
 
 	public void removeAgentProvidingService() {
-		DFAgentDescription agentProvidingService = getProductDataStore().getAgentProvidingService();
+		DFAgentDescription agentProvidingService = getProductDataStore().getOrder().agentDescription;
 		List<DFAgentDescription> agentsProvidingService = getProductDataStore().getOrder().agentsDescription;
 		agentsProvidingService.remove(agentProvidingService);
 	}

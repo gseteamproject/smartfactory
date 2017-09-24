@@ -9,6 +9,7 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.dataStores.ProductDataStore;
+import smartfactory.models.Order;
 
 public class SelectAgentToPerformServiceBehaviour extends OneShotBehaviour implements ProductBehaviour {
 
@@ -18,9 +19,6 @@ public class SelectAgentToPerformServiceBehaviour extends OneShotBehaviour imple
 		super(behaviour.getAgent());
 		setDataStore(behaviour.getDataStore());
 	}
-
-	final static public int AgentSelected = 0;
-	final static public int AgentNotSelected = 1;
 
 	@Override
 	public void action() {
@@ -32,12 +30,12 @@ public class SelectAgentToPerformServiceBehaviour extends OneShotBehaviour imple
 			agentProvidingService = null;
 			logger.info("agent not selected");
 		}
-		getProductDataStore().setAgentProvidingService(agentProvidingService);
+		getProductDataStore().getOrder().agentDescription = agentProvidingService;
 	}
 
 	@Override
 	public int onEnd() {
-		return agentProvidingService == null ? AgentNotSelected : AgentSelected;
+		return agentProvidingService == null ? Order.AgentNotSelected : Order.AgentSelected;
 	}
 
 	@Override

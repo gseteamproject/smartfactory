@@ -8,6 +8,13 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public class Order {
 
+	public Order() {
+		serviceName = null;
+		agentDescription = null;
+	}
+
+	public String serviceName;
+
 	final static public int ServiceDetermined = 0;
 	final static public int ServiceNotDetermined = 1;
 
@@ -17,12 +24,6 @@ public class Order {
 		}
 		return ServiceDetermined;
 	}
-
-	public Order() {
-		serviceName = null;
-	}
-
-	public String serviceName;
 
 	public List<DFAgentDescription> agentsDescription;
 
@@ -34,4 +35,11 @@ public class Order {
 	}
 
 	public DFAgentDescription agentDescription;
+
+	final static public int AgentSelected = 0;
+	final static public int AgentNotSelected = 1;
+
+	public int isAgentSelected() {
+		return agentDescription == null ? AgentNotSelected : AgentSelected;
+	}
 }

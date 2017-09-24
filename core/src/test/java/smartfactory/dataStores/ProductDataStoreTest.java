@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.models.Product;
 
@@ -47,14 +46,5 @@ public class ProductDataStoreTest {
 		productDataStore.setProduct(product_mock);
 
 		Assert.assertEquals(product_mock, productDataStore.get("product"));
-	}
-
-	@Test
-	public void setAgentProvidingService() {
-		final DFAgentDescription agentDescription = new DFAgentDescription();
-
-		productDataStore.setAgentProvidingService(agentDescription);
-
-		Assert.assertEquals(agentDescription, productDataStore.get("agentDescription"));
 	}
 }

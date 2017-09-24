@@ -68,13 +68,15 @@ public class SelectAgentToPerformServiceTest {
 			{
 				oneOf(productDataStore_mock).getOrder();
 				will(returnValue(order_mock));
+				// TODO : add matcher for agentDescription
 
-				oneOf(productDataStore_mock).setAgentProvidingService(agentProvidingService);
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 			}
 		});
 
 		selectAgentToPerformService.action();
-		Assert.assertEquals(SelectAgentToPerformServiceBehaviour.AgentSelected, selectAgentToPerformService.onEnd());
+		Assert.assertEquals(Order.AgentSelected, selectAgentToPerformService.onEnd());
 	}
 
 	@Test
@@ -88,11 +90,14 @@ public class SelectAgentToPerformServiceTest {
 				oneOf(productDataStore_mock).getOrder();
 				will(returnValue(order_mock));
 
-				oneOf(productDataStore_mock).setAgentProvidingService(null);
+				// TODO : add matcher for agentDescription
+
+				oneOf(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 			}
 		});
 
 		selectAgentToPerformService.action();
-		Assert.assertEquals(SelectAgentToPerformServiceBehaviour.AgentNotSelected, selectAgentToPerformService.onEnd());
+		Assert.assertEquals(Order.AgentNotSelected, selectAgentToPerformService.onEnd());
 	}
 }
