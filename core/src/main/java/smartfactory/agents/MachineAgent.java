@@ -1,5 +1,8 @@
 package smartfactory.agents;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
@@ -17,6 +20,7 @@ public class MachineAgent extends SmartFactoryAgent {
 			agentServices[i] = new ServiceDescription();
 			agentServices[i].setName(agentServiceNames[i]);
 			agentServices[i].setType("");
+			logger.info("providing \"{}\"", agentServiceNames[i]);
 		}
 
 		DFAgentDescription agentServicesDescription = new DFAgentDescription();
@@ -51,4 +55,5 @@ public class MachineAgent extends SmartFactoryAgent {
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
