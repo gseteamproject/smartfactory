@@ -13,6 +13,8 @@ public class Block extends Product {
 		switch (state) {
 		case initial:
 			return "store";
+		case stored:
+			return "recognition";
 		default:
 			return super.getRequiredServiceName();
 		}
@@ -43,9 +45,12 @@ public class Block extends Product {
 
 	@Override
 	public int isInTheLastState() {
-		if (state != BlockState.initial) {
-			return IsInTheLastState;
+		if (state == BlockState.initial) {
+			return IsNotInTheLastState;
 		}
-		return IsNotInTheLastState;
+		if (state == BlockState.stored) {
+			return IsNotInTheLastState;
+		}
+		return IsInTheLastState;
 	}
 }

@@ -45,18 +45,30 @@ public class BlockTest {
 	@Test
 	public void getRequiredServiceName_stored() {
 		block.state = BlockState.stored;
+		Assert.assertEquals("recognition", block.getRequiredServiceName());
+	}
+
+	@Test
+	public void getRequiredServiceName_dirty() {
+		block.state = BlockState.dirty;
 		Assert.assertEquals(null, block.getRequiredServiceName());
 	}
 
 	@Test
-	public void isInTheLastState_no() {
+	public void isInTheLastState_initial() {
 		block.state = BlockState.initial;
 		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
 	}
 
 	@Test
-	public void isInTheLastState_yes() {
+	public void isInTheLastState_stored() {
 		block.state = BlockState.stored;
+		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+	}
+
+	@Test
+	public void isInTheLastState_dirty() {
+		block.state = BlockState.dirty;
 		Assert.assertEquals(Product.IsInTheLastState, block.isInTheLastState());
 	}
 }
