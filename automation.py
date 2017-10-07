@@ -7,6 +7,7 @@ import time
 
 deploy_dir_base = "target"
 resources_dir_base = "resources"
+version = "-0.0.1-SNAPSHOT"
 
 
 class Artifact:
@@ -14,17 +15,21 @@ class Artifact:
         self.deploy_dir = deploy_dir_base + "\\" + instance_name
         self.sources_dir = artifact_name + "\\" + deploy_dir_base
         self.resources_dir = resources_dir_base + "\\" + instance_name
-        self.jar_name = artifact_name + "-0.0.1-SNAPSHOT.jar"
+        self.jar_name = artifact_name + version + ".jar"
 
     def create_deploy_dir(self):
         os.makedirs(self.deploy_dir, exist_ok=True)
+        os.makedirs(self.deploy_dir + "\\lib\\", exist_ok=True)
 
     def copy_jar(self):
         self.create_deploy_dir()
+        core_jar_location = "\\lib\\" + "core" + version + ".jar"
         shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
+        shutil.copy2(self.sources_dir + core_jar_location, self.deploy_dir + core_jar_location)
 
     def copy_lib(self):
         self.create_deploy_dir()
+        shutil.rmtree(self.deploy_dir+"\\lib")
         shutil.copytree(self.sources_dir + "\\lib", self.deploy_dir + "\\lib")
 
     def copy_configuration(self):
