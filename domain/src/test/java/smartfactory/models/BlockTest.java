@@ -4,6 +4,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import smartfactory.services.Services;
+
 public class BlockTest {
 
 	Block block;
@@ -39,13 +41,13 @@ public class BlockTest {
 	@Test
 	public void getRequiredServiceName_initial() {
 		block.state = BlockState.initial;
-		Assert.assertEquals("store", block.getRequiredServiceName());
+		Assert.assertEquals(Services.store, block.getRequiredServiceName());
 	}
 
 	@Test
 	public void getRequiredServiceName_stored() {
 		block.state = BlockState.stored;
-		Assert.assertEquals("recognition", block.getRequiredServiceName());
+		Assert.assertEquals(Services.recognition, block.getRequiredServiceName());
 	}
 
 	@Test

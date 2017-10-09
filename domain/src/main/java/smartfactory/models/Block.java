@@ -1,5 +1,7 @@
 package smartfactory.models;
 
+import smartfactory.services.Services;
+
 public class Block extends Product {
 
 	public BlockState state;
@@ -12,9 +14,9 @@ public class Block extends Product {
 	public String getRequiredServiceName() {
 		switch (state) {
 		case initial:
-			return "store";
+			return Services.store;
 		case stored:
-			return "recognition";
+			return Services.recognition;
 		default:
 			return super.getRequiredServiceName();
 		}
