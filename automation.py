@@ -23,9 +23,11 @@ class Artifact:
 
     def copy_jar(self):
         self.create_deploy_dir()
-        core_jar_location = "\\lib\\" + "core" + version + ".jar"
         shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
+        core_jar_location = "\\lib\\" + "core" + version + ".jar"
         shutil.copy2(self.sources_dir + core_jar_location, self.deploy_dir + core_jar_location)
+        domain_jar_location = "\\lib\\" + "domain" + version + ".jar"
+        shutil.copy2(self.sources_dir + domain_jar_location, self.deploy_dir + domain_jar_location)
 
     def copy_lib(self):
         self.create_deploy_dir()
