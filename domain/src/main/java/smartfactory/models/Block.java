@@ -19,6 +19,8 @@ public class Block extends Product {
 			return Services.recognition;
 		case dirty:
 			return Services.cleaning;
+		case clean:
+			return Services.painting;
 		default:
 			return super.getRequiredServiceName();
 		}
@@ -56,6 +58,9 @@ public class Block extends Product {
 			return IsNotInTheLastState;
 		}
 		if (state == BlockState.dirty) {
+			return IsNotInTheLastState;
+		}
+		if (state == BlockState.clean) {
 			return IsNotInTheLastState;
 		}
 		return IsInTheLastState;

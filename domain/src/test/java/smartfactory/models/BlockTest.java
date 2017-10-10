@@ -59,6 +59,12 @@ public class BlockTest {
 	@Test
 	public void getRequiredServiceName_clean() {
 		block.state = BlockState.clean;
+		Assert.assertEquals(Services.painting, block.getRequiredServiceName());
+	}
+
+	@Test
+	public void getRequiredServiceName_painted() {
+		block.state = BlockState.painted;
 		Assert.assertEquals(null, block.getRequiredServiceName());
 	}
 
@@ -83,6 +89,12 @@ public class BlockTest {
 	@Test
 	public void isInTheLastState_clean() {
 		block.state = BlockState.clean;
+		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+	}
+
+	@Test
+	public void isInTheLastState_painted() {
+		block.state = BlockState.painted;
 		Assert.assertEquals(Product.IsInTheLastState, block.isInTheLastState());
 	}
 }
