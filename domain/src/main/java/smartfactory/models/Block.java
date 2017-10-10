@@ -21,6 +21,8 @@ public class Block extends Product {
 			return Services.cleaning;
 		case clean:
 			return Services.painting;
+		case painted:
+			return Services.packing;
 		default:
 			return super.getRequiredServiceName();
 		}
@@ -51,18 +53,9 @@ public class Block extends Product {
 
 	@Override
 	public int isInTheLastState() {
-		if (state == BlockState.initial) {
-			return IsNotInTheLastState;
+		if (state == BlockState.packed) {
+			return IsInTheLastState;
 		}
-		if (state == BlockState.stored) {
-			return IsNotInTheLastState;
-		}
-		if (state == BlockState.dirty) {
-			return IsNotInTheLastState;
-		}
-		if (state == BlockState.clean) {
-			return IsNotInTheLastState;
-		}
-		return IsInTheLastState;
+		return IsNotInTheLastState;
 	}
 }

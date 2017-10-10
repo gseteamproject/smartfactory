@@ -65,6 +65,12 @@ public class BlockTest {
 	@Test
 	public void getRequiredServiceName_painted() {
 		block.state = BlockState.painted;
+		Assert.assertEquals(Services.packing, block.getRequiredServiceName());
+	}
+
+	@Test
+	public void getRequiredServiceName_packed() {
+		block.state = BlockState.packed;
 		Assert.assertEquals(null, block.getRequiredServiceName());
 	}
 
@@ -95,6 +101,12 @@ public class BlockTest {
 	@Test
 	public void isInTheLastState_painted() {
 		block.state = BlockState.painted;
+		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+	}
+
+	@Test
+	public void isInTheLastState_packed() {
+		block.state = BlockState.packed;
 		Assert.assertEquals(Product.IsInTheLastState, block.isInTheLastState());
 	}
 }
