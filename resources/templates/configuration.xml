@@ -1,16 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-	<jade-platform>
-		<container-name></container-name>
-		<container-type></container-type>
-		<gui></gui>
+	<platform>
 		<host></host>
 		<local-host></local-host>
-	</jade-platform>
+	</platform>
+	<container>
+		<name></name>
+		<type></type>
+		<rma></rma>
+	</container>
 	<agents>
 		<agent>
 			<name></name>
-			<class-name></class-name>
+			<class></class>
 			<parameters>
 				<parameter></parameter>
 			</parameters>

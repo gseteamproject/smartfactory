@@ -1,15 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-	<jade-platform>
-		<container-name>Remote-Container</container-name>
-		<container-type>Container</container-type>
-		<gui>true</gui>
+	<platform>
 		<host>localhost</host>
 		<local-host>localhost</local-host>
-	</jade-platform>
+	</platform>
+	<container>
+		<name>Remote-Container</name>
+		<type>Container</type>
+		<rma>true</rma>
+	</container>
 	<agents>
 		<agent>
 			<name>customer</name>
-			<class-name>smartfactory.agents.CustomerAgent</class-name>
+			<class>smartfactory.agents.CustomerAgent</class>
 		</agent>
 	</agents>
 </configuration>

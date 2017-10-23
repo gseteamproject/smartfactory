@@ -23,7 +23,8 @@ public class ConfigurationTest {
 	};
 
 	PlatformConfiguration platformConfiguration_mock;
-	AgentConfigurations agentsConfiguration_mock;
+	ContainerConfiguration containerConfiguration_mock;
+	AgentConfigurations agentConfigurations_mock;
 	XMLFile configurationFile_mock;
 
 	Configuration configuration;
@@ -31,10 +32,12 @@ public class ConfigurationTest {
 	@Before
 	public void startUp() {
 		platformConfiguration_mock = context.mock(PlatformConfiguration.class);
-		agentsConfiguration_mock = context.mock(AgentConfigurations.class);
+		containerConfiguration_mock = context.mock(ContainerConfiguration.class);
+		agentConfigurations_mock = context.mock(AgentConfigurations.class);
 		configurationFile_mock = context.mock(XMLFile.class);
 
-		configuration = new Configuration(platformConfiguration_mock, agentsConfiguration_mock, configurationFile_mock);
+		configuration = new Configuration(platformConfiguration_mock, containerConfiguration_mock,
+				agentConfigurations_mock, configurationFile_mock);
 	}
 
 	@After
@@ -45,43 +48,55 @@ public class ConfigurationTest {
 	@Test
 	public void getStartupParameters() {
 		final List<String> platformParameters = new ArrayList<String>();
+		platformParameters.add("-host:localhost");
+		final List<String> containerParameters = new ArrayList<String>();
 		platformParameters.add("-gui");
-		final String agentsParameters = "sniffer:jade.tools.sniffer.Sniffer(l*);";
+		final List<String> agentsParameters = new ArrayList<String>();
+		agentsParameters.add("sniffer:jade.tools.sniffer.Sniffer(l*);");
 
 		context.checking(new Expectations() {
 			{
 				oneOf(platformConfiguration_mock).getStartupParameters();
 				will(returnValue(platformParameters));
 
-				oneOf(agentsConfiguration_mock).getStartupParameters();
+				oneOf(containerConfiguration_mock).getStartupParameters();
+				will(returnValue(containerParameters));
+
+				oneOf(agentConfigurations_mock).getStartupParameters();
 				will(returnValue(agentsParameters));
 			}
 		});
 
 		String[] parameters = configuration.getStartupParameters();
-		Assert.assertEquals(2, parameters.length);
+		Assert.assertEquals(3, parameters.length);
 	}
 
 	@Test
 	public void load() {
-		Element rootElement_mock = context.mock(Element.class, "e1");
-		Element platformConfigurationRootElement_mock = context.mock(Element.class, "e2");
-		Element agentsConfigurationRootElement_mock = context.mock(Element.class, "e3");
+		Element rootElement_mock = context.mock(Element.class);
+		Element platformConfigurationElement_mock = context.mock(Element.class, "e2");
+		Element containerConfigurationElement_mock = context.mock(Element.class, "e3");
+		Element agentConfigurationsElement_mock = context.mock(Element.class, "e4");
 
 		context.checking(new Expectations() {
 			{
 				oneOf(configurationFile_mock).getRootElement();
 				will(returnValue(rootElement_mock));
 
-				oneOf(rootElement_mock).getChild("jade-platform");
-				will(returnValue(platformConfigurationRootElement_mock));
+				oneOf(rootElement_mock).getChild("platform");
+				will(returnValue(platformConfigurationElement_mock));
 
-				oneOf(platformConfiguration_mock).load(platformConfigurationRootElement_mock);
+				oneOf(platformConfiguration_mock).load(platformConfigurationElement_mock);
+
+				oneOf(rootElement_mock).getChild("container");
+				will(returnValue(containerConfigurationElement_mock));
+
+				oneOf(containerConfiguration_mock).load(containerConfigurationElement_mock);
 
 				oneOf(rootElement_mock).getChild("agents");
-				will(returnValue(agentsConfigurationRootElement_mock));
+				will(returnValue(agentConfigurationsElement_mock));
 
-				oneOf(agentsConfiguration_mock).load(agentsConfigurationRootElement_mock);
+				oneOf(agentConfigurations_mock).load(agentConfigurationsElement_mock);
 			}
 		});
 

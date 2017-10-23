@@ -9,6 +9,16 @@ import org.slf4j.LoggerFactory;
 
 public class AgentConfiguration {
 
+	static final String TAG_AGENT = "agent";
+
+	static final String TAG_NAME = "name";
+
+	static final String TAG_CLASS_NAME = "class";
+
+	static final String TAG_PARAMETERS = "parameters";
+
+	static final String TAG_PARAMETER = "parameter";
+
 	public String name;
 
 	public String className;
@@ -39,26 +49,26 @@ public class AgentConfiguration {
 	}
 
 	void loadName(Element root) {
-		Element element = root.getChild("name");
+		Element element = root.getChild(TAG_NAME);
 		name = element.getTextTrim();
-		logger.info("name : {}", name);
+		logger.info("{} : {}", TAG_NAME, name);
 	}
 
 	void loadClassName(Element root) {
-		Element element = root.getChild("class-name");
+		Element element = root.getChild(TAG_CLASS_NAME);
 		className = element.getTextTrim();
-		logger.info("class-name : {}", className);
+		logger.info("{} : {}", TAG_CLASS_NAME, className);
 	}
 
 	void loadParameters(Element root) {
-		Element element = root.getChild("parameters");
+		Element element = root.getChild(TAG_PARAMETERS);
 		if (element != null) {
-			List<Element> elements = element.getChildren("parameter");
+			List<Element> elements = element.getChildren(TAG_PARAMETER);
 			for (Element e : elements) {
 				parameters.add(e.getTextTrim());
 			}
 		}
-		logger.info("parameters : {}", parameters);
+		logger.info("{} : {}", TAG_PARAMETERS, parameters);
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

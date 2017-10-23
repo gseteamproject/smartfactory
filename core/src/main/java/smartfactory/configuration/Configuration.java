@@ -7,34 +7,41 @@ import smartfactory.utility.XMLFile;
 
 public class Configuration {
 
-	private PlatformConfiguration platform;
+	private PlatformConfiguration platformConfiguration;
 
-	private AgentConfigurations agents;
+	private ContainerConfiguration containerConfiguration;
+
+	private AgentConfigurations agentConfigurations;
 
 	private XMLFile configurationFile;
 
 	public Configuration() {
-		platform = new PlatformConfiguration();
-		agents = new AgentConfigurations();
+		platformConfiguration = new PlatformConfiguration();
+		containerConfiguration = new ContainerConfiguration();
+		agentConfigurations = new AgentConfigurations();
 		configurationFile = new XMLFile("configuration.xml");
 	}
 
-	public Configuration(PlatformConfiguration platform, AgentConfigurations agents, XMLFile configurationFile) {
-		this.platform = platform;
-		this.agents = agents;
+	public Configuration(PlatformConfiguration platform, ContainerConfiguration container, AgentConfigurations agents,
+			XMLFile configurationFile) {
+		this.platformConfiguration = platform;
+		this.containerConfiguration = container;
+		this.agentConfigurations = agents;
 		this.configurationFile = configurationFile;
 	}
 
 	public String[] getStartupParameters() {
 		List<String> parameters = new ArrayList<String>();
-		parameters.addAll(platform.getStartupParameters());
-		parameters.add(agents.getStartupParameters());
+		parameters.addAll(platformConfiguration.getStartupParameters());
+		parameters.addAll(containerConfiguration.getStartupParameters());
+		parameters.addAll(agentConfigurations.getStartupParameters());
 		return parameters.toArray(new String[parameters.size()]);
 	}
 
 	public void load() {
 		Element root = configurationFile.getRootElement();
-		platform.load(root.getChild("jade-platform"));
-		agents.load(root.getChild("agents"));
+		platformConfiguration.load(root.getChild(PlatformConfiguration.TAG_PLATFORM));
+		containerConfiguration.load(root.getChild(ContainerConfiguration.TAG_CONTAINER));
+		agentConfigurations.load(root.getChild(AgentConfigurations.TAG_AGENTS));
 	}
 }

@@ -52,8 +52,8 @@ public class AgentConfigurationsTest {
 			}
 		});
 
-		String parameters = agentConfigurations.getStartupParameters();
-		Assert.assertEquals(agent1StartupParameters + ";" + agent2StartupParameters + ";", parameters);
+		List<String> parameters = agentConfigurations.getStartupParameters();
+		Assert.assertEquals(agent1StartupParameters + ";" + agent2StartupParameters + ";", parameters.get(0));
 	}
 
 	@Test
@@ -67,20 +67,20 @@ public class AgentConfigurationsTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChildren("agent");
+				oneOf(root_mock).getChildren(AgentConfiguration.TAG_AGENT);
 				will(returnValue(elements));
 
-				oneOf(element1_mock).getChild("name");
+				oneOf(element1_mock).getChild(AgentConfiguration.TAG_NAME);
 
-				oneOf(element1_mock).getChild("class-name");
+				oneOf(element1_mock).getChild(AgentConfiguration.TAG_CLASS_NAME);
 
-				oneOf(element1_mock).getChild("parameters");
+				oneOf(element1_mock).getChild(AgentConfiguration.TAG_PARAMETERS);
 
-				oneOf(element2_mock).getChild("name");
+				oneOf(element2_mock).getChild(AgentConfiguration.TAG_NAME);
 
-				oneOf(element2_mock).getChild("class-name");
+				oneOf(element2_mock).getChild(AgentConfiguration.TAG_CLASS_NAME);
 
-				oneOf(element2_mock).getChild("parameters");
+				oneOf(element2_mock).getChild(AgentConfiguration.TAG_PARAMETERS);
 			}
 		});
 

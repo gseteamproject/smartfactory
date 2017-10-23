@@ -1,15 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-	<jade-platform>
-		<container-name>Factory-Container</container-name>
-		<container-type>MainContainer</container-type>
-		<gui>false</gui>
+	<platform>
 		<host>localhost</host>
 		<local-host>localhost</local-host>
-	</jade-platform>
+	</platform>
+	<container>
+		<name>Factory-Container</name>
+		<type>MainContainer</type>
+		<rma>false</rma>
+	</container>
 	<agents>
 		<agent>
 			<name>warehouse</name>
-			<class-name>smartfactory.agents.WarehouseAgent</class-name>
+			<class>smartfactory.agents.WarehouseAgent</class>
 		</agent>
 	</agents>
 </configuration>

@@ -1,15 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-	<jade-platform>
-		<container-name>LEGO-Container-2</container-name>
-		<container-type>Container</container-type>
-		<gui>false</gui>
+	<platform>
 		<host>localhost</host>
 		<local-host>localhost</local-host>
-	</jade-platform>
+	</platform>
+	<container>
+		<name>LEGO-Container-2</name>
+		<type>Container</type>
+		<rma>false</rma>
+	</container>
 	<agents>
 		<agent>
 			<name>lego-2</name>
-			<class-name>smartfactory.agents.LegoAgent</class-name>
+			<class>smartfactory.agents.LegoAgent</class>
 		</agent>
 	</agents>
 </configuration>
