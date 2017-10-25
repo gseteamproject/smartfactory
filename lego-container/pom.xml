@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>smartfactory</groupId>
 		<artifactId>smartfactory</artifactId>
-		<version>0.0.1-SNAPSHOT</version>
+		<version>0.1.0</version>
 	</parent>
 	<artifactId>lego-container</artifactId>
 	<packaging>jar</packaging>
@@ -15,12 +15,12 @@
 		<dependency>
 			<groupId>smartfactory</groupId>
 			<artifactId>core</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>smartfactory</groupId>
 			<artifactId>domain</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.1.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.slf4j</groupId>
