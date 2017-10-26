@@ -18,7 +18,7 @@ public class AnswerSelectedAgentToPerformServiceBehaviour extends AchieveRERespo
 	}
 
 	@Override
-	protected ACLMessage prepareResponse(ACLMessage request) throws NotUnderstoodException, RefuseException {
+	protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
 		// send AGREE
 		ACLMessage agree = request.createReply();
 		agree.setPerformative(ACLMessage.AGREE);
