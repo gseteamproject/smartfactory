@@ -8,12 +8,24 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.AnswerSelectedAgentToPerformServiceBehaviour;
+import smartfactory.models.Machine;
 
 public class MachineAgent extends SmartFactoryAgent {
 
+	private Machine machine;
+
+	@Override
+	protected void initializeData() {
+		machine = createMachine();
+	}
+
+	public Machine createMachine() {
+		return new Machine();
+	}
+
 	@Override
 	protected void registerServices() {
-		String[] agentServiceNames = getAgentServices();
+		String[] agentServiceNames = machine.getOperations();
 
 		ServiceDescription agentServices[] = new ServiceDescription[agentServiceNames.length];
 		for (int i = 0; i < agentServices.length; i++) {
@@ -48,10 +60,6 @@ public class MachineAgent extends SmartFactoryAgent {
 	@Override
 	protected void initializeBehaviours() {
 		addBehaviour(new AnswerSelectedAgentToPerformServiceBehaviour(this));
-	}
-
-	public String[] getAgentServices() {
-		return new String[0];
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;
