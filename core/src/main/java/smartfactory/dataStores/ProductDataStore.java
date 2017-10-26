@@ -7,12 +7,6 @@ import smartfactory.platform.AgentPlatform;
 
 public class ProductDataStore extends DataStore {
 
-	private static final long serialVersionUID = 6575511248639460129L;
-
-	public ProductDataStore() {
-		super();
-	}
-
 	public void setProduct(Product product) {
 		put("product", product);
 	}
@@ -36,4 +30,6 @@ public class ProductDataStore extends DataStore {
 	public void setAgentPlatform(AgentPlatform agentPlatform) {
 		put("agentPlatform", agentPlatform);
 	}
+
+	private static final long serialVersionUID = 6575511248639460129L;
 }
