@@ -1,24 +1,23 @@
-package smartfactory.behaviours;
+package smartfactory.interactors.machine;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jade.core.Agent;
-import jade.domain.FIPANames;
 import jade.domain.FIPAAgentManagement.FailureException;
 import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
-import jade.proto.AchieveREResponder;
+import smartfactory.dataStores.MachineDataStore;
+import smartfactory.interactors.AchieveREResponderInteractor;
 
-public class AnswerSelectedAgentToPerformServiceBehaviour extends AchieveREResponder {
+public class PerformServiceResponder extends MachineInteractor implements AchieveREResponderInteractor {
 
-	public AnswerSelectedAgentToPerformServiceBehaviour(Agent a) {
-		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
+	public PerformServiceResponder(MachineDataStore dataStore) {
+		super(dataStore);
 	}
 
 	@Override
-	protected ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
+	public ACLMessage handleRequest(ACLMessage request) throws NotUnderstoodException, RefuseException {
 		// send AGREE
 		ACLMessage agree = request.createReply();
 		agree.setPerformative(ACLMessage.AGREE);
@@ -29,7 +28,7 @@ public class AnswerSelectedAgentToPerformServiceBehaviour extends AchieveRERespo
 	}
 
 	@Override
-	protected ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
+	public ACLMessage prepareResultNotification(ACLMessage request, ACLMessage response) throws FailureException {
 		// if agent AGREEd to request
 		// send INFORM
 		ACLMessage inform = request.createReply();
@@ -40,6 +39,5 @@ public class AnswerSelectedAgentToPerformServiceBehaviour extends AchieveRERespo
 		// throw new FailureException("unexpected-error");
 	}
 
-	private static final long serialVersionUID = 7220989635322510713L;
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

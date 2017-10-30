@@ -7,16 +7,21 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import smartfactory.behaviours.AnswerSelectedAgentToPerformServiceBehaviour;
+import smartfactory.behaviours.AchieveREResponderInteractorBehaviour;
+import smartfactory.dataStores.MachineDataStore;
+import smartfactory.interactors.machine.PerformServiceResponder;
 import smartfactory.models.Machine;
 
 public class MachineAgent extends SmartFactoryAgent {
 
 	private Machine machine;
 
+	private MachineDataStore dataStore;
+
 	@Override
 	protected void initializeData() {
 		machine = createMachine();
+		dataStore = new MachineDataStore();
 	}
 
 	public Machine createMachine() {
@@ -59,7 +64,7 @@ public class MachineAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new AnswerSelectedAgentToPerformServiceBehaviour(this));
+		addBehaviour(new AchieveREResponderInteractorBehaviour(this, new PerformServiceResponder(dataStore)));
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;
