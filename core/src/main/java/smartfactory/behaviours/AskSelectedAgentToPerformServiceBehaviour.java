@@ -21,8 +21,7 @@ public class AskSelectedAgentToPerformServiceBehaviour extends AchieveREInitiato
 	private boolean servicePerformedSuccessfully;
 
 	public AskSelectedAgentToPerformServiceBehaviour(Behaviour behaviour) {
-		super(behaviour.getAgent(), null);
-		setDataStore(behaviour.getDataStore());
+		super(behaviour.getAgent(), null, behaviour.getDataStore());
 	}
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
