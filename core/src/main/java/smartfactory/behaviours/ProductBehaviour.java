@@ -4,6 +4,7 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
+import smartfactory.interactors.product.PerformServiceInitiator;
 import smartfactory.interactors.product.DetermineRequiredService;
 import smartfactory.interactors.product.FindAgentsProvidingService;
 import smartfactory.interactors.product.NoAgentsProvidingService;
@@ -29,7 +30,7 @@ public class ProductBehaviour extends FSMBehaviour {
 		Behaviour b1 = new OneShotInteractorBehaviour(new DetermineRequiredService(productDataStore));
 		Behaviour b2 = new OneShotInteractorBehaviour(new FindAgentsProvidingService(productDataStore));
 		Behaviour b3 = new OneShotInteractorBehaviour(new SelectAgentToPerformService(productDataStore));
-		Behaviour b4 = new AskSelectedAgentToPerformServiceBehaviour(this);
+		Behaviour b4 = new AchieveREInitiatorInteractorBehaviour(agent, new PerformServiceInitiator(productDataStore));
 		Behaviour b5 = new OneShotInteractorBehaviour(new TransitProductToNextState(productDataStore));
 		Behaviour b6 = new OneShotInteractorBehaviour(new ProductIsInLastState(productDataStore));
 		Behaviour b7 = new OneShotInteractorBehaviour(new ProductProcessIsIncorrect(productDataStore));
@@ -41,8 +42,8 @@ public class ProductBehaviour extends FSMBehaviour {
 		int b2_b8 = Order.AgentsNotFound;
 		int b3_b4 = Order.AgentSelected;
 		int b3_b2 = Order.AgentNotSelected;
-		int b4_b5 = AskSelectedAgentToPerformServiceBehaviour.ServicePerformedSuccessfully;
-		int b4_b3 = AskSelectedAgentToPerformServiceBehaviour.ServicePerformedUnSuccessfully;
+		int b4_b5 = PerformServiceInitiator.ServicePerformedSuccessfully;
+		int b4_b3 = PerformServiceInitiator.ServicePerformedUnSuccessfully;
 		int b5_b6 = Product.IsInTheLastState;
 		int b5_b1 = Product.IsNotInTheLastState;
 
