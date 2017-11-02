@@ -59,6 +59,7 @@ public class PerformServiceInitiator extends ProductInteractor implements Achiev
 		removeAgentProvidingService();
 	}
 
+	// TODO : move method to Order class
 	public void removeAgentProvidingService() {
 		DFAgentDescription agentProvidingService = dataStore.getOrder().agentDescription;
 		List<DFAgentDescription> agentsProvidingService = dataStore.getOrder().agentsDescription;
@@ -67,6 +68,7 @@ public class PerformServiceInitiator extends ProductInteractor implements Achiev
 
 	@Override
 	public int next() {
+		// TODO : move decision to Order class
 		return servicePerformedSuccessfully == true ? ServicePerformedSuccessfully : ServicePerformedUnSuccessfully;
 	}
 

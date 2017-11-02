@@ -34,12 +34,14 @@ public class Order {
 		return agentsDescription.size() > 0 ? AgentsFound : AgentsNotFound;
 	}
 
+	// TODO deal with null pointer
 	public DFAgentDescription agentDescription;
 
 	final static public int AgentSelected = 0;
 	final static public int AgentNotSelected = 1;
 
 	public int isAgentSelected() {
+		// TODO another way to check if agent is selected
 		return agentDescription == null ? AgentNotSelected : AgentSelected;
 	}
 }
