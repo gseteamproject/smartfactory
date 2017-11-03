@@ -1,13 +1,11 @@
 package smartfactory.interactors.product;
 
-import java.util.List;
 import java.util.Vector;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.domain.FIPANames;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.AchieveREInitiatorInteractor;
@@ -43,7 +41,7 @@ public class PerformServiceInitiator extends ProductInteractor implements Achiev
 	public void handleRefuse(ACLMessage refuse) {
 		logger.info("\"{}\" agent refused", dataStore.getOrder().agentDescription.getName());
 		servicePerformedSuccessfully = false;
-		removeAgentProvidingService();
+		dataStore.getOrder().removeSelectedAgentFromAgentsList();
 	}
 
 	@Override
@@ -56,14 +54,7 @@ public class PerformServiceInitiator extends ProductInteractor implements Achiev
 	public void handleFailure(ACLMessage failure) {
 		logger.info("\"{}\" agent failed to perform", dataStore.getOrder().agentDescription.getName());
 		servicePerformedSuccessfully = false;
-		removeAgentProvidingService();
-	}
-
-	// TODO : move method to Order class
-	public void removeAgentProvidingService() {
-		DFAgentDescription agentProvidingService = dataStore.getOrder().agentDescription;
-		List<DFAgentDescription> agentsProvidingService = dataStore.getOrder().agentsDescription;
-		agentsProvidingService.remove(agentProvidingService);
+		dataStore.getOrder().removeSelectedAgentFromAgentsList();
 	}
 
 	@Override

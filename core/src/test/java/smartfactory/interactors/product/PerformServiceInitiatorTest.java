@@ -1,6 +1,5 @@
 package smartfactory.interactors.product;
 
-import java.util.List;
 import java.util.Vector;
 
 import org.jmock.Expectations;
@@ -29,39 +28,18 @@ public class PerformServiceInitiatorTest {
 
 	ProductDataStore productDataStore_mock;
 
-	PerformServiceInitiator askSelectedAgentToPerformService;
+	PerformServiceInitiator testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		askSelectedAgentToPerformService = new PerformServiceInitiator(productDataStore_mock);
+		testable = new PerformServiceInitiator(productDataStore_mock);
 	}
 
 	@After
 	public void tearDown() {
 		context.assertIsSatisfied();
-	}
-
-	@Test
-	public void removeAgentProvidingService() {
-		@SuppressWarnings("unchecked")
-		List<DFAgentDescription> agentsDescription_mock = context.mock(List.class);
-		final DFAgentDescription agentDescription = new DFAgentDescription();
-		final Order order = new Order();
-		order.agentDescription = agentDescription;
-		order.agentsDescription = agentsDescription_mock;
-
-		context.checking(new Expectations() {
-			{
-				exactly(2).of(productDataStore_mock).getOrder();
-				will(returnValue(order));
-
-				oneOf(agentsDescription_mock).remove(agentDescription);
-			}
-		});
-
-		askSelectedAgentToPerformService.removeAgentProvidingService();
 	}
 
 	@Test
@@ -77,7 +55,7 @@ public class PerformServiceInitiatorTest {
 			}
 		});
 
-		askSelectedAgentToPerformService.handleInform(message);
+		testable.handleInform(message);
 	}
 
 	@Test
@@ -93,51 +71,45 @@ public class PerformServiceInitiatorTest {
 			}
 		});
 
-		askSelectedAgentToPerformService.handleAgree(message);
+		testable.handleAgree(message);
 	}
 
 	@Test
 	public void handleRefuse() {
-		@SuppressWarnings("unchecked")
-		List<DFAgentDescription> agentsDescription_mock = context.mock(List.class);
-		final DFAgentDescription agentDescription = new DFAgentDescription();
-		final Order order = new Order();
-		order.agentDescription = agentDescription;
-		order.agentsDescription = agentsDescription_mock;
 		final ACLMessage message = new ACLMessage(ACLMessage.REFUSE);
+		final DFAgentDescription agentDescription = new DFAgentDescription();
+		Order order_mock = context.mock(Order.class);
+		order_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
 			{
-				exactly(3).of(productDataStore_mock).getOrder();
-				will(returnValue(order));
+				exactly(2).of(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
-				oneOf(agentsDescription_mock).remove(agentDescription);
+				oneOf(order_mock).removeSelectedAgentFromAgentsList();
 			}
 		});
 
-		askSelectedAgentToPerformService.handleRefuse(message);
+		testable.handleRefuse(message);
 	}
 
 	@Test
 	public void handleFailure() {
-		@SuppressWarnings("unchecked")
-		List<DFAgentDescription> agentsDescription_mock = context.mock(List.class);
-		final DFAgentDescription agentDescription = new DFAgentDescription();
-		final Order order = new Order();
-		order.agentDescription = agentDescription;
-		order.agentsDescription = agentsDescription_mock;
 		final ACLMessage message = new ACLMessage(ACLMessage.FAILURE);
+		final DFAgentDescription agentDescription = new DFAgentDescription();
+		Order order_mock = context.mock(Order.class);
+		order_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
 			{
-				exactly(3).of(productDataStore_mock).getOrder();
-				will(returnValue(order));
+				exactly(2).of(productDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
-				oneOf(agentsDescription_mock).remove(agentDescription);
+				oneOf(order_mock).removeSelectedAgentFromAgentsList();
 			}
 		});
 
-		askSelectedAgentToPerformService.handleFailure(message);
+		testable.handleFailure(message);
 	}
 
 	@Test
@@ -156,7 +128,7 @@ public class PerformServiceInitiatorTest {
 			}
 		});
 
-		Vector<ACLMessage> messages = askSelectedAgentToPerformService.prepareRequests(message);
+		Vector<ACLMessage> messages = testable.prepareRequests(message);
 		Assert.assertEquals(1, messages.size());
 		ACLMessage request = messages.get(0);
 		Assert.assertEquals(ACLMessage.REQUEST, request.getPerformative());
@@ -166,7 +138,6 @@ public class PerformServiceInitiatorTest {
 
 	@Test
 	public void next_ServicePerformedUnSuccessfully() {
-		Assert.assertEquals(PerformServiceInitiator.ServicePerformedUnSuccessfully,
-				askSelectedAgentToPerformService.next());
+		Assert.assertEquals(PerformServiceInitiator.ServicePerformedUnSuccessfully, testable.next());
 	}
 }

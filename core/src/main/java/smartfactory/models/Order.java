@@ -44,4 +44,8 @@ public class Order {
 		// TODO another way to check if agent is selected
 		return agentDescription == null ? AgentNotSelected : AgentSelected;
 	}
+
+	public void removeSelectedAgentFromAgentsList() {
+		agentsDescription.remove(agentDescription);
+	}
 }
