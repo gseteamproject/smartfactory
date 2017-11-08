@@ -3,11 +3,13 @@ package smartfactory.agents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.AchieveREResponderInteractorBehaviour;
+import smartfactory.behaviours.machine.ActivityResponder;
 import smartfactory.dataStores.MachineDataStore;
 import smartfactory.interactors.machine.PerformServiceResponder;
 import smartfactory.models.Machine;
@@ -64,7 +66,15 @@ public class MachineAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new AchieveREResponderInteractorBehaviour(this, new PerformServiceResponder(dataStore)));
+		Behaviour b = new ActivityResponder(this);
+		b.getDataStore().put("machine", machine);
+		
+		addBehaviour(b);
+
+		/*
+		 * TODO : remove addBehaviour(new AchieveREResponderInteractorBehaviour(this,
+		 * new PerformServiceResponder(dataStore)));
+		 */
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;
