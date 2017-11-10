@@ -8,14 +8,16 @@ public class Decision extends OneShotBehaviour {
 
 	MachineDataStore machineDataStore;
 
-	public Decision(MachineDataStore machineDataStore) {
+	ActivityResponder interactionBehaviour;
+
+	public Decision(ActivityResponder interactionBehaviour, MachineDataStore machineDataStore) {
 		this.machineDataStore = machineDataStore;
+		this.interactionBehaviour = interactionBehaviour;
 	}
 
 	@Override
 	public void action() {
-		ActivityResponder parent = (ActivityResponder) getParent();
-		ACLMessage request = (ACLMessage) getDataStore().get(parent.REQUEST_KEY);
+		ACLMessage request = interactionBehaviour.getRequest();
 
 		ACLMessage response = request.createReply();
 		if (machineDataStore.getMachine().willExecute("operation-xxx")) {
@@ -25,7 +27,7 @@ public class Decision extends OneShotBehaviour {
 			response.setPerformative(ACLMessage.REFUSE);
 		}
 
-		getDataStore().put(parent.RESPONSE_KEY, response);
+		interactionBehaviour.setResponse(response);
 	}
 
 	private static final long serialVersionUID = -7477532730880615646L;

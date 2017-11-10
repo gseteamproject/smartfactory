@@ -6,12 +6,12 @@ import smartfactory.dataStores.MachineDataStore;
 
 public class Work extends SimpleBehaviour {
 
-	private Activity owner = null;
+	ActivityResponder interactionBehaviour;
 
 	MachineDataStore dataStore;
 
-	public Work(Activity ownerActivity, MachineDataStore machineDataStore) {
-		this.owner = ownerActivity;
+	public Work(ActivityResponder interactionBehaviour, MachineDataStore machineDataStore) {
+		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = machineDataStore;
 	}
 
@@ -19,10 +19,10 @@ public class Work extends SimpleBehaviour {
 	public void action() {
 		dataStore.getMachine().execute("operation-xxx");
 
-		ACLMessage inform = owner.getRequest().createReply();
+		ACLMessage inform = interactionBehaviour.getRequest().createReply();
 		inform.setPerformative(ACLMessage.INFORM);
 
-		owner.setResult(inform);
+		interactionBehaviour.setResult(inform);
 	}
 
 	@Override
