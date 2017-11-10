@@ -3,27 +3,22 @@ package smartfactory.agents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jade.core.behaviours.Behaviour;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import smartfactory.behaviours.AchieveREResponderInteractorBehaviour;
 import smartfactory.behaviours.machine.ActivityResponder;
 import smartfactory.dataStores.MachineDataStore;
-import smartfactory.interactors.machine.PerformServiceResponder;
 import smartfactory.models.Machine;
 
 public class MachineAgent extends SmartFactoryAgent {
-
-	private Machine machine;
 
 	private MachineDataStore dataStore;
 
 	@Override
 	protected void initializeData() {
-		machine = createMachine();
 		dataStore = new MachineDataStore();
+		dataStore.setMachine(createMachine());
 	}
 
 	public Machine createMachine() {
@@ -32,7 +27,7 @@ public class MachineAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void registerServices() {
-		String[] agentServiceNames = machine.getOperations();
+		String[] agentServiceNames = dataStore.getMachine().getOperations();
 
 		ServiceDescription agentServices[] = new ServiceDescription[agentServiceNames.length];
 		for (int i = 0; i < agentServices.length; i++) {
@@ -66,10 +61,7 @@ public class MachineAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		Behaviour b = new ActivityResponder(this);
-		b.getDataStore().put("machine", machine);
-		
-		addBehaviour(b);
+		addBehaviour(new ActivityResponder(this, dataStore));
 
 		/*
 		 * TODO : remove addBehaviour(new AchieveREResponderInteractorBehaviour(this,

@@ -2,18 +2,23 @@ package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
-import smartfactory.models.Machine;
+import smartfactory.dataStores.MachineDataStore;
 
 public class Decision extends OneShotBehaviour {
+
+	MachineDataStore machineDataStore;
+
+	public Decision(MachineDataStore machineDataStore) {
+		this.machineDataStore = machineDataStore;
+	}
 
 	@Override
 	public void action() {
 		ActivityResponder parent = (ActivityResponder) getParent();
 		ACLMessage request = (ACLMessage) getDataStore().get(parent.REQUEST_KEY);
 
-		Machine machine = (Machine) getDataStore().get("machine");
 		ACLMessage response = request.createReply();
-		if (machine.willExecute("operation-xxx")) {
+		if (machineDataStore.getMachine().willExecute("operation-xxx")) {
 			response.setPerformative(ACLMessage.AGREE);
 
 		} else {

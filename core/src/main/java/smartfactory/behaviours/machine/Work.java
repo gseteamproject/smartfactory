@@ -2,20 +2,22 @@ package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
-import smartfactory.models.Machine;
+import smartfactory.dataStores.MachineDataStore;
 
 public class Work extends SimpleBehaviour {
 
 	private Activity owner = null;
 
-	public Work(Activity ownerActivity) {
+	MachineDataStore dataStore;
+
+	public Work(Activity ownerActivity, MachineDataStore machineDataStore) {
 		this.owner = ownerActivity;
+		this.dataStore = machineDataStore;
 	}
 
 	@Override
 	public void action() {
-		Machine machine = owner.getMachine();
-		machine.execute("operation-xxx");
+		dataStore.getMachine().execute("operation-xxx");
 
 		ACLMessage inform = owner.getRequest().createReply();
 		inform.setPerformative(ACLMessage.INFORM);
@@ -25,7 +27,7 @@ public class Work extends SimpleBehaviour {
 
 	@Override
 	public boolean done() {
-		return owner.getMachine().hasExecuted();
+		return dataStore.getMachine().hasExecuted();
 	}
 
 	private static final long serialVersionUID = -3500469822678572098L;

@@ -10,6 +10,7 @@ public class MachineDataStore extends DataStore {
 	}
 
 	public Machine getMachine() {
+		// TODO : alert if there is no machine
 		return (Machine) get("machine");
 	}
 

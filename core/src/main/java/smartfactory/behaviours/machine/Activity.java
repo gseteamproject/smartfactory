@@ -4,14 +4,10 @@ import jade.core.Agent;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.ThreadedBehaviourFactory;
 import jade.lang.acl.ACLMessage;
-import smartfactory.models.Machine;
 import smartfactory.behaviours.machine.ActivityResponder;
+import smartfactory.dataStores.MachineDataStore;
 
 public class Activity extends ParallelBehaviour {
-
-	public Machine getMachine() {
-		return (Machine) getDataStore().get("machine");
-	}
 
 	public void setResult(ACLMessage result) {
 		ActivityResponder parent = (ActivityResponder) getParent();
@@ -25,11 +21,11 @@ public class Activity extends ParallelBehaviour {
 
 	private ThreadedBehaviourFactory tbf = new ThreadedBehaviourFactory();
 
-	public Activity(Agent a) {
+	public Activity(Agent a, MachineDataStore machineDataStore) {
 		super(a, WHEN_ANY);
-		addSubBehaviour(tbf.wrap(new Work(this)));
-		addSubBehaviour(new Status(a));
-		addSubBehaviour(new Deadline(a, Machine.DURATION_LIMIT * 1000));
+		addSubBehaviour(tbf.wrap(new Work(this, machineDataStore)));
+		addSubBehaviour(new Status(a, machineDataStore));
+		addSubBehaviour(new Deadline(a, machineDataStore));
 	}
 
 	private static final long serialVersionUID = -987827733291008766L;
