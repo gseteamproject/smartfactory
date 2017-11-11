@@ -1,6 +1,6 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.ProductBehaviour;
+import smartfactory.behaviours.product.ProductBehaviour;
 import smartfactory.models.Product;
 
 public class ProductAgent extends SmartFactoryAgent {

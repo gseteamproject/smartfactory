@@ -8,6 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jade.core.Agent;
+import smartfactory.behaviours.product.ProductBehaviour;
 import smartfactory.models.Product;
 
 public class ProductBehaviourTest {
