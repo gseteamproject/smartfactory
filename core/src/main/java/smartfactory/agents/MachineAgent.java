@@ -62,11 +62,6 @@ public class MachineAgent extends SmartFactoryAgent {
 	@Override
 	protected void initializeBehaviours() {
 		addBehaviour(new ActivityResponderBehaviour(this, dataStore));
-
-		/*
-		 * TODO : remove addBehaviour(new AchieveREResponderInteractorBehaviour(this,
-		 * new PerformServiceResponder(dataStore)));
-		 */
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;
