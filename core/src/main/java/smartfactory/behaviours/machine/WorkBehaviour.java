@@ -1,33 +1,28 @@
 package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.SimpleBehaviour;
-import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.MachineDataStore;
+import smartfactory.interactors.machine.WorkInteractor;
 
 public class WorkBehaviour extends SimpleBehaviour {
 
 	ActivityResponderBehaviour interactionBehaviour;
 
-	MachineDataStore dataStore;
+	WorkInteractor interactor;
 
 	public WorkBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
-		this.dataStore = machineDataStore;
+		this.interactor = new WorkInteractor(machineDataStore);
 	}
 
 	@Override
 	public void action() {
-		dataStore.getMachine().execute("operation-xxx");
-
-		ACLMessage inform = interactionBehaviour.getRequest().createReply();
-		inform.setPerformative(ACLMessage.INFORM);
-
-		interactionBehaviour.setResult(inform);
+		interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
 	}
 
 	@Override
 	public boolean done() {
-		return dataStore.getMachine().hasExecuted();
+		return interactor.done();
 	}
 
 	private static final long serialVersionUID = -3500469822678572098L;

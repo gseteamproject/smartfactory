@@ -2,19 +2,20 @@ package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.TickerBehaviour;
 import smartfactory.dataStores.MachineDataStore;
+import smartfactory.interactors.machine.StatusInteractor;
 
 public class StatusBehaviour extends TickerBehaviour {
 
-	MachineDataStore dataStore;
+	StatusInteractor interactor;
 
 	public StatusBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		super(interactionBehaviour.getAgent(), 500);
-		this.dataStore = machineDataStore;
+		this.interactor = new StatusInteractor(machineDataStore);
 	}
 
 	@Override
 	protected void onTick() {
-		dataStore.getMachine().getStatus();
+		interactor.execute();
 	}
 
 	private static final long serialVersionUID = 8310293249196722957L;
