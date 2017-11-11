@@ -1,4 +1,4 @@
-package smartfactory.behaviours;
+package smartfactory.behaviours.product;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -22,14 +22,14 @@ public class ProductBehaviourTest {
 	Agent agent_mock;
 	Product product_mock;
 
-	ProductBehaviour productMainBehaviour;
+	ProductBehaviour testable;
 
 	@Before
 	public void setUp() {
 		agent_mock = context.mock(Agent.class);
 		product_mock = context.mock(Product.class);
 
-		productMainBehaviour = new ProductBehaviour(agent_mock, product_mock);
+		testable = new ProductBehaviour(agent_mock, product_mock);
 	}
 
 	@After
@@ -39,6 +39,6 @@ public class ProductBehaviourTest {
 
 	@Test
 	public void constructor() {
-		Assert.assertNotNull(productMainBehaviour);
+		Assert.assertNotNull(testable);
 	}
 }
