@@ -3,9 +3,9 @@ package smartfactory.interactors.machine;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.MachineDataStore;
 
-public class DecisionInteractor extends MachineInteractor {
+public class Decision extends MachineInteractor {
 
-	public DecisionInteractor(MachineDataStore dataStore) {
+	public Decision(MachineDataStore dataStore) {
 		super(dataStore);
 	}
 

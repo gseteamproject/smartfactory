@@ -2,9 +2,9 @@ package smartfactory.interactors.machine;
 
 import smartfactory.dataStores.MachineDataStore;
 
-public class StatusInteractor extends MachineInteractor {
+public class Status extends MachineInteractor {
 
-	public StatusInteractor(MachineDataStore dataStore) {
+	public Status(MachineDataStore dataStore) {
 		super(dataStore);
 	}
 

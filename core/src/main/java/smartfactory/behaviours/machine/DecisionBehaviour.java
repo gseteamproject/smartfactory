@@ -2,17 +2,17 @@ package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.OneShotBehaviour;
 import smartfactory.dataStores.MachineDataStore;
-import smartfactory.interactors.machine.DecisionInteractor;
+import smartfactory.interactors.machine.Decision;
 
 public class DecisionBehaviour extends OneShotBehaviour {
 
 	ActivityResponderBehaviour interactionBehaviour;
 
-	DecisionInteractor interactor;
+	Decision interactor;
 
 	public DecisionBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = new DecisionInteractor(machineDataStore);
+		this.interactor = new Decision(machineDataStore);
 	}
 
 	@Override

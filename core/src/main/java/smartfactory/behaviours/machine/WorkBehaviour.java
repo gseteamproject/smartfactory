@@ -2,17 +2,17 @@ package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.SimpleBehaviour;
 import smartfactory.dataStores.MachineDataStore;
-import smartfactory.interactors.machine.WorkInteractor;
+import smartfactory.interactors.machine.Work;
 
 public class WorkBehaviour extends SimpleBehaviour {
 
 	ActivityResponderBehaviour interactionBehaviour;
 
-	WorkInteractor interactor;
+	Work interactor;
 
 	public WorkBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = new WorkInteractor(machineDataStore);
+		this.interactor = new Work(machineDataStore);
 	}
 
 	@Override

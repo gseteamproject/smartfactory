@@ -2,15 +2,15 @@ package smartfactory.behaviours.machine;
 
 import jade.core.behaviours.TickerBehaviour;
 import smartfactory.dataStores.MachineDataStore;
-import smartfactory.interactors.machine.StatusInteractor;
+import smartfactory.interactors.machine.Status;
 
 public class StatusBehaviour extends TickerBehaviour {
 
-	StatusInteractor interactor;
+	Status interactor;
 
 	public StatusBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		super(interactionBehaviour.getAgent(), 500);
-		this.interactor = new StatusInteractor(machineDataStore);
+		this.interactor = new Status(machineDataStore);
 	}
 
 	@Override

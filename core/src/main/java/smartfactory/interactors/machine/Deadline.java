@@ -3,9 +3,9 @@ package smartfactory.interactors.machine;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.MachineDataStore;
 
-public class DeadlineInteractor extends MachineInteractor {
+public class Deadline extends MachineInteractor {
 
-	public DeadlineInteractor(MachineDataStore dataStore) {
+	public Deadline(MachineDataStore dataStore) {
 		super(dataStore);
 	}
 	
