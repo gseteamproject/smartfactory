@@ -4,13 +4,13 @@ import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.MachineDataStore;
 
-public class Decision extends OneShotBehaviour {
+public class DecisionBehaviour extends OneShotBehaviour {
 
 	MachineDataStore machineDataStore;
 
-	ActivityResponder interactionBehaviour;
+	ActivityResponderBehaviour interactionBehaviour;
 
-	public Decision(ActivityResponder interactionBehaviour, MachineDataStore machineDataStore) {
+	public DecisionBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.machineDataStore = machineDataStore;
 		this.interactionBehaviour = interactionBehaviour;
 	}

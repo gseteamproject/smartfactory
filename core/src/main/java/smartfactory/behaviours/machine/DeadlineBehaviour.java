@@ -5,12 +5,12 @@ import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.MachineDataStore;
 import smartfactory.models.Machine;
 
-public class Deadline extends WakerBehaviour {
+public class DeadlineBehaviour extends WakerBehaviour {
 
 	MachineDataStore dataStore;
-	ActivityResponder interactionBehaviour;
+	ActivityResponderBehaviour interactionBehaviour;
 
-	public Deadline(ActivityResponder interactionBehaviour, MachineDataStore machineDataStore) {
+	public DeadlineBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		super(interactionBehaviour.getAgent(), Machine.DURATION_LIMIT * 1000);
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = machineDataStore;

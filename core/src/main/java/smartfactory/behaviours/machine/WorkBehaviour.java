@@ -4,13 +4,13 @@ import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.MachineDataStore;
 
-public class Work extends SimpleBehaviour {
+public class WorkBehaviour extends SimpleBehaviour {
 
-	ActivityResponder interactionBehaviour;
+	ActivityResponderBehaviour interactionBehaviour;
 
 	MachineDataStore dataStore;
 
-	public Work(ActivityResponder interactionBehaviour, MachineDataStore machineDataStore) {
+	public WorkBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = machineDataStore;
 	}

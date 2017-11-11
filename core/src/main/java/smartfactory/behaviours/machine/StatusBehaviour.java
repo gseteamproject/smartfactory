@@ -3,11 +3,11 @@ package smartfactory.behaviours.machine;
 import jade.core.behaviours.TickerBehaviour;
 import smartfactory.dataStores.MachineDataStore;
 
-public class Status extends TickerBehaviour {
+public class StatusBehaviour extends TickerBehaviour {
 
 	MachineDataStore dataStore;
 
-	public Status(ActivityResponder interactionBehaviour, MachineDataStore machineDataStore) {
+	public StatusBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		super(interactionBehaviour.getAgent(), 500);
 		this.dataStore = machineDataStore;
 	}
