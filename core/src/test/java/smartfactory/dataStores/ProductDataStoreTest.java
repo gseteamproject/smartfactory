@@ -20,11 +20,11 @@ public class ProductDataStoreTest {
 		}
 	};
 
-	ProductDataStore productDataStore;
+	ProductDataStore testable;
 
 	@Before
 	public void setUp() {
-		productDataStore = new ProductDataStore();
+		testable = new ProductDataStore();
 	}
 
 	@After
@@ -36,53 +36,53 @@ public class ProductDataStoreTest {
 	public void getProduct() {
 		final Product product_mock = context.mock(Product.class);
 
-		productDataStore.put("product", product_mock);
+		testable.put("product", product_mock);
 
-		Assert.assertEquals(product_mock, productDataStore.getProduct());
+		Assert.assertEquals(product_mock, testable.getProduct());
 	}
 
 	@Test
 	public void setProduct() {
 		final Product product_mock = context.mock(Product.class);
 
-		productDataStore.setProduct(product_mock);
+		testable.setProduct(product_mock);
 
-		Assert.assertEquals(product_mock, productDataStore.get("product"));
+		Assert.assertEquals(product_mock, testable.get("product"));
 	}
 
 	@Test
 	public void getOrder() {
 		final Order order_mock = context.mock(Order.class);
 
-		productDataStore.put("order", order_mock);
+		testable.put("order", order_mock);
 
-		Assert.assertEquals(order_mock, productDataStore.getOrder());
+		Assert.assertEquals(order_mock, testable.getOrder());
 	}
 
 	@Test
 	public void setOrder() {
 		final Order order_mock = context.mock(Order.class);
 
-		productDataStore.setOrder(order_mock);
+		testable.setOrder(order_mock);
 
-		Assert.assertEquals(order_mock, productDataStore.get("order"));
+		Assert.assertEquals(order_mock, testable.get("order"));
 	}
 
 	@Test
 	public void getAgentPlatform() {
 		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 
-		productDataStore.put("agentPlatform", agentPlatform_mock);
+		testable.put("agentPlatform", agentPlatform_mock);
 
-		Assert.assertEquals(agentPlatform_mock, productDataStore.getAgentPlatform());
+		Assert.assertEquals(agentPlatform_mock, testable.getAgentPlatform());
 	}
 
 	@Test
 	public void setAgentPlatform() {
 		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 
-		productDataStore.setAgentPlatform(agentPlatform_mock);
+		testable.setAgentPlatform(agentPlatform_mock);
 
-		Assert.assertEquals(agentPlatform_mock, productDataStore.get("agentPlatform"));
+		Assert.assertEquals(agentPlatform_mock, testable.get("agentPlatform"));
 	}
 }

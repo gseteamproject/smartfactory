@@ -18,13 +18,13 @@ public class ProductProcessIsIncorrectTest {
 
 	ProductDataStore productDataStore_mock;
 
-	ProductProcessIsIncorrect productProcessIsIncorrect;
+	ProductProcessIsIncorrect testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		productProcessIsIncorrect = new ProductProcessIsIncorrect(productDataStore_mock);
+		testable = new ProductProcessIsIncorrect(productDataStore_mock);
 	}
 
 	@After
@@ -34,11 +34,11 @@ public class ProductProcessIsIncorrectTest {
 
 	@Test
 	public void execute() {
-		productProcessIsIncorrect.execute();
+		testable.execute();
 	}
 
 	@Test
 	public void next() {
-		Assert.assertEquals(0, productProcessIsIncorrect.next());
+		Assert.assertEquals(0, testable.next());
 	}
 }

@@ -18,13 +18,13 @@ public class NoAgentsProvidingServiceTest {
 
 	ProductDataStore productDataStore_mock;
 
-	NoAgentsProvidingService noAgentsProvidingService;
+	NoAgentsProvidingService testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		noAgentsProvidingService = new NoAgentsProvidingService(productDataStore_mock);
+		testable = new NoAgentsProvidingService(productDataStore_mock);
 	}
 
 	@After
@@ -34,11 +34,11 @@ public class NoAgentsProvidingServiceTest {
 
 	@Test
 	public void execute() {
-		noAgentsProvidingService.execute();
+		testable.execute();
 	}
 
 	@Test
 	public void next() {
-		Assert.assertEquals(0, noAgentsProvidingService.next());
+		Assert.assertEquals(0, testable.next());
 	}
 }

@@ -28,13 +28,13 @@ public class FindAgentsProvidingServiceTest {
 
 	ProductDataStore productDataStore_mock;
 
-	FindAgentsProvidingService findAgentsProvidingService;
+	FindAgentsProvidingService testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		findAgentsProvidingService = new FindAgentsProvidingService(productDataStore_mock);
+		testable = new FindAgentsProvidingService(productDataStore_mock);
 	}
 
 	@After
@@ -93,7 +93,7 @@ public class FindAgentsProvidingServiceTest {
 			}
 		});
 
-		findAgentsProvidingService.execute();
+		testable.execute();
 	}
 
 	@Test
@@ -111,6 +111,6 @@ public class FindAgentsProvidingServiceTest {
 			}
 		});
 
-		Assert.assertEquals(isAgentsFound, findAgentsProvidingService.next());
+		Assert.assertEquals(isAgentsFound, testable.next());
 	}
 }

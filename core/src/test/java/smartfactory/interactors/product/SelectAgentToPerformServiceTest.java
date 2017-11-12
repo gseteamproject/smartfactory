@@ -26,13 +26,13 @@ public class SelectAgentToPerformServiceTest {
 
 	ProductDataStore productDataStore_mock;
 
-	SelectAgentToPerformService selectAgentToPerformService;
+	SelectAgentToPerformService testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		selectAgentToPerformService = new SelectAgentToPerformService(productDataStore_mock);
+		testable = new SelectAgentToPerformService(productDataStore_mock);
 	}
 
 	@After
@@ -59,7 +59,7 @@ public class SelectAgentToPerformServiceTest {
 			}
 		});
 
-		selectAgentToPerformService.execute();
+		testable.execute();
 	}
 
 	@Test
@@ -77,6 +77,6 @@ public class SelectAgentToPerformServiceTest {
 			}
 		});
 
-		Assert.assertEquals(isAgentSelected, selectAgentToPerformService.next());
+		Assert.assertEquals(isAgentSelected, testable.next());
 	}
 }

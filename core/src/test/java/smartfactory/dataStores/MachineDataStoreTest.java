@@ -16,11 +16,11 @@ public class MachineDataStoreTest {
 		}
 	};
 
-	MachineDataStore machineDataStore;
+	MachineDataStore testable;
 
 	@Before
 	public void setUp() {
-		machineDataStore = new MachineDataStore();
+		testable = new MachineDataStore();
 	}
 
 	@After
@@ -32,17 +32,17 @@ public class MachineDataStoreTest {
 	public void getMachine() {
 		final Machine machine_mock = context.mock(Machine.class);
 
-		machineDataStore.put("machine", machine_mock);
+		testable.put("machine", machine_mock);
 
-		Assert.assertEquals(machine_mock, machineDataStore.getMachine());
+		Assert.assertEquals(machine_mock, testable.getMachine());
 	}
 
 	@Test
 	public void setMachine() {
 		final Machine machine_mock = context.mock(Machine.class);
 
-		machineDataStore.setMachine(machine_mock);
+		testable.setMachine(machine_mock);
 
-		Assert.assertEquals(machine_mock, machineDataStore.get("machine"));
+		Assert.assertEquals(machine_mock, testable.get("machine"));
 	}
 }

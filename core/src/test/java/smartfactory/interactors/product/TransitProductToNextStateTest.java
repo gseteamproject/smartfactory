@@ -20,13 +20,13 @@ public class TransitProductToNextStateTest {
 
 	ProductDataStore productDataStore_mock;
 
-	TransitProductToNextState transitProductToNextState;
+	TransitProductToNextState testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		transitProductToNextState = new TransitProductToNextState(productDataStore_mock);
+		testable = new TransitProductToNextState(productDataStore_mock);
 	}
 
 	@After
@@ -47,7 +47,7 @@ public class TransitProductToNextStateTest {
 			}
 		});
 
-		transitProductToNextState.execute();
+		testable.execute();
 	}
 
 	@Test
@@ -64,6 +64,6 @@ public class TransitProductToNextStateTest {
 			}
 		});
 
-		Assert.assertEquals(Product.IsInTheLastState, transitProductToNextState.next());
+		Assert.assertEquals(Product.IsInTheLastState, testable.next());
 	}
 }

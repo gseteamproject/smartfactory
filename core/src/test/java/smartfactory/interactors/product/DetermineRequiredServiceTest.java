@@ -22,13 +22,13 @@ public class DetermineRequiredServiceTest {
 
 	ProductDataStore productDataStore_mock;
 
-	DetermineRequiredService determineRequiredService;
+	DetermineRequiredService testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		determineRequiredService = new DetermineRequiredService(productDataStore_mock);
+		testable = new DetermineRequiredService(productDataStore_mock);
 	}
 
 	@After
@@ -53,7 +53,7 @@ public class DetermineRequiredServiceTest {
 			}
 		});
 
-		determineRequiredService.execute();
+		testable.execute();
 	}
 
 	@Test
@@ -71,6 +71,6 @@ public class DetermineRequiredServiceTest {
 			}
 		});
 
-		Assert.assertEquals(isServiceDetermined, determineRequiredService.next());
+		Assert.assertEquals(isServiceDetermined, testable.next());
 	}
 }

@@ -18,13 +18,13 @@ public class ProductIsInLastStateTest {
 
 	ProductDataStore productDataStore_mock;
 
-	ProductIsInLastState productIsInLastState;
+	ProductIsInLastState testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		productIsInLastState = new ProductIsInLastState(productDataStore_mock);
+		testable = new ProductIsInLastState(productDataStore_mock);
 	}
 
 	@After
@@ -34,11 +34,11 @@ public class ProductIsInLastStateTest {
 
 	@Test
 	public void execute() {
-		productIsInLastState.execute();
+		testable.execute();
 	}
 
 	@Test
 	public void next() {
-		Assert.assertEquals(0, productIsInLastState.next());
+		Assert.assertEquals(0, testable.next());
 	}
 }

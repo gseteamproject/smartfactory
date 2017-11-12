@@ -19,13 +19,13 @@ public class OneShotInteractorBehaviourTest {
 
 	OneShotInteractor interactor_mock;
 
-	OneShotInteractorBehaviour interactorBehaviour;
+	OneShotInteractorBehaviour testable;
 
 	@Before
 	public void setUp() {
 		interactor_mock = context.mock(OneShotInteractor.class);
 
-		interactorBehaviour = new OneShotInteractorBehaviour(interactor_mock);
+		testable = new OneShotInteractorBehaviour(interactor_mock);
 	}
 
 	@After
@@ -41,7 +41,7 @@ public class OneShotInteractorBehaviourTest {
 			}
 		});
 
-		interactorBehaviour.action();
+		testable.action();
 	}
 
 	@Test
@@ -55,6 +55,6 @@ public class OneShotInteractorBehaviourTest {
 			}
 		});
 
-		Assert.assertEquals(transition, interactorBehaviour.onEnd());
+		Assert.assertEquals(transition, testable.onEnd());
 	}
 }

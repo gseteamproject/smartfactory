@@ -26,14 +26,14 @@ public class AchieveREResponderInteractorBehaviourTest {
 
 	Agent agent_mock;
 
-	AchieveREResponderInteractorBehaviour interactorBehaviour;
+	AchieveREResponderInteractorBehaviour testable;
 
 	@Before
 	public void setUp() {
 		interactor_mock = context.mock(AchieveREResponderInteractor.class);
 		agent_mock = context.mock(Agent.class);
 
-		interactorBehaviour = new AchieveREResponderInteractorBehaviour(agent_mock, interactor_mock);
+		testable = new AchieveREResponderInteractorBehaviour(agent_mock, interactor_mock);
 	}
 
 	@After
@@ -53,7 +53,7 @@ public class AchieveREResponderInteractorBehaviourTest {
 			}
 		});
 
-		Assert.assertEquals(response_mock, interactorBehaviour.handleRequest(request_mock));
+		Assert.assertEquals(response_mock, testable.handleRequest(request_mock));
 	}
 
 	@Test
@@ -68,6 +68,6 @@ public class AchieveREResponderInteractorBehaviourTest {
 			}
 		});
 
-		Assert.assertEquals(response_mock, interactorBehaviour.prepareResultNotification(request_mock, response_mock));
+		Assert.assertEquals(response_mock, testable.prepareResultNotification(request_mock, response_mock));
 	}
 }

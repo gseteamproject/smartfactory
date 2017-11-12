@@ -8,105 +8,105 @@ import smartfactory.services.Services;
 
 public class BlockTest {
 
-	Block block;
+	Block testable;
 
 	@Before
 	public void setUp() {
-		block = new Block();
+		testable = new Block();
 	}
 
 	@Test
 	public void moveToNextState() {
-		Assert.assertEquals(BlockState.initial, block.state);
-		block.moveToNextState();
+		Assert.assertEquals(BlockState.initial, testable.state);
+		testable.moveToNextState();
 
-		Assert.assertEquals(BlockState.stored, block.state);
-		block.moveToNextState();
+		Assert.assertEquals(BlockState.stored, testable.state);
+		testable.moveToNextState();
 
-		Assert.assertEquals(BlockState.dirty, block.state);
-		block.moveToNextState();
+		Assert.assertEquals(BlockState.dirty, testable.state);
+		testable.moveToNextState();
 
-		Assert.assertEquals(BlockState.clean, block.state);
-		block.moveToNextState();
+		Assert.assertEquals(BlockState.clean, testable.state);
+		testable.moveToNextState();
 
-		Assert.assertEquals(BlockState.painted, block.state);
-		block.moveToNextState();
+		Assert.assertEquals(BlockState.painted, testable.state);
+		testable.moveToNextState();
 
-		Assert.assertEquals(BlockState.packed, block.state);
-		block.moveToNextState();
+		Assert.assertEquals(BlockState.packed, testable.state);
+		testable.moveToNextState();
 
-		Assert.assertEquals(BlockState.packed, block.state);
+		Assert.assertEquals(BlockState.packed, testable.state);
 	}
 
 	@Test
 	public void getRequiredServiceName_initial() {
-		block.state = BlockState.initial;
-		Assert.assertEquals(Services.store, block.getRequiredServiceName());
+		testable.state = BlockState.initial;
+		Assert.assertEquals(Services.store, testable.getRequiredServiceName());
 	}
 
 	@Test
 	public void getRequiredServiceName_stored() {
-		block.state = BlockState.stored;
-		Assert.assertEquals(Services.recognition, block.getRequiredServiceName());
+		testable.state = BlockState.stored;
+		Assert.assertEquals(Services.recognition, testable.getRequiredServiceName());
 	}
 
 	@Test
 	public void getRequiredServiceName_dirty() {
-		block.state = BlockState.dirty;
-		Assert.assertEquals(Services.cleaning, block.getRequiredServiceName());
+		testable.state = BlockState.dirty;
+		Assert.assertEquals(Services.cleaning, testable.getRequiredServiceName());
 	}
 
 	@Test
 	public void getRequiredServiceName_clean() {
-		block.state = BlockState.clean;
-		Assert.assertEquals(Services.painting, block.getRequiredServiceName());
+		testable.state = BlockState.clean;
+		Assert.assertEquals(Services.painting, testable.getRequiredServiceName());
 	}
 
 	@Test
 	public void getRequiredServiceName_painted() {
-		block.state = BlockState.painted;
-		Assert.assertEquals(Services.packing, block.getRequiredServiceName());
+		testable.state = BlockState.painted;
+		Assert.assertEquals(Services.packing, testable.getRequiredServiceName());
 	}
 
 	@Test
 	public void getRequiredServiceName_packed() {
-		block.state = BlockState.packed;
-		Assert.assertEquals(null, block.getRequiredServiceName());
+		testable.state = BlockState.packed;
+		Assert.assertEquals(null, testable.getRequiredServiceName());
 	}
 
 	@Test
 	public void isInTheLastState_initial() {
-		block.state = BlockState.initial;
-		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+		testable.state = BlockState.initial;
+		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_stored() {
-		block.state = BlockState.stored;
-		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+		testable.state = BlockState.stored;
+		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_dirty() {
-		block.state = BlockState.dirty;
-		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+		testable.state = BlockState.dirty;
+		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_clean() {
-		block.state = BlockState.clean;
-		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+		testable.state = BlockState.clean;
+		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_painted() {
-		block.state = BlockState.painted;
-		Assert.assertEquals(Product.IsNotInTheLastState, block.isInTheLastState());
+		testable.state = BlockState.painted;
+		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_packed() {
-		block.state = BlockState.packed;
-		Assert.assertEquals(Product.IsInTheLastState, block.isInTheLastState());
+		testable.state = BlockState.packed;
+		Assert.assertEquals(Product.IsInTheLastState, testable.isInTheLastState());
 	}
 }

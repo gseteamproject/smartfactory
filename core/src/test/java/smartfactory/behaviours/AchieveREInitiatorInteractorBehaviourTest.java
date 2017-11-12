@@ -25,14 +25,14 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 
 	Agent agent_mock;
 
-	AchieveREInitiatorInteractorBehaviour interactorBehaviour;
+	AchieveREInitiatorInteractorBehaviour testable;
 
 	@Before
 	public void setUp() {
 		interactor_mock = context.mock(AchieveREInitiatorInteractor.class);
 		agent_mock = context.mock(Agent.class);
 
-		interactorBehaviour = new AchieveREInitiatorInteractorBehaviour(agent_mock, interactor_mock);
+		testable = new AchieveREInitiatorInteractorBehaviour(agent_mock, interactor_mock);
 	}
 
 	@After
@@ -52,7 +52,7 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 			}
 		});
 
-		Assert.assertEquals(vector_mock, interactorBehaviour.prepareRequests(message_mock));
+		Assert.assertEquals(vector_mock, testable.prepareRequests(message_mock));
 	}
 
 	@Test
@@ -65,7 +65,7 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 			}
 		});
 
-		interactorBehaviour.handleInform(message_mock);
+		testable.handleInform(message_mock);
 	}
 
 	@Test
@@ -78,7 +78,7 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 			}
 		});
 
-		interactorBehaviour.handleRefuse(message_mock);
+		testable.handleRefuse(message_mock);
 	}
 
 	@Test
@@ -91,7 +91,7 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 			}
 		});
 
-		interactorBehaviour.handleAgree(message_mock);
+		testable.handleAgree(message_mock);
 	}
 
 	@Test
@@ -104,7 +104,7 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 			}
 		});
 
-		interactorBehaviour.handleFailure(message_mock);
+		testable.handleFailure(message_mock);
 	}
 
 	@Test
@@ -118,6 +118,6 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 			}
 		});
 
-		Assert.assertEquals(transition, interactorBehaviour.onEnd());
+		Assert.assertEquals(transition, testable.onEnd());
 	}
 }

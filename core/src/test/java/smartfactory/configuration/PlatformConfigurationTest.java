@@ -20,11 +20,11 @@ public class PlatformConfigurationTest {
 		}
 	};
 
-	PlatformConfiguration platformConfiguration;
+	PlatformConfiguration testable;
 
 	@Before
 	public void setUp() {
-		platformConfiguration = new PlatformConfiguration();
+		testable = new PlatformConfiguration();
 	}
 
 	@After
@@ -37,9 +37,9 @@ public class PlatformConfigurationTest {
 		final String host = "192.168.0.1";
 		List<String> parameters = new ArrayList<String>();
 
-		platformConfiguration.host = host;
+		testable.host = host;
 
-		platformConfiguration.appendHost(parameters);
+		testable.appendHost(parameters);
 		Assert.assertEquals(2, parameters.size());
 		Assert.assertEquals("-host", parameters.get(0));
 		Assert.assertEquals(host, parameters.get(1));
@@ -49,9 +49,9 @@ public class PlatformConfigurationTest {
 	public void appendHost_null() {
 		List<String> parameters = new ArrayList<String>();
 
-		platformConfiguration.host = null;
+		testable.host = null;
 
-		platformConfiguration.appendHost(parameters);
+		testable.appendHost(parameters);
 		Assert.assertEquals(0, parameters.size());
 	}
 
@@ -60,9 +60,9 @@ public class PlatformConfigurationTest {
 		final String localHost = "192.168.0.2";
 		List<String> parameters = new ArrayList<String>();
 
-		platformConfiguration.localhost = localHost;
+		testable.localhost = localHost;
 
-		platformConfiguration.appendLocalHost(parameters);
+		testable.appendLocalHost(parameters);
 		Assert.assertEquals(2, parameters.size());
 		Assert.assertEquals("-local-host", parameters.get(0));
 		Assert.assertEquals(localHost, parameters.get(1));
@@ -72,9 +72,9 @@ public class PlatformConfigurationTest {
 	public void appendLocalHost_null() {
 		List<String> parameters = new ArrayList<String>();
 
-		platformConfiguration.localhost = null;
+		testable.localhost = null;
 
-		platformConfiguration.appendLocalHost(parameters);
+		testable.appendLocalHost(parameters);
 		Assert.assertEquals(0, parameters.size());
 	}
 
@@ -83,10 +83,10 @@ public class PlatformConfigurationTest {
 		final String host = "192.168.88.1";
 		final String localhost = "192.168.88.2";
 
-		platformConfiguration.host = host;
-		platformConfiguration.localhost = localhost;
+		testable.host = host;
+		testable.localhost = localhost;
 
-		List<String> parameters = platformConfiguration.getStartupParameters();
+		List<String> parameters = testable.getStartupParameters();
 		Assert.assertEquals(4, parameters.size());
 		Assert.assertEquals("-host", parameters.get(0));
 		Assert.assertEquals(host, parameters.get(1));
@@ -110,8 +110,8 @@ public class PlatformConfigurationTest {
 			}
 		});
 
-		platformConfiguration.loadHost(root_mock);
-		Assert.assertEquals(text, platformConfiguration.host);
+		testable.loadHost(root_mock);
+		Assert.assertEquals(text, testable.host);
 	}
 
 	@Test
@@ -125,8 +125,8 @@ public class PlatformConfigurationTest {
 			}
 		});
 
-		platformConfiguration.loadHost(root_mock);
-		Assert.assertEquals(null, platformConfiguration.host);
+		testable.loadHost(root_mock);
+		Assert.assertEquals(null, testable.host);
 	}
 
 	@Test
@@ -145,8 +145,8 @@ public class PlatformConfigurationTest {
 			}
 		});
 
-		platformConfiguration.loadLocalHost(root_mock);
-		Assert.assertEquals(text, platformConfiguration.localhost);
+		testable.loadLocalHost(root_mock);
+		Assert.assertEquals(text, testable.localhost);
 	}
 
 	@Test
@@ -160,8 +160,8 @@ public class PlatformConfigurationTest {
 			}
 		});
 
-		platformConfiguration.loadLocalHost(root_mock);
-		Assert.assertEquals(null, platformConfiguration.localhost);
+		testable.loadLocalHost(root_mock);
+		Assert.assertEquals(null, testable.localhost);
 	}
 
 	@Test
@@ -178,6 +178,6 @@ public class PlatformConfigurationTest {
 			}
 		});
 
-		platformConfiguration.load(root_mock);
+		testable.load(root_mock);
 	}
 }
