@@ -9,7 +9,7 @@ import org.junit.Test;
 import jade.core.Agent;
 import smartfactory.dataStores.MachineDataStore;
 
-public class ActivityResponderBehaviourTest {
+public class ServiceProvisioningResponderBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -21,14 +21,14 @@ public class ActivityResponderBehaviourTest {
 
 	MachineDataStore dataStore_mock;
 
-	ActivityResponderBehaviour testable;
+	ServiceProvisioningResponderBehaviour testable;
 
 	@Before
 	public void setUp() {
 		dataStore_mock = context.mock(MachineDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
-		testable = new ActivityResponderBehaviour(agent_mock, dataStore_mock);
+		testable = new ServiceProvisioningResponderBehaviour(agent_mock, dataStore_mock);
 	}
 
 	@After

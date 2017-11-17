@@ -6,11 +6,11 @@ import smartfactory.interactors.machine.Work;
 
 public class WorkBehaviour extends SimpleBehaviour {
 
-	ActivityResponderBehaviour interactionBehaviour;
+	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
 	Work interactor;
 
-	public WorkBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
+	public WorkBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new Work(machineDataStore);
 	}

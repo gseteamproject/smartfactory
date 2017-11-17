@@ -18,7 +18,7 @@ public class StatusBehaviourTest {
 		}
 	};
 
-	ActivityResponderBehaviour interactionBehaviour_mock;
+	ServiceProvisioningResponderBehaviour interactionBehaviour_mock;
 
 	MachineDataStore dataStore_mock;
 
@@ -28,7 +28,7 @@ public class StatusBehaviourTest {
 
 	@Before
 	public void setUp() {
-		interactionBehaviour_mock = context.mock(ActivityResponderBehaviour.class);
+		interactionBehaviour_mock = context.mock(ServiceProvisioningResponderBehaviour.class);
 		dataStore_mock = context.mock(MachineDataStore.class);
 		agent_mock = context.mock(Agent.class);
 

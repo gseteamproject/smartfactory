@@ -6,11 +6,11 @@ import smartfactory.interactors.machine.Decision;
 
 public class DecisionBehaviour extends OneShotBehaviour {
 
-	ActivityResponderBehaviour interactionBehaviour;
+	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
 	Decision interactor;
 
-	public DecisionBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
+	public DecisionBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new Decision(machineDataStore);
 	}

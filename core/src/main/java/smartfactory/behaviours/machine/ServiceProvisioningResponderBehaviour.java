@@ -6,7 +6,7 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREResponder;
 import smartfactory.dataStores.MachineDataStore;
 
-public class ActivityResponderBehaviour extends AchieveREResponder {
+public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
 
 	public ACLMessage getRequest() {
 		return (ACLMessage) getDataStore().get(REQUEST_KEY);
@@ -20,7 +20,7 @@ public class ActivityResponderBehaviour extends AchieveREResponder {
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	public ActivityResponderBehaviour(Agent a, MachineDataStore machineDataStore) {
+	public ServiceProvisioningResponderBehaviour(Agent a, MachineDataStore machineDataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
 
 		registerHandleRequest(new DecisionBehaviour(this, machineDataStore));

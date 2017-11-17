@@ -16,7 +16,7 @@ public class DecisionBehaviourTest {
 		}
 	};
 
-	ActivityResponderBehaviour interactionBehaviour_mock;
+	ServiceProvisioningResponderBehaviour interactionBehaviour_mock;
 
 	MachineDataStore dataStore_mock;
 
@@ -24,7 +24,7 @@ public class DecisionBehaviourTest {
 
 	@Before
 	public void setUp() {
-		interactionBehaviour_mock = context.mock(ActivityResponderBehaviour.class);
+		interactionBehaviour_mock = context.mock(ServiceProvisioningResponderBehaviour.class);
 		dataStore_mock = context.mock(MachineDataStore.class);
 
 		testable = new DecisionBehaviour(interactionBehaviour_mock, dataStore_mock);

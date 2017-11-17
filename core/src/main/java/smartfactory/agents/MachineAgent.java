@@ -7,7 +7,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import smartfactory.behaviours.machine.ActivityResponderBehaviour;
+import smartfactory.behaviours.machine.ServiceProvisioningResponderBehaviour;
 import smartfactory.dataStores.MachineDataStore;
 import smartfactory.models.Machine;
 
@@ -61,7 +61,7 @@ public class MachineAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new ActivityResponderBehaviour(this, dataStore));
+		addBehaviour(new ServiceProvisioningResponderBehaviour(this, dataStore));
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;

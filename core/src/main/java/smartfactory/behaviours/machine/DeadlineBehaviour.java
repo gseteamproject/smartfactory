@@ -7,11 +7,11 @@ import smartfactory.models.Machine;
 
 public class DeadlineBehaviour extends WakerBehaviour {
 
-	ActivityResponderBehaviour interactionBehaviour;
+	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
 	Deadline interactor;
 
-	public DeadlineBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
+	public DeadlineBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		super(interactionBehaviour.getAgent(), Machine.DURATION_LIMIT * 1000);
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new Deadline(machineDataStore);

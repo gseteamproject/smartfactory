@@ -8,7 +8,7 @@ public class StatusBehaviour extends TickerBehaviour {
 
 	Status interactor;
 
-	public StatusBehaviour(ActivityResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
+	public StatusBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
 		super(interactionBehaviour.getAgent(), 500);
 		this.interactor = new Status(machineDataStore);
 	}
