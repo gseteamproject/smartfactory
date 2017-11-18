@@ -1,7 +1,7 @@
 package smartfactory.dataStores;
 
 import jade.core.behaviours.DataStore;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
 import smartfactory.platform.AgentPlatform;
 
@@ -15,12 +15,12 @@ public class ProductDataStore extends DataStore {
 		return (Product) get("product");
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(ServiceProvisioning order) {
 		put("order", order);
 	}
 
-	public Order getOrder() {
-		return (Order) get("order");
+	public ServiceProvisioning getOrder() {
+		return (ServiceProvisioning) get("order");
 	}
 
 	public AgentPlatform getAgentPlatform() {

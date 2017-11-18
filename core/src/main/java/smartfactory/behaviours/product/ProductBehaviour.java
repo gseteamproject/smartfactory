@@ -5,7 +5,7 @@ import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.product.PerformServiceInitiator;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
 import smartfactory.platform.JADEPlatform;
 
@@ -16,7 +16,7 @@ public class ProductBehaviour extends FSMBehaviour {
 
 		ProductDataStore productDataStore = new ProductDataStore();
 		productDataStore.setProduct(product);
-		productDataStore.setOrder(new Order());
+		productDataStore.setOrder(new ServiceProvisioning());
 		productDataStore.setAgentPlatform(new JADEPlatform(agent));
 		setDataStore(productDataStore);
 
@@ -29,12 +29,12 @@ public class ProductBehaviour extends FSMBehaviour {
 		Behaviour b7 = new ProductProcessIsIncorrectBehaviour(productDataStore);
 		Behaviour b8 = new NoAgentsProvidingServiceBehaviour(productDataStore);
 
-		int b1_b2 = Order.ServiceDetermined;
-		int b1_b7 = Order.ServiceNotDetermined;
-		int b2_b3 = Order.AgentsFound;
-		int b2_b8 = Order.AgentsNotFound;
-		int b3_b4 = Order.AgentSelected;
-		int b3_b2 = Order.AgentNotSelected;
+		int b1_b2 = ServiceProvisioning.ServiceDetermined;
+		int b1_b7 = ServiceProvisioning.ServiceNotDetermined;
+		int b2_b3 = ServiceProvisioning.AgentsFound;
+		int b2_b8 = ServiceProvisioning.AgentsNotFound;
+		int b3_b4 = ServiceProvisioning.AgentSelected;
+		int b3_b2 = ServiceProvisioning.AgentNotSelected;
 		int b4_b5 = PerformServiceInitiator.ServicePerformedSuccessfully;
 		int b4_b3 = PerformServiceInitiator.ServicePerformedUnSuccessfully;
 		int b5_b6 = Product.IsInTheLastState;

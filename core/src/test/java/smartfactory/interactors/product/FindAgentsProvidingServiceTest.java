@@ -16,7 +16,7 @@ import org.junit.Test;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 import smartfactory.platform.AgentPlatform;
 
 public class FindAgentsProvidingServiceTest {
@@ -45,7 +45,7 @@ public class FindAgentsProvidingServiceTest {
 	@Test
 	public void execute() {
 		final String requiredServiceName = "serviceName";
-		final Order order_mock = context.mock(Order.class);
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 		order_mock.serviceName = requiredServiceName;
 		final List<DFAgentDescription> agentDescriptions = new ArrayList<DFAgentDescription>();
 		agentDescriptions.add(new DFAgentDescription());
@@ -98,8 +98,8 @@ public class FindAgentsProvidingServiceTest {
 
 	@Test
 	public void next() {
-		final Order order_mock = context.mock(Order.class);
-		final int isAgentsFound = Order.AgentsFound;
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
+		final int isAgentsFound = ServiceProvisioning.AgentsFound;
 
 		context.checking(new Expectations() {
 			{

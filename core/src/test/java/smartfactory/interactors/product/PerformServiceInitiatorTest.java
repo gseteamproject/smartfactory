@@ -16,7 +16,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.product.PerformServiceInitiator;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 
 public class PerformServiceInitiatorTest {
 
@@ -45,7 +45,7 @@ public class PerformServiceInitiatorTest {
 	@Test
 	public void handleInform() {
 		final ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-		final Order order = new Order();
+		final ServiceProvisioning order = new ServiceProvisioning();
 		order.agentDescription = new DFAgentDescription();
 
 		context.checking(new Expectations() {
@@ -61,7 +61,7 @@ public class PerformServiceInitiatorTest {
 	@Test
 	public void handleAgree() {
 		final ACLMessage message = new ACLMessage(ACLMessage.AGREE);
-		final Order order = new Order();
+		final ServiceProvisioning order = new ServiceProvisioning();
 		order.agentDescription = new DFAgentDescription();
 
 		context.checking(new Expectations() {
@@ -78,7 +78,7 @@ public class PerformServiceInitiatorTest {
 	public void handleRefuse() {
 		final ACLMessage message = new ACLMessage(ACLMessage.REFUSE);
 		final DFAgentDescription agentDescription = new DFAgentDescription();
-		Order order_mock = context.mock(Order.class);
+		ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 		order_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
@@ -97,7 +97,7 @@ public class PerformServiceInitiatorTest {
 	public void handleFailure() {
 		final ACLMessage message = new ACLMessage(ACLMessage.FAILURE);
 		final DFAgentDescription agentDescription = new DFAgentDescription();
-		Order order_mock = context.mock(Order.class);
+		ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 		order_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
@@ -117,7 +117,7 @@ public class PerformServiceInitiatorTest {
 		ACLMessage message = null;
 
 		final AID aid = new AID();
-		final Order order = new Order();
+		final ServiceProvisioning order = new ServiceProvisioning();
 		order.agentDescription = new DFAgentDescription();
 		order.agentDescription.setName(aid);
 

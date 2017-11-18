@@ -18,8 +18,8 @@ public class Product {
 		return IsInTheLastState;
 	}
 
-	public Order createOrder() {
-		Order order = new Order();
+	public ServiceProvisioning createServiceProvisioning() {
+		ServiceProvisioning order = new ServiceProvisioning();
 		order.serviceName = getRequiredServiceName();
 		return order;
 	}

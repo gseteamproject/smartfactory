@@ -14,7 +14,7 @@ import org.junit.Test;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.product.SelectAgentToPerformService;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 
 public class SelectAgentToPerformServiceTest {
 
@@ -45,7 +45,7 @@ public class SelectAgentToPerformServiceTest {
 		final DFAgentDescription agentProvidingService = new DFAgentDescription();
 		final List<DFAgentDescription> agentsProvidingService = Arrays
 				.asList(new DFAgentDescription[] { agentProvidingService });
-		final Order order_mock = context.mock(Order.class);
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 		order_mock.agentsDescription = agentsProvidingService;
 
 		context.checking(new Expectations() {
@@ -64,8 +64,8 @@ public class SelectAgentToPerformServiceTest {
 
 	@Test
 	public void next() {
-		final Order order_mock = context.mock(Order.class);
-		final int isAgentSelected = Order.AgentSelected;
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
+		final int isAgentSelected = ServiceProvisioning.AgentSelected;
 
 		context.checking(new Expectations() {
 			{

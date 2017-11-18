@@ -5,7 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.OneShotInteractor;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 
 public class DetermineRequiredService extends ProductInteractor implements OneShotInteractor {
 
@@ -15,7 +15,7 @@ public class DetermineRequiredService extends ProductInteractor implements OneSh
 
 	@Override
 	public void execute() {
-		Order order = dataStore.getProduct().createOrder();
+		ServiceProvisioning order = dataStore.getProduct().createServiceProvisioning();
 		dataStore.setOrder(order);
 		logger.info("required service \"{}\"", order.serviceName);
 	}

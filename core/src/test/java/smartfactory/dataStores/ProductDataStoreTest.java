@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
 import smartfactory.platform.AgentPlatform;
 
@@ -52,7 +52,7 @@ public class ProductDataStoreTest {
 
 	@Test
 	public void getOrder() {
-		final Order order_mock = context.mock(Order.class);
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 
 		testable.put("order", order_mock);
 
@@ -61,7 +61,7 @@ public class ProductDataStoreTest {
 
 	@Test
 	public void setOrder() {
-		final Order order_mock = context.mock(Order.class);
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 
 		testable.setOrder(order_mock);
 

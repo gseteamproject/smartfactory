@@ -6,9 +6,9 @@ import org.apache.commons.lang3.StringUtils;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
-public class Order {
+public class ServiceProvisioning {
 
-	public Order() {
+	public ServiceProvisioning() {
 		serviceName = null;
 		agentDescription = null;
 	}

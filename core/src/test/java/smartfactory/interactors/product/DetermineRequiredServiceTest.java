@@ -9,7 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.models.Order;
+import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
 
 public class DetermineRequiredServiceTest {
@@ -39,14 +39,14 @@ public class DetermineRequiredServiceTest {
 	@Test
 	public void execute() {
 		final Product product_mock = context.mock(Product.class);
-		final Order order_mock = context.mock(Order.class);
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(productDataStore_mock).getProduct();
 				will(returnValue(product_mock));
 
-				oneOf(product_mock).createOrder();
+				oneOf(product_mock).createServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(productDataStore_mock).setOrder(order_mock);
@@ -58,8 +58,8 @@ public class DetermineRequiredServiceTest {
 
 	@Test
 	public void next() {
-		final Order order_mock = context.mock(Order.class);
-		final int isServiceDetermined = Order.ServiceDetermined;
+		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
+		final int isServiceDetermined = ServiceProvisioning.ServiceDetermined;
 
 		context.checking(new Expectations() {
 			{

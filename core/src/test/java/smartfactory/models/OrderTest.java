@@ -19,11 +19,11 @@ public class OrderTest {
 		}
 	};
 
-	Order testable;
+	ServiceProvisioning testable;
 
 	@Before
 	public void setUp() {
-		testable = new Order();
+		testable = new ServiceProvisioning();
 	}
 
 	@After
