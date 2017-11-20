@@ -51,21 +51,21 @@ public class ProductDataStoreTest {
 	}
 
 	@Test
-	public void getOrder() {
-		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
+	public void getServiceProvisioning() {
+		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
 
-		testable.put("order", order_mock);
+		testable.put("service-provisioning", serviceProvisioning_mock);
 
-		Assert.assertEquals(order_mock, testable.getOrder());
+		Assert.assertEquals(serviceProvisioning_mock, testable.getServiceProvisioning());
 	}
 
 	@Test
-	public void setOrder() {
-		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
+	public void setServiceProvisioning() {
+		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
 
-		testable.setOrder(order_mock);
+		testable.setServiceProvisioning(serviceProvisioning_mock);
 
-		Assert.assertEquals(order_mock, testable.get("order"));
+		Assert.assertEquals(serviceProvisioning_mock, testable.get("service-provisioning"));
 	}
 
 	@Test

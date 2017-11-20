@@ -6,12 +6,13 @@ import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
-public class OrderTest {
+public class ServiceProvisioningTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -33,7 +34,7 @@ public class OrderTest {
 
 	@SuppressWarnings("unchecked")
 	@Test
-	public void removeSelectedAgentFromAgentsList() {
+	public void servicePerformedUnsuccesfully() {
 		final DFAgentDescription agentDescription_mock = context.mock(DFAgentDescription.class);
 		final List<DFAgentDescription> agentDescriptions_mock = context.mock(List.class);
 
@@ -46,6 +47,16 @@ public class OrderTest {
 			}
 		});
 
-		testable.removeSelectedAgentFromAgentsList();
+		testable.servicePerformedUnsuccesfully();
+
+		Assert.assertEquals(ServiceProvisioning.ServicePerformedUnSuccessfully,
+				testable.isServicePerformedSuccesfully());
+	}
+
+	@Test
+	public void servicePerformedSuccesfully() {
+		testable.servicePerformedSuccesfully();
+
+		Assert.assertEquals(ServiceProvisioning.ServicePerformedSuccessfully, testable.isServicePerformedSuccesfully());
 	}
 }

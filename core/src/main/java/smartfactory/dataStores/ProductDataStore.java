@@ -15,12 +15,12 @@ public class ProductDataStore extends DataStore {
 		return (Product) get("product");
 	}
 
-	public void setOrder(ServiceProvisioning order) {
-		put("order", order);
+	public void setServiceProvisioning(ServiceProvisioning serviceProvisioning) {
+		put("service-provisioning", serviceProvisioning);
 	}
 
-	public ServiceProvisioning getOrder() {
-		return (ServiceProvisioning) get("order");
+	public ServiceProvisioning getServiceProvisioning() {
+		return (ServiceProvisioning) get("service-provisioning");
 	}
 
 	public AgentPlatform getAgentPlatform() {

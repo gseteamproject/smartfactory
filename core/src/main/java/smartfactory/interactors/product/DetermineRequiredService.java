@@ -16,13 +16,13 @@ public class DetermineRequiredService extends ProductInteractor implements OneSh
 	@Override
 	public void execute() {
 		ServiceProvisioning order = dataStore.getProduct().createServiceProvisioning();
-		dataStore.setOrder(order);
+		dataStore.setServiceProvisioning(order);
 		logger.info("required service \"{}\"", order.serviceName);
 	}
 
 	@Override
 	public int next() {
-		return dataStore.getOrder().isServiceDetermined();
+		return dataStore.getServiceProvisioning().isServiceDetermined();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

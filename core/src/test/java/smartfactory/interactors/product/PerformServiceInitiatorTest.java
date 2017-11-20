@@ -45,13 +45,15 @@ public class PerformServiceInitiatorTest {
 	@Test
 	public void handleInform() {
 		final ACLMessage message = new ACLMessage(ACLMessage.INFORM);
-		final ServiceProvisioning order = new ServiceProvisioning();
-		order.agentDescription = new DFAgentDescription();
+		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
+		serviceProvisioning_mock.agentDescription = new DFAgentDescription();
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
-				will(returnValue(order));
+				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning_mock));
+
+				oneOf(serviceProvisioning_mock).servicePerformedSuccesfully();
 			}
 		});
 
@@ -61,13 +63,13 @@ public class PerformServiceInitiatorTest {
 	@Test
 	public void handleAgree() {
 		final ACLMessage message = new ACLMessage(ACLMessage.AGREE);
-		final ServiceProvisioning order = new ServiceProvisioning();
-		order.agentDescription = new DFAgentDescription();
+		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
+		serviceProvisioning_mock.agentDescription = new DFAgentDescription();
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
-				will(returnValue(order));
+				oneOf(productDataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning_mock));
 			}
 		});
 
@@ -78,15 +80,15 @@ public class PerformServiceInitiatorTest {
 	public void handleRefuse() {
 		final ACLMessage message = new ACLMessage(ACLMessage.REFUSE);
 		final DFAgentDescription agentDescription = new DFAgentDescription();
-		ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
-		order_mock.agentDescription = agentDescription;
+		ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
+		serviceProvisioning_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
 			{
-				exactly(2).of(productDataStore_mock).getOrder();
-				will(returnValue(order_mock));
+				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning_mock));
 
-				oneOf(order_mock).removeSelectedAgentFromAgentsList();
+				oneOf(serviceProvisioning_mock).servicePerformedUnsuccesfully();
 			}
 		});
 
@@ -97,15 +99,15 @@ public class PerformServiceInitiatorTest {
 	public void handleFailure() {
 		final ACLMessage message = new ACLMessage(ACLMessage.FAILURE);
 		final DFAgentDescription agentDescription = new DFAgentDescription();
-		ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
-		order_mock.agentDescription = agentDescription;
+		ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
+		serviceProvisioning_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
 			{
-				exactly(2).of(productDataStore_mock).getOrder();
-				will(returnValue(order_mock));
+				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning_mock));
 
-				oneOf(order_mock).removeSelectedAgentFromAgentsList();
+				oneOf(serviceProvisioning_mock).servicePerformedUnsuccesfully();
 			}
 		});
 
@@ -117,14 +119,14 @@ public class PerformServiceInitiatorTest {
 		ACLMessage message = null;
 
 		final AID aid = new AID();
-		final ServiceProvisioning order = new ServiceProvisioning();
-		order.agentDescription = new DFAgentDescription();
-		order.agentDescription.setName(aid);
+		final ServiceProvisioning serviceProvisioning = new ServiceProvisioning();
+		serviceProvisioning.agentDescription = new DFAgentDescription();
+		serviceProvisioning.agentDescription.setName(aid);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
-				will(returnValue(order));
+				oneOf(productDataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning));
 			}
 		});
 
@@ -137,7 +139,20 @@ public class PerformServiceInitiatorTest {
 	}
 
 	@Test
-	public void next_ServicePerformedUnSuccessfully() {
-		Assert.assertEquals(PerformServiceInitiator.ServicePerformedUnSuccessfully, testable.next());
+	public void next() {
+		final int servicePerformedResult = 123;
+		ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(productDataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning_mock));
+
+				oneOf(serviceProvisioning_mock).isServicePerformedSuccesfully();
+				will(returnValue(servicePerformedResult));
+			}
+		});
+
+		Assert.assertEquals(servicePerformedResult, testable.next());
 	}
 }

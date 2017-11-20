@@ -50,11 +50,11 @@ public class SelectAgentToPerformServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 				// TODO : add matcher for agentDescription
 
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 			}
 		});
@@ -69,7 +69,7 @@ public class SelectAgentToPerformServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(order_mock).isAgentSelected();

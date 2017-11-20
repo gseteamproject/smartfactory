@@ -19,20 +19,20 @@ public class FindAgentsProvidingService extends ProductInteractor implements One
 	@Override
 	public void execute() {
 		ServiceDescription serviceDescriptionTemplate = new ServiceDescription();
-		serviceDescriptionTemplate.setName(dataStore.getOrder().serviceName);
+		serviceDescriptionTemplate.setName(dataStore.getServiceProvisioning().serviceName);
 
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
 		List<DFAgentDescription> agentsProvidingService = dataStore.getAgentPlatform().search(agentDescriptionTemplate);
-		dataStore.getOrder().agentsDescription = agentsProvidingService;
+		dataStore.getServiceProvisioning().agentsDescription = agentsProvidingService;
 		logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
 				serviceDescriptionTemplate.getName());
 	}
 
 	@Override
 	public int next() {
-		return dataStore.getOrder().isAgentsFound();
+		return dataStore.getServiceProvisioning().isAgentsFound();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -45,7 +45,21 @@ public class ServiceProvisioning {
 		return agentDescription == null ? AgentNotSelected : AgentSelected;
 	}
 
-	public void removeSelectedAgentFromAgentsList() {
+	private boolean servicePerformedSuccessfully;
+
+	public void servicePerformedUnsuccesfully() {
+		servicePerformedSuccessfully = false;
 		agentsDescription.remove(agentDescription);
+	}
+
+	public void servicePerformedSuccesfully() {
+		servicePerformedSuccessfully = true;
+	}
+
+	final static public int ServicePerformedSuccessfully = 0;
+	final static public int ServicePerformedUnSuccessfully = 1;
+
+	public int isServicePerformedSuccesfully() {
+		return servicePerformedSuccessfully == true ? ServicePerformedSuccessfully : ServicePerformedUnSuccessfully;
 	}
 }

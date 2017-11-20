@@ -53,7 +53,7 @@ public class FindAgentsProvidingServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(productDataStore_mock).getAgentPlatform();
@@ -77,7 +77,7 @@ public class FindAgentsProvidingServiceTest {
 				}));
 				will(returnValue(agentDescriptions));
 
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				/*
@@ -103,7 +103,7 @@ public class FindAgentsProvidingServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(order_mock).isAgentsFound();

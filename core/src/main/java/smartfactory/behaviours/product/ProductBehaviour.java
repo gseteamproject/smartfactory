@@ -4,7 +4,6 @@ import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.interactors.product.PerformServiceInitiator;
 import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
 import smartfactory.platform.JADEPlatform;
@@ -16,7 +15,7 @@ public class ProductBehaviour extends FSMBehaviour {
 
 		ProductDataStore productDataStore = new ProductDataStore();
 		productDataStore.setProduct(product);
-		productDataStore.setOrder(new ServiceProvisioning());
+		productDataStore.setServiceProvisioning(new ServiceProvisioning());
 		productDataStore.setAgentPlatform(new JADEPlatform(agent));
 		setDataStore(productDataStore);
 
@@ -35,8 +34,8 @@ public class ProductBehaviour extends FSMBehaviour {
 		int b2_b8 = ServiceProvisioning.AgentsNotFound;
 		int b3_b4 = ServiceProvisioning.AgentSelected;
 		int b3_b2 = ServiceProvisioning.AgentNotSelected;
-		int b4_b5 = PerformServiceInitiator.ServicePerformedSuccessfully;
-		int b4_b3 = PerformServiceInitiator.ServicePerformedUnSuccessfully;
+		int b4_b5 = ServiceProvisioning.ServicePerformedSuccessfully;
+		int b4_b3 = ServiceProvisioning.ServicePerformedUnSuccessfully;
 		int b5_b6 = Product.IsInTheLastState;
 		int b5_b1 = Product.IsNotInTheLastState;
 

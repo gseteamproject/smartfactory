@@ -49,7 +49,7 @@ public class DetermineRequiredServiceTest {
 				oneOf(product_mock).createServiceProvisioning();
 				will(returnValue(order_mock));
 
-				oneOf(productDataStore_mock).setOrder(order_mock);
+				oneOf(productDataStore_mock).setServiceProvisioning(order_mock);
 			}
 		});
 
@@ -63,7 +63,7 @@ public class DetermineRequiredServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getOrder();
+				oneOf(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(order_mock).isServiceDetermined();
