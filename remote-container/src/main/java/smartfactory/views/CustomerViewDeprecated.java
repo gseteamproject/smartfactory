@@ -12,11 +12,12 @@ import javax.swing.Action;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
-public class CustomerView extends JFrame {
+@Deprecated
+public class CustomerViewDeprecated extends JFrame {
 
 	private CustomerPresenter presenter;
 
-	public CustomerView() {
+	public CustomerViewDeprecated() {
 		addWindowListener(new WindowAdapter() {
 			@Override
 			public void windowClosing(WindowEvent e) {
@@ -34,7 +35,7 @@ public class CustomerView extends JFrame {
 		getContentPane().add(btnNewButton);
 	}
 
-	public CustomerView(CustomerPresenter presenter) {
+	public CustomerViewDeprecated(CustomerPresenter presenter) {
 		this();
 		this.presenter = presenter;
 	}
