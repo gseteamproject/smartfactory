@@ -70,13 +70,13 @@ public class CustomerPresenterTest {
 	}
 
 	@Test
-	public void addBlock() {
+	public void createOrder() {
 		context.checking(new Expectations() {
 			{
-				oneOf(agent_mock).makeOrder();
+				oneOf(agent_mock).createOrder();
 			}
 		});
 
-		testable.addBlock();
+		testable.createOrder();
 	}
 }
