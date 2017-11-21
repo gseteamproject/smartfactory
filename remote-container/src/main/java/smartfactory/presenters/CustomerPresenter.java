@@ -31,6 +31,6 @@ public class CustomerPresenter {
 	}
 
 	public void addBlock() {
-		agent.addBlock();
+		agent.makeOrder();
 	}
 }

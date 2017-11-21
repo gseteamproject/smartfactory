@@ -17,8 +17,8 @@ public class CustomerAgent extends SmartFactoryAgent {
 		presenter.hide();
 	}
 
-	public void addBlock() {
-		addBehaviour(new LaunchAgentBehaviour(this, BlockAgent.getUniqueName(), BlockAgent.class.getName()));
+	public void makeOrder() {
+		addBehaviour(new LaunchAgentBehaviour(this, OrderAgent.getUniqueName(), OrderAgent.class.getName()));
 	}
 
 	private static final long serialVersionUID = -2432898217068138400L;

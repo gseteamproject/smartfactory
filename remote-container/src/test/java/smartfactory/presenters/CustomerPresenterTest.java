@@ -73,7 +73,7 @@ public class CustomerPresenterTest {
 	public void addBlock() {
 		context.checking(new Expectations() {
 			{
-				oneOf(agent_mock).addBlock();
+				oneOf(agent_mock).makeOrder();
 			}
 		});
 
