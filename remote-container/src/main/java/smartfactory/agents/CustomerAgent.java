@@ -17,7 +17,7 @@ public class CustomerAgent extends SmartFactoryAgent {
 		presenter.hide();
 	}
 
-	public void makeOrder() {
+	public void createOrder() {
 		addBehaviour(new LaunchAgentBehaviour(this, OrderAgent.getUniqueName(), OrderAgent.class.getName()));
 	}
 

@@ -30,7 +30,7 @@ public class CustomerPresenter {
 		agent.doDelete();
 	}
 
-	public void addBlock() {
-		agent.makeOrder();
+	public void createOrder() {
+		agent.createOrder();
 	}
 }
