@@ -27,6 +27,7 @@ public class ProductDataStore extends DataStore {
 		return (AgentPlatform) get("agentPlatform");
 	}
 
+	// TODO : create superclass for DataStore with agentPlatform field
 	public void setAgentPlatform(AgentPlatform agentPlatform) {
 		put("agentPlatform", agentPlatform);
 	}

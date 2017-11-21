@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import jade.core.Agent;
 import smartfactory.behaviours.product.ProductBehaviour;
-import smartfactory.models.Product;
+import smartfactory.dataStores.ProductDataStore;
 
 public class ProductBehaviourTest {
 
@@ -20,16 +20,16 @@ public class ProductBehaviourTest {
 	};
 
 	Agent agent_mock;
-	Product product_mock;
+	ProductDataStore dataStore_mock;
 
 	ProductBehaviour testable;
 
 	@Before
 	public void setUp() {
 		agent_mock = context.mock(Agent.class);
-		product_mock = context.mock(Product.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new ProductBehaviour(agent_mock, product_mock);
+		testable = new ProductBehaviour(agent_mock, dataStore_mock);
 	}
 
 	@After

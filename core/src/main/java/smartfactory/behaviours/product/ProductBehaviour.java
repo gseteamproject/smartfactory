@@ -6,18 +6,11 @@ import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
-import smartfactory.platform.JADEPlatform;
 
 public class ProductBehaviour extends FSMBehaviour {
 
-	public ProductBehaviour(Agent agent, Product product) {
-		super(agent);
-
-		ProductDataStore productDataStore = new ProductDataStore();
-		productDataStore.setProduct(product);
-		productDataStore.setServiceProvisioning(new ServiceProvisioning());
-		productDataStore.setAgentPlatform(new JADEPlatform(agent));
-		setDataStore(productDataStore);
+	public ProductBehaviour(Agent agent, ProductDataStore productDataStore) {
+		super();
 
 		Behaviour b1 = new DetermineRequiredServiceBehaviour(productDataStore);
 		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(productDataStore);
