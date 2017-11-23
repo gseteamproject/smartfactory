@@ -1,9 +1,8 @@
 package smartfactory.dataStores;
 
-import jade.core.behaviours.DataStore;
 import smartfactory.models.Machine;
 
-public class MachineDataStore extends DataStore {
+public class MachineDataStore extends SmartFactoryDataStore {
 
 	public void setMachine(Machine machine) {
 		put("machine", machine);

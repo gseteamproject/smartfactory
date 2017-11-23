@@ -1,17 +1,16 @@
 package smartfactory.agents;
 
 import smartfactory.behaviours.order.OrderBehaviour;
+import smartfactory.dataStores.OrderDataStore;
 import smartfactory.models.Order;
 
 public class OrderAgent extends SmartFactoryAgent {
-
-	private static final long serialVersionUID = -5529204273917293075L;
 
 	public static String getUniqueName() {
 		return "order-" + Long.toString(System.currentTimeMillis());
 	}
 
-	private Order order;
+	private OrderDataStore dataStore;
 
 	public Order createOrder() {
 		return new Order();
@@ -24,6 +23,9 @@ public class OrderAgent extends SmartFactoryAgent {
 
 	@Override
 	protected void initializeData() {
-		order = createOrder();
+		dataStore = new OrderDataStore();
+		dataStore.setOrder(createOrder());
 	}
+
+	private static final long serialVersionUID = -5529204273917293075L;
 }
