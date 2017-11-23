@@ -1,12 +1,11 @@
 package smartfactory.behaviours.order;
 
-import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import smartfactory.dataStores.OrderDataStore;
 
 public class ProductionProvisioningInitiatorBehaviour extends Behaviour {
 
-	public ProductionProvisioningInitiatorBehaviour(Agent agent, OrderDataStore orderDataStore) {
+	public ProductionProvisioningInitiatorBehaviour(OrderDataStore orderDataStore) {
 		// TODO Auto-generated constructor stub
 	}
 

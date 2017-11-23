@@ -20,7 +20,7 @@ public class OrderAgent extends BaseAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new OrderBehaviour(this, dataStore));
+		addBehaviour(new OrderBehaviour(dataStore));
 	}
 
 	@Override

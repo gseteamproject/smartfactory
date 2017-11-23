@@ -1,6 +1,5 @@
 package smartfactory.behaviours.order;
 
-import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.OrderDataStore;
@@ -9,13 +8,13 @@ import smartfactory.models.ProductionProvisioning;
 
 public class OrderBehaviour extends FSMBehaviour {
 
-	public OrderBehaviour(Agent agent, OrderDataStore orderDataStore) {
+	public OrderBehaviour(OrderDataStore orderDataStore) {
 		super();
 
 		Behaviour b1 = new DetermineRequiredProductionBehaviour(orderDataStore);
 		Behaviour b2 = new FindAgentsProvidingProductionBehaviour(orderDataStore);
 		Behaviour b3 = new SelectAgentToPerformProductionBehaviour(orderDataStore);
-		Behaviour b4 = new ProductionProvisioningInitiatorBehaviour(agent, orderDataStore);
+		Behaviour b4 = new ProductionProvisioningInitiatorBehaviour(orderDataStore);
 		Behaviour b5 = new TransitOrderToNextStateBehaviour(orderDataStore);
 		Behaviour b6 = new OrderIsInLastStateBehaviour(orderDataStore);
 		Behaviour b7 = new OrderProcessIsIncorrectBehaviour(orderDataStore);
