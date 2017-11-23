@@ -2,7 +2,6 @@ package smartfactory.behaviours;
 
 import java.util.Vector;
 
-import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREInitiator;
 import smartfactory.interactors.AchieveREInitiatorInteractor;
@@ -11,8 +10,8 @@ public class AchieveREInitiatorInteractorBehaviour extends AchieveREInitiator {
 
 	private AchieveREInitiatorInteractor interactor;
 
-	public AchieveREInitiatorInteractorBehaviour(Agent a, AchieveREInitiatorInteractor interactor) {
-		super(a, null);
+	public AchieveREInitiatorInteractorBehaviour(AchieveREInitiatorInteractor interactor) {
+		super(null, null);
 		this.interactor = interactor;
 	}
 

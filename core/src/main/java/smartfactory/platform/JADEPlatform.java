@@ -39,10 +39,5 @@ public class JADEPlatform implements AgentPlatform {
 		return new ArrayList<DFAgentDescription>();
 	}
 
-	@Override
-	public Agent getThisAgent() {
-		return agent;
-	}
-
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

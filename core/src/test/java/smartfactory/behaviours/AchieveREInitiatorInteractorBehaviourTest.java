@@ -10,11 +10,11 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.AchieveREInitiatorInteractor;
 
 public class AchieveREInitiatorInteractorBehaviourTest {
+
 	private final Mockery context = new Mockery() {
 		{
 			this.setImposteriser(ClassImposteriser.INSTANCE);
@@ -23,16 +23,13 @@ public class AchieveREInitiatorInteractorBehaviourTest {
 
 	AchieveREInitiatorInteractor interactor_mock;
 
-	Agent agent_mock;
-
 	AchieveREInitiatorInteractorBehaviour testable;
 
 	@Before
 	public void setUp() {
 		interactor_mock = context.mock(AchieveREInitiatorInteractor.class);
-		agent_mock = context.mock(Agent.class);
 
-		testable = new AchieveREInitiatorInteractorBehaviour(agent_mock, interactor_mock);
+		testable = new AchieveREInitiatorInteractorBehaviour(interactor_mock);
 	}
 
 	@After

@@ -7,7 +7,7 @@ import smartfactory.interactors.product.PerformServiceInitiator;
 public class ServiceProvisioningInitiatorBehaviour extends AchieveREInitiatorInteractorBehaviour {
 
 	public ServiceProvisioningInitiatorBehaviour(ProductDataStore dataStore) {
-		super(dataStore.getAgentPlatform().getThisAgent(), new PerformServiceInitiator(dataStore));
+		super(new PerformServiceInitiator(dataStore));
 	}
 
 	private static final long serialVersionUID = -6019599148725234374L;
