@@ -6,7 +6,7 @@ import smartfactory.models.Product;
 import smartfactory.models.ServiceProvisioning;
 import smartfactory.platform.JADEPlatform;
 
-public class ProductAgent extends SmartFactoryAgent {
+public class ProductAgent extends BaseAgent {
 
 	private ProductDataStore dataStore;
 

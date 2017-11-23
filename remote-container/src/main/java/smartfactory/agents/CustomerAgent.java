@@ -3,7 +3,7 @@ package smartfactory.agents;
 import smartfactory.behaviours.LaunchAgentBehaviour;
 import smartfactory.presenters.CustomerPresenter;
 
-public class CustomerAgent extends SmartFactoryAgent {
+public class CustomerAgent extends BaseAgent {
 
 	CustomerPresenter presenter = new CustomerPresenter(this);
 

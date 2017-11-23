@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-public class SmartFactoryAgentTest {
+public class BaseAgentTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -14,11 +14,11 @@ public class SmartFactoryAgentTest {
 		}
 	};
 
-	SmartFactoryAgent testable;
+	BaseAgent testable;
 
 	@Before
 	public void setUp() {
-		testable = new SmartFactoryAgent();
+		testable = new BaseAgent();
 	}
 
 	@After

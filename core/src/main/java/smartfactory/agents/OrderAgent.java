@@ -4,7 +4,7 @@ import smartfactory.behaviours.order.OrderBehaviour;
 import smartfactory.dataStores.OrderDataStore;
 import smartfactory.models.Order;
 
-public class OrderAgent extends SmartFactoryAgent {
+public class OrderAgent extends BaseAgent {
 
 	public static String getUniqueName() {
 		return "order-" + Long.toString(System.currentTimeMillis());

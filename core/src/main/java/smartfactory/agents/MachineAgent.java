@@ -11,7 +11,7 @@ import smartfactory.behaviours.machine.ServiceProvisioningResponderBehaviour;
 import smartfactory.dataStores.MachineDataStore;
 import smartfactory.models.Machine;
 
-public class MachineAgent extends SmartFactoryAgent {
+public class MachineAgent extends BaseAgent {
 
 	private MachineDataStore dataStore;
 
