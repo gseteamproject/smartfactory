@@ -1,6 +1,5 @@
 package smartfactory.behaviours.product;
 
-import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.dataStores.ProductDataStore;
@@ -9,13 +8,13 @@ import smartfactory.models.Product;
 
 public class ProductBehaviour extends FSMBehaviour {
 
-	public ProductBehaviour(Agent agent, ProductDataStore productDataStore) {
+	public ProductBehaviour(ProductDataStore productDataStore) {
 		super();
 
 		Behaviour b1 = new DetermineRequiredServiceBehaviour(productDataStore);
 		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(productDataStore);
 		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(productDataStore);
-		Behaviour b4 = new ServiceProvisioningInitiatorBehaviour(agent, productDataStore);
+		Behaviour b4 = new ServiceProvisioningInitiatorBehaviour(productDataStore);
 		Behaviour b5 = new TransitProductToNextStateBehaviour(productDataStore);
 		Behaviour b6 = new ProductIsInLastStateBehaviour(productDataStore);
 		Behaviour b7 = new ProductProcessIsIncorrectBehaviour(productDataStore);

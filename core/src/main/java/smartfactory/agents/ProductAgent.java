@@ -24,7 +24,7 @@ public class ProductAgent extends BaseAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new ProductBehaviour(this, dataStore));
+		addBehaviour(new ProductBehaviour(dataStore));
 	}
 
 	private static final long serialVersionUID = 8653196782936628098L;
