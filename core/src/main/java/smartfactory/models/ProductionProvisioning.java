@@ -1,11 +1,13 @@
 package smartfactory.models;
 
+import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
+
+import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public class ProductionProvisioning {
 
-	public static final int AgentsFound = 0;
-	public static final int AgentsNotFound = 1;
 	public static final int AgentSelected = 0;
 	public static final int AgentNotSelected = 1;
 	public static final int ProductionPerformedSuccessfully = 0;
@@ -21,6 +23,15 @@ public class ProductionProvisioning {
 			return ProductionNotDetermined;
 		}
 		return ProductionDetermined;
+	}
+
+	public List<DFAgentDescription> agentsDescription;
+
+	public static final int AgentsFound = 0;
+	public static final int AgentsNotFound = 1;
+
+	public int isAgentsFound() {
+		return agentsDescription.size() > 0 ? AgentsFound : AgentsNotFound;
 	}
 
 }
