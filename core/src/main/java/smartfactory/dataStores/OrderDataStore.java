@@ -14,7 +14,11 @@ public class OrderDataStore extends SmartFactoryDataStore {
 	}
 
 	public void setProductionProvisioning(ProductionProvisioning productionProvisioning) {
-		// TODO Auto-generated method stub
+		put("productionProvisioning", productionProvisioning);
+	}
+
+	public ProductionProvisioning getProductionProvisioning() {
+		return (ProductionProvisioning) get("productionProvisioning");
 	}
 
 	private static final long serialVersionUID = 1235583692743985234L;
