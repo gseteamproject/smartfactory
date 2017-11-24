@@ -1,20 +1,20 @@
-package smartfactory.interactors.product;
+package smartfactory.interactors.order;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import smartfactory.dataStores.ProductDataStore;
+import smartfactory.dataStores.OrderDataStore;
 import smartfactory.interactors.OneShotInteractor;
 
-public class ProductProcessIsIncorrect extends ProductInteractor implements OneShotInteractor {
+public class NoAgentsProvidingProduction extends OrderInteractor implements OneShotInteractor {
 
-	public ProductProcessIsIncorrect(ProductDataStore dataStore) {
+	public NoAgentsProvidingProduction(OrderDataStore dataStore) {
 		super(dataStore);
 	}
 
 	@Override
 	public void execute() {
-		logger.info("product process is incorrect");
+		logger.info("no agents providing production found");
 	}
 
 	@Override

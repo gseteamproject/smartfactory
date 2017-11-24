@@ -1,24 +1,13 @@
 package smartfactory.behaviours.order;
 
-import jade.core.behaviours.Behaviour;
+import smartfactory.behaviours.OneShotInteractorBehaviour;
 import smartfactory.dataStores.OrderDataStore;
+import smartfactory.interactors.order.OrderProcessIsIncorrect;
 
-public class OrderProcessIsIncorrectBehaviour extends Behaviour {
+public class OrderProcessIsIncorrectBehaviour extends OneShotInteractorBehaviour {
 
 	public OrderProcessIsIncorrectBehaviour(OrderDataStore orderDataStore) {
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void action() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public boolean done() {
-		// TODO Auto-generated method stub
-		return false;
+		super(new OrderProcessIsIncorrect(orderDataStore));
 	}
 
 	private static final long serialVersionUID = 757029890298301937L;
