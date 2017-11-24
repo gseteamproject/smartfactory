@@ -15,9 +15,9 @@ public class DetermineRequiredService extends ProductInteractor implements OneSh
 
 	@Override
 	public void execute() {
-		ServiceProvisioning order = dataStore.getProduct().createServiceProvisioning();
-		dataStore.setServiceProvisioning(order);
-		logger.info("required service \"{}\"", order.serviceName);
+		ServiceProvisioning serviceProvisioning = dataStore.getProduct().createServiceProvisioning();
+		dataStore.setServiceProvisioning(serviceProvisioning);
+		logger.info("required service \"{}\"", serviceProvisioning.serviceName);
 	}
 
 	@Override

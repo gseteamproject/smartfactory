@@ -19,8 +19,8 @@ public class Product {
 	}
 
 	public ServiceProvisioning createServiceProvisioning() {
-		ServiceProvisioning order = new ServiceProvisioning();
-		order.serviceName = getRequiredServiceName();
-		return order;
+		ServiceProvisioning serviceProvisioning = new ServiceProvisioning();
+		serviceProvisioning.serviceName = getRequiredServiceName();
+		return serviceProvisioning;
 	}
 }
