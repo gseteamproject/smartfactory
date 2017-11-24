@@ -2,7 +2,8 @@ package smartfactory.models;
 
 public class Order {
 
-	private String requiredProductionName;
+	// TODO : production must depends on product types
+	private String requiredProductionName = "block-production";
 
 	public String getRequiredProductionName() {
 		return requiredProductionName;
