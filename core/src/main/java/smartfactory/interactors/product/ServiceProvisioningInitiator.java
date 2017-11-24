@@ -10,9 +10,9 @@ import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.AchieveREInitiatorInteractor;
 
-public class PerformServiceInitiator extends ProductInteractor implements AchieveREInitiatorInteractor {
+public class ServiceProvisioningInitiator extends ProductInteractor implements AchieveREInitiatorInteractor {
 
-	public PerformServiceInitiator(ProductDataStore dataStore) {
+	public ServiceProvisioningInitiator(ProductDataStore dataStore) {
 		super(dataStore);
 	}
 
@@ -40,7 +40,8 @@ public class PerformServiceInitiator extends ProductInteractor implements Achiev
 
 	@Override
 	public void handleInform(ACLMessage inform) {
-		logger.info("\"{}\" agent successfully performed", dataStore.getServiceProvisioning().agentDescription.getName());
+		logger.info("\"{}\" agent successfully performed",
+				dataStore.getServiceProvisioning().agentDescription.getName());
 		dataStore.getServiceProvisioning().servicePerformedSuccesfully();
 	}
 

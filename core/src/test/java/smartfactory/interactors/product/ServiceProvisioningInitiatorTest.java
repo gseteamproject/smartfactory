@@ -15,10 +15,10 @@ import jade.domain.FIPANames;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import smartfactory.dataStores.ProductDataStore;
-import smartfactory.interactors.product.PerformServiceInitiator;
+import smartfactory.interactors.product.ServiceProvisioningInitiator;
 import smartfactory.models.ServiceProvisioning;
 
-public class PerformServiceInitiatorTest {
+public class ServiceProvisioningInitiatorTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -28,13 +28,13 @@ public class PerformServiceInitiatorTest {
 
 	ProductDataStore productDataStore_mock;
 
-	PerformServiceInitiator testable;
+	ServiceProvisioningInitiator testable;
 
 	@Before
 	public void setUp() {
 		productDataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new PerformServiceInitiator(productDataStore_mock);
+		testable = new ServiceProvisioningInitiator(productDataStore_mock);
 	}
 
 	@After
