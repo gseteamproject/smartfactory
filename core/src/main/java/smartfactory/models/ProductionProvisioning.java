@@ -8,9 +8,6 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public class ProductionProvisioning {
 
-	public static final int ProductionPerformedSuccessfully = 0;
-	public static final int ProductionPerformedUnSuccessfully = 1;
-
 	public String productionName;
 
 	public static final int ProductionDetermined = 0;
@@ -41,6 +38,25 @@ public class ProductionProvisioning {
 	public int isAgentSelected() {
 		// TODO another way to check if agent is selected
 		return agentDescription == null ? AgentNotSelected : AgentSelected;
+	}
+
+	private boolean servicePerformedSuccessfully;
+
+	public void servicePerformedUnsuccesfully() {
+		servicePerformedSuccessfully = false;
+		agentsDescription.remove(agentDescription);
+	}
+
+	public void servicePerformedSuccesfully() {
+		servicePerformedSuccessfully = true;
+	}
+
+	public static final int ProductionPerformedSuccessfully = 0;
+	public static final int ProductionPerformedUnSuccessfully = 1;
+
+	public int isServicePerformedSuccesfully() {
+		return servicePerformedSuccessfully == true ? ProductionPerformedSuccessfully
+				: ProductionPerformedUnSuccessfully;
 	}
 
 }
