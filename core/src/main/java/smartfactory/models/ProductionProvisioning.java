@@ -8,8 +8,6 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
 public class ProductionProvisioning {
 
-	public static final int AgentSelected = 0;
-	public static final int AgentNotSelected = 1;
 	public static final int ProductionPerformedSuccessfully = 0;
 	public static final int ProductionPerformedUnSuccessfully = 1;
 
@@ -32,6 +30,17 @@ public class ProductionProvisioning {
 
 	public int isAgentsFound() {
 		return agentsDescription.size() > 0 ? AgentsFound : AgentsNotFound;
+	}
+
+	// TODO deal with null pointer
+	public DFAgentDescription agentDescription;
+
+	public static final int AgentSelected = 0;
+	public static final int AgentNotSelected = 1;
+
+	public int isAgentSelected() {
+		// TODO another way to check if agent is selected
+		return agentDescription == null ? AgentNotSelected : AgentSelected;
 	}
 
 }
