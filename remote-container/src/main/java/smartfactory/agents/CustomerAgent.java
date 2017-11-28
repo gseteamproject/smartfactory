@@ -1,11 +1,22 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.LaunchAgentBehaviour;
+import smartfactory.behaviours.customer.LaunchAgentBehaviour;
+import smartfactory.configuration.AgentConfiguration;
+import smartfactory.dataStores.CustomerDataStore;
+import smartfactory.platform.JADEPlatform;
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerAgent extends BaseAgent {
 
-	CustomerPresenter presenter = new CustomerPresenter(this);
+	private CustomerPresenter presenter = new CustomerPresenter(this);
+
+	private CustomerDataStore dataStore;
+
+	@Override
+	protected void initializeData() {
+		dataStore = new CustomerDataStore();
+		dataStore.setAgentPlatform(new JADEPlatform(this));
+	}
 
 	@Override
 	protected void initializeGUI() {
@@ -18,7 +29,12 @@ public class CustomerAgent extends BaseAgent {
 	}
 
 	public void createOrder() {
-		addBehaviour(new LaunchAgentBehaviour(this, OrderAgent.getUniqueName(), OrderAgent.class.getName()));
+		AgentConfiguration agentConfiguration = new AgentConfiguration();
+		agentConfiguration.name = OrderAgent.getUniqueName();
+		agentConfiguration.className = OrderAgent.class.getName();
+		dataStore.setAgentConfiguration(agentConfiguration);
+
+		addBehaviour(new LaunchAgentBehaviour(dataStore));
 	}
 
 	private static final long serialVersionUID = -2432898217068138400L;
