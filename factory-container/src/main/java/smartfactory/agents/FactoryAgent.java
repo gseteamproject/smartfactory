@@ -1,12 +1,12 @@
 package smartfactory.agents;
 
 import smartfactory.models.Factory;
-import smartfactory.models.Machine;
+import smartfactory.models.Production;
 
-public class FactoryAgent extends MachineAgent {
+public class FactoryAgent extends ProductionAgent {
 
 	@Override
-	public Machine createMachine() {
+	public Production createProduction() {
 		return new Factory();
 	}
 

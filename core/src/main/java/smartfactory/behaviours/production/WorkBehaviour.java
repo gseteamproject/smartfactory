@@ -1,16 +1,16 @@
-package smartfactory.behaviours.machine;
+package smartfactory.behaviours.production;
 
 import jade.core.behaviours.SimpleBehaviour;
-import smartfactory.dataStores.MachineDataStore;
-import smartfactory.interactors.machine.Work;
+import smartfactory.dataStores.ProductionDataStore;
+import smartfactory.interactors.production.Work;
 
 public class WorkBehaviour extends SimpleBehaviour {
 
-	ServiceProvisioningResponderBehaviour interactionBehaviour;
+	ProductionProvisioningResponderBehaviour interactionBehaviour;
 
 	Work interactor;
 
-	public WorkBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore dataStore) {
+	public WorkBehaviour(ProductionProvisioningResponderBehaviour interactionBehaviour, ProductionDataStore dataStore) {
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new Work(dataStore);
 	}
@@ -25,5 +25,5 @@ public class WorkBehaviour extends SimpleBehaviour {
 		return interactor.done();
 	}
 
-	private static final long serialVersionUID = -3500469822678572098L;
+	private static final long serialVersionUID = -6847064599739731732L;
 }

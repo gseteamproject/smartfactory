@@ -10,9 +10,9 @@ public class DecisionBehaviour extends OneShotBehaviour {
 
 	Decision interactor;
 
-	public DecisionBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
+	public DecisionBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore dataStore) {
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = new Decision(machineDataStore);
+		this.interactor = new Decision(dataStore);
 	}
 
 	@Override

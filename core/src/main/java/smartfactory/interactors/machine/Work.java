@@ -17,7 +17,7 @@ public class Work extends MachineInteractor {
 
 		return response;
 	}
-	
+
 	public boolean done() {
 		return dataStore.getMachine().hasExecuted();
 	}

@@ -11,10 +11,10 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
 	Deadline interactor;
 
-	public DeadlineBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore machineDataStore) {
+	public DeadlineBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, MachineDataStore dataStore) {
 		super(interactionBehaviour.getAgent(), Machine.DURATION_LIMIT * 1000);
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = new Deadline(machineDataStore);
+		this.interactor = new Deadline(dataStore);
 	}
 
 	@Override
