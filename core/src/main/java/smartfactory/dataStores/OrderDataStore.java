@@ -3,7 +3,7 @@ package smartfactory.dataStores;
 import smartfactory.models.Order;
 import smartfactory.models.ProductionProvisioning;
 
-public class OrderDataStore extends SmartFactoryDataStore {
+public class OrderDataStore extends BaseDataStore {
 
 	public void setOrder(Order order) {
 		put("order", order);

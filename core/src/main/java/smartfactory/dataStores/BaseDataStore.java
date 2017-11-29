@@ -3,7 +3,7 @@ package smartfactory.dataStores;
 import jade.core.behaviours.DataStore;
 import smartfactory.platform.AgentPlatform;
 
-public class SmartFactoryDataStore extends DataStore {
+public class BaseDataStore extends DataStore {
 
 	public AgentPlatform getAgentPlatform() {
 		return (AgentPlatform) get("agentPlatform");

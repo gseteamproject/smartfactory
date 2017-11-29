@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import smartfactory.platform.AgentPlatform;
 
-public class SmartFactoryDataStoreTest {
+public class BaseDataStoreTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -17,11 +17,11 @@ public class SmartFactoryDataStoreTest {
 		}
 	};
 
-	SmartFactoryDataStore testable;
+	BaseDataStore testable;
 
 	@Before
 	public void setUp() {
-		testable = new SmartFactoryDataStore();
+		testable = new BaseDataStore();
 	}
 
 	@After

@@ -3,7 +3,7 @@ package smartfactory.dataStores;
 import smartfactory.models.ServiceProvisioning;
 import smartfactory.models.Product;
 
-public class ProductDataStore extends SmartFactoryDataStore {
+public class ProductDataStore extends BaseDataStore {
 
 	public void setProduct(Product product) {
 		put("product", product);

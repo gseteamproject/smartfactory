@@ -2,7 +2,7 @@ package smartfactory.dataStores;
 
 import smartfactory.models.Production;
 
-public class ProductionDataStore extends SmartFactoryDataStore {
+public class ProductionDataStore extends BaseDataStore {
 
 	private static final long serialVersionUID = 9041457631412904069L;
 

@@ -2,7 +2,7 @@ package smartfactory.dataStores;
 
 import smartfactory.configuration.AgentConfiguration;
 
-public class CustomerDataStore extends SmartFactoryDataStore {
+public class CustomerDataStore extends BaseDataStore {
 
 	private static final long serialVersionUID = -6038149266088343332L;
 

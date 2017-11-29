@@ -2,7 +2,7 @@ package smartfactory.dataStores;
 
 import smartfactory.models.Machine;
 
-public class MachineDataStore extends SmartFactoryDataStore {
+public class MachineDataStore extends BaseDataStore {
 
 	public void setMachine(Machine machine) {
 		put("machine", machine);
