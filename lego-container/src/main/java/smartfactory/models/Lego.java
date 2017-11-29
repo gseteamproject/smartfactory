@@ -4,8 +4,9 @@ import smartfactory.services.Services;
 
 public class Lego extends Machine {
 
-	@Override
-	public String[] getOperations() {
-		return new String[] { Services.cleaning, Services.painting };
+	public Lego() {
+		super();
+		operations.add(new Operation(Services.cleaning));
+		operations.add(new Operation(Services.painting));
 	}
 }

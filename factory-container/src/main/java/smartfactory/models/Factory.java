@@ -1,9 +1,9 @@
 package smartfactory.models;
 
 public class Factory extends Production {
-	
-	@Override
-	public String[] getOperations() {
-		return new String[] { "block-production" };
+
+	public Factory() {
+		super();
+		operations.add(new Operation("block-production"));
 	}
 }

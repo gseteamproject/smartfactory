@@ -11,6 +11,7 @@ import smartfactory.behaviours.production.ProductionProvisioningResponderBehavio
 import smartfactory.dataStores.ProductionDataStore;
 import smartfactory.models.Production;
 
+// TODO : possibly merge with MachineAgent
 public class ProductionAgent extends BaseAgent {
 
 	private ProductionDataStore dataStore;

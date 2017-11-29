@@ -4,8 +4,10 @@ import smartfactory.services.Services;
 
 public class Warehouse extends Machine {
 
-	@Override
-	public String[] getOperations() {
-		return new String[] { Services.store, Services.recognition, Services.packing };
+	public Warehouse() {
+		super();
+		operations.add(new Operation(Services.store));
+		operations.add(new Operation(Services.recognition));
+		operations.add(new Operation(Services.packing));
 	}
 }
