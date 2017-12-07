@@ -38,12 +38,13 @@ public class Machine {
 		}
 		if (operation == null) {
 			logger.error("not found \"{}\"...", operationName);
+		} else {
+			synchronized (this) {
+				// blocking function call
+				operation.execute();
+			}
+			logger.info("completed");
 		}
-		synchronized (this) {
-			// blocking function call
-			operation.execute();
-		}
-		logger.info("completed");
 	}
 
 	public boolean willExecute(String operation) {
