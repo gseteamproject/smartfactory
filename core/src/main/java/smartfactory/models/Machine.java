@@ -1,9 +1,6 @@
 package smartfactory.models;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.apache.commons.lang3.StringUtils;
+import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,31 +8,22 @@ public class Machine {
 
 	public final static int DURATION_LIMIT = 5;
 
-	// TODO : replace List with HashMap
-	protected List<Operation> operations;
+	private HashMap<String, Operation> operations;
 
 	public Machine() {
-		operations = new ArrayList<Operation>();
+		operations = new HashMap<String, Operation>();
 	}
 
 	public String[] getOperations() {
-		String[] operationNames = new String[operations.size()];
-		for (int i = 0; i < operations.size(); i++) {
-			operationNames[i] = operations.get(i).name;
-		}
-		return operationNames;
+		return operations.keySet().toArray(new String[0]);
+	}
+
+	public void addOperation(Operation operation) {
+		operations.put(operation.name, operation);
 	}
 
 	public void execute(String operationName) {
-		// TODO : replace with lookup
-		Operation operation = null;
-		for (int i = 0; i < operations.size(); i++) {
-			operation = operations.get(i);
-			if (StringUtils.compare(operationName, operation.name) == 0) {
-				break;
-			}
-			operation = null;
-		}
+		Operation operation = operations.get(operationName);
 		if (operation == null) {
 			logger.error("not found \"{}\"...", operationName);
 		} else {

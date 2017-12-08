@@ -6,8 +6,8 @@ public class Warehouse extends Machine {
 
 	public Warehouse() {
 		super();
-		operations.add(new Operation(Services.store));
-		operations.add(new Operation(Services.recognition));
-		operations.add(new Operation(Services.packing));
+		addOperation(new Operation(Services.store));
+		addOperation(new Operation(Services.recognition));
+		addOperation(new Operation(Services.packing));
 	}
 }

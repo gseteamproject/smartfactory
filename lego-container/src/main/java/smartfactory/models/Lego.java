@@ -6,7 +6,7 @@ public class Lego extends Machine {
 
 	public Lego() {
 		super();
-		operations.add(new Operation(Services.cleaning));
-		operations.add(new Operation(Services.painting));
+		addOperation(new Operation(Services.cleaning));
+		addOperation(new Operation(Services.painting));
 	}
 }
