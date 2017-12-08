@@ -3,6 +3,7 @@ package smartfactory.models;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +11,7 @@ public class Production {
 
 	public static final int DURATION_LIMIT = 5;
 
+	// TODO : replace List with HashMap
 	protected List<Operation> operations;
 
 	public Production() {
@@ -33,12 +35,25 @@ public class Production {
 		return true;
 	}
 
-	public void execute(String operation) {
-		logger.info("executing \"{}\"...", operation);
-		synchronized (this) {
-			// blocking function call
+	public void execute(String operationName) {
+		// TODO : replace with lookup
+		Operation operation = null;
+		for (int i = 0; i < operations.size(); i++) {
+			operation = operations.get(i);
+			if (StringUtils.compare(operationName, operation.name) == 0) {
+				break;
+			}
+			operation = null;
 		}
-		logger.info("completed");
+		if (operation == null) {
+			logger.error("not found \"{}\"...", operationName);
+		} else {
+			synchronized (this) {
+				// blocking function call
+				operation.execute();
+			}
+			logger.info("completed");
+		}
 	}
 
 	public void getStatus() {
