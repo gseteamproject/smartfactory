@@ -10,8 +10,11 @@ public class Decision extends MachineInteractor {
 	}
 
 	public ACLMessage execute(ACLMessage request) {
+		// content = operation name
+		String operationName = request.getContent();
+
 		ACLMessage response = request.createReply();
-		if (dataStore.getMachine().willExecute("operation-xxx")) {
+		if (dataStore.getMachine().willExecute(operationName)) {
 			response.setPerformative(ACLMessage.AGREE);
 
 		} else {

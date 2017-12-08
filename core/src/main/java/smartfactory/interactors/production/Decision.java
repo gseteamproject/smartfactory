@@ -10,8 +10,11 @@ public class Decision extends ProductionInteractor {
 	}
 
 	public ACLMessage execute(ACLMessage request) {
+		// content = operation name
+		String operationName = request.getContent();
+
 		ACLMessage response = request.createReply();
-		if (dataStore.getProduction().willExecute("production-xxx")) {
+		if (dataStore.getProduction().willExecute(operationName)) {
 			response.setPerformative(ACLMessage.AGREE);
 
 		} else {

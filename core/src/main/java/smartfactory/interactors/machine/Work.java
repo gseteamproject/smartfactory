@@ -10,7 +10,10 @@ public class Work extends MachineInteractor {
 	}
 
 	public ACLMessage execute(ACLMessage request) {
-		dataStore.getMachine().execute("operation-xxx");
+		// content = operation name
+		String operationName = request.getContent();
+
+		dataStore.getMachine().execute(operationName);
 
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.INFORM);

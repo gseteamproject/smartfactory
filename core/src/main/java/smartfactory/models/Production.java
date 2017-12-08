@@ -22,8 +22,8 @@ public class Production {
 		operations.put(operation.name, operation);
 	}
 
-	public boolean willExecute(String operation) {
-		logger.info("agreed to perform \"{}\"", operation);
+	public boolean willExecute(String operationName) {
+		logger.info("agreed to perform \"{}\"", operationName);
 		return true;
 	}
 
@@ -34,8 +34,9 @@ public class Production {
 	public void execute(String operationName) {
 		Operation operation = operations.get(operationName);
 		if (operation == null) {
-			logger.error("not found \"{}\"...", operationName);
+			logger.error("not found \"{}\"", operationName);
 		} else {
+			logger.info("executing \"{}\"", operationName);
 			synchronized (this) {
 				// blocking function call
 				operation.execute();
@@ -48,11 +49,11 @@ public class Production {
 		logger.info("machine status: online");
 	}
 
-	public void terminate(String operation) {
+	public void terminate(String operationName) {
 		synchronized (this) {
 			// blocking function call
 		}
-		logger.info("terminated \"{}\"", operation);
+		logger.info("terminated \"{}\"", operationName);
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

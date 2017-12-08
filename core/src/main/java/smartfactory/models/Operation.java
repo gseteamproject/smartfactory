@@ -12,7 +12,7 @@ public class Operation {
 	}
 
 	public void execute() {
-		logger.info("executing \"{}\"...", name);
+		logger.info("...", name);
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

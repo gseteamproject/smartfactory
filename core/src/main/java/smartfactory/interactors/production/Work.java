@@ -10,7 +10,10 @@ public class Work extends ProductionInteractor {
 	}
 
 	public ACLMessage execute(ACLMessage request) {
-		dataStore.getProduction().execute("production-xxx");
+		// content = operation name
+		String operationName = request.getContent();
+
+		dataStore.getProduction().execute(operationName);
 
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.INFORM);

@@ -10,7 +10,10 @@ public class Deadline extends ProductionInteractor {
 	}
 
 	public ACLMessage execute(ACLMessage request) {
-		dataStore.getProduction().terminate("production-xxx");
+		// content = operation name
+		String operationName = request.getContent();
+
+		dataStore.getProduction().terminate(operationName);
 
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.FAILURE);

@@ -22,7 +22,7 @@ public class SelectAgentToPerformProduction extends OrderInteractor implements O
 		List<DFAgentDescription> agentsProvidingService = dataStore.getProductionProvisioning().agentsDescription;
 		if (agentsProvidingService.size() > 0) {
 			agentProvidingService = agentsProvidingService.get(0);
-			logger.info("\"{}\" agent selected", agentProvidingService.getName());
+			logger.info("\"{}\" agent selected", agentProvidingService.getName().getLocalName());
 		} else {
 			agentProvidingService = null;
 			logger.info("agent not selected");

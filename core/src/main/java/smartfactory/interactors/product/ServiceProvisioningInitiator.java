@@ -21,6 +21,8 @@ public class ServiceProvisioningInitiator extends ProductInteractor implements A
 		request = new ACLMessage(ACLMessage.REQUEST);
 		request.addReceiver(dataStore.getServiceProvisioning().agentDescription.getName());
 		request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		// content = operation name
+		request.setContent(dataStore.getServiceProvisioning().serviceName);
 
 		Vector<ACLMessage> l = new Vector<ACLMessage>(1);
 		l.addElement(request);
@@ -29,25 +31,28 @@ public class ServiceProvisioningInitiator extends ProductInteractor implements A
 
 	@Override
 	public void handleAgree(ACLMessage agree) {
-		logger.info("\"{}\" agent agreed", dataStore.getServiceProvisioning().agentDescription.getName());
+		logger.info("\"{}\" agent agreed",
+				dataStore.getServiceProvisioning().agentDescription.getName().getLocalName());
 	}
 
 	@Override
 	public void handleRefuse(ACLMessage refuse) {
-		logger.info("\"{}\" agent refused", dataStore.getServiceProvisioning().agentDescription.getName());
+		logger.info("\"{}\" agent refused",
+				dataStore.getServiceProvisioning().agentDescription.getName().getLocalName());
 		dataStore.getServiceProvisioning().servicePerformedUnsuccesfully();
 	}
 
 	@Override
 	public void handleInform(ACLMessage inform) {
 		logger.info("\"{}\" agent successfully performed",
-				dataStore.getServiceProvisioning().agentDescription.getName());
+				dataStore.getServiceProvisioning().agentDescription.getName().getLocalName());
 		dataStore.getServiceProvisioning().servicePerformedSuccesfully();
 	}
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
-		logger.info("\"{}\" agent failed to perform", dataStore.getServiceProvisioning().agentDescription.getName());
+		logger.info("\"{}\" agent failed to perform",
+				dataStore.getServiceProvisioning().agentDescription.getName().getLocalName());
 		dataStore.getServiceProvisioning().servicePerformedUnsuccesfully();
 	}
 
