@@ -12,6 +12,7 @@ public class Operation {
 	}
 
 	public void execute() {
+		// TODO : add method for overriding without output
 		logger.info("...", name);
 	}
 

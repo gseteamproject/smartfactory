@@ -10,15 +10,18 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.machine.ServiceProvisioningResponderBehaviour;
 import smartfactory.dataStores.MachineDataStore;
 import smartfactory.models.Machine;
+import smartfactory.platform.JADEPlatform;
 
 public class MachineAgent extends BaseAgent {
 
-	private MachineDataStore dataStore;
+	// TODO : check if getter is better
+	protected MachineDataStore dataStore;
 
 	@Override
 	protected void initializeData() {
 		dataStore = new MachineDataStore();
 		dataStore.setMachine(createMachine());
+		dataStore.setAgentPlatform(new JADEPlatform(this));
 	}
 
 	public Machine createMachine() {

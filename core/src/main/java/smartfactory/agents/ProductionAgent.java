@@ -10,16 +10,19 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.production.ProductionProvisioningResponderBehaviour;
 import smartfactory.dataStores.ProductionDataStore;
 import smartfactory.models.Production;
+import smartfactory.platform.JADEPlatform;
 
 // TODO : possibly merge with MachineAgent
 public class ProductionAgent extends BaseAgent {
 
-	private ProductionDataStore dataStore;
+	// TODO : check if getter is better
+	protected ProductionDataStore dataStore;
 
 	@Override
 	protected void initializeData() {
 		dataStore = new ProductionDataStore();
 		dataStore.setProduction(createProduction());
+		dataStore.setAgentPlatform(new JADEPlatform(this));
 	}
 
 	public Production createProduction() {

@@ -4,6 +4,7 @@ import jade.core.behaviours.DataStore;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.platform.AgentPlatform;
 
+// TODO : rework mechanics of getters/setters so they log-error if there is null object of required type
 public class BaseDataStore extends DataStore {
 
 	public AgentPlatform getAgentPlatform() {
