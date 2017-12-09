@@ -1,6 +1,6 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.customer.LaunchAgentBehaviour;
+import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.dataStores.CustomerDataStore;
 import smartfactory.platform.JADEPlatform;
@@ -29,10 +29,10 @@ public class CustomerAgent extends BaseAgent {
 	}
 
 	public void createOrder() {
-		AgentConfiguration agentConfiguration = new AgentConfiguration();
-		agentConfiguration.name = OrderAgent.getUniqueName();
-		agentConfiguration.className = OrderAgent.class.getName();
-		dataStore.setAgentConfiguration(agentConfiguration);
+		AgentConfiguration subAgentConfiguration = new AgentConfiguration();
+		subAgentConfiguration.name = OrderAgent.getUniqueName();
+		subAgentConfiguration.className = OrderAgent.class.getName();
+		dataStore.setSubAgentConfiguration(subAgentConfiguration);
 
 		addBehaviour(new LaunchAgentBehaviour(dataStore));
 	}

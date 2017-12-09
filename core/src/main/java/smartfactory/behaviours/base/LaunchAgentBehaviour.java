@@ -1,12 +1,12 @@
-package smartfactory.behaviours.customer;
+package smartfactory.behaviours.base;
 
 import smartfactory.behaviours.OneShotInteractorBehaviour;
-import smartfactory.dataStores.CustomerDataStore;
-import smartfactory.interactors.customer.LaunchAgent;
+import smartfactory.dataStores.BaseDataStore;
+import smartfactory.interactors.base.LaunchAgent;
 
 public class LaunchAgentBehaviour extends OneShotInteractorBehaviour {
-	
-	public LaunchAgentBehaviour(CustomerDataStore dataStore) {
+
+	public LaunchAgentBehaviour(BaseDataStore dataStore) {
 		super(new LaunchAgent(dataStore));
 	}
 

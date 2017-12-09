@@ -1,18 +1,18 @@
-package smartfactory.interactors.customer;
+package smartfactory.interactors.base;
 
 import smartfactory.configuration.AgentConfiguration;
-import smartfactory.dataStores.CustomerDataStore;
+import smartfactory.dataStores.BaseDataStore;
 import smartfactory.interactors.OneShotInteractor;
 
-public class LaunchAgent extends CustomerInteractor implements OneShotInteractor {
+public class LaunchAgent extends BaseInteractor implements OneShotInteractor {
 
-	public LaunchAgent(CustomerDataStore dataStore) {
+	public LaunchAgent(BaseDataStore dataStore) {
 		super(dataStore);
 	}
 
 	@Override
 	public void execute() {
-		AgentConfiguration agentConfiguration = dataStore.getAgentConfiguration();
+		AgentConfiguration agentConfiguration = dataStore.getSubAgentConfiguration();
 		dataStore.getAgentPlatform().startAgent(agentConfiguration.name, agentConfiguration.className);
 	}
 
