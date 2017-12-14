@@ -1,6 +1,5 @@
 package smartfactory.behaviours.production;
 
-import jade.core.Agent;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREResponder;
@@ -20,8 +19,8 @@ public class ProductionProvisioningResponderBehaviour extends AchieveREResponder
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	public ProductionProvisioningResponderBehaviour(Agent a, ProductionDataStore dataStore) {
-		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
+	public ProductionProvisioningResponderBehaviour(ProductionDataStore dataStore) {
+		super(null, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
 
 		registerHandleRequest(new DecisionBehaviour(this, dataStore));
 		registerPrepareResultNotification(new ActivityBehaviour(this, dataStore));

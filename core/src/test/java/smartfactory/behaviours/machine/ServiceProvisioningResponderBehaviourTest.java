@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import jade.core.Agent;
 import smartfactory.dataStores.MachineDataStore;
 
 public class ServiceProvisioningResponderBehaviourTest {
@@ -17,8 +16,6 @@ public class ServiceProvisioningResponderBehaviourTest {
 		}
 	};
 
-	Agent agent_mock;
-
 	MachineDataStore dataStore_mock;
 
 	ServiceProvisioningResponderBehaviour testable;
@@ -26,9 +23,8 @@ public class ServiceProvisioningResponderBehaviourTest {
 	@Before
 	public void setUp() {
 		dataStore_mock = context.mock(MachineDataStore.class);
-		agent_mock = context.mock(Agent.class);
 
-		testable = new ServiceProvisioningResponderBehaviour(agent_mock, dataStore_mock);
+		testable = new ServiceProvisioningResponderBehaviour(dataStore_mock);
 	}
 
 	@After

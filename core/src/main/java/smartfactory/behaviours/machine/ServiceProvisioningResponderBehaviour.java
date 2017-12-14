@@ -1,6 +1,5 @@
 package smartfactory.behaviours.machine;
 
-import jade.core.Agent;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREResponder;
@@ -20,9 +19,8 @@ public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	// TODO remove Agent instance from parameters
-	public ServiceProvisioningResponderBehaviour(Agent a, MachineDataStore machineDataStore) {
-		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
+	public ServiceProvisioningResponderBehaviour(MachineDataStore machineDataStore) {
+		super(null, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
 
 		registerHandleRequest(new DecisionBehaviour(this, machineDataStore));
 		registerPrepareResultNotification(new ActivityBehaviour(this, machineDataStore));

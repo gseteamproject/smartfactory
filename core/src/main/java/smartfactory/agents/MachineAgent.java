@@ -64,7 +64,7 @@ public class MachineAgent extends BaseAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new ServiceProvisioningResponderBehaviour(this, dataStore));
+		addBehaviour(new ServiceProvisioningResponderBehaviour(dataStore));
 	}
 
 	private static final long serialVersionUID = -1254510527324190708L;

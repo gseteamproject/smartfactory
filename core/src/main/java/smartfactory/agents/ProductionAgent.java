@@ -65,7 +65,7 @@ public class ProductionAgent extends BaseAgent {
 
 	@Override
 	protected void initializeBehaviours() {
-		addBehaviour(new ProductionProvisioningResponderBehaviour(this, dataStore));
+		addBehaviour(new ProductionProvisioningResponderBehaviour(dataStore));
 	}
 
 	private static final long serialVersionUID = 3383937592776609628L;
