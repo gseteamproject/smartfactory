@@ -3,16 +3,16 @@ package smartfactory.agents;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.Factory;
+import smartfactory.models.Machine;
 import smartfactory.models.Operation;
-import smartfactory.models.Production;
 
-public class FactoryAgent extends ProductionAgent {
+public class FactoryAgent extends MachineAgent {
 
 	@Override
-	public Production createProduction() {
-		Production production = new Factory();
-		production.addOperation(new BlockProductionOperation());
-		return production;
+	public Machine createMachine() {
+		Machine machine = new Factory();
+		machine.addOperation(new BlockProductionOperation());
+		return machine;
 	}
 
 	private class BlockProductionOperation extends Operation {
