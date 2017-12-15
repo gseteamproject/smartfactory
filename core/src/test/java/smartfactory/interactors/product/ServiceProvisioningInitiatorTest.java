@@ -8,7 +8,6 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import jade.core.AID;
@@ -44,11 +43,12 @@ public class ServiceProvisioningInitiatorTest {
 	}
 
 	@Test
-	@Ignore
 	public void handleInform() {
 		final ACLMessage message = new ACLMessage(ACLMessage.INFORM);
+		final DFAgentDescription agentDescription = new DFAgentDescription();
+		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
-		serviceProvisioning_mock.agentDescription = new DFAgentDescription();
+		serviceProvisioning_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
 			{
@@ -60,15 +60,15 @@ public class ServiceProvisioningInitiatorTest {
 		});
 
 		testable.handleInform(message);
-		// TODO : fix test
 	}
 
 	@Test
-	@Ignore
 	public void handleAgree() {
 		final ACLMessage message = new ACLMessage(ACLMessage.AGREE);
+		final DFAgentDescription agentDescription = new DFAgentDescription();
+		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
-		serviceProvisioning_mock.agentDescription = new DFAgentDescription();
+		serviceProvisioning_mock.agentDescription = agentDescription;
 
 		context.checking(new Expectations() {
 			{
@@ -78,14 +78,13 @@ public class ServiceProvisioningInitiatorTest {
 		});
 
 		testable.handleAgree(message);
-		// TODO : fix test
 	}
 
 	@Test
-	@Ignore
 	public void handleRefuse() {
 		final ACLMessage message = new ACLMessage(ACLMessage.REFUSE);
 		final DFAgentDescription agentDescription = new DFAgentDescription();
+		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
 		serviceProvisioning_mock.agentDescription = agentDescription;
 
@@ -99,14 +98,13 @@ public class ServiceProvisioningInitiatorTest {
 		});
 
 		testable.handleRefuse(message);
-		// TODO : fix test
 	}
 
 	@Test
-	@Ignore
 	public void handleFailure() {
 		final ACLMessage message = new ACLMessage(ACLMessage.FAILURE);
 		final DFAgentDescription agentDescription = new DFAgentDescription();
+		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
 		serviceProvisioning_mock.agentDescription = agentDescription;
 
@@ -120,11 +118,9 @@ public class ServiceProvisioningInitiatorTest {
 		});
 
 		testable.handleFailure(message);
-		// TODO : fix test
 	}
 
 	@Test
-	@Ignore
 	public void prepareRequests() {
 		ACLMessage message = null;
 
@@ -135,7 +131,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				exactly(2).of(productDataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning));
 			}
 		});
@@ -146,7 +142,6 @@ public class ServiceProvisioningInitiatorTest {
 		Assert.assertEquals(ACLMessage.REQUEST, request.getPerformative());
 		Assert.assertEquals(aid, request.getAllReceiver().next());
 		Assert.assertEquals(FIPANames.InteractionProtocol.FIPA_REQUEST, request.getProtocol());
-		// TODO : fix test
 	}
 
 	@Test

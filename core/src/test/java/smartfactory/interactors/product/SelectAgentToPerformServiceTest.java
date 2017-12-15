@@ -9,9 +9,9 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
+import jade.core.AID;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.dataStores.ProductDataStore;
 import smartfactory.interactors.product.SelectAgentToPerformService;
@@ -25,15 +25,15 @@ public class SelectAgentToPerformServiceTest {
 		}
 	};
 
-	ProductDataStore productDataStore_mock;
+	ProductDataStore dataStore_mock;
 
 	SelectAgentToPerformService testable;
 
 	@Before
 	public void setUp() {
-		productDataStore_mock = context.mock(ProductDataStore.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new SelectAgentToPerformService(productDataStore_mock);
+		testable = new SelectAgentToPerformService(dataStore_mock);
 	}
 
 	@After
@@ -42,27 +42,22 @@ public class SelectAgentToPerformServiceTest {
 	}
 
 	@Test
-	@Ignore
 	public void execute() {
-		final DFAgentDescription agentProvidingService = new DFAgentDescription();
+		final DFAgentDescription agentDescription = new DFAgentDescription();
+		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		final List<DFAgentDescription> agentsProvidingService = Arrays
-				.asList(new DFAgentDescription[] { agentProvidingService });
-		final ServiceProvisioning order_mock = context.mock(ServiceProvisioning.class);
-		order_mock.agentsDescription = agentsProvidingService;
+				.asList(new DFAgentDescription[] { agentDescription });
+		final ServiceProvisioning serviceProvisioning_mock = context.mock(ServiceProvisioning.class);
+		serviceProvisioning_mock.agentsDescription = agentsProvidingService;
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
-				will(returnValue(order_mock));
-				// TODO : add matcher for agentDescription
-
-				oneOf(productDataStore_mock).getServiceProvisioning();
-				will(returnValue(order_mock));
+				exactly(2).of(dataStore_mock).getServiceProvisioning();
+				will(returnValue(serviceProvisioning_mock));
 			}
 		});
 
 		testable.execute();
-		// TODO : fix test
 	}
 
 	@Test
@@ -72,7 +67,7 @@ public class SelectAgentToPerformServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(order_mock).isAgentSelected();
