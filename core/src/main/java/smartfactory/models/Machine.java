@@ -50,10 +50,17 @@ public class Machine {
 	}
 
 	public void terminate(String operationName) {
-		synchronized (this) {
-			// blocking function call
+		Operation operation = operations.get(operationName);
+		if (operation == null) {
+			logger.error("not found \"{}\"", operationName);
+		} else {
+			logger.info("terminating \"{}\"", operationName);
+			synchronized (this) {
+				// blocking function call
+				operation.terminate();
+			}
+			logger.info("terminated \"{}\"", operationName);
 		}
-		logger.info("terminated \"{}\"", operationName);
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

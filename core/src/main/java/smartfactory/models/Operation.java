@@ -16,5 +16,9 @@ public class Operation {
 		logger.info("...", name);
 	}
 
+	public void terminate() {
+		logger.info("...", name);
+	}
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
