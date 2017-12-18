@@ -20,13 +20,14 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
 	@Override
 	protected void onWake() {
+		// TODO : move setResult to separate behaviour
 		interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
 
 		// TODO : message must have interaction-id
-		// ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-		// msg.addReceiver(getAgent().getAID());
-		// msg.setConversationId("activity-completed");
-		// getAgent().send(msg);
+		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
+		msg.addReceiver(getAgent().getAID());
+		msg.setConversationId("activity-completed");
+		getAgent().send(msg);
 	}
 
 	private static final long serialVersionUID = 9050743659839198854L;

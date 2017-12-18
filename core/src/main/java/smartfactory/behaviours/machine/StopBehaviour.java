@@ -4,6 +4,7 @@ import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
+// TODO : rename to ActivityResult or something like this
 public class StopBehaviour extends SimpleBehaviour {
 
 	private boolean isResultDetermined = false;
@@ -29,6 +30,14 @@ public class StopBehaviour extends SimpleBehaviour {
 	@Override
 	public boolean done() {
 		return isResultDetermined;
+	}
+
+	@Override
+	public void reset() {
+		super.reset();
+
+		// TODO: check if other behaviour requires to use reset
+		isResultDetermined = false;
 	}
 
 	private static final long serialVersionUID = -794793647519609669L;
