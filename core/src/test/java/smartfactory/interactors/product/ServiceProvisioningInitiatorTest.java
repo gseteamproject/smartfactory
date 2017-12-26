@@ -26,15 +26,15 @@ public class ServiceProvisioningInitiatorTest {
 		}
 	};
 
-	ProductDataStore productDataStore_mock;
+	ProductDataStore dataStore_mock;
 
 	ServiceProvisioningInitiator testable;
 
 	@Before
 	public void setUp() {
-		productDataStore_mock = context.mock(ProductDataStore.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new ServiceProvisioningInitiator(productDataStore_mock);
+		testable = new ServiceProvisioningInitiator(dataStore_mock);
 	}
 
 	@After
@@ -52,7 +52,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				exactly(2).of(dataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning_mock));
 
 				oneOf(serviceProvisioning_mock).servicePerformedSuccesfully();
@@ -72,7 +72,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning_mock));
 			}
 		});
@@ -90,7 +90,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				exactly(2).of(dataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning_mock));
 
 				oneOf(serviceProvisioning_mock).servicePerformedUnsuccesfully();
@@ -110,7 +110,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				exactly(2).of(dataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning_mock));
 
 				oneOf(serviceProvisioning_mock).servicePerformedUnsuccesfully();
@@ -131,7 +131,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				exactly(2).of(productDataStore_mock).getServiceProvisioning();
+				exactly(2).of(dataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning));
 			}
 		});
@@ -151,7 +151,7 @@ public class ServiceProvisioningInitiatorTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(serviceProvisioning_mock));
 
 				oneOf(serviceProvisioning_mock).isServicePerformedSuccesfully();

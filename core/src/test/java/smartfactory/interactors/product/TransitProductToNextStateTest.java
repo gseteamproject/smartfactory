@@ -12,21 +12,22 @@ import smartfactory.dataStores.ProductDataStore;
 import smartfactory.models.Product;
 
 public class TransitProductToNextStateTest {
+
 	private final Mockery context = new Mockery() {
 		{
 			this.setImposteriser(ClassImposteriser.INSTANCE);
 		}
 	};
 
-	ProductDataStore productDataStore_mock;
+	ProductDataStore dataStore_mock;
 
 	TransitProductToNextState testable;
 
 	@Before
 	public void setUp() {
-		productDataStore_mock = context.mock(ProductDataStore.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new TransitProductToNextState(productDataStore_mock);
+		testable = new TransitProductToNextState(dataStore_mock);
 	}
 
 	@After
@@ -40,9 +41,9 @@ public class TransitProductToNextStateTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getProduct();
+				oneOf(dataStore_mock).getProduct();
 				will(returnValue(product_mock));
-				
+
 				oneOf(product_mock).moveToNextState();
 			}
 		});
@@ -53,12 +54,12 @@ public class TransitProductToNextStateTest {
 	@Test
 	public void next() {
 		Product product_mock = context.mock(Product.class);
-		
+
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getProduct();
+				oneOf(dataStore_mock).getProduct();
 				will(returnValue(product_mock));
-				
+
 				oneOf(product_mock).isInTheLastState();
 				will(returnValue(Product.IsInTheLastState));
 			}

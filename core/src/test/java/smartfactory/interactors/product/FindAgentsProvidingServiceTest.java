@@ -20,21 +20,22 @@ import smartfactory.models.ServiceProvisioning;
 import smartfactory.platform.AgentPlatform;
 
 public class FindAgentsProvidingServiceTest {
+
 	private final Mockery context = new Mockery() {
 		{
 			this.setImposteriser(ClassImposteriser.INSTANCE);
 		}
 	};
 
-	ProductDataStore productDataStore_mock;
+	ProductDataStore dataStore_mock;
 
 	FindAgentsProvidingService testable;
 
 	@Before
 	public void setUp() {
-		productDataStore_mock = context.mock(ProductDataStore.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new FindAgentsProvidingService(productDataStore_mock);
+		testable = new FindAgentsProvidingService(dataStore_mock);
 	}
 
 	@After
@@ -53,10 +54,10 @@ public class FindAgentsProvidingServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
-				oneOf(productDataStore_mock).getAgentPlatform();
+				oneOf(dataStore_mock).getAgentPlatform();
 				will(returnValue(jadePlatform_mock));
 
 				oneOf(jadePlatform_mock).search(with(new TypeSafeMatcher<DFAgentDescription>() {
@@ -77,7 +78,7 @@ public class FindAgentsProvidingServiceTest {
 				}));
 				will(returnValue(agentDescriptions));
 
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				/*
@@ -103,7 +104,7 @@ public class FindAgentsProvidingServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(order_mock).isAgentsFound();

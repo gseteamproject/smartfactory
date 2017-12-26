@@ -10,21 +10,22 @@ import org.junit.Test;
 import smartfactory.dataStores.ProductDataStore;
 
 public class ProductProcessIsIncorrectTest {
+
 	private final Mockery context = new Mockery() {
 		{
 			this.setImposteriser(ClassImposteriser.INSTANCE);
 		}
 	};
 
-	ProductDataStore productDataStore_mock;
+	ProductDataStore dataStore_mock;
 
 	ProductProcessIsIncorrect testable;
 
 	@Before
 	public void setUp() {
-		productDataStore_mock = context.mock(ProductDataStore.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new ProductProcessIsIncorrect(productDataStore_mock);
+		testable = new ProductProcessIsIncorrect(dataStore_mock);
 	}
 
 	@After

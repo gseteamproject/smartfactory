@@ -20,15 +20,15 @@ public class DetermineRequiredServiceTest {
 		}
 	};
 
-	ProductDataStore productDataStore_mock;
+	ProductDataStore dataStore_mock;
 
 	DetermineRequiredService testable;
 
 	@Before
 	public void setUp() {
-		productDataStore_mock = context.mock(ProductDataStore.class);
+		dataStore_mock = context.mock(ProductDataStore.class);
 
-		testable = new DetermineRequiredService(productDataStore_mock);
+		testable = new DetermineRequiredService(dataStore_mock);
 	}
 
 	@After
@@ -43,13 +43,13 @@ public class DetermineRequiredServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getProduct();
+				oneOf(dataStore_mock).getProduct();
 				will(returnValue(product_mock));
 
 				oneOf(product_mock).createServiceProvisioning();
 				will(returnValue(order_mock));
 
-				oneOf(productDataStore_mock).setServiceProvisioning(order_mock);
+				oneOf(dataStore_mock).setServiceProvisioning(order_mock);
 			}
 		});
 
@@ -63,7 +63,7 @@ public class DetermineRequiredServiceTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(productDataStore_mock).getServiceProvisioning();
+				oneOf(dataStore_mock).getServiceProvisioning();
 				will(returnValue(order_mock));
 
 				oneOf(order_mock).isServiceDetermined();
