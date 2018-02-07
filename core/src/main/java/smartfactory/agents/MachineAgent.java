@@ -49,7 +49,7 @@ public class MachineAgent extends BaseAgent {
 		try {
 			DFService.register(this, agentServicesDescription);
 		} catch (FIPAException exception) {
-			exception.printStackTrace();
+			logger.error("agent registration failed", exception);
 		}
 	}
 
@@ -58,7 +58,7 @@ public class MachineAgent extends BaseAgent {
 		try {
 			DFService.deregister(this);
 		} catch (FIPAException exception) {
-			exception.printStackTrace();
+			logger.error("agent deregistration failed", exception);
 		}
 	}
 
