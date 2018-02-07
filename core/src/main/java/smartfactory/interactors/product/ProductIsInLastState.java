@@ -15,6 +15,7 @@ public class ProductIsInLastState extends ProductInteractor implements OneShotIn
 	@Override
 	public void execute() {
 		logger.info("product is in last state");
+		// TODO : notify-all about process-completed-successfully
 	}
 
 	@Override

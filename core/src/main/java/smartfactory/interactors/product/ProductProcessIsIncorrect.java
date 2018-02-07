@@ -15,6 +15,7 @@ public class ProductProcessIsIncorrect extends ProductInteractor implements OneS
 	@Override
 	public void execute() {
 		logger.info("product process is incorrect");
+		// TODO : notify-all about process-completed-with-failure
 	}
 
 	@Override

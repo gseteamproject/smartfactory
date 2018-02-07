@@ -15,6 +15,7 @@ public class NoAgentsProvidingService extends ProductInteractor implements OneSh
 	@Override
 	public void execute() {
 		logger.info("no agents providing service found");
+		// TODO : notify-all about process-completed-with-failure
 	}
 
 	@Override
