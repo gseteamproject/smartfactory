@@ -18,14 +18,14 @@ public class ServiceProvisioningInitiator extends ProductInteractor implements A
 
 	@Override
 	public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-		request = new ACLMessage(ACLMessage.REQUEST);
-		request.addReceiver(dataStore.getServiceProvisioning().agentDescription.getName());
-		request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+		message.addReceiver(dataStore.getServiceProvisioning().agentDescription.getName());
+		message.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 		// content = operation name
-		request.setContent(dataStore.getServiceProvisioning().serviceName);
+		message.setContent(dataStore.getServiceProvisioning().serviceName);
 
 		Vector<ACLMessage> l = new Vector<ACLMessage>(1);
-		l.addElement(request);
+		l.addElement(message);
 		return l;
 	}
 

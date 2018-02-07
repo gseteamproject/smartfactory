@@ -31,7 +31,7 @@ public class AgentConfiguration {
 
 	public String getStartupParameters() {
 		String startupParameters = name + ":" + className;
-		if (parameters.size() > 0) {
+		if (!parameters.isEmpty()) {
 			startupParameters += "(";
 			for (String parameter : parameters) {
 				startupParameters += parameter + ",";

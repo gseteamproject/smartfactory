@@ -14,6 +14,8 @@
 		<exclude name="MethodReturnsInternalArray" />
 		<exclude name="ArrayIsStoredDirectly" />
 		<exclude name="UseVarargs" />
+		<exclude name="ReplaceVectorWithList" />
+		<exclude name="LooseCoupling" />
 	</rule>
 
 	<!-- <rule ref="category/java/design.xml" /> -->

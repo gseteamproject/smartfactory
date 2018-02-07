@@ -31,7 +31,7 @@ public class ServiceProvisioning {
 	final public static int AgentsNotFound = 1;
 
 	public int isAgentsFound() {
-		return agentsDescription.size() > 0 ? AgentsFound : AgentsNotFound;
+		return agentsDescription.isEmpty() ? AgentsNotFound : AgentsFound;
 	}
 
 	// TODO deal with null pointer

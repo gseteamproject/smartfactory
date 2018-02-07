@@ -14,6 +14,8 @@
 		<exclude name="MethodReturnsInternalArray" />
 		<exclude name="ArrayIsStoredDirectly" />
 		<exclude name="UseVarargs" />
+		<exclude name="AccessorMethodGeneration" />
+		<exclude name="UnusedFormalParameter" />
 	</rule>
 
 	<!-- <rule ref="category/java/design.xml" /> -->

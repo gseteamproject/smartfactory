@@ -20,12 +20,12 @@ public class SelectAgentToPerformService extends ProductInteractor implements On
 	@Override
 	public void execute() {
 		List<DFAgentDescription> agentsProvidingService = dataStore.getServiceProvisioning().agentsDescription;
-		if (agentsProvidingService.size() > 0) {
-			agentProvidingService = agentsProvidingService.get(0);
-			logger.info("\"{}\" agent selected", agentProvidingService.getName().getLocalName());
-		} else {
+		if (agentsProvidingService.isEmpty()) {
 			agentProvidingService = null;
 			logger.info("agent not selected");
+		} else {
+			agentProvidingService = agentsProvidingService.get(0);
+			logger.info("\"{}\" agent selected", agentProvidingService.getName().getLocalName());
 		}
 		dataStore.getServiceProvisioning().agentDescription = agentProvidingService;
 	}
