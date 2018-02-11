@@ -2,12 +2,12 @@ package smartfactory.models;
 
 import smartfactory.services.Services;
 
-public class Warehouse extends Machine {
+public class Warehouse extends Resource {
 
 	public Warehouse() {
 		super();
-		addOperation(new Operation(Services.store));
-		addOperation(new Operation(Services.recognition));
-		addOperation(new Operation(Services.packing));
+		addOperation(new ResourceOperation(Services.store));
+		addOperation(new ResourceOperation(Services.recognition));
+		addOperation(new ResourceOperation(Services.packing));
 	}
 }

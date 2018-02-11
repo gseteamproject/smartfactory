@@ -13,25 +13,25 @@ public class CustomerAgent extends BaseAgent {
 	private CustomerDataStore dataStore;
 
 	@Override
-	protected void initializeData() {
+	protected void setupData() {
 		dataStore = new CustomerDataStore();
 		dataStore.setAgentPlatform(new JADEPlatform(this));
 	}
 
 	@Override
-	protected void initializeGUI() {
+	protected void setupGUI() {
 		presenter.show();
 	}
 
 	@Override
-	protected void finalizeGUI() {
+	protected void takeDownGUI() {
 		presenter.hide();
 	}
 
 	public void createOrder() {
 		AgentConfiguration subAgentConfiguration = new AgentConfiguration();
-		subAgentConfiguration.name = OrderAgent.getUniqueName();
-		subAgentConfiguration.className = OrderAgent.class.getName();
+		subAgentConfiguration.name = OrderProcessAgent.getUniqueName();
+		subAgentConfiguration.className = OrderProcessAgent.class.getName();
 		dataStore.setSubAgentConfiguration(subAgentConfiguration);
 
 		addBehaviour(new LaunchAgentBehaviour(dataStore));

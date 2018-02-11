@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import smartfactory.agents.BaseAgent;
+
 public class BaseAgentTest {
 
 	private final Mockery context = new Mockery() {

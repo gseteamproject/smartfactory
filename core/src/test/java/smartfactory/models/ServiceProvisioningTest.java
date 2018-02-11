@@ -20,11 +20,11 @@ public class ServiceProvisioningTest {
 		}
 	};
 
-	ServiceProvisioning testable;
+	ProcessOperation testable;
 
 	@Before
 	public void setUp() {
-		testable = new ServiceProvisioning();
+		testable = new ProcessOperation();
 	}
 
 	@After
@@ -49,7 +49,7 @@ public class ServiceProvisioningTest {
 
 		testable.servicePerformedUnsuccesfully();
 
-		Assert.assertEquals(ServiceProvisioning.ServicePerformedUnSuccessfully,
+		Assert.assertEquals(ProcessOperation.ServicePerformedUnSuccessfully,
 				testable.isServicePerformedSuccesfully());
 	}
 
@@ -57,6 +57,6 @@ public class ServiceProvisioningTest {
 	public void servicePerformedSuccesfully() {
 		testable.servicePerformedSuccesfully();
 
-		Assert.assertEquals(ServiceProvisioning.ServicePerformedSuccessfully, testable.isServicePerformedSuccesfully());
+		Assert.assertEquals(ProcessOperation.ServicePerformedSuccessfully, testable.isServicePerformedSuccesfully());
 	}
 }

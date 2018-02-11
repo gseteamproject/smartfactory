@@ -1,12 +1,12 @@
 package smartfactory.agents;
 
 import smartfactory.models.CleaningStation;
-import smartfactory.models.Machine;
+import smartfactory.models.Resource;
 
-public class CleaningStationAgent extends MachineAgent {
+public class CleaningStationAgent extends ResourceAgent {
 
 	@Override
-	public Machine createMachine() {
+	public Resource createResource() {
 		return new CleaningStation();
 	}
 

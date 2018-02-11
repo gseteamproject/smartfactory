@@ -1,6 +1,6 @@
 package smartfactory.models;
 
-public class Factory extends Machine {
+public class Factory extends Resource {
 
 	public Factory() {
 		super();

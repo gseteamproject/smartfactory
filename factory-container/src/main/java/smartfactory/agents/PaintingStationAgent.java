@@ -1,12 +1,12 @@
 package smartfactory.agents;
 
-import smartfactory.models.Machine;
+import smartfactory.models.Resource;
 import smartfactory.models.PaintingStation;
 
-public class PaintingStationAgent extends MachineAgent {
+public class PaintingStationAgent extends ResourceAgent {
 
 	@Override
-	public Machine createMachine() {
+	public Resource createResource() {
 		return new PaintingStation();
 	}
 

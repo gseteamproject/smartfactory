@@ -8,11 +8,11 @@ import smartfactory.services.Services;
 
 public class BlockTest {
 
-	Block testable;
+	BlockProcess testable;
 
 	@Before
 	public void setUp() {
-		testable = new Block();
+		testable = new BlockProcess();
 	}
 
 	@Test
@@ -77,36 +77,36 @@ public class BlockTest {
 	@Test
 	public void isInTheLastState_initial() {
 		testable.state = BlockState.initial;
-		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
+		Assert.assertEquals(Process.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_stored() {
 		testable.state = BlockState.stored;
-		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
+		Assert.assertEquals(Process.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_dirty() {
 		testable.state = BlockState.dirty;
-		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
+		Assert.assertEquals(Process.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_clean() {
 		testable.state = BlockState.clean;
-		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
+		Assert.assertEquals(Process.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_painted() {
 		testable.state = BlockState.painted;
-		Assert.assertEquals(Product.IsNotInTheLastState, testable.isInTheLastState());
+		Assert.assertEquals(Process.IsNotInTheLastState, testable.isInTheLastState());
 	}
 
 	@Test
 	public void isInTheLastState_packed() {
 		testable.state = BlockState.packed;
-		Assert.assertEquals(Product.IsInTheLastState, testable.isInTheLastState());
+		Assert.assertEquals(Process.IsInTheLastState, testable.isInTheLastState());
 	}
 }

@@ -35,7 +35,7 @@ public class JADEPlatform implements AgentPlatform {
 		try {
 			return Arrays.asList(DFService.search(agent, dfd));
 		} catch (FIPAException e) {
-			logger.error("", e);
+			logger.error("search failed", e);
 		}
 		return new ArrayList<DFAgentDescription>();
 	}
@@ -45,7 +45,7 @@ public class JADEPlatform implements AgentPlatform {
 		try {
 			agent.getContainerController().createNewAgent(agentName, agentClass, null).start();
 		} catch (StaleProxyException e) {
-			logger.error("", e);
+			logger.error("createNewAgent failed", e);
 		}
 	}
 

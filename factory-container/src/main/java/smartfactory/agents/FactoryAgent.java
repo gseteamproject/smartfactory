@@ -3,19 +3,19 @@ package smartfactory.agents;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.Factory;
-import smartfactory.models.Machine;
-import smartfactory.models.Operation;
+import smartfactory.models.Resource;
+import smartfactory.models.ResourceOperation;
 
-public class FactoryAgent extends MachineAgent {
+public class FactoryAgent extends ResourceAgent {
 
 	@Override
-	public Machine createMachine() {
-		Machine machine = new Factory();
+	public Resource createResource() {
+		Resource machine = new Factory();
 		machine.addOperation(new BlockProductionOperation());
 		return machine;
 	}
 
-	private class BlockProductionOperation extends Operation {
+	private class BlockProductionOperation extends ResourceOperation {
 
 		public BlockProductionOperation() {
 			super("block-production");
@@ -26,8 +26,8 @@ public class FactoryAgent extends MachineAgent {
 			super.execute();
 
 			AgentConfiguration subAgentConfiguration = new AgentConfiguration();
-			subAgentConfiguration.name = BlockAgent.getUniqueName();
-			subAgentConfiguration.className = BlockAgent.class.getName();
+			subAgentConfiguration.name = BlockProcessAgent.getUniqueName();
+			subAgentConfiguration.className = BlockProcessAgent.class.getName();
 			dataStore.setSubAgentConfiguration(subAgentConfiguration);
 
 			addBehaviour(new LaunchAgentBehaviour(dataStore));

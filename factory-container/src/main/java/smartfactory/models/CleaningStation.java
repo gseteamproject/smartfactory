@@ -1,4 +1,4 @@
 package smartfactory.models;
 
-public class CleaningStation extends Machine {
+public class CleaningStation extends Resource {
 }

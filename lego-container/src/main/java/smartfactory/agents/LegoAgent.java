@@ -1,12 +1,12 @@
 package smartfactory.agents;
 
 import smartfactory.models.Lego;
-import smartfactory.models.Machine;
+import smartfactory.models.Resource;
 
-public class LegoAgent extends MachineAgent {
+public class LegoAgent extends ResourceAgent {
 
 	@Override
-	public Machine createMachine() {
+	public Resource createResource() {
 		return new Lego();
 	}
 
