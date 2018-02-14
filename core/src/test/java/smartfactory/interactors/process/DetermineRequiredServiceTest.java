@@ -47,7 +47,7 @@ public class DetermineRequiredServiceTest {
 				oneOf(dataStore_mock).getProcess();
 				will(returnValue(process_mock));
 
-				oneOf(process_mock).createProcessOperation();
+				oneOf(process_mock).getProcessOperation();
 				will(returnValue(operation_mock));
 
 				oneOf(dataStore_mock).setProcessOperation(operation_mock);

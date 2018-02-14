@@ -15,7 +15,7 @@ public class DetermineRequiredService extends ProcessInteractor implements OneSh
 
 	@Override
 	public void execute() {
-		ProcessOperation processOperation = dataStore.getProcess().createProcessOperation();
+		ProcessOperation processOperation = dataStore.getProcess().getProcessOperation();
 		dataStore.setProcessOperation(processOperation);
 		logger.info("required service \"{}\"", processOperation.serviceName);
 	}

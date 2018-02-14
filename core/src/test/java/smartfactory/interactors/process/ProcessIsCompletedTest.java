@@ -8,9 +8,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.dataStores.ProcessDataStore;
-import smartfactory.interactors.process.ProductIsInLastState;
+import smartfactory.interactors.process.ProcessIsCompleted;
 
-public class ProductIsInLastStateTest {
+public class ProcessIsCompletedTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -20,13 +20,13 @@ public class ProductIsInLastStateTest {
 
 	ProcessDataStore dataStore_mock;
 
-	ProductIsInLastState testable;
+	ProcessIsCompleted testable;
 
 	@Before
 	public void setUp() {
 		dataStore_mock = context.mock(ProcessDataStore.class);
 
-		testable = new ProductIsInLastState(dataStore_mock);
+		testable = new ProcessIsCompleted(dataStore_mock);
 	}
 
 	@After

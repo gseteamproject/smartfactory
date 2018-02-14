@@ -9,10 +9,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.dataStores.ProcessDataStore;
-import smartfactory.interactors.process.TransitProcessToNextState;
+import smartfactory.interactors.process.TransitProcessToNextOperation;
 import smartfactory.models.Process;
 
-public class TransitProcessToNextStateTest {
+public class TransitProcessToNextOperationTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -22,13 +22,13 @@ public class TransitProcessToNextStateTest {
 
 	ProcessDataStore dataStore_mock;
 
-	TransitProcessToNextState testable;
+	TransitProcessToNextOperation testable;
 
 	@Before
 	public void setUp() {
 		dataStore_mock = context.mock(ProcessDataStore.class);
 
-		testable = new TransitProcessToNextState(dataStore_mock);
+		testable = new TransitProcessToNextOperation(dataStore_mock);
 	}
 
 	@After
@@ -45,7 +45,7 @@ public class TransitProcessToNextStateTest {
 				oneOf(dataStore_mock).getProcess();
 				will(returnValue(process_mock));
 
-				oneOf(process_mock).moveToNextState();
+				oneOf(process_mock).moveToNextOperation();
 			}
 		});
 
@@ -61,11 +61,11 @@ public class TransitProcessToNextStateTest {
 				oneOf(dataStore_mock).getProcess();
 				will(returnValue(process_mock));
 
-				oneOf(process_mock).isInTheLastState();
-				will(returnValue(Process.IsInTheLastState));
+				oneOf(process_mock).isCompleted();
+				will(returnValue(Process.IsCompleted));
 			}
 		});
 
-		Assert.assertEquals(Process.IsInTheLastState, testable.next());
+		Assert.assertEquals(Process.IsCompleted, testable.next());
 	}
 }

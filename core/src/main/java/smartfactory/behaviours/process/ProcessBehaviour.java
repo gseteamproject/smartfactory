@@ -15,8 +15,8 @@ public class ProcessBehaviour extends FSMBehaviour {
 		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(processDataStore);
 		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(processDataStore);
 		Behaviour b4 = new ServiceProvisioningInitiatorBehaviour(processDataStore);
-		Behaviour b5 = new TransitProcessToNextStateBehaviour(processDataStore);
-		Behaviour b6 = new ProductIsInLastStateBehaviour(processDataStore);
+		Behaviour b5 = new TransitProcessToNextOperationBehaviour(processDataStore);
+		Behaviour b6 = new ProcessIsCompletedBehaviour(processDataStore);
 		Behaviour b7 = new ProcessIsIncorrectBehaviour(processDataStore);
 		Behaviour b8 = new NoAgentsProvidingServiceBehaviour(processDataStore);
 
@@ -28,8 +28,8 @@ public class ProcessBehaviour extends FSMBehaviour {
 		int b3_b2 = ProcessOperation.AgentNotSelected;
 		int b4_b5 = ProcessOperation.ServicePerformedSuccessfully;
 		int b4_b3 = ProcessOperation.ServicePerformedUnSuccessfully;
-		int b5_b6 = Process.IsInTheLastState;
-		int b5_b1 = Process.IsNotInTheLastState;
+		int b5_b6 = Process.IsCompleted;
+		int b5_b1 = Process.IsNotCompleted;
 
 		String b1_name = b1.getBehaviourName();
 		String b2_name = b2.getBehaviourName();

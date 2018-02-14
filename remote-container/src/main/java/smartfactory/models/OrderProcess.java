@@ -2,8 +2,9 @@ package smartfactory.models;
 
 public class OrderProcess extends Process {
 
-	@Override
-	public String getRequiredServiceName() {
-		return "block-production";
+	public OrderProcess() {
+		super();
+		// TODO : move text constant to separate class
+		operations.add(new ProcessOperation("block-production"));
 	}
 }

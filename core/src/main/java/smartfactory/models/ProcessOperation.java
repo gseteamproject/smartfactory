@@ -9,8 +9,12 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 public class ProcessOperation {
 
 	public ProcessOperation() {
-		serviceName = null;
-		agentDescription = null;
+		this(null);
+	}
+
+	public ProcessOperation(String serviceName) {
+		this.serviceName = serviceName;
+		this.agentDescription = null;
 	}
 
 	public String serviceName;
@@ -25,6 +29,7 @@ public class ProcessOperation {
 		return ServiceDetermined;
 	}
 
+	// TODO : separate this from ProcessOperation
 	public List<DFAgentDescription> agentsDescription;
 
 	final public static int AgentsFound = 0;

@@ -6,21 +6,21 @@ import org.slf4j.LoggerFactory;
 import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.OneShotInteractor;
 
-public class TransitProcessToNextState extends ProcessInteractor implements OneShotInteractor {
+public class ProcessIsCompleted extends ProcessInteractor implements OneShotInteractor {
 
-	public TransitProcessToNextState(ProcessDataStore dataStore) {
+	public ProcessIsCompleted(ProcessDataStore dataStore) {
 		super(dataStore);
 	}
 
 	@Override
 	public void execute() {
-		dataStore.getProcess().moveToNextState();
-		logger.info("associated process moved to next state");
+		logger.info("product is in last state");
+		// TODO : notify-all about process-completed-successfully
 	}
 
 	@Override
 	public int next() {
-		return dataStore.getProcess().isInTheLastState();
+		return 0;
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
