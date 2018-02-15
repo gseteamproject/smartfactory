@@ -4,12 +4,18 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.core.Agent;
+import smartfactory.behaviours.base.EventSubscriptionResponderBehaviour;
+import smartfactory.platform.JADEPlatform;
+import smartfactory.utility.AgentDataStore;
+import smartfactory.utility.EventSubscribers;
 
 public class BaseAgent extends Agent {
 
 	private static final long serialVersionUID = -611439455095174043L;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	protected AgentDataStore agentDataStore;
 
 	@Override
 	final protected void setup() {
@@ -46,7 +52,7 @@ public class BaseAgent extends Agent {
 	}
 
 	private void setupBaseBehaviours() {
-		// TODO: add subscription mechanics from subscription example
+		addBehaviour(new EventSubscriptionResponderBehaviour(agentDataStore.getEventSubsribers()));
 	}
 
 	protected void setupGUI() {
@@ -59,6 +65,9 @@ public class BaseAgent extends Agent {
 	}
 
 	protected void setupData() {
+		agentDataStore = new AgentDataStore();
+		agentDataStore.setAgentPlatform(new JADEPlatform(this));
+		agentDataStore.setEventSubscribers(new EventSubscribers());
 	}
 
 	protected void setupLanguage() {

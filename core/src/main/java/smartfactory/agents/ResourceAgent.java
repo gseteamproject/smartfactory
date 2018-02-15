@@ -8,9 +8,7 @@ import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
-import smartfactory.dataStores.ResourceDataStore;
 import smartfactory.models.Resource;
-import smartfactory.platform.JADEPlatform;
 
 public class ResourceAgent extends BaseAgent {
 
@@ -18,14 +16,10 @@ public class ResourceAgent extends BaseAgent {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	// TODO : check if getter is better
-	protected ResourceDataStore dataStore;
-
 	@Override
 	final protected void setupData() {
-		dataStore = new ResourceDataStore();
-		dataStore.setResource(createResource());
-		dataStore.setAgentPlatform(new JADEPlatform(this));
+		super.setupData();
+		agentDataStore.setResource(createResource());
 	}
 
 	public Resource createResource() {
@@ -34,7 +28,7 @@ public class ResourceAgent extends BaseAgent {
 
 	@Override
 	final protected void registerServices() {
-		String[] agentServiceNames = dataStore.getResource().getOperations();
+		String[] agentServiceNames = agentDataStore.getResource().getOperations();
 
 		ServiceDescription agentServices[] = new ServiceDescription[agentServiceNames.length];
 		for (int i = 0; i < agentServices.length; i++) {
@@ -68,6 +62,6 @@ public class ResourceAgent extends BaseAgent {
 
 	@Override
 	final protected void setupSpecialBehaviours() {
-		addBehaviour(new ServiceProvisioningResponderBehaviour(dataStore));
+		addBehaviour(new ServiceProvisioningResponderBehaviour(agentDataStore));
 	}
 }

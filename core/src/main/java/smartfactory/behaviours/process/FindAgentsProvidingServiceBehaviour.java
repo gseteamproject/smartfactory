@@ -1,12 +1,12 @@
 package smartfactory.behaviours.process;
 
 import smartfactory.behaviours.OneShotInteractorBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.FindAgentsProvidingService;
+import smartfactory.utility.AgentDataStore;
 
 public class FindAgentsProvidingServiceBehaviour extends OneShotInteractorBehaviour {
 
-	public FindAgentsProvidingServiceBehaviour(ProcessDataStore dataStore) {
+	public FindAgentsProvidingServiceBehaviour(AgentDataStore dataStore) {
 		super(new FindAgentsProvidingService(dataStore));
 	}
 

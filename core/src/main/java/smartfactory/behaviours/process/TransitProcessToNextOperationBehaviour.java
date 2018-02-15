@@ -1,12 +1,12 @@
 package smartfactory.behaviours.process;
 
 import smartfactory.behaviours.OneShotInteractorBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.TransitProcessToNextOperation;
+import smartfactory.utility.AgentDataStore;
 
 public class TransitProcessToNextOperationBehaviour extends OneShotInteractorBehaviour {
 
-	public TransitProcessToNextOperationBehaviour(ProcessDataStore dataStore) {
+	public TransitProcessToNextOperationBehaviour(AgentDataStore dataStore) {
 		super(new TransitProcessToNextOperation(dataStore));
 	}
 

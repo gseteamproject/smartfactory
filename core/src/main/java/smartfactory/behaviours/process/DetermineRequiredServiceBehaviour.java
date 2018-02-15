@@ -1,12 +1,12 @@
 package smartfactory.behaviours.process;
 
 import smartfactory.behaviours.OneShotInteractorBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.DetermineRequiredService;
+import smartfactory.utility.AgentDataStore;
 
 public class DetermineRequiredServiceBehaviour extends OneShotInteractorBehaviour {
 
-	public DetermineRequiredServiceBehaviour(ProcessDataStore dataStore) {
+	public DetermineRequiredServiceBehaviour(AgentDataStore dataStore) {
 		super(new DetermineRequiredService(dataStore));
 	}
 

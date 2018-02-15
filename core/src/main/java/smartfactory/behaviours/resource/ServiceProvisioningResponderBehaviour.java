@@ -3,7 +3,7 @@ package smartfactory.behaviours.resource;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREResponder;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.utility.AgentDataStore;
 
 public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
 
@@ -19,7 +19,7 @@ public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	public ServiceProvisioningResponderBehaviour(ResourceDataStore dataStore) {
+	public ServiceProvisioningResponderBehaviour(AgentDataStore dataStore) {
 		super(null, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
 
 		registerHandleRequest(new DecisionBehaviour(this, dataStore));

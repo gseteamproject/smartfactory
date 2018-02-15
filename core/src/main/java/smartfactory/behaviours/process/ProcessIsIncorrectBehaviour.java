@@ -1,12 +1,12 @@
 package smartfactory.behaviours.process;
 
 import smartfactory.behaviours.OneShotInteractorBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.ProcessIsIncorrect;
+import smartfactory.utility.AgentDataStore;
 
 public class ProcessIsIncorrectBehaviour extends OneShotInteractorBehaviour {
 
-	public ProcessIsIncorrectBehaviour(ProcessDataStore dataStore) {
+	public ProcessIsIncorrectBehaviour(AgentDataStore dataStore) {
 		super(new ProcessIsIncorrect(dataStore));
 	}
 

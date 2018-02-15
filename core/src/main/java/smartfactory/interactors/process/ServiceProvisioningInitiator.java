@@ -7,22 +7,23 @@ import org.slf4j.LoggerFactory;
 
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.AchieveREInitiatorInteractor;
+import smartfactory.interactors.Interactor;
+import smartfactory.utility.AgentDataStore;
 
-public class ServiceProvisioningInitiator extends ProcessInteractor implements AchieveREInitiatorInteractor {
+public class ServiceProvisioningInitiator extends Interactor implements AchieveREInitiatorInteractor {
 
-	public ServiceProvisioningInitiator(ProcessDataStore dataStore) {
+	public ServiceProvisioningInitiator(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
 	@Override
 	public Vector<ACLMessage> prepareRequests(ACLMessage request) {
 		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
-		message.addReceiver(dataStore.getProcessOperation().agentDescription.getName());
+		message.addReceiver(agentDataStore.getProcessOperation().agentDescription.getName());
 		message.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 		// content = operation name
-		message.setContent(dataStore.getProcessOperation().serviceName);
+		message.setContent(agentDataStore.getProcessOperation().serviceName);
 
 		Vector<ACLMessage> l = new Vector<ACLMessage>(1);
 		l.addElement(message);
@@ -31,32 +32,34 @@ public class ServiceProvisioningInitiator extends ProcessInteractor implements A
 
 	@Override
 	public void handleAgree(ACLMessage agree) {
-		logger.info("\"{}\" agent agreed", dataStore.getProcessOperation().agentDescription.getName().getLocalName());
+		logger.info("\"{}\" agent agreed",
+				agentDataStore.getProcessOperation().agentDescription.getName().getLocalName());
 	}
 
 	@Override
 	public void handleRefuse(ACLMessage refuse) {
-		logger.info("\"{}\" agent refused", dataStore.getProcessOperation().agentDescription.getName().getLocalName());
-		dataStore.getProcessOperation().servicePerformedUnsuccesfully();
+		logger.info("\"{}\" agent refused",
+				agentDataStore.getProcessOperation().agentDescription.getName().getLocalName());
+		agentDataStore.getProcessOperation().servicePerformedUnsuccesfully();
 	}
 
 	@Override
 	public void handleInform(ACLMessage inform) {
 		logger.info("\"{}\" agent successfully performed",
-				dataStore.getProcessOperation().agentDescription.getName().getLocalName());
-		dataStore.getProcessOperation().servicePerformedSuccesfully();
+				agentDataStore.getProcessOperation().agentDescription.getName().getLocalName());
+		agentDataStore.getProcessOperation().servicePerformedSuccesfully();
 	}
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
 		logger.info("\"{}\" agent failed to perform",
-				dataStore.getProcessOperation().agentDescription.getName().getLocalName());
-		dataStore.getProcessOperation().servicePerformedUnsuccesfully();
+				agentDataStore.getProcessOperation().agentDescription.getName().getLocalName());
+		agentDataStore.getProcessOperation().servicePerformedUnsuccesfully();
 	}
 
 	@Override
 	public int next() {
-		return dataStore.getProcessOperation().isServicePerformedSuccesfully();
+		return agentDataStore.getProcessOperation().isServicePerformedSuccesfully();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

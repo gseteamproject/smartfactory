@@ -7,8 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.NoAgentsProvidingService;
+import smartfactory.utility.AgentDataStore;
 
 public class NoAgentsProvidingServiceTest {
 
@@ -18,13 +18,13 @@ public class NoAgentsProvidingServiceTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	NoAgentsProvidingService testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new NoAgentsProvidingService(dataStore_mock);
 	}

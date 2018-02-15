@@ -28,9 +28,9 @@ public class FactoryAgent extends ResourceAgent {
 			AgentConfiguration subAgentConfiguration = new AgentConfiguration();
 			subAgentConfiguration.name = BlockProcessAgent.getUniqueName();
 			subAgentConfiguration.className = BlockProcessAgent.class.getName();
-			dataStore.setSubAgentConfiguration(subAgentConfiguration);
+			agentDataStore.setSubAgentConfiguration(subAgentConfiguration);
 
-			addBehaviour(new LaunchAgentBehaviour(dataStore));
+			addBehaviour(new LaunchAgentBehaviour(agentDataStore));
 		}
 	}
 

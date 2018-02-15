@@ -10,7 +10,7 @@ import org.junit.Test;
 import jade.core.Agent;
 import smartfactory.behaviours.resource.ActivityBehaviour;
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.utility.AgentDataStore;
 
 public class ActivityBehaviourTest {
 
@@ -22,7 +22,7 @@ public class ActivityBehaviourTest {
 
 	ServiceProvisioningResponderBehaviour interactionBehaviour_mock;
 
-	ResourceDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	Agent agent_mock;
 
@@ -31,7 +31,7 @@ public class ActivityBehaviourTest {
 	@Before
 	public void setUp() {
 		interactionBehaviour_mock = context.mock(ServiceProvisioningResponderBehaviour.class);
-		dataStore_mock = context.mock(ResourceDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
 		context.checking(new Expectations() {

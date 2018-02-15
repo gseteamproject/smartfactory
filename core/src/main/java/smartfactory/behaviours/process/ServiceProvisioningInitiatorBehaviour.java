@@ -1,12 +1,12 @@
 package smartfactory.behaviours.process;
 
 import smartfactory.behaviours.AchieveREInitiatorInteractorBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.ServiceProvisioningInitiator;
+import smartfactory.utility.AgentDataStore;
 
 public class ServiceProvisioningInitiatorBehaviour extends AchieveREInitiatorInteractorBehaviour {
 
-	public ServiceProvisioningInitiatorBehaviour(ProcessDataStore dataStore) {
+	public ServiceProvisioningInitiatorBehaviour(AgentDataStore dataStore) {
 		super(new ServiceProvisioningInitiator(dataStore));
 	}
 

@@ -3,12 +3,13 @@ package smartfactory.interactors.process;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import smartfactory.dataStores.ProcessDataStore;
+import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
+import smartfactory.utility.AgentDataStore;
 
-public class ProcessIsIncorrect extends ProcessInteractor implements OneShotInteractor {
+public class ProcessIsIncorrect extends Interactor implements OneShotInteractor {
 
-	public ProcessIsIncorrect(ProcessDataStore dataStore) {
+	public ProcessIsIncorrect(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

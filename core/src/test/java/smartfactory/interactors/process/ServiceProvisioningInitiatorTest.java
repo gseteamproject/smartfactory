@@ -14,9 +14,9 @@ import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.ServiceProvisioningInitiator;
 import smartfactory.models.ProcessOperation;
+import smartfactory.utility.AgentDataStore;
 
 public class ServiceProvisioningInitiatorTest {
 
@@ -26,13 +26,13 @@ public class ServiceProvisioningInitiatorTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	ServiceProvisioningInitiator testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new ServiceProvisioningInitiator(dataStore_mock);
 	}

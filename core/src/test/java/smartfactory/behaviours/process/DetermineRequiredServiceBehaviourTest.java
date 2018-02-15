@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.behaviours.process.DetermineRequiredServiceBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
+import smartfactory.utility.AgentDataStore;
 
 public class DetermineRequiredServiceBehaviourTest {
 
@@ -17,13 +17,13 @@ public class DetermineRequiredServiceBehaviourTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	DetermineRequiredServiceBehaviour testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new DetermineRequiredServiceBehaviour(dataStore_mock);
 	}

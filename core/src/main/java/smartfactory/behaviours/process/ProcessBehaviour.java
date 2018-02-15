@@ -2,23 +2,23 @@ package smartfactory.behaviours.process;
 
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.models.ProcessOperation;
+import smartfactory.utility.AgentDataStore;
 import smartfactory.models.Process;
 
 public class ProcessBehaviour extends FSMBehaviour {
 
-	public ProcessBehaviour(ProcessDataStore processDataStore) {
+	public ProcessBehaviour(AgentDataStore dataObject) {
 		super();
 
-		Behaviour b1 = new DetermineRequiredServiceBehaviour(processDataStore);
-		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(processDataStore);
-		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(processDataStore);
-		Behaviour b4 = new ServiceProvisioningInitiatorBehaviour(processDataStore);
-		Behaviour b5 = new TransitProcessToNextOperationBehaviour(processDataStore);
-		Behaviour b6 = new ProcessIsCompletedBehaviour(processDataStore);
-		Behaviour b7 = new ProcessIsIncorrectBehaviour(processDataStore);
-		Behaviour b8 = new NoAgentsProvidingServiceBehaviour(processDataStore);
+		Behaviour b1 = new DetermineRequiredServiceBehaviour(dataObject);
+		Behaviour b2 = new FindAgentsProvidingServiceBehaviour(dataObject);
+		Behaviour b3 = new SelectAgentToPerformServiceBehaviour(dataObject);
+		Behaviour b4 = new ServiceProvisioningInitiatorBehaviour(dataObject);
+		Behaviour b5 = new TransitProcessToNextOperationBehaviour(dataObject);
+		Behaviour b6 = new ProcessIsCompletedBehaviour(dataObject);
+		Behaviour b7 = new ProcessIsIncorrectBehaviour(dataObject);
+		Behaviour b8 = new NoAgentsProvidingServiceBehaviour(dataObject);
 
 		int b1_b2 = ProcessOperation.ServiceDetermined;
 		int b1_b7 = ProcessOperation.ServiceNotDetermined;

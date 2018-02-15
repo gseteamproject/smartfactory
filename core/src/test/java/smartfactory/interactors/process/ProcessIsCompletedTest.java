@@ -7,8 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.ProcessIsCompleted;
+import smartfactory.utility.AgentDataStore;
 
 public class ProcessIsCompletedTest {
 
@@ -18,13 +18,13 @@ public class ProcessIsCompletedTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	ProcessIsCompleted testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new ProcessIsCompleted(dataStore_mock);
 	}

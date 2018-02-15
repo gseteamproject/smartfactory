@@ -7,32 +7,34 @@ import org.slf4j.LoggerFactory;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import smartfactory.dataStores.ProcessDataStore;
+import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
+import smartfactory.utility.AgentDataStore;
 
-public class FindAgentsProvidingService extends ProcessInteractor implements OneShotInteractor {
+public class FindAgentsProvidingService extends Interactor implements OneShotInteractor {
 
-	public FindAgentsProvidingService(ProcessDataStore dataStore) {
+	public FindAgentsProvidingService(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
 	@Override
 	public void execute() {
 		ServiceDescription serviceDescriptionTemplate = new ServiceDescription();
-		serviceDescriptionTemplate.setName(dataStore.getProcessOperation().serviceName);
+		serviceDescriptionTemplate.setName(agentDataStore.getProcessOperation().serviceName);
 
 		DFAgentDescription agentDescriptionTemplate = new DFAgentDescription();
 		agentDescriptionTemplate.addServices(serviceDescriptionTemplate);
 
-		List<DFAgentDescription> agentsProvidingService = dataStore.getAgentPlatform().search(agentDescriptionTemplate);
-		dataStore.getProcessOperation().agentsDescription = agentsProvidingService;
+		List<DFAgentDescription> agentsProvidingService = agentDataStore.getAgentPlatform()
+				.search(agentDescriptionTemplate);
+		agentDataStore.getProcessOperation().agentsDescription = agentsProvidingService;
 		logger.info("found \"{}\" agents providing \"{}\" service ", agentsProvidingService.size(),
 				serviceDescriptionTemplate.getName());
 	}
 
 	@Override
 	public int next() {
-		return dataStore.getProcessOperation().isAgentsFound();
+		return agentDataStore.getProcessOperation().isAgentsFound();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

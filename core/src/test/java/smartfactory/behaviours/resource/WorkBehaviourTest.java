@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
 import smartfactory.behaviours.resource.WorkBehaviour;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.utility.AgentDataStore;
 
 public class WorkBehaviourTest {
 
@@ -20,14 +20,14 @@ public class WorkBehaviourTest {
 
 	ServiceProvisioningResponderBehaviour interactionBehaviour_mock;
 
-	ResourceDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	WorkBehaviour testable;
 
 	@Before
 	public void setUp() {
 		interactionBehaviour_mock = context.mock(ServiceProvisioningResponderBehaviour.class);
-		dataStore_mock = context.mock(ResourceDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new WorkBehaviour(interactionBehaviour_mock, dataStore_mock);
 	}

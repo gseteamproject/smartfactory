@@ -15,10 +15,10 @@ import org.junit.Test;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.FindAgentsProvidingService;
 import smartfactory.models.ProcessOperation;
 import smartfactory.platform.AgentPlatform;
+import smartfactory.utility.AgentDataStore;
 
 public class FindAgentsProvidingServiceTest {
 
@@ -28,13 +28,13 @@ public class FindAgentsProvidingServiceTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	FindAgentsProvidingService testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new FindAgentsProvidingService(dataStore_mock);
 	}

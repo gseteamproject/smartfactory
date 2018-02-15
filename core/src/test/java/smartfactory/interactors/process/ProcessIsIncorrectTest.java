@@ -7,8 +7,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.ProcessIsIncorrect;
+import smartfactory.utility.AgentDataStore;
 
 public class ProcessIsIncorrectTest {
 
@@ -18,13 +18,13 @@ public class ProcessIsIncorrectTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	ProcessIsIncorrect testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new ProcessIsIncorrect(dataStore_mock);
 	}

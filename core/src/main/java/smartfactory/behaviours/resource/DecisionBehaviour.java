@@ -1,8 +1,8 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.OneShotBehaviour;
-import smartfactory.dataStores.ResourceDataStore;
 import smartfactory.interactors.resource.Decision;
+import smartfactory.utility.AgentDataStore;
 
 public class DecisionBehaviour extends OneShotBehaviour {
 
@@ -10,7 +10,7 @@ public class DecisionBehaviour extends OneShotBehaviour {
 
 	Decision interactor;
 
-	public DecisionBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, ResourceDataStore dataStore) {
+	public DecisionBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new Decision(dataStore);
 	}

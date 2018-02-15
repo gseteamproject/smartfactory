@@ -1,11 +1,12 @@
 package smartfactory.interactors.resource;
 
 import jade.lang.acl.ACLMessage;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.interactors.Interactor;
+import smartfactory.utility.AgentDataStore;
 
-public class Deadline extends ResourceInteractor {
+public class Deadline extends Interactor {
 
-	public Deadline(ResourceDataStore dataStore) {
+	public Deadline(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
@@ -13,7 +14,7 @@ public class Deadline extends ResourceInteractor {
 		// content = operation name
 		String operationName = request.getContent();
 
-		dataStore.getResource().terminate(operationName);
+		agentDataStore.getResource().terminate(operationName);
 
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.FAILURE);

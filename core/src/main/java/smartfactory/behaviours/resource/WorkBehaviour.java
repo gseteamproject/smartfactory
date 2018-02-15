@@ -2,8 +2,8 @@ package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
-import smartfactory.dataStores.ResourceDataStore;
 import smartfactory.interactors.resource.Work;
+import smartfactory.utility.AgentDataStore;
 
 public class WorkBehaviour extends SimpleBehaviour {
 
@@ -11,7 +11,7 @@ public class WorkBehaviour extends SimpleBehaviour {
 
 	Work interactor;
 
-	public WorkBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, ResourceDataStore dataStore) {
+	public WorkBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new Work(dataStore);
 	}

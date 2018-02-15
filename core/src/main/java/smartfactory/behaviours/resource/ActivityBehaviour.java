@@ -3,7 +3,7 @@ package smartfactory.behaviours.resource;
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.ThreadedBehaviourFactory;
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.utility.AgentDataStore;
 
 public class ActivityBehaviour extends ParallelBehaviour {
 
@@ -12,7 +12,7 @@ public class ActivityBehaviour extends ParallelBehaviour {
 	private StatusBehaviour status;
 	private DeadlineBehaviour deadline;
 
-	public ActivityBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, ResourceDataStore dataStore) {
+	public ActivityBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent(), WHEN_ALL);
 
 		status = new StatusBehaviour(interactionBehaviour, dataStore);

@@ -2,20 +2,15 @@ package smartfactory.agents;
 
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
-import smartfactory.dataStores.CustomerDataStore;
-import smartfactory.platform.JADEPlatform;
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerAgent extends BaseAgent {
 
 	private CustomerPresenter presenter = new CustomerPresenter(this);
 
-	private CustomerDataStore dataStore;
-
 	@Override
 	protected void setupData() {
-		dataStore = new CustomerDataStore();
-		dataStore.setAgentPlatform(new JADEPlatform(this));
+		super.setupData();
 	}
 
 	@Override
@@ -32,9 +27,9 @@ public class CustomerAgent extends BaseAgent {
 		AgentConfiguration subAgentConfiguration = new AgentConfiguration();
 		subAgentConfiguration.name = OrderProcessAgent.getUniqueName();
 		subAgentConfiguration.className = OrderProcessAgent.class.getName();
-		dataStore.setSubAgentConfiguration(subAgentConfiguration);
+		agentDataStore.setSubAgentConfiguration(subAgentConfiguration);
 
-		addBehaviour(new LaunchAgentBehaviour(dataStore));
+		addBehaviour(new LaunchAgentBehaviour(agentDataStore));
 	}
 
 	private static final long serialVersionUID = -2432898217068138400L;

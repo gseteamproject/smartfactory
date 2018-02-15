@@ -1,14 +1,14 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.TickerBehaviour;
-import smartfactory.dataStores.ResourceDataStore;
 import smartfactory.interactors.resource.Status;
+import smartfactory.utility.AgentDataStore;
 
 public class StatusBehaviour extends TickerBehaviour {
 
 	Status interactor;
 
-	public StatusBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, ResourceDataStore dataStore) {
+	public StatusBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent(), 500);
 		this.interactor = new Status(dataStore);
 	}

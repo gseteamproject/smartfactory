@@ -1,12 +1,12 @@
 package smartfactory.behaviours.process;
 
 import smartfactory.behaviours.OneShotInteractorBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.SelectAgentToPerformService;
+import smartfactory.utility.AgentDataStore;
 
 public class SelectAgentToPerformServiceBehaviour extends OneShotInteractorBehaviour {
 
-	public SelectAgentToPerformServiceBehaviour(ProcessDataStore dataStore) {
+	public SelectAgentToPerformServiceBehaviour(AgentDataStore dataStore) {
 		super(new SelectAgentToPerformService(dataStore));
 	}
 

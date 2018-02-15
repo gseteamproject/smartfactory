@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.behaviours.process.FindAgentsProvidingServiceBehaviour;
-import smartfactory.dataStores.ProcessDataStore;
+import smartfactory.utility.AgentDataStore;
 
 public class FindAgentsProvidingServiceBehaviourTest {
 
@@ -17,13 +17,13 @@ public class FindAgentsProvidingServiceBehaviourTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	FindAgentsProvidingServiceBehaviour testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new FindAgentsProvidingServiceBehaviour(dataStore_mock);
 	}

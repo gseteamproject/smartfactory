@@ -1,14 +1,15 @@
 package smartfactory.interactors.resource;
 
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.interactors.Interactor;
+import smartfactory.utility.AgentDataStore;
 
-public class Status extends ResourceInteractor {
+public class Status extends Interactor {
 
-	public Status(ResourceDataStore dataStore) {
+	public Status(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
 	public void execute() {
-		dataStore.getResource().getStatus();
+		agentDataStore.getResource().getStatus();
 	}
 }

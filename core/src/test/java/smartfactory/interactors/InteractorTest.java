@@ -1,4 +1,4 @@
-package smartfactory.interactors.base;
+package smartfactory.interactors;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -6,9 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.dataStores.BaseDataStore;
+import smartfactory.interactors.Interactor;
+import smartfactory.utility.AgentDataStore;
 
-public class BaseInteractorTest {
+public class InteractorTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -16,15 +17,15 @@ public class BaseInteractorTest {
 		}
 	};
 
-	BaseInteractor testable;
+	Interactor testable;
 
-	BaseDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(BaseDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
-		testable = new BaseInteractor(dataStore_mock);
+		testable = new Interactor(dataStore_mock);
 	}
 
 	@After

@@ -13,9 +13,9 @@ import org.junit.Test;
 
 import jade.core.AID;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import smartfactory.dataStores.ProcessDataStore;
 import smartfactory.interactors.process.SelectAgentToPerformService;
 import smartfactory.models.ProcessOperation;
+import smartfactory.utility.AgentDataStore;
 
 public class SelectAgentToPerformServiceTest {
 
@@ -25,13 +25,13 @@ public class SelectAgentToPerformServiceTest {
 		}
 	};
 
-	ProcessDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	SelectAgentToPerformService testable;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(ProcessDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new SelectAgentToPerformService(dataStore_mock);
 	}

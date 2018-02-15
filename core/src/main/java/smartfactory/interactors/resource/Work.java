@@ -1,11 +1,12 @@
 package smartfactory.interactors.resource;
 
 import jade.lang.acl.ACLMessage;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.interactors.Interactor;
+import smartfactory.utility.AgentDataStore;
 
-public class Work extends ResourceInteractor {
+public class Work extends Interactor {
 
-	public Work(ResourceDataStore dataStore) {
+	public Work(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
@@ -13,7 +14,7 @@ public class Work extends ResourceInteractor {
 		// content = operation name
 		String operationName = request.getContent();
 
-		dataStore.getResource().execute(operationName);
+		agentDataStore.getResource().execute(operationName);
 
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.INFORM);
@@ -22,6 +23,6 @@ public class Work extends ResourceInteractor {
 	}
 
 	public boolean done() {
-		return dataStore.getResource().hasExecuted();
+		return agentDataStore.getResource().hasExecuted();
 	}
 }

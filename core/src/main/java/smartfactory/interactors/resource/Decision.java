@@ -1,11 +1,12 @@
 package smartfactory.interactors.resource;
 
 import jade.lang.acl.ACLMessage;
-import smartfactory.dataStores.ResourceDataStore;
+import smartfactory.interactors.Interactor;
+import smartfactory.utility.AgentDataStore;
 
-public class Decision extends ResourceInteractor {
+public class Decision extends Interactor {
 
-	public Decision(ResourceDataStore dataStore) {
+	public Decision(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
@@ -14,7 +15,7 @@ public class Decision extends ResourceInteractor {
 		String operationName = request.getContent();
 
 		ACLMessage response = request.createReply();
-		if (dataStore.getResource().willExecute(operationName)) {
+		if (agentDataStore.getResource().willExecute(operationName)) {
 			response.setPerformative(ACLMessage.AGREE);
 
 		} else {
