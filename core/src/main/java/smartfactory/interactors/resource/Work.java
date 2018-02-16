@@ -24,6 +24,7 @@ public class Work extends Interactor {
 
 	public boolean done() {
 		if (agentDataStore.getResource().hasExecuted()) {
+			// TODO : move to operation
 			agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 			return true;
 		}
