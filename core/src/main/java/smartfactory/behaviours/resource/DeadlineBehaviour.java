@@ -1,7 +1,6 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.WakerBehaviour;
-import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.resource.Deadline;
 import smartfactory.models.Resource;
 import smartfactory.utility.AgentDataStore;
@@ -20,14 +19,7 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
 	@Override
 	protected void onWake() {
-		// TODO : move setResult to separate behaviour
-		interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
-
-		// TODO : message must have interaction-id
-		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-		msg.addReceiver(getAgent().getAID());
-		msg.setConversationId("activity-completed");
-		getAgent().send(msg);
+		interactor.execute(interactionBehaviour.getRequest());
 	}
 
 	private static final long serialVersionUID = 9050743659839198854L;

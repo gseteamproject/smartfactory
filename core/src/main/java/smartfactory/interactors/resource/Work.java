@@ -10,7 +10,7 @@ public class Work extends Interactor {
 		super(dataStore);
 	}
 
-	public ACLMessage execute(ACLMessage request) {
+	public void execute(ACLMessage request) {
 		// content = operation name
 		String operationName = request.getContent();
 
@@ -19,10 +19,14 @@ public class Work extends Interactor {
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.INFORM);
 
-		return response;
+		agentDataStore.setActivityResult(response);
 	}
 
 	public boolean done() {
-		return agentDataStore.getResource().hasExecuted();
+		if (agentDataStore.getResource().hasExecuted()) {
+			agentDataStore.getEventSubsribers().notifyAll("operation-completed");
+			return true;
+		}
+		return false;
 	}
 }

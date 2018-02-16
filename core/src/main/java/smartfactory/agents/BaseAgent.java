@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import jade.core.Agent;
 import smartfactory.behaviours.base.EventSubscriptionResponderBehaviour;
+import smartfactory.behaviours.base.SelfSubscribeBehaviour;
 import smartfactory.platform.JADEPlatform;
 import smartfactory.utility.AgentDataStore;
 import smartfactory.utility.EventSubscribers;
@@ -53,6 +54,7 @@ public class BaseAgent extends Agent {
 
 	private void setupBaseBehaviours() {
 		addBehaviour(new EventSubscriptionResponderBehaviour(agentDataStore.getEventSubsribers()));
+		addBehaviour(new SelfSubscribeBehaviour());
 	}
 
 	protected void setupGUI() {

@@ -10,7 +10,7 @@ public class Deadline extends Interactor {
 		super(dataStore);
 	}
 
-	public ACLMessage execute(ACLMessage request) {
+	public void execute(ACLMessage request) {
 		// content = operation name
 		String operationName = request.getContent();
 
@@ -19,6 +19,8 @@ public class Deadline extends Interactor {
 		ACLMessage response = request.createReply();
 		response.setPerformative(ACLMessage.FAILURE);
 
-		return response;
+		agentDataStore.setActivityResult(response);
+
+		agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 	}
 }

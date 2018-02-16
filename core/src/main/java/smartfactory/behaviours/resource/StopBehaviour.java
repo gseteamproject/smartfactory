@@ -3,6 +3,7 @@ package smartfactory.behaviours.resource;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import smartfactory.utility.AgentDataStore;
 
 // TODO : rename to ActivityResult or something like this
 public class StopBehaviour extends SimpleBehaviour {
@@ -11,15 +12,25 @@ public class StopBehaviour extends SimpleBehaviour {
 
 	ActivityBehaviour activityBehaviour;
 
-	public StopBehaviour(ActivityBehaviour activityBehaviour) {
+	ServiceProvisioningResponderBehaviour interactionBehaviour;
+
+	AgentDataStore dataStore;
+
+	public StopBehaviour(ActivityBehaviour activityBehaviour,
+			ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		this.activityBehaviour = activityBehaviour;
+		this.interactionBehaviour = interactionBehaviour;
+		this.dataStore = dataStore;
 	}
 
 	@Override
 	public void action() {
-		// TODO : message must have interaction-id
-		ACLMessage msg = myAgent.receive(MessageTemplate.MatchConversationId("activity-completed"));
+		MessageTemplate matchConversationId = MessageTemplate.MatchConversationId("self-messaging");
+		MessageTemplate matchPerformative = MessageTemplate.MatchPerformative(ACLMessage.INFORM);
+
+		ACLMessage msg = myAgent.receive(MessageTemplate.and(matchConversationId, matchPerformative));
 		if (msg != null) {
+			interactionBehaviour.setResult(dataStore.getActivityResult());
 			activityBehaviour.stop();
 			isResultDetermined = true;
 		} else {
@@ -35,8 +46,6 @@ public class StopBehaviour extends SimpleBehaviour {
 	@Override
 	public void reset() {
 		super.reset();
-
-		// TODO: check if other behaviour requires to use reset
 		isResultDetermined = false;
 	}
 

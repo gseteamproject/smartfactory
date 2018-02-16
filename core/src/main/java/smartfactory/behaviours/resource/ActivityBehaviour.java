@@ -11,15 +11,17 @@ public class ActivityBehaviour extends ParallelBehaviour {
 
 	private StatusBehaviour status;
 	private DeadlineBehaviour deadline;
+	private StopBehaviour result;
 
 	public ActivityBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent(), WHEN_ALL);
 
 		status = new StatusBehaviour(interactionBehaviour, dataStore);
 		deadline = new DeadlineBehaviour(interactionBehaviour, dataStore);
+		result = new StopBehaviour(this, interactionBehaviour, dataStore);
 
 		addSubBehaviour(tbf.wrap(new WorkBehaviour(interactionBehaviour, dataStore)));
-		addSubBehaviour(new StopBehaviour(this));
+		addSubBehaviour(result);
 		addSubBehaviour(status);
 		addSubBehaviour(deadline);
 	}

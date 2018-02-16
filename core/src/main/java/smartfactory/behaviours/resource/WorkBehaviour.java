@@ -1,7 +1,6 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.SimpleBehaviour;
-import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.resource.Work;
 import smartfactory.utility.AgentDataStore;
 
@@ -18,14 +17,7 @@ public class WorkBehaviour extends SimpleBehaviour {
 
 	@Override
 	public void action() {
-		// TODO : move setResult to separate behaviour
-		interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
-
-		// TODO : message must have interaction-id
-		ACLMessage msg = new ACLMessage(ACLMessage.INFORM);
-		msg.addReceiver(getAgent().getAID());
-		msg.setConversationId("activity-completed");
-		getAgent().send(msg);
+		interactor.execute(interactionBehaviour.getRequest());
 	}
 
 	@Override

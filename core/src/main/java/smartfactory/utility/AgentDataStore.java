@@ -1,6 +1,7 @@
 package smartfactory.utility;
 
 import jade.core.behaviours.DataStore;
+import jade.lang.acl.ACLMessage;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.Process;
 import smartfactory.models.ProcessOperation;
@@ -66,6 +67,14 @@ public class AgentDataStore extends DataStore {
 	public Resource getResource() {
 		// TODO : alert if there is no machine
 		return (Resource) get("resource");
+	}
+
+	public ACLMessage getActivityResult() {
+		return (ACLMessage) get("activity-result");
+	}
+
+	public void setActivityResult(ACLMessage result) {
+		put("activity-result", result);
 	}
 
 	private static final long serialVersionUID = 4398092789071233362L;
