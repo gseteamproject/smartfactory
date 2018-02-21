@@ -12,13 +12,12 @@ public class Status extends Interactor {
 	public void execute() {
 		agentDataStore.getResource().getStatus();
 
-		// content = operation name
-		String operationName = agentDataStore.getActivityRequest().getContent();
 		// TODO : remove
-/*
-		if (agentDataStore.getResource().hasExecuted(operationName)) {
-			agentDataStore.getEventSubsribers().notifyAll("operation-completed");
-		}
-*/		
+		/*
+		 * // content = operation name String operationName =
+		 * agentDataStore.getActivityRequest().getContent(); if
+		 * (agentDataStore.getResource().hasExecuted(operationName)) {
+		 * agentDataStore.getEventSubsribers().notifyAll("operation-completed"); }
+		 */
 	}
 }
