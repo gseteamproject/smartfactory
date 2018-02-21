@@ -35,7 +35,7 @@ public class FactoryAgent extends ResourceAgent {
 			super("block-production");
 		}
 
-		Behaviour eventSubscribptionBehaviour = new EventSubcriptionInitiatorBehaviour();
+		Behaviour eventSubscribptionBehaviour;
 
 		@Override
 		public void execute() {
@@ -46,6 +46,8 @@ public class FactoryAgent extends ResourceAgent {
 			subAgentConfiguration.name = processAgentName;
 			subAgentConfiguration.className = BlockProcessAgent.class.getName();
 			agentDataStore.setSubAgentConfiguration(subAgentConfiguration);
+
+			eventSubscribptionBehaviour = new EventSubcriptionInitiatorBehaviour();
 
 			addBehaviour(new LaunchAgentBehaviour(agentDataStore));
 			addBehaviour(eventSubscribptionBehaviour);
@@ -89,7 +91,6 @@ public class FactoryAgent extends ResourceAgent {
 				if (cancel_inform) {
 					cancellationCompleted(inform.getSender());
 					removeBehaviour(eventSubscribptionBehaviour);
-					eventSubscribptionBehaviour.reset();
 				} else {
 					executed = true;
 					operationCompleted();

@@ -44,11 +44,13 @@ public class CustomerAgent extends BaseAgent {
 		subAgentConfiguration.className = OrderProcessAgent.class.getName();
 		agentDataStore.setSubAgentConfiguration(subAgentConfiguration);
 
+		eventSubscribptionBehaviour = new EventSubcriptionInitiatorBehaviour();
+
 		addBehaviour(new LaunchAgentBehaviour(agentDataStore));
 		addBehaviour(eventSubscribptionBehaviour);
 	}
 
-	Behaviour eventSubscribptionBehaviour = new EventSubcriptionInitiatorBehaviour();
+	Behaviour eventSubscribptionBehaviour;
 
 	private class EventSubcriptionInitiatorBehaviour extends SubscriptionInitiator {
 
@@ -87,7 +89,6 @@ public class CustomerAgent extends BaseAgent {
 			if (cancel_inform) {
 				cancellationCompleted(inform.getSender());
 				removeBehaviour(eventSubscribptionBehaviour);
-				eventSubscribptionBehaviour.reset();
 			} else {
 				// TODO : show on the GUI that order is completed
 				presenter.showOrderIsCompleted();

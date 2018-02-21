@@ -40,6 +40,7 @@ public class ResourceOperation {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	@Deprecated
 	public boolean hasExecuted() {
 		return executed;
 	}

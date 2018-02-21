@@ -30,6 +30,10 @@ public class StopBehaviour extends SimpleBehaviour {
 
 		ACLMessage msg = myAgent.receive(MessageTemplate.and(matchConversationId, matchPerformative));
 		if (msg != null) {
+			ACLMessage response = dataStore.getActivityRequest().createReply();
+			response.setPerformative(ACLMessage.INFORM);
+			dataStore.setActivityResult(response);
+
 			interactionBehaviour.setResult(dataStore.getActivityResult());
 			activityBehaviour.stop();
 			isResultDetermined = true;
