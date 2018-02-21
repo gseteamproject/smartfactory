@@ -77,4 +77,9 @@ public class CustomerView extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
 	private static final long serialVersionUID = -2309982889289916539L;
+
+	public void showOrderIsCompleted() {
+		// TODO : put text into label
+		System.out.println("OUTPUT FROM THE GUI - order is completed");
+	}
 }

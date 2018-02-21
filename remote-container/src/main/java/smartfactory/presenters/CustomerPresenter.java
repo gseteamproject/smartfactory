@@ -33,4 +33,8 @@ public class CustomerPresenter {
 	public void createOrder() {
 		agent.createOrder();
 	}
+
+	public void showOrderIsCompleted() {
+		view.showOrderIsCompleted();
+	}
 }
