@@ -17,6 +17,7 @@ public class ProcessIsCompleted extends Interactor implements OneShotInteractor 
 	public void execute() {
 		logger.info("product is in last state");
 		// TODO : notify-all about process-completed-successfully
+		agentDataStore.getEventSubsribers().notifyAll("process-completed");
 	}
 
 	@Override

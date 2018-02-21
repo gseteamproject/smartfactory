@@ -17,6 +17,7 @@ public class ProcessIsIncorrect extends Interactor implements OneShotInteractor 
 	public void execute() {
 		logger.info("product process is incorrect");
 		// TODO : notify-all about process-completed-with-failure
+		agentDataStore.getEventSubsribers().notifyAll("process-completed");
 	}
 
 	@Override

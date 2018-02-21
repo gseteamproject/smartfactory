@@ -17,6 +17,7 @@ public class NoAgentsProvidingService extends Interactor implements OneShotInter
 	public void execute() {
 		logger.info("no agents providing service found");
 		// TODO : notify-all about process-completed-with-failure
+		agentDataStore.getEventSubsribers().notifyAll("process-completed");
 	}
 
 	@Override
