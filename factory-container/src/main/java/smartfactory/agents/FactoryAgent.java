@@ -23,7 +23,7 @@ public class FactoryAgent extends ResourceAgent {
 
 		@Override
 		public void execute() {
-			super.execute();
+			executed = false;
 
 			AgentConfiguration subAgentConfiguration = new AgentConfiguration();
 			subAgentConfiguration.name = BlockProcessAgent.getUniqueName();
@@ -31,6 +31,8 @@ public class FactoryAgent extends ResourceAgent {
 			agentDataStore.setSubAgentConfiguration(subAgentConfiguration);
 
 			addBehaviour(new LaunchAgentBehaviour(agentDataStore));
+
+			executed = true;
 		}
 	}
 

@@ -7,16 +7,23 @@ public class ResourceOperation {
 
 	public String name;
 
+	public boolean executed;
+
 	public ResourceOperation(String name) {
 		this.name = name;
 	}
 
+	public void prepare() {
+		executed = false;
+	}
+
 	public void execute() {
 		// TODO : add method for overriding without output
-		logger.info("...", name);
+		logger.info("...");
 
 		// TODO : send
 		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
+		executed = true;
 	}
 
 	public void terminate() {
@@ -24,8 +31,12 @@ public class ResourceOperation {
 
 		// TODO : send
 		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
-
+		executed = true;
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	public boolean hasExecuted() {
+		return executed;
+	}
 }

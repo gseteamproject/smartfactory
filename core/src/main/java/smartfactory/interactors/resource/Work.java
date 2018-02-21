@@ -11,6 +11,7 @@ public class Work extends Interactor {
 	}
 
 	public void execute(ACLMessage request) {
+		agentDataStore.setActivityRequest(request);
 		// content = operation name
 		String operationName = request.getContent();
 
@@ -23,11 +24,6 @@ public class Work extends Interactor {
 	}
 
 	public boolean done() {
-		if (agentDataStore.getResource().hasExecuted()) {
-			// TODO : move to operation
-			agentDataStore.getEventSubsribers().notifyAll("operation-completed");
-			return true;
-		}
-		return false;
+		return true;
 	}
 }

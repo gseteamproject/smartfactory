@@ -77,5 +77,13 @@ public class AgentDataStore extends DataStore {
 		put("activity-result", result);
 	}
 
+	public void setActivityRequest(ACLMessage request) {
+		put("activity-request", request);
+	}
+
+	public ACLMessage getActivityRequest() {
+		return (ACLMessage) get("activity-request");
+	}
+
 	private static final long serialVersionUID = 4398092789071233362L;
 }

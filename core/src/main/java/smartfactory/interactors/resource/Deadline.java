@@ -21,7 +21,6 @@ public class Deadline extends Interactor {
 
 		agentDataStore.setActivityResult(response);
 
-		// TODO : move to operation
 		agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 	}
 }

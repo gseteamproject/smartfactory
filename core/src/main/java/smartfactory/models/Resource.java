@@ -29,6 +29,8 @@ public class Resource {
 		} else {
 			logger.info("executing \"{}\"", operationName);
 			synchronized (this) {
+				// TODO : move this to separate method or replace work behaviour with StartExecution / CheckExecution
+				operation.prepare();
 				// blocking function call
 				operation.execute();
 			}
@@ -45,7 +47,17 @@ public class Resource {
 		logger.info("resource status: online");
 	}
 
-	public boolean hasExecuted() {
+	public boolean hasExecuted(String operationName) {
+		ResourceOperation operation = operations.get(operationName);
+		if (operation == null) {
+			logger.error("not found \"{}\"", operationName);
+		} else {
+			logger.info("checking operation status \"{}\"", operationName);
+			synchronized (this) {
+				// blocking function call
+				return operation.hasExecuted();
+			}
+		}
 		return true;
 	}
 
