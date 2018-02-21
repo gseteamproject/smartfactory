@@ -4,11 +4,15 @@ import java.util.HashMap;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import smartfactory.utility.EventSubscribers;
+
 public class Resource {
 
 	public final static int DURATION_LIMIT = 5;
 
 	private HashMap<String, ResourceOperation> operations;
+
+	private EventSubscribers eventSubscribers;
 
 	public Resource() {
 		operations = new HashMap<String, ResourceOperation>();
@@ -19,6 +23,7 @@ public class Resource {
 	}
 
 	public void addOperation(ResourceOperation operation) {
+		operation.setResource(this);
 		operations.put(operation.name, operation);
 	}
 
@@ -29,7 +34,8 @@ public class Resource {
 		} else {
 			logger.info("executing \"{}\"", operationName);
 			synchronized (this) {
-				// TODO : move this to separate method or replace work behaviour with StartExecution / CheckExecution
+				// TODO : move this to separate method or replace work behaviour with
+				// StartExecution / CheckExecution
 				operation.prepare();
 				// blocking function call
 				operation.execute();
@@ -47,6 +53,7 @@ public class Resource {
 		logger.info("resource status: online");
 	}
 
+	@Deprecated
 	public boolean hasExecuted(String operationName) {
 		ResourceOperation operation = operations.get(operationName);
 		if (operation == null) {
@@ -73,6 +80,14 @@ public class Resource {
 			}
 			logger.info("terminated \"{}\"", operationName);
 		}
+	}
+
+	public void notifyAll(String event) {
+		eventSubscribers.notifyAll(event);
+	}
+	
+	public void setEventSubscribers(EventSubscribers eventSubscribers) {
+		this.eventSubscribers = eventSubscribers;
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

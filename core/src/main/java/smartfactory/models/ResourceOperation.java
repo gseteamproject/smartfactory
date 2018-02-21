@@ -9,6 +9,8 @@ public class ResourceOperation {
 
 	public boolean executed;
 
+	private Resource resource;
+
 	public ResourceOperation(String name) {
 		this.name = name;
 	}
@@ -24,6 +26,7 @@ public class ResourceOperation {
 		// TODO : send
 		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 		executed = true;
+		operationCompleted();
 	}
 
 	public void terminate() {
@@ -32,11 +35,21 @@ public class ResourceOperation {
 		// TODO : send
 		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 		executed = true;
+		operationCompleted();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public boolean hasExecuted() {
 		return executed;
+	}
+
+	public void setResource(Resource resource) {
+		this.resource = resource;
+	}
+
+	protected void operationCompleted() {
+		logger.debug("operation-completed method called");
+		resource.notifyAll("operation-completed");
 	}
 }

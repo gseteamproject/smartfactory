@@ -33,6 +33,7 @@ public class FactoryAgent extends ResourceAgent {
 			addBehaviour(new LaunchAgentBehaviour(agentDataStore));
 
 			executed = true;
+			operationCompleted();
 		}
 	}
 

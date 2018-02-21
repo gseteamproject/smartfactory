@@ -19,7 +19,9 @@ public class ResourceAgent extends BaseAgent {
 	@Override
 	final protected void setupData() {
 		super.setupData();
-		agentDataStore.setResource(createResource());
+		Resource resource = createResource();
+		resource.setEventSubscribers(agentDataStore.getEventSubsribers());
+		agentDataStore.setResource(resource);
 	}
 
 	public Resource createResource() {
