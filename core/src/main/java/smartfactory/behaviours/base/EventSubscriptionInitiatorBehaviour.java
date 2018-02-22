@@ -31,12 +31,12 @@ public class EventSubscriptionInitiatorBehaviour extends SubscriptionInitiator {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	protected Vector prepareSubscriptions(ACLMessage subscription) {
-		subscription = new ACLMessage(ACLMessage.SUBSCRIBE);
-		subscription.addReceiver(new AID((responderAgent), AID.ISLOCALNAME));
-		subscription.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
-		subscription.setConversationId(event);
+		ACLMessage message = new ACLMessage(ACLMessage.SUBSCRIBE);
+		message.addReceiver(new AID((responderAgent), AID.ISLOCALNAME));
+		message.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
+		message.setConversationId(event);
 		Vector l = new Vector(1);
-		l.addElement(subscription);
+		l.addElement(message);
 		return l;
 	}
 
