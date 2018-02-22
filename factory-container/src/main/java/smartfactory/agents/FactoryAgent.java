@@ -19,8 +19,6 @@ public class FactoryAgent extends ResourceAgent {
 
 	private class BlockProductionOperation extends ResourceOperation {
 
-		String processAgentName;
-
 		public BlockProductionOperation() {
 			super("block-production");
 		}
@@ -28,7 +26,7 @@ public class FactoryAgent extends ResourceAgent {
 		@Override
 		public void execute() {
 			executed = false;
-			processAgentName = BlockProcessAgent.getUniqueName();
+			String processAgentName = BlockProcessAgent.getUniqueName();
 
 			AgentConfiguration subAgentConfiguration = new AgentConfiguration();
 			subAgentConfiguration.name = processAgentName;
