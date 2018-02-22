@@ -1,10 +1,11 @@
 package smartfactory.models;
 
+import smartfactory.services.Services;
+
 public class OrderProcess extends Process {
 
 	public OrderProcess() {
 		super();
-		// TODO : move text constant to separate class
-		operations.add(new ProcessOperation("block-production"));
+		operations.add(new ProcessOperation(Services.block_production));
 	}
 }

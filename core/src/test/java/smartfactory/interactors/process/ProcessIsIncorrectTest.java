@@ -1,15 +1,16 @@
 package smartfactory.interactors.process;
 
+import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 
 import smartfactory.interactors.process.ProcessIsIncorrect;
 import smartfactory.utility.AgentDataStore;
+import smartfactory.utility.EventSubscribers;
 
 public class ProcessIsIncorrectTest {
 
@@ -36,9 +37,18 @@ public class ProcessIsIncorrectTest {
 	}
 
 	@Test
-	@Ignore
 	public void execute() {
-		// TODO : fix
+		EventSubscribers eventSubscribers_mock = context.mock(EventSubscribers.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(dataStore_mock).getEventSubsribers();
+				will(returnValue(eventSubscribers_mock));
+
+				oneOf(eventSubscribers_mock).notifyAll("process-completed");
+			}
+		});
+
 		testable.execute();
 	}
 

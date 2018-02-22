@@ -24,6 +24,9 @@ public class ResourceOperation {
 		logger.info("...");
 
 		// TODO : send
+		// ACLMessage response = request.createReply();
+		// response.setPerformative(ACLMessage.INFORM);
+		// agentDataStore.setActivityResult(response);
 		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 		executed = true;
 		operationCompleted();
@@ -33,7 +36,11 @@ public class ResourceOperation {
 		logger.info("...", name);
 
 		// TODO : send
+		// ACLMessage response = request.createReply();
+		// response.setPerformative(ACLMessage.FAILURE);
+		// agentDataStore.setActivityResult(response);
 		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
+
 		executed = true;
 		operationCompleted();
 	}

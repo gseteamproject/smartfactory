@@ -7,6 +7,7 @@ import smartfactory.models.EventHandler;
 import smartfactory.models.Factory;
 import smartfactory.models.Resource;
 import smartfactory.models.ResourceOperation;
+import smartfactory.services.Services;
 
 public class FactoryAgent extends ResourceAgent {
 
@@ -20,7 +21,7 @@ public class FactoryAgent extends ResourceAgent {
 	private class BlockProductionOperation extends ResourceOperation {
 
 		public BlockProductionOperation() {
-			super("block-production");
+			super(Services.block_production);
 		}
 
 		@Override

@@ -9,4 +9,5 @@ public class Services {
 	public final static String cleaning_worker = "cleaning-worker";
 	public final static String painting_worker = "painting-worker";
 	public final static String transport = "transport";
+	public final static String block_production = "block-production";
 }

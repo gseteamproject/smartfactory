@@ -15,15 +15,5 @@ public class Deadline extends Interactor {
 		String operationName = request.getContent();
 
 		agentDataStore.getResource().terminate(operationName);
-		// TODO : remove
-		/*
-
-		ACLMessage response = request.createReply();
-		response.setPerformative(ACLMessage.FAILURE);
-
-		agentDataStore.setActivityResult(response);
-
-		agentDataStore.getEventSubsribers().notifyAll("operation-completed");
-		*/
 	}
 }

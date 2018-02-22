@@ -48,13 +48,5 @@ public class EventSubscribers implements SubscriptionManager {
 		} else {
 			logger.error("unregistered subscription for event \"{}\"", event);
 		}
-
-		// TODO : remove
-		/*
-		 * Iterator<Subscription> i = subscriptions.values().iterator(); while
-		 * (i.hasNext()) { Subscription s = (Subscription) i.next(); ACLMessage
-		 * notification = new ACLMessage(ACLMessage.INFORM);
-		 * notification.setContent(event); s.notify(notification); }
-		 */
 	}
 }

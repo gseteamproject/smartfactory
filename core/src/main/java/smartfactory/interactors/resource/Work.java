@@ -16,14 +16,6 @@ public class Work extends Interactor {
 		String operationName = request.getContent();
 
 		agentDataStore.getResource().execute(operationName);
-
-		// TODO : remove
-		/*
-		ACLMessage response = request.createReply();
-		response.setPerformative(ACLMessage.INFORM);
-
-		agentDataStore.setActivityResult(response);
-		*/
 	}
 
 	public boolean done() {
