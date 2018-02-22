@@ -1,13 +1,8 @@
 package smartfactory.views;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerView extends javax.swing.JFrame {
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private CustomerPresenter presenter;
 
@@ -91,6 +86,5 @@ public class CustomerView extends javax.swing.JFrame {
 
 	public void showOrderIsCompleted() {
 		OrderStatus.setText("completed");
-		logger.debug("OUTPUT FROM THE GUI - order is completed");
 	}
 }

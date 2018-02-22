@@ -1,5 +1,8 @@
 package smartfactory.agents;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import smartfactory.behaviours.base.EventSubscriptionInitiatorBehaviour;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
@@ -7,6 +10,8 @@ import smartfactory.models.EventHandler;
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerAgent extends BaseAgent {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private CustomerPresenter presenter = new CustomerPresenter(this);
 
@@ -38,7 +43,7 @@ public class CustomerAgent extends BaseAgent {
 		addBehaviour(new EventSubscriptionInitiatorBehaviour(processAgentName, "process-status", new EventHandler() {
 			@Override
 			public void callback() {
-				// TODO : show on the GUI that order is completed
+				logger.debug("order is completed");
 				presenter.showOrderIsCompleted();
 			}
 		}));
