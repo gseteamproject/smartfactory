@@ -1,6 +1,7 @@
 package smartfactory.interactors.process;
 
 import java.util.List;
+import java.util.Random;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,8 @@ public class SelectAgentToPerformService extends Interactor implements OneShotIn
 			agentProvidingService = null;
 			logger.info("agent not selected");
 		} else {
-			agentProvidingService = agentsProvidingService.get(0);
+			int agentIdx = random.nextInt(agentsProvidingService.size());
+			agentProvidingService = agentsProvidingService.get(agentIdx);
 			logger.info("\"{}\" agent selected", agentProvidingService.getName().getLocalName());
 		}
 		agentDataStore.getProcessOperation().agentDescription = agentProvidingService;
@@ -35,6 +37,8 @@ public class SelectAgentToPerformService extends Interactor implements OneShotIn
 	public int next() {
 		return agentDataStore.getProcessOperation().isAgentSelected();
 	}
+
+	private static Random random = new Random();
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
