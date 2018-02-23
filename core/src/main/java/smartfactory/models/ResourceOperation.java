@@ -5,6 +5,8 @@ import org.slf4j.LoggerFactory;
 
 public class ResourceOperation {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	public String name;
 
 	public boolean executed;
@@ -20,7 +22,6 @@ public class ResourceOperation {
 	}
 
 	public void execute() {
-		// TODO : add method for overriding without output
 		logger.info("...");
 
 		executed = true;
@@ -33,8 +34,6 @@ public class ResourceOperation {
 		executed = true;
 		completedFailure();
 	}
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Deprecated
 	public boolean hasExecuted() {
