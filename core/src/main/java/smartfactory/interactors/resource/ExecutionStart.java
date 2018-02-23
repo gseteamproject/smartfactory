@@ -17,9 +17,4 @@ public class ExecutionStart extends Interactor {
 
 		agentDataStore.getResource().execute(operationName);
 	}
-
-	public boolean done() {
-		// TODO : check if this is necessary
-		return true;
-	}
 }
