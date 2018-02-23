@@ -34,8 +34,6 @@ public class Resource {
 		} else {
 			logger.info("executing \"{}\"", operationName);
 			synchronized (this) {
-				// TODO : move this to separate method or replace work behaviour with
-				// StartExecution / CheckExecution
 				operation.prepare();
 				// blocking function call
 				operation.execute();
@@ -85,7 +83,7 @@ public class Resource {
 	public void notifyAll(String event) {
 		eventSubscribers.notifyAll(event);
 	}
-	
+
 	public void setEventSubscribers(EventSubscribers eventSubscribers) {
 		this.eventSubscribers = eventSubscribers;
 	}
