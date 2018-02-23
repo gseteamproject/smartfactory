@@ -3,9 +3,11 @@ package smartfactory.agents;
 import smartfactory.models.Resource;
 import smartfactory.models.ResourceOperation;
 import smartfactory.services.Services;
+import jade.lang.acl.ACLMessage;
 import smartfactory.behaviours.base.EventSubscriptionInitiatorBehaviour;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
+import smartfactory.models.Event;
 import smartfactory.models.EventHandler;
 import smartfactory.models.PaintingStation;
 
@@ -40,8 +42,13 @@ public class PaintingStationAgent extends ResourceAgent {
 			addBehaviour(
 					new EventSubscriptionInitiatorBehaviour(processAgentName, "process-status", new EventHandler() {
 						@Override
-						public void callback() {
-							operationCompleted();
+						public void callback(ACLMessage message) {
+							String result = message.getContent();
+							if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
+								completedSuccess();
+							} else {
+								completedFailure();
+							}
 						}
 					}));
 		}

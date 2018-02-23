@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
+import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
 public class ProcessIsIncorrect extends Interactor implements OneShotInteractor {
@@ -15,9 +16,8 @@ public class ProcessIsIncorrect extends Interactor implements OneShotInteractor 
 
 	@Override
 	public void execute() {
-		logger.info("product process is incorrect");
-		// TODO : notify-all about process-completed-with-failure
-		agentDataStore.getEventSubsribers().notifyAll("process-completed");
+		logger.info("process is incorrect");
+		agentDataStore.getEventSubsribers().notifyAll(Event.PROCESS_COMPLETED_FAILURE);
 	}
 
 	@Override

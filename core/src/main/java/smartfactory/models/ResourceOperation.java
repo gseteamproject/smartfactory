@@ -23,26 +23,15 @@ public class ResourceOperation {
 		// TODO : add method for overriding without output
 		logger.info("...");
 
-		// TODO : send
-		// ACLMessage response = request.createReply();
-		// response.setPerformative(ACLMessage.INFORM);
-		// agentDataStore.setActivityResult(response);
-		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
 		executed = true;
-		operationCompleted();
+		completedSuccess();
 	}
 
 	public void terminate() {
 		logger.info("...", name);
 
-		// TODO : send
-		// ACLMessage response = request.createReply();
-		// response.setPerformative(ACLMessage.FAILURE);
-		// agentDataStore.setActivityResult(response);
-		// agentDataStore.getEventSubsribers().notifyAll("operation-completed");
-
 		executed = true;
-		operationCompleted();
+		completedFailure();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -56,8 +45,11 @@ public class ResourceOperation {
 		this.resource = resource;
 	}
 
-	protected void operationCompleted() {
-		logger.debug("operation-completed method called");
-		resource.notifyAll("operation-completed");
+	protected void completedSuccess() {
+		resource.notifyAll(Event.OPERATION_COMPLETED_SUCCESS);
+	}
+
+	protected void completedFailure() {
+		resource.notifyAll(Event.OPERATION_COMPLETED_FAILURE);
 	}
 }

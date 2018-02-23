@@ -12,6 +12,7 @@ import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionResponder.Subscription;
 import jade.proto.SubscriptionResponder.SubscriptionManager;
+import smartfactory.models.Event;
 
 public class EventSubscribers implements SubscriptionManager {
 
@@ -33,9 +34,13 @@ public class EventSubscribers implements SubscriptionManager {
 
 	public void notifyAll(String event) {
 		Subscription s = null;
-		if (event.compareTo("operation-completed") == 0) {
+		if (event.compareTo(Event.OPERATION_COMPLETED_SUCCESS) == 0) {
 			s = subscriptions.get("self-messaging");
-		} else if (event.compareTo("process-completed") == 0) {
+		} else if (event.compareTo(Event.OPERATION_COMPLETED_FAILURE) == 0) {
+			s = subscriptions.get("self-messaging");
+		} else if (event.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
+			s = subscriptions.get("process-status");
+		} else if (event.compareTo(Event.PROCESS_COMPLETED_FAILURE) == 0) {
 			s = subscriptions.get("process-status");
 		} else {
 			s = subscriptions.get(event);

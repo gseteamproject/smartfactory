@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import smartfactory.interactors.process.NoAgentsProvidingService;
+import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 import smartfactory.utility.EventSubscribers;
 
@@ -45,7 +46,7 @@ public class NoAgentsProvidingServiceTest {
 				oneOf(dataStore_mock).getEventSubsribers();
 				will(returnValue(eventSubscribers_mock));
 
-				oneOf(eventSubscribers_mock).notifyAll("process-completed");
+				oneOf(eventSubscribers_mock).notifyAll(Event.PROCESS_COMPLETED_FAILURE);
 			}
 		});
 

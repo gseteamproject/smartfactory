@@ -56,8 +56,7 @@ public class EventSubscriptionInitiatorBehaviour extends SubscriptionInitiator {
 			cancellationCompleted(inform.getSender());
 			myAgent.removeBehaviour(this);
 		} else {
-			// actions implemented in resource operation
-			callback.callback();
+			callback.callback(inform);
 
 			cancel(inform.getSender(), false);
 			cancel_inform = true;

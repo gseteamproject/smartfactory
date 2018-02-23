@@ -87,4 +87,8 @@ public class CustomerView extends javax.swing.JFrame {
 	public void showOrderIsCompleted() {
 		OrderStatus.setText("completed");
 	}
+
+	public void showOrderIsFailed() {
+		OrderStatus.setText("failed");
+	}
 }

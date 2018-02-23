@@ -3,6 +3,7 @@ package smartfactory.behaviours.resource;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
 // TODO : rename to ActivityResult or something like this
@@ -31,7 +32,14 @@ public class StopBehaviour extends SimpleBehaviour {
 		ACLMessage msg = myAgent.receive(MessageTemplate.and(matchConversationId, matchPerformative));
 		if (msg != null) {
 			ACLMessage response = dataStore.getActivityRequest().createReply();
-			response.setPerformative(ACLMessage.INFORM);
+			String result = msg.getContent();
+			if (result.compareTo(Event.OPERATION_COMPLETED_SUCCESS) == 0) {
+				response.setPerformative(ACLMessage.INFORM);
+			} else if (result.compareTo(Event.OPERATION_COMPLETED_FAILURE) == 0) {
+				response.setPerformative(ACLMessage.FAILURE);
+			} else {
+				response.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+			}
 			dataStore.setActivityResult(response);
 
 			interactionBehaviour.setResult(dataStore.getActivityResult());

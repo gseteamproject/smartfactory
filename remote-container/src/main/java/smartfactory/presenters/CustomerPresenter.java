@@ -37,4 +37,8 @@ public class CustomerPresenter {
 	public void showOrderIsCompleted() {
 		view.showOrderIsCompleted();
 	}
+
+	public void showOrderIsFailed() {
+		view.showOrderIsFailed();
+	}
 }

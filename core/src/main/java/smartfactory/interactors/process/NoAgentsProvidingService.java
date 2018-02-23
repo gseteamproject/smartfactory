@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 
 import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
+import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
 public class NoAgentsProvidingService extends Interactor implements OneShotInteractor {
@@ -16,8 +17,7 @@ public class NoAgentsProvidingService extends Interactor implements OneShotInter
 	@Override
 	public void execute() {
 		logger.info("no agents providing service found");
-		// TODO : notify-all about process-completed-with-failure
-		agentDataStore.getEventSubsribers().notifyAll("process-completed");
+		agentDataStore.getEventSubsribers().notifyAll(Event.PROCESS_COMPLETED_FAILURE);
 	}
 
 	@Override

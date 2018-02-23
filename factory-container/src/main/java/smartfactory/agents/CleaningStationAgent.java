@@ -1,9 +1,11 @@
 package smartfactory.agents;
 
+import jade.lang.acl.ACLMessage;
 import smartfactory.behaviours.base.EventSubscriptionInitiatorBehaviour;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.CleaningStation;
+import smartfactory.models.Event;
 import smartfactory.models.EventHandler;
 import smartfactory.models.Resource;
 import smartfactory.models.ResourceOperation;
@@ -38,8 +40,13 @@ public class CleaningStationAgent extends ResourceAgent {
 			addBehaviour(
 					new EventSubscriptionInitiatorBehaviour(processAgentName, "process-status", new EventHandler() {
 						@Override
-						public void callback() {
-							operationCompleted();
+						public void callback(ACLMessage message) {
+							String result = message.getContent();
+							if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
+								completedSuccess();
+							} else {
+								completedFailure();
+							}
 						}
 					}));
 		}
