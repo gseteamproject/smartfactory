@@ -63,7 +63,8 @@ public class ResourceAgent extends BaseAgent {
 	}
 
 	@Override
-	final protected void setupSpecialBehaviours() {
+	protected void setupBehaviours() {
+		super.setupBehaviours();
 		addBehaviour(new ServiceProvisioningResponderBehaviour(agentDataStore));
 	}
 }

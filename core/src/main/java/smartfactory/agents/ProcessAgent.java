@@ -20,7 +20,8 @@ public class ProcessAgent extends BaseAgent {
 	}
 
 	@Override
-	protected void setupSpecialBehaviours() {
+	protected void setupBehaviours() {
+		super.setupBehaviours();
 		addBehaviour(new ProcessBehaviour(agentDataStore));
 	}
 }

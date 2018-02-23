@@ -26,11 +26,8 @@ public class BaseAgent extends Agent {
 		setupGUI();
 		logger.debug("GUI setup completed");
 
-		setupBaseBehaviours();
-		logger.debug("base behaviours setup completed");
-
-		setupSpecialBehaviours();
-		logger.debug("special behaviours setup completed");
+		setupBehaviours();
+		logger.debug("behaviours setup completed");
 
 		setupLanguage();
 		logger.debug("language setup completed");
@@ -52,7 +49,7 @@ public class BaseAgent extends Agent {
 		logger.info("takeDown completed");
 	}
 
-	private void setupBaseBehaviours() {
+	protected void setupBehaviours() {
 		addBehaviour(new EventSubscriptionResponderBehaviour(agentDataStore.getEventSubsribers()));
 		addBehaviour(new SelfSubscribeBehaviour());
 	}
@@ -61,9 +58,6 @@ public class BaseAgent extends Agent {
 	}
 
 	protected void takeDownGUI() {
-	}
-
-	protected void setupSpecialBehaviours() {
 	}
 
 	protected void setupData() {
