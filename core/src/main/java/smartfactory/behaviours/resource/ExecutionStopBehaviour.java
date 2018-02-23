@@ -3,25 +3,24 @@ package smartfactory.behaviours.resource;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
-import smartfactory.models.Event;
+import smartfactory.interactors.resource.ExecutionStop;
 import smartfactory.utility.AgentDataStore;
 
-// TODO : introduce Interactor mechanic
 public class ExecutionStopBehaviour extends SimpleBehaviour {
 
-	private boolean isResultDetermined = false;
+	private boolean shouldStop;
 
 	ExecutionBehaviour activityBehaviour;
 
 	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
-	AgentDataStore agentDataStore;
+	ExecutionStop interactor;
 
 	public ExecutionStopBehaviour(ExecutionBehaviour activityBehaviour,
 			ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore agentDataStore) {
 		this.activityBehaviour = activityBehaviour;
 		this.interactionBehaviour = interactionBehaviour;
-		this.agentDataStore = agentDataStore;
+		this.interactor = new ExecutionStop(agentDataStore);
 	}
 
 	@Override
@@ -31,20 +30,9 @@ public class ExecutionStopBehaviour extends SimpleBehaviour {
 
 		ACLMessage msg = myAgent.receive(MessageTemplate.and(matchConversationId, matchPerformative));
 		if (msg != null) {
-			ACLMessage response = agentDataStore.getActivityRequest().createReply();
-			String result = msg.getContent();
-			if (result.compareTo(Event.OPERATION_COMPLETED_SUCCESS) == 0) {
-				response.setPerformative(ACLMessage.INFORM);
-			} else if (result.compareTo(Event.OPERATION_COMPLETED_FAILURE) == 0) {
-				response.setPerformative(ACLMessage.FAILURE);
-			} else {
-				response.setPerformative(ACLMessage.NOT_UNDERSTOOD);
-			}
-			agentDataStore.setActivityResult(response);
-
-			interactionBehaviour.setResult(agentDataStore.getActivityResult());
+			interactionBehaviour.setResult(interactor.execute(msg));
 			activityBehaviour.stop();
-			isResultDetermined = true;
+			shouldStop = true;
 		} else {
 			block();
 		}
@@ -52,13 +40,13 @@ public class ExecutionStopBehaviour extends SimpleBehaviour {
 
 	@Override
 	public boolean done() {
-		return isResultDetermined;
+		return shouldStop;
 	}
 
 	@Override
 	public void reset() {
 		super.reset();
-		isResultDetermined = false;
+		shouldStop = false;
 	}
 
 	private static final long serialVersionUID = -794793647519609669L;

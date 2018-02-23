@@ -6,7 +6,7 @@ public class Interactor {
 
 	protected AgentDataStore agentDataStore;
 
-	public Interactor(AgentDataStore dataStore) {
-		this.agentDataStore = dataStore;
+	public Interactor(AgentDataStore agentDataStore) {
+		this.agentDataStore = agentDataStore;
 	}
 }
