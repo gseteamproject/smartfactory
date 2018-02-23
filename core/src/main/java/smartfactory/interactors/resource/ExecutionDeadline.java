@@ -4,9 +4,9 @@ import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.Interactor;
 import smartfactory.utility.AgentDataStore;
 
-public class Deadline extends Interactor {
+public class ExecutionDeadline extends Interactor {
 
-	public Deadline(AgentDataStore dataStore) {
+	public ExecutionDeadline(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

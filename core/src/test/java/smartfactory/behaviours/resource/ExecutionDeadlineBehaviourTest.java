@@ -8,11 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jade.core.Agent;
-import smartfactory.behaviours.resource.ActivityBehaviour;
+import smartfactory.behaviours.resource.ExecutionDeadlineBehaviour;
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
 import smartfactory.utility.AgentDataStore;
 
-public class ActivityBehaviourTest {
+public class ExecutionDeadlineBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -26,7 +26,7 @@ public class ActivityBehaviourTest {
 
 	Agent agent_mock;
 
-	ActivityBehaviour testable;
+	ExecutionDeadlineBehaviour testable;
 
 	@Before
 	public void setUp() {
@@ -36,12 +36,12 @@ public class ActivityBehaviourTest {
 
 		context.checking(new Expectations() {
 			{
-				exactly(3).of(interactionBehaviour_mock).getAgent();
+				oneOf(interactionBehaviour_mock).getAgent();
 				will(returnValue(agent_mock));
 			}
 		});
 
-		testable = new ActivityBehaviour(interactionBehaviour_mock, dataStore_mock);
+		testable = new ExecutionDeadlineBehaviour(interactionBehaviour_mock, dataStore_mock);
 	}
 
 	@After

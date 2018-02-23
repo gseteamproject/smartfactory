@@ -1,20 +1,21 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.WakerBehaviour;
-import smartfactory.interactors.resource.Deadline;
+import smartfactory.interactors.resource.ExecutionDeadline;
 import smartfactory.models.Resource;
 import smartfactory.utility.AgentDataStore;
 
-public class DeadlineBehaviour extends WakerBehaviour {
+public class ExecutionDeadlineBehaviour extends WakerBehaviour {
 
 	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
-	Deadline interactor;
+	ExecutionDeadline interactor;
 
-	public DeadlineBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
+	public ExecutionDeadlineBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour,
+			AgentDataStore agentDataStore) {
 		super(interactionBehaviour.getAgent(), Resource.DURATION_LIMIT * 1000);
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = new Deadline(dataStore);
+		this.interactor = new ExecutionDeadline(agentDataStore);
 	}
 
 	@Override

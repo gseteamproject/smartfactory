@@ -28,12 +28,13 @@ public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
 		super(null, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
 
 		registerHandleRequest(new DecisionBehaviour(this, dataStore));
-		registerPrepareResultNotification(new ActivityBehaviour(this, dataStore));
+		registerPrepareResultNotification(new ExecutionBehaviour(this, dataStore));
 	}
 
 	@Override
 	public void reset() {
 		super.reset();
+		// TODO : check if this is necessary
 		logger.debug("reset method called");
 	}
 

@@ -1,16 +1,18 @@
 package smartfactory.behaviours.resource;
 
+import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import jade.core.Agent;
+import smartfactory.behaviours.resource.ExecutionBehaviour;
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
-import smartfactory.behaviours.resource.WorkBehaviour;
 import smartfactory.utility.AgentDataStore;
 
-public class WorkBehaviourTest {
+public class ExecutionBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -22,14 +24,24 @@ public class WorkBehaviourTest {
 
 	AgentDataStore dataStore_mock;
 
-	WorkBehaviour testable;
+	Agent agent_mock;
+
+	ExecutionBehaviour testable;
 
 	@Before
 	public void setUp() {
 		interactionBehaviour_mock = context.mock(ServiceProvisioningResponderBehaviour.class);
 		dataStore_mock = context.mock(AgentDataStore.class);
+		agent_mock = context.mock(Agent.class);
 
-		testable = new WorkBehaviour(interactionBehaviour_mock, dataStore_mock);
+		context.checking(new Expectations() {
+			{
+				exactly(3).of(interactionBehaviour_mock).getAgent();
+				will(returnValue(agent_mock));
+			}
+		});
+
+		testable = new ExecutionBehaviour(interactionBehaviour_mock, dataStore_mock);
 	}
 
 	@After

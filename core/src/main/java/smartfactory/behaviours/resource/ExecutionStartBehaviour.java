@@ -1,18 +1,19 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.SimpleBehaviour;
-import smartfactory.interactors.resource.Work;
+import smartfactory.interactors.resource.ExecutionStart;
 import smartfactory.utility.AgentDataStore;
 
-public class WorkBehaviour extends SimpleBehaviour {
+public class ExecutionStartBehaviour extends SimpleBehaviour {
 
 	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
-	Work interactor;
+	ExecutionStart interactor;
 
-	public WorkBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
+	public ExecutionStartBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour,
+			AgentDataStore agentDataStore) {
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = new Work(dataStore);
+		this.interactor = new ExecutionStart(agentDataStore);
 	}
 
 	@Override

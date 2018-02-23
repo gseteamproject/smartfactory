@@ -4,9 +4,9 @@ import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.Interactor;
 import smartfactory.utility.AgentDataStore;
 
-public class Work extends Interactor {
+public class ExecutionStart extends Interactor {
 
-	public Work(AgentDataStore dataStore) {
+	public ExecutionStart(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 
@@ -19,6 +19,7 @@ public class Work extends Interactor {
 	}
 
 	public boolean done() {
+		// TODO : check if this is necessary
 		return true;
 	}
 }

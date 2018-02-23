@@ -6,22 +6,22 @@ import jade.lang.acl.MessageTemplate;
 import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
-// TODO : rename to ActivityResult or something like this
-public class StopBehaviour extends SimpleBehaviour {
+// TODO : introduce Interactor mechanic
+public class ExecutionStopBehaviour extends SimpleBehaviour {
 
 	private boolean isResultDetermined = false;
 
-	ActivityBehaviour activityBehaviour;
+	ExecutionBehaviour activityBehaviour;
 
 	ServiceProvisioningResponderBehaviour interactionBehaviour;
 
-	AgentDataStore dataStore;
+	AgentDataStore agentDataStore;
 
-	public StopBehaviour(ActivityBehaviour activityBehaviour,
-			ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
+	public ExecutionStopBehaviour(ExecutionBehaviour activityBehaviour,
+			ServiceProvisioningResponderBehaviour interactionBehaviour, AgentDataStore agentDataStore) {
 		this.activityBehaviour = activityBehaviour;
 		this.interactionBehaviour = interactionBehaviour;
-		this.dataStore = dataStore;
+		this.agentDataStore = agentDataStore;
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class StopBehaviour extends SimpleBehaviour {
 
 		ACLMessage msg = myAgent.receive(MessageTemplate.and(matchConversationId, matchPerformative));
 		if (msg != null) {
-			ACLMessage response = dataStore.getActivityRequest().createReply();
+			ACLMessage response = agentDataStore.getActivityRequest().createReply();
 			String result = msg.getContent();
 			if (result.compareTo(Event.OPERATION_COMPLETED_SUCCESS) == 0) {
 				response.setPerformative(ACLMessage.INFORM);
@@ -40,9 +40,9 @@ public class StopBehaviour extends SimpleBehaviour {
 			} else {
 				response.setPerformative(ACLMessage.NOT_UNDERSTOOD);
 			}
-			dataStore.setActivityResult(response);
+			agentDataStore.setActivityResult(response);
 
-			interactionBehaviour.setResult(dataStore.getActivityResult());
+			interactionBehaviour.setResult(agentDataStore.getActivityResult());
 			activityBehaviour.stop();
 			isResultDetermined = true;
 		} else {
