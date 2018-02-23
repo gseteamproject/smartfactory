@@ -1,5 +1,8 @@
 package smartfactory.utility;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.behaviours.DataStore;
 import jade.lang.acl.ACLMessage;
 import smartfactory.configuration.AgentConfiguration;
@@ -9,8 +12,16 @@ import smartfactory.models.Product;
 import smartfactory.models.Resource;
 import smartfactory.platform.AgentPlatform;
 
-// TODO : rework mechanics of getters/setters so they log-error if there is null object of required type
 public class AgentDataStore extends DataStore {
+
+	@Override
+	public Object get(Object key) {
+		Object result = super.get(key);
+		if (result == null) {
+			logger.error("no object for key={}", key);
+		}
+		return result;
+	}
 
 	public AgentPlatform getAgentPlatform() {
 		return (AgentPlatform) get("agentPlatform");
@@ -65,7 +76,6 @@ public class AgentDataStore extends DataStore {
 	}
 
 	public Resource getResource() {
-		// TODO : alert if there is no machine
 		return (Resource) get("resource");
 	}
 
@@ -86,4 +96,6 @@ public class AgentDataStore extends DataStore {
 	}
 
 	private static final long serialVersionUID = 4398092789071233362L;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
