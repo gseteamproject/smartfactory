@@ -12,7 +12,7 @@ import org.junit.Test;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 
-public class ServiceProvisioningTest {
+public class ProcessOperationTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -49,8 +49,7 @@ public class ServiceProvisioningTest {
 
 		testable.servicePerformedUnsuccesfully();
 
-		Assert.assertEquals(ProcessOperation.ServicePerformedUnSuccessfully,
-				testable.isServicePerformedSuccesfully());
+		Assert.assertEquals(ProcessOperation.ServicePerformedUnSuccessfully, testable.isServicePerformedSuccesfully());
 	}
 
 	@Test
