@@ -22,11 +22,11 @@ public class ContainerConfigurationTest {
 		}
 	};
 
-	ContainerConfiguration containerConfiguration;
+	ContainerConfiguration testable;
 
 	@Before
 	public void setUp() {
-		containerConfiguration = new ContainerConfiguration();
+		testable = new ContainerConfiguration();
 	}
 
 	@After
@@ -39,9 +39,9 @@ public class ContainerConfigurationTest {
 		final String containerName = "test container";
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.containerName = containerName;
+		testable.containerName = containerName;
 
-		containerConfiguration.appendContainerName(parameters);
+		testable.appendContainerName(parameters);
 		Assert.assertEquals(2, parameters.size());
 		Assert.assertEquals("-container-name", parameters.get(0));
 		Assert.assertEquals(containerName, parameters.get(1));
@@ -51,9 +51,9 @@ public class ContainerConfigurationTest {
 	public void appendContainerName_null() {
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.containerName = null;
+		testable.containerName = null;
 
-		containerConfiguration.appendContainerName(parameters);
+		testable.appendContainerName(parameters);
 		Assert.assertEquals(0, parameters.size());
 	}
 
@@ -61,9 +61,9 @@ public class ContainerConfigurationTest {
 	public void appendRma() {
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.rma = true;
+		testable.rma = true;
 
-		containerConfiguration.appendGui(parameters);
+		testable.appendGui(parameters);
 		Assert.assertEquals(1, parameters.size());
 		Assert.assertEquals("-gui", parameters.get(0));
 	}
@@ -72,9 +72,9 @@ public class ContainerConfigurationTest {
 	public void appendRma_false() {
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.rma = false;
+		testable.rma = false;
 
-		containerConfiguration.appendGui(parameters);
+		testable.appendGui(parameters);
 		Assert.assertEquals(0, parameters.size());
 	}
 
@@ -82,9 +82,9 @@ public class ContainerConfigurationTest {
 	public void appendContainerType_Container() {
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.containerType = ContainerType.Container;
+		testable.containerType = ContainerType.Container;
 
-		containerConfiguration.appendContainerType(parameters);
+		testable.appendContainerType(parameters);
 		Assert.assertEquals(1, parameters.size());
 		Assert.assertEquals("-container", parameters.get(0));
 	}
@@ -93,9 +93,9 @@ public class ContainerConfigurationTest {
 	public void appendContainerType_Main() {
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.containerType = ContainerType.MainContainer;
+		testable.containerType = ContainerType.MainContainer;
 
-		containerConfiguration.appendContainerType(parameters);
+		testable.appendContainerType(parameters);
 		Assert.assertEquals(0, parameters.size());
 	}
 
@@ -103,7 +103,7 @@ public class ContainerConfigurationTest {
 	public void appendContainerType_Default() {
 		List<String> parameters = new ArrayList<String>();
 
-		containerConfiguration.appendContainerType(parameters);
+		testable.appendContainerType(parameters);
 		Assert.assertEquals(0, parameters.size());
 	}
 
@@ -123,8 +123,8 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadContainerName(root_mock);
-		Assert.assertEquals(text, containerConfiguration.containerName);
+		testable.loadContainerName(root_mock);
+		Assert.assertEquals(text, testable.containerName);
 	}
 
 	@Test
@@ -138,8 +138,8 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadContainerName(root_mock);
-		Assert.assertEquals(null, containerConfiguration.containerName);
+		testable.loadContainerName(root_mock);
+		Assert.assertEquals(null, testable.containerName);
 	}
 
 	@Test
@@ -158,8 +158,8 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadContainerType(root_mock);
-		Assert.assertEquals(ContainerType.MainContainer, containerConfiguration.containerType);
+		testable.loadContainerType(root_mock);
+		Assert.assertEquals(ContainerType.MainContainer, testable.containerType);
 	}
 
 	@Test
@@ -178,8 +178,8 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadContainerType(root_mock);
-		Assert.assertEquals(ContainerType.Container, containerConfiguration.containerType);
+		testable.loadContainerType(root_mock);
+		Assert.assertEquals(ContainerType.Container, testable.containerType);
 	}
 
 	@Test
@@ -193,8 +193,8 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadContainerType(root_mock);
-		Assert.assertEquals(ContainerType.MainContainer, containerConfiguration.containerType);
+		testable.loadContainerType(root_mock);
+		Assert.assertEquals(ContainerType.MainContainer, testable.containerType);
 	}
 
 	@Test
@@ -213,8 +213,8 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadRma(root_mock);
-		Assert.assertEquals(true, containerConfiguration.rma);
+		testable.loadRma(root_mock);
+		Assert.assertEquals(true, testable.rma);
 	}
 
 	@Test
@@ -228,19 +228,19 @@ public class ContainerConfigurationTest {
 			}
 		});
 
-		containerConfiguration.loadRma(root_mock);
-		Assert.assertEquals(false, containerConfiguration.rma);
+		testable.loadRma(root_mock);
+		Assert.assertEquals(false, testable.rma);
 	}
 
 	@Test
 	public void getStartupParameters() {
 		final String containerName = "test container";
 
-		containerConfiguration.containerName = containerName;
-		containerConfiguration.containerType = ContainerType.Container;
-		containerConfiguration.rma = true;
+		testable.containerName = containerName;
+		testable.containerType = ContainerType.Container;
+		testable.rma = true;
 
-		List<String> parameters = containerConfiguration.getStartupParameters();
+		List<String> parameters = testable.getStartupParameters();
 		Assert.assertEquals(4, parameters.size());
 		Assert.assertEquals("-container-name", parameters.get(0));
 		Assert.assertEquals(containerName, parameters.get(1));

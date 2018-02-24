@@ -21,14 +21,14 @@ public class CustomerPresenterTest {
 	CustomerView view_mock;
 	CustomerAgent agent_mock;
 
-	CustomerPresenter customerPresenter;
+	CustomerPresenter testable;
 
 	@Before
 	public void setUp() {
 		agent_mock = context.mock(CustomerAgent.class);
 		view_mock = context.mock(CustomerView.class);
 
-		customerPresenter = new CustomerPresenter(agent_mock, view_mock);
+		testable = new CustomerPresenter(agent_mock, view_mock);
 	}
 
 	@After
@@ -44,7 +44,7 @@ public class CustomerPresenterTest {
 			}
 		});
 
-		customerPresenter.show();
+		testable.show();
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public class CustomerPresenterTest {
 			}
 		});
 
-		customerPresenter.hide();
+		testable.hide();
 	}
 
 	@Test
@@ -66,17 +66,17 @@ public class CustomerPresenterTest {
 			}
 		});
 
-		customerPresenter.destroy();
+		testable.destroy();
 	}
 
 	@Test
-	public void addBlock() {
+	public void createOrder() {
 		context.checking(new Expectations() {
 			{
-				oneOf(agent_mock).addBlock();
+				oneOf(agent_mock).createOrder();
 			}
 		});
 
-		customerPresenter.addBlock();
+		testable.createOrder();
 	}
 }

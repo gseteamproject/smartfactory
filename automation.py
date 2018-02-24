@@ -7,7 +7,7 @@ import time
 
 deploy_dir_base = "target"
 resources_dir_base = "resources"
-version = "-0.0.1-SNAPSHOT"
+version = "-0.1.0"
 
 
 class Artifact:

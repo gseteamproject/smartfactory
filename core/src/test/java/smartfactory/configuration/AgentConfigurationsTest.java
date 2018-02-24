@@ -20,11 +20,11 @@ public class AgentConfigurationsTest {
 		}
 	};
 
-	AgentConfigurations agentConfigurations;
+	AgentConfigurations testable;
 
 	@Before
 	public void setUp() {
-		agentConfigurations = new AgentConfigurations();
+		testable = new AgentConfigurations();
 	}
 
 	@After
@@ -39,8 +39,8 @@ public class AgentConfigurationsTest {
 		AgentConfiguration agent1Configuration_mock = context.mock(AgentConfiguration.class, "agent1");
 		AgentConfiguration agent2Configuration_mock = context.mock(AgentConfiguration.class, "agent2");
 
-		agentConfigurations.agentConfigurations.add(agent1Configuration_mock);
-		agentConfigurations.agentConfigurations.add(agent2Configuration_mock);
+		testable.agentConfigurations.add(agent1Configuration_mock);
+		testable.agentConfigurations.add(agent2Configuration_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -52,7 +52,7 @@ public class AgentConfigurationsTest {
 			}
 		});
 
-		List<String> parameters = agentConfigurations.getStartupParameters();
+		List<String> parameters = testable.getStartupParameters();
 		Assert.assertEquals(agent1StartupParameters + ";" + agent2StartupParameters + ";", parameters.get(0));
 	}
 
@@ -84,7 +84,7 @@ public class AgentConfigurationsTest {
 			}
 		});
 
-		agentConfigurations.load(root_mock);
-		Assert.assertEquals(2, agentConfigurations.agentConfigurations.size());
+		testable.load(root_mock);
+		Assert.assertEquals(2, testable.agentConfigurations.size());
 	}
 }

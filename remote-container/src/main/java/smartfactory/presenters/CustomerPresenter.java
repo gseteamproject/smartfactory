@@ -30,7 +30,15 @@ public class CustomerPresenter {
 		agent.doDelete();
 	}
 
-	public void addBlock() {
-		agent.addBlock();
+	public void createOrder() {
+		agent.createOrder();
+	}
+
+	public void showOrderIsCompleted() {
+		view.showOrderIsCompleted();
+	}
+
+	public void showOrderIsFailed() {
+		view.showOrderIsFailed();
 	}
 }

@@ -21,14 +21,14 @@ public class ContainerLauncherTest {
 	Configuration configuration_mock;
 	AgentPlatform jade_mock;
 
-	ContainerLauncher containerLauncher;
+	ContainerLauncher testable;
 
 	@Before
 	public void setUp() {
 		configuration_mock = context.mock(Configuration.class);
 		jade_mock = context.mock(AgentPlatform.class);
 
-		containerLauncher = new ContainerLauncher(jade_mock, configuration_mock);
+		testable = new ContainerLauncher(jade_mock, configuration_mock);
 	}
 
 	@After
@@ -51,6 +51,6 @@ public class ContainerLauncherTest {
 			}
 		});
 
-		containerLauncher.start();
+		testable.start();
 	}
 }

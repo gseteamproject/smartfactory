@@ -1,0 +1,13 @@
+package smartfactory.models;
+
+import smartfactory.services.Services;
+
+public class Lego extends Resource {
+
+	public Lego() {
+		super();
+		addOperation(new ResourceOperation(Services.cleaning_worker));
+		addOperation(new ResourceOperation(Services.painting_worker));
+		addOperation(new ResourceOperation(Services.transport));
+	}
+}

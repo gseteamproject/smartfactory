@@ -14,5 +14,17 @@
 			<name>warehouse</name>
 			<class>smartfactory.agents.WarehouseAgent</class>
 		</agent>
+		<agent>
+			<name>factory</name>
+			<class>smartfactory.agents.FactoryAgent</class>
+		</agent>
+		<agent>
+			<name>cleaning-station</name>
+			<class>smartfactory.agents.CleaningStationAgent</class>
+		</agent>
+		<agent>
+			<name>painting-station</name>
+			<class>smartfactory.agents.PaintingStationAgent</class>
+		</agent>
 	</agents>
 </configuration>

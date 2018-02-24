@@ -20,11 +20,11 @@ public class AgentConfigurationTest {
 		}
 	};
 
-	AgentConfiguration agentConfiguration;
+	AgentConfiguration testable;
 
 	@Before
 	public void setUp() {
-		agentConfiguration = new AgentConfiguration();
+		testable = new AgentConfiguration();
 	}
 
 	@After
@@ -37,10 +37,10 @@ public class AgentConfigurationTest {
 		final String name = "instanceName";
 		final String className = "packageName.className";
 
-		agentConfiguration.name = name;
-		agentConfiguration.className = className;
+		testable.name = name;
+		testable.className = className;
 
-		String startupParameters = agentConfiguration.getStartupParameters();
+		String startupParameters = testable.getStartupParameters();
 		Assert.assertEquals(name + ":" + className, startupParameters);
 	}
 
@@ -51,12 +51,12 @@ public class AgentConfigurationTest {
 		final String parameter1 = "parameter1";
 		final String parameter2 = "parameter2";
 
-		agentConfiguration.name = name;
-		agentConfiguration.className = className;
-		agentConfiguration.parameters.add(parameter1);
-		agentConfiguration.parameters.add(parameter2);
+		testable.name = name;
+		testable.className = className;
+		testable.parameters.add(parameter1);
+		testable.parameters.add(parameter2);
 
-		String startupParameters = agentConfiguration.getStartupParameters();
+		String startupParameters = testable.getStartupParameters();
 		Assert.assertEquals(name + ":" + className + "(" + parameter1 + "," + parameter2 + ")", startupParameters);
 	}
 
@@ -76,8 +76,8 @@ public class AgentConfigurationTest {
 			}
 		});
 
-		agentConfiguration.loadName(root_mock);
-		Assert.assertEquals(text, agentConfiguration.name);
+		testable.loadName(root_mock);
+		Assert.assertEquals(text, testable.name);
 	}
 
 	@Test
@@ -96,8 +96,8 @@ public class AgentConfigurationTest {
 			}
 		});
 
-		agentConfiguration.loadClassName(root_mock);
-		Assert.assertEquals(text, agentConfiguration.className);
+		testable.loadClassName(root_mock);
+		Assert.assertEquals(text, testable.className);
 	}
 
 	@Test
@@ -128,10 +128,10 @@ public class AgentConfigurationTest {
 			}
 		});
 
-		agentConfiguration.loadParameters(root_mock);
-		Assert.assertEquals(2, agentConfiguration.parameters.size());
-		Assert.assertEquals(text1, agentConfiguration.parameters.get(0));
-		Assert.assertEquals(text2, agentConfiguration.parameters.get(1));
+		testable.loadParameters(root_mock);
+		Assert.assertEquals(2, testable.parameters.size());
+		Assert.assertEquals(text1, testable.parameters.get(0));
+		Assert.assertEquals(text2, testable.parameters.get(1));
 	}
 
 	@Test
@@ -145,8 +145,8 @@ public class AgentConfigurationTest {
 			}
 		});
 
-		agentConfiguration.loadParameters(root_mock);
-		Assert.assertEquals(0, agentConfiguration.parameters.size());
+		testable.loadParameters(root_mock);
+		Assert.assertEquals(0, testable.parameters.size());
 	}
 
 	@Test
@@ -176,6 +176,6 @@ public class AgentConfigurationTest {
 			}
 		});
 
-		agentConfiguration.load(root_mock);
+		testable.load(root_mock);
 	}
 }

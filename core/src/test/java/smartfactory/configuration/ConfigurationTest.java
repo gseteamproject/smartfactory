@@ -27,7 +27,7 @@ public class ConfigurationTest {
 	AgentConfigurations agentConfigurations_mock;
 	XMLFile configurationFile_mock;
 
-	Configuration configuration;
+	Configuration testable;
 
 	@Before
 	public void startUp() {
@@ -36,8 +36,8 @@ public class ConfigurationTest {
 		agentConfigurations_mock = context.mock(AgentConfigurations.class);
 		configurationFile_mock = context.mock(XMLFile.class);
 
-		configuration = new Configuration(platformConfiguration_mock, containerConfiguration_mock,
-				agentConfigurations_mock, configurationFile_mock);
+		testable = new Configuration(platformConfiguration_mock, containerConfiguration_mock, agentConfigurations_mock,
+				configurationFile_mock);
 	}
 
 	@After
@@ -67,7 +67,7 @@ public class ConfigurationTest {
 			}
 		});
 
-		String[] parameters = configuration.getStartupParameters();
+		String[] parameters = testable.getStartupParameters();
 		Assert.assertEquals(3, parameters.length);
 	}
 
@@ -100,6 +100,6 @@ public class ConfigurationTest {
 			}
 		});
 
-		configuration.load();
+		testable.load();
 	}
 }

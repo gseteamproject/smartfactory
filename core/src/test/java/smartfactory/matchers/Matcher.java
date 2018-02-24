@@ -6,10 +6,9 @@ import java.util.List;
 import org.hamcrest.Description;
 import org.hamcrest.TypeSafeMatcher;
 
-//TODO : add Matcher inside Matcher
 public class Matcher<T> extends TypeSafeMatcher<T> {
 
-	protected List<MatcherExpectation> expectations = new ArrayList<MatcherExpectation>();
+	private List<MatcherExpectation> expectations = new ArrayList<MatcherExpectation>();
 
 	protected abstract class MatcherExpectation {
 		public abstract void trigger(T arg) throws MatcherException;
@@ -21,7 +20,7 @@ public class Matcher<T> extends TypeSafeMatcher<T> {
 		}
 
 		protected void compare(String name, String expected, String actual) throws MatcherException {
-			if (expected != actual) {
+			if (expected.compareTo(actual) != 0) {
 				throw new MatcherException(String.format("%s - expected: %s, actual: %s", name, expected, actual));
 			}
 		}
@@ -74,5 +73,9 @@ public class Matcher<T> extends TypeSafeMatcher<T> {
 			return false;
 		}
 		return true;
+	}
+
+	public void addExpectation(MatcherExpectation expectation) {
+		expectations.add(expectation);
 	}
 }

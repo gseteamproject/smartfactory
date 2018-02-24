@@ -1,12 +1,13 @@
 package smartfactory.agents;
 
-import smartfactory.services.Services;
+import smartfactory.models.Lego;
+import smartfactory.models.Resource;
 
-public class LegoAgent extends MachineAgent {
+public class LegoAgent extends ResourceAgent {
 
 	@Override
-	public String[] getAgentServices() {
-		return new String[] { Services.cleaning, Services.painting };
+	public Resource createResource() {
+		return new Lego();
 	}
 
 	private static final long serialVersionUID = 8580835111885945247L;

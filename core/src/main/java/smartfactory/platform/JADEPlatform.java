@@ -12,6 +12,7 @@ import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.wrapper.StaleProxyException;
 
 public class JADEPlatform implements AgentPlatform {
 
@@ -32,11 +33,20 @@ public class JADEPlatform implements AgentPlatform {
 	@Override
 	public List<DFAgentDescription> search(DFAgentDescription dfd) {
 		try {
-			return Arrays.asList(DFService.search(agent, dfd));
+			return new ArrayList<DFAgentDescription>(Arrays.asList(DFService.search(agent, dfd)));
 		} catch (FIPAException e) {
-			logger.error("", e);
+			logger.error("search failed", e);
 		}
 		return new ArrayList<DFAgentDescription>();
+	}
+
+	@Override
+	public void startAgent(String agentName, String agentClass) {
+		try {
+			agent.getContainerController().createNewAgent(agentName, agentClass, null).start();
+		} catch (StaleProxyException e) {
+			logger.error("createNewAgent failed", e);
+		}
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

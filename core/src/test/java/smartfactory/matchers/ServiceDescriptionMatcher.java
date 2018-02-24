@@ -5,7 +5,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 public class ServiceDescriptionMatcher extends Matcher<ServiceDescription> {
 
 	public ServiceDescriptionMatcher expectName(String name) {
-		expectations.add(new MatcherExpectation() {
+		addExpectation(new MatcherExpectation() {
 			@Override
 			public void trigger(ServiceDescription arg) throws MatcherException {
 				compare("name", name, arg.getName());

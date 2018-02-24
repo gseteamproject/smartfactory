@@ -1,12 +1,13 @@
 package smartfactory.agents;
 
-import smartfactory.services.Services;
+import smartfactory.models.Resource;
+import smartfactory.models.Warehouse;
 
-public class WarehouseAgent extends MachineAgent {
+public class WarehouseAgent extends ResourceAgent {
 
 	@Override
-	public String[] getAgentServices() {
-		return new String[] { Services.store, Services.recognition, Services.packing };
+	public Resource createResource() {
+		return new Warehouse();
 	}
 
 	private static final long serialVersionUID = -5919274387044865830L;
