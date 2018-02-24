@@ -6,10 +6,10 @@
 	<parent>
 		<groupId>smartfactory</groupId>
 		<artifactId>smartfactory</artifactId>
-		<version>0.1.0</version>
+		<version>0.2.0</version>
 	</parent>
 	<artifactId>core</artifactId>
-	<name>core</name>
+	<name>${project.artifactId}</name>
 	<repositories>
 		<repository>
 			<id>tilab</id>

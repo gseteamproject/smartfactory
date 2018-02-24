@@ -6,21 +6,21 @@
 	<parent>
 		<groupId>smartfactory</groupId>
 		<artifactId>smartfactory</artifactId>
-		<version>0.1.0</version>
+		<version>0.2.0</version>
 	</parent>
 	<artifactId>factory-container</artifactId>
 	<packaging>jar</packaging>
-	<name>factory-container</name>
+	<name>${project.artifactId}</name>
 	<dependencies>
 		<dependency>
 			<groupId>smartfactory</groupId>
 			<artifactId>core</artifactId>
-			<version>0.1.0</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>smartfactory</groupId>
 			<artifactId>domain</artifactId>
-			<version>0.1.0</version>
+			<version>${project.version}</version>
 		</dependency>
 	</dependencies>
 	<build>
