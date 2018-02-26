@@ -49,5 +49,23 @@ public class JADEPlatform implements AgentPlatform {
 		}
 	}
 
+	@Override
+	public void registerAgentServices(DFAgentDescription dfd) {
+		try {
+			DFService.register(agent, dfd);
+		} catch (FIPAException exception) {
+			logger.error("register failed", exception);
+		}
+	}
+
+	@Override
+	public void deregisterAgentServices() {
+		try {
+			DFService.deregister(agent);
+		} catch (FIPAException exception) {
+			logger.error("deregister failed", exception);
+		}
+	}
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

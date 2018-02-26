@@ -9,6 +9,10 @@ public interface AgentPlatform {
 	public void launch(String args[]);
 
 	public List<DFAgentDescription> search(DFAgentDescription dfd);
-	
+
 	public void startAgent(String agentName, String agentClass);
+
+	public void registerAgentServices(DFAgentDescription dfd);
+
+	public void deregisterAgentServices();
 }

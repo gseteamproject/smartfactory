@@ -3,8 +3,6 @@ package smartfactory.agents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
@@ -46,20 +44,12 @@ public class ResourceAgent extends BaseAgent {
 			agentServicesDescription.addServices(agentService);
 		}
 
-		try {
-			DFService.register(this, agentServicesDescription);
-		} catch (FIPAException exception) {
-			logger.error("registration failed", exception);
-		}
+		agentDataStore.getAgentPlatform().registerAgentServices(agentServicesDescription);
 	}
 
 	@Override
 	final protected void deregisterServices() {
-		try {
-			DFService.deregister(this);
-		} catch (FIPAException exception) {
-			logger.error("deregistration failed", exception);
-		}
+		agentDataStore.getAgentPlatform().deregisterAgentServices();
 	}
 
 	@Override
