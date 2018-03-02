@@ -12,7 +12,6 @@ public class EventSubscriptionInitiatorBehaviour extends SubscriptionInitiator {
 
 	private static final long serialVersionUID = -2386799595521331797L;
 
-	// TODO : replace ResourceOperation with Interactors mechanics
 	// TODO : refactor responderAgent
 
 	String responderAgent;

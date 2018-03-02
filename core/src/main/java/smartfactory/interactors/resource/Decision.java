@@ -15,7 +15,7 @@ public class Decision extends Interactor {
 		String operationName = request.getContent();
 
 		ACLMessage response = request.createReply();
-		if (agentDataStore.getResource().willExecute(operationName)) {
+		if (agentDataStore.getAgentServices().willExecuteService(operationName)) {
 			response.setPerformative(ACLMessage.AGREE);
 
 		} else {

@@ -13,8 +13,7 @@ public class ExecutionStart extends Interactor {
 	public void execute(ACLMessage request) {
 		agentDataStore.setActivityRequest(request);
 		// content = operation name
-		String operationName = request.getContent();
-
-		agentDataStore.getResource().execute(operationName);
+		String serviceName = request.getContent();
+		agentDataStore.getAgentServices().executeService(serviceName);
 	}
 }

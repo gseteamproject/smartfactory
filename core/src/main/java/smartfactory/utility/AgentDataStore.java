@@ -3,6 +3,7 @@ package smartfactory.utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jade.core.Agent;
 import jade.core.behaviours.DataStore;
 import jade.lang.acl.ACLMessage;
 import smartfactory.configuration.AgentConfiguration;
@@ -13,6 +14,10 @@ import smartfactory.models.Resource;
 import smartfactory.platform.AgentPlatform;
 
 public class AgentDataStore extends DataStore {
+
+	private static final long serialVersionUID = 4398092789071233362L;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Override
 	public Object get(Object key) {
@@ -95,7 +100,19 @@ public class AgentDataStore extends DataStore {
 		return (ACLMessage) get("activity-request");
 	}
 
-	private static final long serialVersionUID = 4398092789071233362L;
+	public void setAgentServices(AgentServices agentServices) {
+		put("agentServices", agentServices);
+	}
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	public AgentServices getAgentServices() {
+		return (AgentServices) get("agentServices");
+	}
+
+	public Agent getAgent() {
+		return (Agent) get("agent");
+	}
+
+	public void setAgent(Agent agent) {
+		put("agent", agent);
+	}
 }

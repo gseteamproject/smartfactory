@@ -12,8 +12,7 @@ public class ExecutionDeadline extends Interactor {
 
 	public void execute(ACLMessage request) {
 		// content = operation name
-		String operationName = request.getContent();
-
-		agentDataStore.getResource().terminate(operationName);
+		String serviceName = request.getContent();
+		agentDataStore.getAgentServices().terminateService(serviceName);
 	}
 }
