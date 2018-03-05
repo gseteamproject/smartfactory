@@ -14,7 +14,7 @@ public class LaunchAgent extends Interactor implements OneShotInteractor {
 	@Override
 	public void execute() {
 		AgentConfiguration agentConfiguration = agentDataStore.getSubAgentConfiguration();
-		agentDataStore.getAgentPlatform().startAgent(agentConfiguration.name, agentConfiguration.className);
+		agentDataStore.getAgentPlatform().startAgent(agentConfiguration);
 	}
 
 	@Override

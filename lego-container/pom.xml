@@ -39,7 +39,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>smartfactory.container.Container</mainClass>
+							<mainClass>smartfactory.application.Launcher</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

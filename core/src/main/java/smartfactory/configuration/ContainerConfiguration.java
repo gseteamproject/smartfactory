@@ -12,6 +12,8 @@ import smartfactory.container.ContainerType;
 
 public class ContainerConfiguration {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	final static String TAG_CONTAINER = "container";
 
 	final static String TAG_CONTAINER_NAME = "name";
@@ -20,17 +22,29 @@ public class ContainerConfiguration {
 
 	final static String TAG_RMA = "rma";
 
+	final static String TAG_PLATFORM = "platform";
+
+	final static String TAG_HOST = "host";
+
+	final static String TAG_LOCAL_HOST = "local-host";
+
 	public String containerName;
 
 	public ContainerType containerType;
 
 	public boolean rma;
 
+	public String host;
+
+	public String localhost;
+
 	public List<String> getStartupParameters() {
 		List<String> parameters = new ArrayList<String>();
 		appendContainerName(parameters);
 		appendContainerType(parameters);
 		appendGui(parameters);
+		appendHost(parameters);
+		appendLocalHost(parameters);
 		return parameters;
 	}
 
@@ -58,10 +72,46 @@ public class ContainerConfiguration {
 		}
 	}
 
+	void appendHost(List<String> parameters) {
+		if (StringUtils.isNotEmpty(host)) {
+			parameters.add("-host");
+			parameters.add(host);
+		}
+	}
+
+	void appendLocalHost(List<String> parameters) {
+		if (StringUtils.isNotEmpty(localhost)) {
+			parameters.add("-local-host");
+			parameters.add(localhost);
+		}
+	}
+
 	public void load(Element root) {
 		loadContainerName(root);
 		loadContainerType(root);
 		loadRma(root);
+		loadHost(root);
+		loadLocalHost(root);
+	}
+
+	void loadHost(Element root) {
+		Element element = root.getChild(TAG_HOST);
+		if (element == null) {
+			host = null;
+		} else {
+			host = element.getTextTrim();
+		}
+		logger.info("{} : {}", TAG_HOST, host);
+	}
+
+	void loadLocalHost(Element root) {
+		Element element = root.getChild(TAG_LOCAL_HOST);
+		if (element == null) {
+			localhost = null;
+		} else {
+			localhost = element.getTextTrim();
+		}
+		logger.info("{} : {}", TAG_LOCAL_HOST, localhost);
 	}
 
 	void loadContainerName(Element root) {
@@ -99,5 +149,23 @@ public class ContainerConfiguration {
 		logger.info("rma : {}", rma);
 	}
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	public String getContainerName() {
+		return containerName;
+	}
+
+	public String getMainHost() {
+		return host;
+	}
+
+	public String getLocalHost() {
+		return localhost;
+	}
+
+	public boolean getGUI() {
+		return rma;
+	}
+
+	public boolean IsMainContainer() {
+		return containerType == ContainerType.MainContainer;
+	}
 }

@@ -72,4 +72,16 @@ public class AgentConfiguration {
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	public String getAgentName() {
+		return name;
+	}
+
+	public String getAgentClass() {
+		return className;
+	}
+
+	public Object[] getAgentParameters() {
+		return parameters.toArray();
+	}
 }

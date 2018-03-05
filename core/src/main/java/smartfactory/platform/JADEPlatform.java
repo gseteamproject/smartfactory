@@ -3,31 +3,35 @@ package smartfactory.platform;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import jade.Boot;
 import jade.core.Agent;
+import jade.core.Profile;
+import jade.core.ProfileImpl;
+import jade.core.Runtime;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.util.ExtendedProperties;
+import jade.wrapper.AgentContainer;
 import jade.wrapper.StaleProxyException;
+import smartfactory.configuration.AgentConfiguration;
+import smartfactory.configuration.ContainerConfiguration;
 
 public class JADEPlatform implements AgentPlatform {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 	private Agent agent;
+
+	private AgentContainer container;
 
 	public JADEPlatform() {
 	}
 
 	public JADEPlatform(Agent agent) {
 		this.agent = agent;
-	}
-
-	@Override
-	public void launch(String[] args) {
-		Boot.main(args);
 	}
 
 	@Override
@@ -38,15 +42,6 @@ public class JADEPlatform implements AgentPlatform {
 			logger.error("search failed", e);
 		}
 		return new ArrayList<DFAgentDescription>();
-	}
-
-	@Override
-	public void startAgent(String agentName, String agentClass) {
-		try {
-			agent.getContainerController().createNewAgent(agentName, agentClass, null).start();
-		} catch (StaleProxyException e) {
-			logger.error("createNewAgent failed", e);
-		}
 	}
 
 	@Override
@@ -67,5 +62,35 @@ public class JADEPlatform implements AgentPlatform {
 		}
 	}
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+	@Override
+	public void startContainer(ContainerConfiguration configuration) {
+		Runtime rt = Runtime.instance();
+		rt.setCloseVM(true);
+
+		ExtendedProperties props = new ExtendedProperties();
+		props.setProperty(Profile.CONTAINER_NAME, configuration.getContainerName());
+		props.setProperty(Profile.MAIN_HOST, configuration.getMainHost());
+		props.setProperty(Profile.LOCAL_HOST, configuration.getLocalHost());
+		props.setBooleanProperty(Profile.GUI, configuration.getGUI());
+
+		ProfileImpl profile = new ProfileImpl(props);
+		if (configuration.IsMainContainer()) {
+			container = rt.createMainContainer(profile);
+		} else {
+			container = rt.createAgentContainer(profile);
+		}
+	}
+
+	@Override
+	public void startAgent(AgentConfiguration configuration) {
+		if (container == null) {
+			container = agent.getContainerController();
+		}
+		try {
+			container.createNewAgent(configuration.getAgentName(), configuration.getAgentClass(),
+					configuration.getAgentParameters()).start();
+		} catch (StaleProxyException e) {
+			logger.error("createNewAgent failed", e);
+		}
+	}
 }

@@ -1,14 +1,21 @@
 package smartfactory.container;
 
-import org.slf4j.LoggerFactory;
+import smartfactory.configuration.AgentConfiguration;
+import smartfactory.configuration.Configuration;
+import smartfactory.platform.AgentPlatform;
 
 public class Container {
 
-	public static void main(String[] args) {
-		try {
-			new ContainerLauncher().start();
-		} catch (Exception e) {
-			LoggerFactory.getLogger(Container.class).error("", e);
+	private AgentPlatform agentPlatform;
+
+	public Container(AgentPlatform jade) {
+		this.agentPlatform = jade;
+	}
+
+	public void launch(Configuration configuration) {
+		agentPlatform.startContainer(configuration.getContainerConfiguration());
+		for (AgentConfiguration agentConfiguration : configuration.getAgentConfigurations()) {
+			agentPlatform.startAgent(agentConfiguration);
 		}
 	}
 }

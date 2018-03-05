@@ -1,10 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <configuration>
-	<platform>
+	<container>
 		<host>localhost</host>
 		<local-host>localhost</local-host>
-	</platform>
-	<container>
 		<name>LEGO-Container-1</name>
 		<type>Container</type>
 		<rma>false</rma>

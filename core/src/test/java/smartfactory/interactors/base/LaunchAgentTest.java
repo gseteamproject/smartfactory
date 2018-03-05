@@ -38,12 +38,7 @@ public class LaunchAgentTest {
 
 	@Test
 	public void execute() {
-		final String agentName = "agentName";
-		final String className = "className";
-
 		AgentConfiguration agentConfiguration_mock = context.mock(AgentConfiguration.class);
-		agentConfiguration_mock.name = agentName;
-		agentConfiguration_mock.className = className;
 		AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
@@ -54,7 +49,7 @@ public class LaunchAgentTest {
 				oneOf(dataStore_mock).getAgentPlatform();
 				will(returnValue(agentPlatform_mock));
 
-				oneOf(agentPlatform_mock).startAgent(agentName, className);
+				oneOf(agentPlatform_mock).startAgent(agentConfiguration_mock);
 			}
 		});
 
