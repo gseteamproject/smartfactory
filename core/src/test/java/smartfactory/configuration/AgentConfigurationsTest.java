@@ -33,58 +33,31 @@ public class AgentConfigurationsTest {
 	}
 
 	@Test
-	public void getStartupParameters() {
-		final String agent1StartupParameters = "listener:tutorial_2.ListenerAgent";
-		final String agent2StartupParameters = "sniffer:jade.tools.sniffer.Sniffer(l*)";
-		AgentConfiguration agent1Configuration_mock = context.mock(AgentConfiguration.class, "agent1");
-		AgentConfiguration agent2Configuration_mock = context.mock(AgentConfiguration.class, "agent2");
-
-		testable.agentConfigurations.add(agent1Configuration_mock);
-		testable.agentConfigurations.add(agent2Configuration_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(agent1Configuration_mock).getStartupParameters();
-				will(returnValue(agent1StartupParameters));
-
-				oneOf(agent2Configuration_mock).getStartupParameters();
-				will(returnValue(agent2StartupParameters));
-			}
-		});
-
-		List<String> parameters = testable.getStartupParameters();
-		Assert.assertEquals(agent1StartupParameters + ";" + agent2StartupParameters + ";", parameters.get(0));
-	}
-
-	@Test
 	public void load() {
 		Element root_mock = context.mock(Element.class, "root");
-		Element element1_mock = context.mock(Element.class, "element1");
-		Element element2_mock = context.mock(Element.class, "element2");
+		Element element_mock = context.mock(Element.class, "element");
 		List<Element> elements = new ArrayList<Element>();
-		elements.add(element1_mock);
-		elements.add(element2_mock);
+		elements.add(element_mock);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChildren(AgentConfiguration.TAG_AGENT);
+				oneOf(root_mock).getChildren(Tag.AGENT);
 				will(returnValue(elements));
 
-				oneOf(element1_mock).getChild(AgentConfiguration.TAG_NAME);
+				oneOf(element_mock).getChild(Tag.AGENT_NAME);
 
-				oneOf(element1_mock).getChild(AgentConfiguration.TAG_CLASS_NAME);
+				oneOf(element_mock).getChild(Tag.AGENT_CLASS);
 
-				oneOf(element1_mock).getChild(AgentConfiguration.TAG_PARAMETERS);
-
-				oneOf(element2_mock).getChild(AgentConfiguration.TAG_NAME);
-
-				oneOf(element2_mock).getChild(AgentConfiguration.TAG_CLASS_NAME);
-
-				oneOf(element2_mock).getChild(AgentConfiguration.TAG_PARAMETERS);
+				oneOf(element_mock).getChild(Tag.AGENT_PARAMETERS);
 			}
 		});
 
 		testable.load(root_mock);
-		Assert.assertEquals(2, testable.agentConfigurations.size());
+		Assert.assertEquals(1, testable.agentConfigurations.size());
+	}
+
+	@Test
+	public void asList() {
+		Assert.assertEquals(testable.agentConfigurations, testable.asList());
 	}
 }

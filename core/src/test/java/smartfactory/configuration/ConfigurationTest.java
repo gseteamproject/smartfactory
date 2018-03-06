@@ -10,10 +10,7 @@ import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
-
-import smartfactory.utility.XMLFile;
 
 public class ConfigurationTest {
 
@@ -25,7 +22,6 @@ public class ConfigurationTest {
 
 	ContainerConfiguration containerConfiguration_mock;
 	AgentConfigurations agentConfigurations_mock;
-	XMLFile configurationFile_mock;
 
 	Configuration testable;
 
@@ -33,9 +29,8 @@ public class ConfigurationTest {
 	public void startUp() {
 		containerConfiguration_mock = context.mock(ContainerConfiguration.class);
 		agentConfigurations_mock = context.mock(AgentConfigurations.class);
-		configurationFile_mock = context.mock(XMLFile.class);
 
-		testable = new Configuration(containerConfiguration_mock, agentConfigurations_mock, configurationFile_mock);
+		testable = new Configuration(containerConfiguration_mock, agentConfigurations_mock);
 	}
 
 	@After
@@ -44,59 +39,44 @@ public class ConfigurationTest {
 	}
 
 	@Test
-	@Ignore
-	public void getStartupParameters() {
-		// TODO : fix
-		final List<String> platformParameters = new ArrayList<String>();
-		platformParameters.add("-host:localhost");
-		final List<String> containerParameters = new ArrayList<String>();
-		platformParameters.add("-gui");
-		final List<String> agentsParameters = new ArrayList<String>();
-		agentsParameters.add("sniffer:jade.tools.sniffer.Sniffer(l*);");
+	public void load() {
+		Element rootElement_mock = context.mock(Element.class);
+		Element containerElement_mock = context.mock(Element.class, Tag.CONTAINER);
+		Element agentsElement_mock = context.mock(Element.class, Tag.AGENTS);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(containerConfiguration_mock).getStartupParameters();
-				will(returnValue(containerParameters));
+				oneOf(rootElement_mock).getChild(Tag.CONTAINER);
+				will(returnValue(containerElement_mock));
 
-				oneOf(agentConfigurations_mock).getStartupParameters();
-				will(returnValue(agentsParameters));
+				oneOf(containerConfiguration_mock).load(containerElement_mock);
+
+				oneOf(rootElement_mock).getChild(Tag.AGENTS);
+				will(returnValue(agentsElement_mock));
+
+				oneOf(agentConfigurations_mock).load(agentsElement_mock);
 			}
 		});
 
-		String[] parameters = testable.getStartupParameters();
-		Assert.assertEquals(3, parameters.length);
+		testable.load(rootElement_mock);
 	}
 
 	@Test
-	@Ignore
-	public void load() {
-		// TODO : fix
-		Element rootElement_mock = context.mock(Element.class);
-		Element platformConfigurationElement_mock = context.mock(Element.class, "e2");
-		Element containerConfigurationElement_mock = context.mock(Element.class, "e3");
-		Element agentConfigurationsElement_mock = context.mock(Element.class, "e4");
+	public void getContainerConfiguration() {
+		Assert.assertEquals(containerConfiguration_mock, testable.getContainerConfiguration());
+	}
+
+	@Test
+	public void getAgentsConfigurations() {
+		List<AgentConfiguration> agentConfigurations = new ArrayList<AgentConfiguration>();
 
 		context.checking(new Expectations() {
 			{
-				oneOf(configurationFile_mock).getRootElement();
-				will(returnValue(rootElement_mock));
-
-				oneOf(rootElement_mock).getChild("platform");
-				will(returnValue(platformConfigurationElement_mock));
-
-				oneOf(rootElement_mock).getChild("container");
-				will(returnValue(containerConfigurationElement_mock));
-
-				oneOf(containerConfiguration_mock).load(containerConfigurationElement_mock);
-
-				oneOf(rootElement_mock).getChild("agents");
-				will(returnValue(agentConfigurationsElement_mock));
-
-				oneOf(agentConfigurations_mock).load(agentConfigurationsElement_mock);
+				oneOf(agentConfigurations_mock).asList();
+				will(returnValue(agentConfigurations));
 			}
 		});
 
-		testable.load();
+		Assert.assertEquals(agentConfigurations, testable.getAgentConfigurations());
 	}
 }

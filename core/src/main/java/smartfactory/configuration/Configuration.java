@@ -1,9 +1,7 @@
 package smartfactory.configuration;
 
-import java.util.ArrayList;
 import java.util.List;
 import org.jdom2.Element;
-import smartfactory.utility.XMLFile;
 
 public class Configuration {
 
@@ -11,31 +9,18 @@ public class Configuration {
 
 	private AgentConfigurations agentConfigurations;
 
-	private XMLFile configurationFile;
-
 	public Configuration() {
-		containerConfiguration = new ContainerConfiguration();
-		agentConfigurations = new AgentConfigurations();
-		configurationFile = new XMLFile("configuration.xml");
+		this(new ContainerConfiguration(), new AgentConfigurations());
 	}
 
-	public Configuration(ContainerConfiguration container, AgentConfigurations agents, XMLFile configurationFile) {
-		this.containerConfiguration = container;
-		this.agentConfigurations = agents;
-		this.configurationFile = configurationFile;
+	public Configuration(ContainerConfiguration containerConfiguration, AgentConfigurations agentConfigurations) {
+		this.containerConfiguration = containerConfiguration;
+		this.agentConfigurations = agentConfigurations;
 	}
 
-	public String[] getStartupParameters() {
-		List<String> parameters = new ArrayList<String>();
-		parameters.addAll(containerConfiguration.getStartupParameters());
-		parameters.addAll(agentConfigurations.getStartupParameters());
-		return parameters.toArray(new String[parameters.size()]);
-	}
-
-	public void load() {
-		Element root = configurationFile.getRootElement();
-		containerConfiguration.load(root.getChild(ContainerConfiguration.TAG_CONTAINER));
-		agentConfigurations.load(root.getChild(AgentConfigurations.TAG_AGENTS));
+	public void load(Element root) {
+		containerConfiguration.load(root.getChild(Tag.CONTAINER));
+		agentConfigurations.load(root.getChild(Tag.AGENTS));
 	}
 
 	public ContainerConfiguration getContainerConfiguration() {
@@ -43,6 +28,6 @@ public class Configuration {
 	}
 
 	public List<AgentConfiguration> getAgentConfigurations() {
-		return agentConfigurations.agentConfigurations;
+		return agentConfigurations.asList();
 	}
 }

@@ -11,7 +11,7 @@ import org.slf4j.LoggerFactory;
 
 public class XMLFile {
 
-	public String fileName;
+	String fileName;
 
 	public XMLFile(String fileName) {
 		this.fileName = fileName;

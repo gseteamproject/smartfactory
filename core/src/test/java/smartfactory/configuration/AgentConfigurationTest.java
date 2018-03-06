@@ -33,34 +33,6 @@ public class AgentConfigurationTest {
 	}
 
 	@Test
-	public void getStartupParameters_no_parameters() {
-		final String name = "instanceName";
-		final String className = "packageName.className";
-
-		testable.name = name;
-		testable.className = className;
-
-		String startupParameters = testable.getStartupParameters();
-		Assert.assertEquals(name + ":" + className, startupParameters);
-	}
-
-	@Test
-	public void getStartupParameters_with_parameters() {
-		final String name = "instanceName";
-		final String className = "packageName.className";
-		final String parameter1 = "parameter1";
-		final String parameter2 = "parameter2";
-
-		testable.name = name;
-		testable.className = className;
-		testable.parameters.add(parameter1);
-		testable.parameters.add(parameter2);
-
-		String startupParameters = testable.getStartupParameters();
-		Assert.assertEquals(name + ":" + className + "(" + parameter1 + "," + parameter2 + ")", startupParameters);
-	}
-
-	@Test
 	public void loadName() {
 		final String text = "instanceName";
 		Element root_mock = context.mock(Element.class, "root");
@@ -68,7 +40,7 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(AgentConfiguration.TAG_NAME);
+				oneOf(root_mock).getChild(Tag.AGENT_NAME);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -88,7 +60,7 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(AgentConfiguration.TAG_CLASS_NAME);
+				oneOf(root_mock).getChild(Tag.AGENT_CLASS);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -159,23 +131,52 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(AgentConfiguration.TAG_NAME);
+				oneOf(root_mock).getChild(Tag.AGENT_NAME);
 				will(returnValue(element1_mock));
 
 				oneOf(element1_mock).getTextTrim();
 				will(returnValue(text1));
 
-				oneOf(root_mock).getChild(AgentConfiguration.TAG_CLASS_NAME);
+				oneOf(root_mock).getChild(Tag.AGENT_CLASS);
 				will(returnValue(element2_mock));
 
 				oneOf(element2_mock).getTextTrim();
 				will(returnValue(text2));
 
-				oneOf(root_mock).getChild(AgentConfiguration.TAG_PARAMETERS);
+				oneOf(root_mock).getChild(Tag.AGENT_PARAMETERS);
 				will(returnValue(null));
 			}
 		});
 
 		testable.load(root_mock);
+	}
+
+	@Test
+	public void getAgentName() {
+		final String agentName = "instance";
+
+		testable.name = agentName;
+
+		Assert.assertEquals(agentName, testable.getAgentName());
+	}
+
+	@Test
+	public void getAgentClass() {
+		final String agentClass = "class";
+
+		testable.className = agentClass;
+
+		Assert.assertEquals(agentClass, testable.getAgentClass());
+	}
+
+	@Test
+	public void getAgentParameters() {
+		final String parameter = "parameter";
+
+		testable.parameters.add(parameter);
+
+		Object[] parameters = testable.getAgentParameters();
+		Assert.assertEquals(1, parameters.length);
+		Assert.assertEquals(parameter, parameters[0]);
 	}
 }

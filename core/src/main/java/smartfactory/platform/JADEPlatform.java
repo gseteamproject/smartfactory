@@ -74,10 +74,13 @@ public class JADEPlatform implements AgentPlatform {
 		props.setBooleanProperty(Profile.GUI, configuration.getGUI());
 
 		ProfileImpl profile = new ProfileImpl(props);
-		if (configuration.IsMainContainer()) {
+		switch (configuration.getContainerType()) {
+		case MainContainer:
 			container = rt.createMainContainer(profile);
-		} else {
+			break;
+		default:
 			container = rt.createAgentContainer(profile);
+			break;
 		}
 	}
 

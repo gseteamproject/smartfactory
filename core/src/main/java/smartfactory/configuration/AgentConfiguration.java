@@ -9,15 +9,7 @@ import org.slf4j.LoggerFactory;
 
 public class AgentConfiguration {
 
-	static final String TAG_AGENT = "agent";
-
-	static final String TAG_NAME = "name";
-
-	static final String TAG_CLASS_NAME = "class";
-
-	static final String TAG_PARAMETERS = "parameters";
-
-	static final String TAG_PARAMETER = "parameter";
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public String name;
 
@@ -29,19 +21,6 @@ public class AgentConfiguration {
 		this.parameters = new ArrayList<String>();
 	}
 
-	public String getStartupParameters() {
-		String startupParameters = name + ":" + className;
-		if (!parameters.isEmpty()) {
-			startupParameters += "(";
-			for (String parameter : parameters) {
-				startupParameters += parameter + ",";
-			}
-			startupParameters = startupParameters.substring(0, startupParameters.length() - 1);
-			startupParameters += ")";
-		}
-		return startupParameters;
-	}
-
 	public void load(Element root) {
 		loadName(root);
 		loadClassName(root);
@@ -49,29 +28,26 @@ public class AgentConfiguration {
 	}
 
 	void loadName(Element root) {
-		Element element = root.getChild(TAG_NAME);
+		Element element = root.getChild(Tag.AGENT_NAME);
 		name = element.getTextTrim();
-		logger.info("{} : {}", TAG_NAME, name);
+		logger.info("{} : {}", Tag.AGENT_NAME, name);
 	}
 
 	void loadClassName(Element root) {
-		Element element = root.getChild(TAG_CLASS_NAME);
+		Element element = root.getChild(Tag.AGENT_CLASS);
 		className = element.getTextTrim();
-		logger.info("{} : {}", TAG_CLASS_NAME, className);
+		logger.info("{} : {}", Tag.AGENT_CLASS, className);
 	}
 
 	void loadParameters(Element root) {
-		Element element = root.getChild(TAG_PARAMETERS);
+		Element element = root.getChild(Tag.AGENT_PARAMETERS);
 		if (element != null) {
-			List<Element> elements = element.getChildren(TAG_PARAMETER);
-			for (Element e : elements) {
+			for (Element e : element.getChildren(Tag.AGENT_PARAMETERS_PARAMETER)) {
 				parameters.add(e.getTextTrim());
 			}
 		}
-		logger.info("{} : {}", TAG_PARAMETERS, parameters);
+		logger.info("{} : {}", Tag.AGENT_PARAMETERS, parameters);
 	}
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	public String getAgentName() {
 		return name;
