@@ -29,41 +29,41 @@ public class ContainerConfiguration {
 	}
 
 	void loadHost(Element root) {
-		Element element = root.getChild(Tag.HOST);
+		Element element = root.getChild(ConfigurationTag.HOST);
 		if (element != null) {
 			host = element.getTextTrim();
 		}
-		logger.info("{} : {}", Tag.HOST, host);
+		logger.info("{} : {}", ConfigurationTag.HOST, host);
 	}
 
 	void loadLocalHost(Element root) {
-		Element element = root.getChild(Tag.LOCAL_HOST);
+		Element element = root.getChild(ConfigurationTag.LOCAL_HOST);
 		if (element != null) {
 			localhost = element.getTextTrim();
 		}
-		logger.info("{} : {}", Tag.LOCAL_HOST, localhost);
+		logger.info("{} : {}", ConfigurationTag.LOCAL_HOST, localhost);
 	}
 
 	void loadContainerName(Element root) {
-		Element element = root.getChild(Tag.CONTAINER_NAME);
+		Element element = root.getChild(ConfigurationTag.CONTAINER_NAME);
 		if (element != null) {
 			containerName = element.getTextTrim();
 		}
-		logger.info("{} : {}", Tag.CONTAINER_NAME, containerName);
+		logger.info("{} : {}", ConfigurationTag.CONTAINER_NAME, containerName);
 	}
 
 	void loadContainerType(Element root) {
-		Element element = root.getChild(Tag.CONTAINER_TYPE);
+		Element element = root.getChild(ConfigurationTag.CONTAINER_TYPE);
 		if (element != null) {
 			if (element.getTextTrim().compareToIgnoreCase("container") == 0) {
 				containerType = ContainerType.Container;
 			}
 		}
-		logger.info("{} : {}", Tag.CONTAINER_TYPE, containerType);
+		logger.info("{} : {}", ConfigurationTag.CONTAINER_TYPE, containerType);
 	}
 
 	void loadRma(Element root) {
-		Element element = root.getChild(Tag.RMA);
+		Element element = root.getChild(ConfigurationTag.RMA);
 		if (element != null) {
 			rma = Boolean.parseBoolean(element.getTextTrim());
 		}

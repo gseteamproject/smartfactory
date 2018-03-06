@@ -40,7 +40,7 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.AGENT_NAME);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_NAME);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -60,7 +60,7 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.AGENT_CLASS);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_CLASS);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -131,19 +131,19 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.AGENT_NAME);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_NAME);
 				will(returnValue(element1_mock));
 
 				oneOf(element1_mock).getTextTrim();
 				will(returnValue(text1));
 
-				oneOf(root_mock).getChild(Tag.AGENT_CLASS);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_CLASS);
 				will(returnValue(element2_mock));
 
 				oneOf(element2_mock).getTextTrim();
 				will(returnValue(text2));
 
-				oneOf(root_mock).getChild(Tag.AGENT_PARAMETERS);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
 				will(returnValue(null));
 			}
 		});

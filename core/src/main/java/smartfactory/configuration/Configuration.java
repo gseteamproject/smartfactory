@@ -19,8 +19,8 @@ public class Configuration {
 	}
 
 	public void load(Element root) {
-		containerConfiguration.load(root.getChild(Tag.CONTAINER));
-		agentConfigurations.load(root.getChild(Tag.AGENTS));
+		containerConfiguration.load(root.getChild(ConfigurationTag.CONTAINER));
+		agentConfigurations.load(root.getChild(ConfigurationTag.AGENTS));
 	}
 
 	public ContainerConfiguration getContainerConfiguration() {

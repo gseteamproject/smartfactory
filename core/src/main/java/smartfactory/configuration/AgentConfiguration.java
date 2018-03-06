@@ -28,25 +28,25 @@ public class AgentConfiguration {
 	}
 
 	void loadName(Element root) {
-		Element element = root.getChild(Tag.AGENT_NAME);
+		Element element = root.getChild(ConfigurationTag.AGENT_NAME);
 		name = element.getTextTrim();
-		logger.info("{} : {}", Tag.AGENT_NAME, name);
+		logger.info("{} : {}", ConfigurationTag.AGENT_NAME, name);
 	}
 
 	void loadClassName(Element root) {
-		Element element = root.getChild(Tag.AGENT_CLASS);
+		Element element = root.getChild(ConfigurationTag.AGENT_CLASS);
 		className = element.getTextTrim();
-		logger.info("{} : {}", Tag.AGENT_CLASS, className);
+		logger.info("{} : {}", ConfigurationTag.AGENT_CLASS, className);
 	}
 
 	void loadParameters(Element root) {
-		Element element = root.getChild(Tag.AGENT_PARAMETERS);
+		Element element = root.getChild(ConfigurationTag.AGENT_PARAMETERS);
 		if (element != null) {
-			for (Element e : element.getChildren(Tag.AGENT_PARAMETERS_PARAMETER)) {
+			for (Element e : element.getChildren(ConfigurationTag.AGENT_PARAMETERS_PARAMETER)) {
 				parameters.add(e.getTextTrim());
 			}
 		}
-		logger.info("{} : {}", Tag.AGENT_PARAMETERS, parameters);
+		logger.info("{} : {}", ConfigurationTag.AGENT_PARAMETERS, parameters);
 	}
 
 	public String getAgentName() {

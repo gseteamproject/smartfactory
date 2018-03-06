@@ -41,17 +41,17 @@ public class ConfigurationTest {
 	@Test
 	public void load() {
 		Element rootElement_mock = context.mock(Element.class);
-		Element containerElement_mock = context.mock(Element.class, Tag.CONTAINER);
-		Element agentsElement_mock = context.mock(Element.class, Tag.AGENTS);
+		Element containerElement_mock = context.mock(Element.class, ConfigurationTag.CONTAINER);
+		Element agentsElement_mock = context.mock(Element.class, ConfigurationTag.AGENTS);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(rootElement_mock).getChild(Tag.CONTAINER);
+				oneOf(rootElement_mock).getChild(ConfigurationTag.CONTAINER);
 				will(returnValue(containerElement_mock));
 
 				oneOf(containerConfiguration_mock).load(containerElement_mock);
 
-				oneOf(rootElement_mock).getChild(Tag.AGENTS);
+				oneOf(rootElement_mock).getChild(ConfigurationTag.AGENTS);
 				will(returnValue(agentsElement_mock));
 
 				oneOf(agentConfigurations_mock).load(agentsElement_mock);

@@ -41,14 +41,14 @@ public class AgentConfigurationsTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChildren(Tag.AGENT);
+				oneOf(root_mock).getChildren(ConfigurationTag.AGENT);
 				will(returnValue(elements));
 
-				oneOf(element_mock).getChild(Tag.AGENT_NAME);
+				oneOf(element_mock).getChild(ConfigurationTag.AGENT_NAME);
 
-				oneOf(element_mock).getChild(Tag.AGENT_CLASS);
+				oneOf(element_mock).getChild(ConfigurationTag.AGENT_CLASS);
 
-				oneOf(element_mock).getChild(Tag.AGENT_PARAMETERS);
+				oneOf(element_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
 			}
 		});
 

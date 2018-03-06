@@ -39,7 +39,7 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.CONTAINER_NAME);
+				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER_NAME);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -59,7 +59,7 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.CONTAINER_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER_TYPE);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -79,7 +79,7 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.CONTAINER_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER_TYPE);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -99,7 +99,7 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.RMA);
+				oneOf(root_mock).getChild(ConfigurationTag.RMA);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -119,7 +119,7 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.HOST);
+				oneOf(root_mock).getChild(ConfigurationTag.HOST);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -139,7 +139,7 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.LOCAL_HOST);
+				oneOf(root_mock).getChild(ConfigurationTag.LOCAL_HOST);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -157,19 +157,19 @@ public class ContainerConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(Tag.CONTAINER_NAME);
+				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER_NAME);
 				will(returnValue(null));
 
-				oneOf(root_mock).getChild(Tag.CONTAINER_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER_TYPE);
 				will(returnValue(null));
 
-				oneOf(root_mock).getChild(Tag.RMA);
+				oneOf(root_mock).getChild(ConfigurationTag.RMA);
 				will(returnValue(null));
 
-				oneOf(root_mock).getChild(Tag.HOST);
+				oneOf(root_mock).getChild(ConfigurationTag.HOST);
 				will(returnValue(null));
 
-				oneOf(root_mock).getChild(Tag.LOCAL_HOST);
+				oneOf(root_mock).getChild(ConfigurationTag.LOCAL_HOST);
 				will(returnValue(null));
 			}
 		});

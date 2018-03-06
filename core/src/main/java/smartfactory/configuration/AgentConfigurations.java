@@ -18,7 +18,7 @@ public class AgentConfigurations {
 	}
 
 	public void load(Element root) {
-		for (Element agent : root.getChildren(Tag.AGENT)) {
+		for (Element agent : root.getChildren(ConfigurationTag.AGENT)) {
 			AgentConfiguration agentConfiguration = new AgentConfiguration();
 			agentConfiguration.load(agent);
 			agentConfigurations.add(agentConfiguration);
