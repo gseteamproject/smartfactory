@@ -10,17 +10,4 @@
 	</parent>
 	<artifactId>core</artifactId>
 	<name>${project.artifactId}</name>
-	<repositories>
-		<repository>
-			<id>tilab</id>
-			<url>http://jade.tilab.com/maven/</url>
-		</repository>
-	</repositories>
-	<dependencies>
-		<dependency>
-			<groupId>com.tilab.jade</groupId>
-			<artifactId>jade</artifactId>
-			<version>4.5.0</version>
-		</dependency>
-	</dependencies>
 </project>
