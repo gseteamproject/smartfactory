@@ -10,6 +10,7 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.base.EventSubscriptionResponderBehaviour;
 import smartfactory.behaviours.base.SelfSubscribeBehaviour;
+import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.AgentService;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.platform.JADEPlatform;
@@ -97,5 +98,9 @@ public class BaseAgent extends Agent {
 
 	private void deregisterServices() {
 		agentPlatform.deregisterAgentServices();
+	}
+
+	public AgentConfiguration getAgentConfiguration() {
+		return (AgentConfiguration) getArguments()[0];
 	}
 }

@@ -187,13 +187,7 @@ public class AgentConfigurationTest {
 
 	@Test
 	public void getAgentParameters() {
-		final String parameter = "parameter";
-
-		testable.parameters.add(parameter);
-
-		Object[] parameters = testable.getAgentParameters();
-		Assert.assertEquals(1, parameters.length);
-		Assert.assertEquals(parameter, parameters[0]);
+		Assert.assertArrayEquals(new Object[] { testable }, testable.getAgentParameters());
 	}
 
 	@Test

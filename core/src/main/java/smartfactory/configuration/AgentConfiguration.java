@@ -76,7 +76,7 @@ public class AgentConfiguration {
 	}
 
 	public Object[] getAgentParameters() {
-		return parameters.toArray();
+		return new Object[] { this };
 	}
 
 	public ResourceType getResourceType() {
