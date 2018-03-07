@@ -7,36 +7,46 @@ import org.jdom2.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import smartfactory.models.ResourceType;
+
 public class AgentConfiguration {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public String name;
+	String agentName;
 
-	public String className;
+	String agentClass;
 
-	public List<String> parameters;
+	List<String> parameters = new ArrayList<String>();
+
+	ResourceType resourceType = ResourceType.none;
 
 	public AgentConfiguration() {
-		this.parameters = new ArrayList<String>();
+		this(null, null);
+	}
+
+	public AgentConfiguration(String agentName, String agentClass) {
+		this.agentName = agentName;
+		this.agentClass = agentClass;
 	}
 
 	public void load(Element root) {
 		loadName(root);
 		loadClassName(root);
+		loadResourceType(root);
 		loadParameters(root);
 	}
 
 	void loadName(Element root) {
 		Element element = root.getChild(ConfigurationTag.AGENT_NAME);
-		name = element.getTextTrim();
-		logger.info("{} : {}", ConfigurationTag.AGENT_NAME, name);
+		agentName = element.getTextTrim();
+		logger.info("{} : {}", ConfigurationTag.AGENT_NAME, agentName);
 	}
 
 	void loadClassName(Element root) {
 		Element element = root.getChild(ConfigurationTag.AGENT_CLASS);
-		className = element.getTextTrim();
-		logger.info("{} : {}", ConfigurationTag.AGENT_CLASS, className);
+		agentClass = element.getTextTrim();
+		logger.info("{} : {}", ConfigurationTag.AGENT_CLASS, agentClass);
 	}
 
 	void loadParameters(Element root) {
@@ -49,15 +59,27 @@ public class AgentConfiguration {
 		logger.info("{} : {}", ConfigurationTag.AGENT_PARAMETERS, parameters);
 	}
 
+	void loadResourceType(Element root) {
+		Element element = root.getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+		if (element != null) {
+			resourceType = ResourceType.valueOf(element.getTextTrim());
+		}
+		logger.info("{} : {}", ConfigurationTag.AGENT_RESOURCE_TYPE, resourceType);
+	}
+
 	public String getAgentName() {
-		return name;
+		return agentName;
 	}
 
 	public String getAgentClass() {
-		return className;
+		return agentClass;
 	}
 
 	public Object[] getAgentParameters() {
 		return parameters.toArray();
+	}
+
+	public ResourceType getResourceType() {
+		return resourceType;
 	}
 }

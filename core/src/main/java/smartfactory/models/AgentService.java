@@ -16,12 +16,12 @@ public class AgentService {
 
 	protected AgentDataStore agentDataStore;
 
-	public AgentService(String name, AgentDataStore agentDataStore) {
-		this.name = name;
+	public AgentService(String serviceName, AgentDataStore agentDataStore) {
+		this.name = serviceName;
 		this.agentDataStore = agentDataStore;
 
 		description = new ServiceDescription();
-		description.setName(name);
+		description.setName(serviceName);
 		description.setType("");
 	}
 

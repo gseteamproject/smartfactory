@@ -5,10 +5,6 @@ import smartfactory.models.Process;
 
 public class BlockProcessAgent extends ProcessAgent {
 
-	static public String getUniqueName() {
-		return "block-" + Long.toString(System.currentTimeMillis());
-	}
-
 	@Override
 	public Process createProcess() {
 		return new BlockProcess();

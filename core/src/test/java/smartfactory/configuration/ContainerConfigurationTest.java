@@ -52,7 +52,7 @@ public class ContainerConfigurationTest {
 	}
 
 	@Test
-	public void loadContainerType_mainContainer() {
+	public void loadContainerType() {
 		final String text = "MainContainer";
 		Element root_mock = context.mock(Element.class, "root");
 		Element element_mock = context.mock(Element.class, "element");
@@ -69,26 +69,6 @@ public class ContainerConfigurationTest {
 
 		testable.loadContainerType(root_mock);
 		Assert.assertEquals(ContainerType.MainContainer, testable.containerType);
-	}
-
-	@Test
-	public void loadContainerType_container() {
-		final String text = "Container";
-		Element root_mock = context.mock(Element.class, "root");
-		Element element_mock = context.mock(Element.class, "element");
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER_TYPE);
-				will(returnValue(element_mock));
-
-				oneOf(element_mock).getTextTrim();
-				will(returnValue(text));
-			}
-		});
-
-		testable.loadContainerType(root_mock);
-		Assert.assertEquals(ContainerType.Container, testable.containerType);
 	}
 
 	@Test

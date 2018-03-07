@@ -55,9 +55,7 @@ public class ContainerConfiguration {
 	void loadContainerType(Element root) {
 		Element element = root.getChild(ConfigurationTag.CONTAINER_TYPE);
 		if (element != null) {
-			if (element.getTextTrim().compareToIgnoreCase("container") == 0) {
-				containerType = ContainerType.Container;
-			}
+			containerType = ContainerType.valueOf(element.getTextTrim());
 		}
 		logger.info("{} : {}", ConfigurationTag.CONTAINER_TYPE, containerType);
 	}

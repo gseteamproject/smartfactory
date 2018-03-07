@@ -11,18 +11,22 @@
 		<agent>
 			<name>warehouse</name>
 			<class>smartfactory.agents.WarehouseAgent</class>
+			<resource-type>virtual</resource-type>
 		</agent>
 		<agent>
 			<name>factory</name>
 			<class>smartfactory.agents.FactoryAgent</class>
+			<resource-type>virtual</resource-type>
 		</agent>
 		<agent>
 			<name>cleaning-station</name>
 			<class>smartfactory.agents.CleaningStationAgent</class>
+			<resource-type>virtual</resource-type>
 		</agent>
 		<agent>
 			<name>painting-station</name>
 			<class>smartfactory.agents.PaintingStationAgent</class>
+			<resource-type>virtual</resource-type>
 		</agent>
 	</agents>
 </configuration>

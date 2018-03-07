@@ -48,7 +48,11 @@ public class AgentConfigurationsTest {
 
 				oneOf(element_mock).getChild(ConfigurationTag.AGENT_CLASS);
 
+				oneOf(element_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				will(returnValue(null));
+
 				oneOf(element_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
+				will(returnValue(null));
 			}
 		});
 

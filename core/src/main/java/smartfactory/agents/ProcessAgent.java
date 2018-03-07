@@ -8,10 +8,6 @@ public class ProcessAgent extends BaseAgent {
 
 	private static final long serialVersionUID = 4558559070184477446L;
 
-	public Process createProcess() {
-		return new Process();
-	}
-
 	@Override
 	protected void setupData() {
 		super.setupData();
@@ -23,5 +19,13 @@ public class ProcessAgent extends BaseAgent {
 	protected void setupBehaviours() {
 		super.setupBehaviours();
 		addBehaviour(new ProcessBehaviour(agentDataStore));
+	}
+
+	public Process createProcess() {
+		return new Process();
+	}
+
+	public static String getUniqueName() {
+		return "process-" + Long.toString(System.currentTimeMillis());
 	}
 }

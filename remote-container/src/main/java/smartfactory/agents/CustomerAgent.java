@@ -32,17 +32,14 @@ public class CustomerAgent extends BaseAgent {
 		presenter.hide();
 	}
 
-	String processAgentName;
-
 	public void createOrder() {
-		processAgentName = OrderProcessAgent.getUniqueName();
-		AgentConfiguration subAgentConfiguration = new AgentConfiguration();
-		subAgentConfiguration.name = processAgentName;
-		subAgentConfiguration.className = OrderProcessAgent.class.getName();
-		agentDataStore.setSubAgentConfiguration(subAgentConfiguration);
+		String agentName = OrderProcessAgent.getUniqueName();
+		String agentClass = OrderProcessAgent.class.getName();
+		AgentConfiguration agentConfiguration = new AgentConfiguration(agentName, agentClass);
+		agentDataStore.setSubAgentConfiguration(agentConfiguration);
 
 		addBehaviour(new LaunchAgentBehaviour(agentDataStore));
-		addBehaviour(new EventSubscriptionInitiatorBehaviour(processAgentName, "process-status", new EventHandler() {
+		addBehaviour(new EventSubscriptionInitiatorBehaviour(agentName, "process-status", new EventHandler() {
 			public void callback(ACLMessage message) {
 				String result = message.getContent();
 				if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {

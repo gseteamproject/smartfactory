@@ -12,6 +12,8 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import smartfactory.models.ResourceType;
+
 public class AgentConfigurationTest {
 
 	private final Mockery context = new Mockery() {
@@ -49,7 +51,7 @@ public class AgentConfigurationTest {
 		});
 
 		testable.loadName(root_mock);
-		Assert.assertEquals(text, testable.name);
+		Assert.assertEquals(text, testable.agentName);
 	}
 
 	@Test
@@ -69,7 +71,7 @@ public class AgentConfigurationTest {
 		});
 
 		testable.loadClassName(root_mock);
-		Assert.assertEquals(text, testable.className);
+		Assert.assertEquals(text, testable.agentClass);
 	}
 
 	@Test
@@ -107,41 +109,50 @@ public class AgentConfigurationTest {
 	}
 
 	@Test
-	public void loadParameters_no_parameters() {
+	public void loadResourceType() {
+		final String text = "virtual";
+
 		Element root_mock = context.mock(Element.class, "root");
+		Element element_mock = context.mock(Element.class, "element");
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild("parameters");
-				will(returnValue(null));
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				will(returnValue(element_mock));
+
+				oneOf(element_mock).getTextTrim();
+				will(returnValue(text));
 			}
 		});
 
-		testable.loadParameters(root_mock);
-		Assert.assertEquals(0, testable.parameters.size());
+		testable.loadResourceType(root_mock);
+		Assert.assertEquals(ResourceType.virtual, testable.resourceType);
 	}
 
 	@Test
 	public void load() {
-		final String text1 = "text1";
-		final String text2 = "text2";
+		final String agentName = "name";
+		final String agentClass = "class";
 		Element root_mock = context.mock(Element.class, "root");
-		Element element1_mock = context.mock(Element.class, "element1");
-		Element element2_mock = context.mock(Element.class, "element2");
+		Element nameElement_mock = context.mock(Element.class, ConfigurationTag.AGENT_NAME);
+		Element classElement_mock = context.mock(Element.class, ConfigurationTag.AGENT_CLASS);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(root_mock).getChild(ConfigurationTag.AGENT_NAME);
-				will(returnValue(element1_mock));
+				will(returnValue(nameElement_mock));
 
-				oneOf(element1_mock).getTextTrim();
-				will(returnValue(text1));
+				oneOf(nameElement_mock).getTextTrim();
+				will(returnValue(agentName));
 
 				oneOf(root_mock).getChild(ConfigurationTag.AGENT_CLASS);
-				will(returnValue(element2_mock));
+				will(returnValue(classElement_mock));
 
-				oneOf(element2_mock).getTextTrim();
-				will(returnValue(text2));
+				oneOf(classElement_mock).getTextTrim();
+				will(returnValue(agentClass));
+
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				will(returnValue(null));
 
 				oneOf(root_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
 				will(returnValue(null));
@@ -149,13 +160,18 @@ public class AgentConfigurationTest {
 		});
 
 		testable.load(root_mock);
+
+		Assert.assertEquals(agentName, testable.agentName);
+		Assert.assertEquals(agentClass, testable.agentClass);
+		Assert.assertEquals(ResourceType.none, testable.resourceType);
+		Assert.assertEquals(0, testable.parameters.size());
 	}
 
 	@Test
 	public void getAgentName() {
 		final String agentName = "instance";
 
-		testable.name = agentName;
+		testable.agentName = agentName;
 
 		Assert.assertEquals(agentName, testable.getAgentName());
 	}
@@ -164,7 +180,7 @@ public class AgentConfigurationTest {
 	public void getAgentClass() {
 		final String agentClass = "class";
 
-		testable.className = agentClass;
+		testable.agentClass = agentClass;
 
 		Assert.assertEquals(agentClass, testable.getAgentClass());
 	}
@@ -178,5 +194,14 @@ public class AgentConfigurationTest {
 		Object[] parameters = testable.getAgentParameters();
 		Assert.assertEquals(1, parameters.length);
 		Assert.assertEquals(parameter, parameters[0]);
+	}
+
+	@Test
+	public void getResourceType() {
+		final ResourceType resourceType = ResourceType.none;
+
+		testable.resourceType = resourceType;
+
+		Assert.assertEquals(resourceType, testable.getResourceType());
 	}
 }

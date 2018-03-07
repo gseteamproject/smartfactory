@@ -25,4 +25,6 @@ public class ConfigurationTag {
 	public static final String AGENT_PARAMETERS = "parameters";
 
 	public static final String AGENT_PARAMETERS_PARAMETER = "parameter";
+
+	public static final String AGENT_RESOURCE_TYPE = "resource-type";
 }
