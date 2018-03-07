@@ -9,6 +9,10 @@ public class Resource {
 
 	public final static int DURATION_LIMIT = 5;
 
+	public Resource() {
+		logger.info("created");
+	}
+
 	public void execute(String operationName) {
 		logger.info("executing \"{}\"", operationName);
 	}

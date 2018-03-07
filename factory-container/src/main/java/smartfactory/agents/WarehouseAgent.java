@@ -10,7 +10,7 @@ public class WarehouseAgent extends ResourceAgent {
 	private static final long serialVersionUID = -5919274387044865830L;
 
 	@Override
-	public Resource createResource() {
+	public Resource createPhysicalResource() {
 		return new Warehouse();
 	}
 

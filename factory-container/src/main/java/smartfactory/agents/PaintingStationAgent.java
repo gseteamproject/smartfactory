@@ -9,7 +9,7 @@ public class PaintingStationAgent extends ResourceAgent {
 	private static final long serialVersionUID = 5122917367234156798L;
 
 	@Override
-	public Resource createResource() {
+	public Resource createPhysicalResource() {
 		return new PaintingStation();
 	}
 

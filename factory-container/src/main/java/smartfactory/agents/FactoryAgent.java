@@ -9,7 +9,7 @@ public class FactoryAgent extends ResourceAgent {
 	private static final long serialVersionUID = 4282751471381265727L;
 
 	@Override
-	public Resource createResource() {
+	public Resource createPhysicalResource() {
 		return new Factory();
 	}
 

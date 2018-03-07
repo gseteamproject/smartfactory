@@ -8,7 +8,7 @@ import smartfactory.services.Services;
 public class LegoAgent extends ResourceAgent {
 
 	@Override
-	public Resource createResource() {
+	public Resource createPhysicalResource() {
 		return new Lego();
 	}
 

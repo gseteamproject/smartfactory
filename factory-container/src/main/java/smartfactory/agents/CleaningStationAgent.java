@@ -9,7 +9,7 @@ public class CleaningStationAgent extends ResourceAgent {
 	private static final long serialVersionUID = 7802182814289213994L;
 
 	@Override
-	public Resource createResource() {
+	public Resource createPhysicalResource() {
 		return new CleaningStation();
 	}
 
