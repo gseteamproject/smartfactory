@@ -33,6 +33,11 @@
 			<artifactId>slf4j-simple</artifactId>
 			<version>1.8.0-alpha2</version>
 		</dependency>
+		<dependency>
+			<groupId>com.github.bdeneuter</groupId>
+			<artifactId>lejos-ev3-api</artifactId>
+			<version>0.9.1-beta</version>
+		</dependency>
 	</dependencies>
 	<build>
 		<plugins>

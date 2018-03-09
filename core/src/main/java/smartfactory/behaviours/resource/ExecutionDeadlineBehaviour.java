@@ -13,7 +13,7 @@ public class ExecutionDeadlineBehaviour extends WakerBehaviour {
 
 	public ExecutionDeadlineBehaviour(ServiceProvisioningResponderBehaviour interactionBehaviour,
 			AgentDataStore agentDataStore) {
-		super(interactionBehaviour.getAgent(), Resource.DURATION_LIMIT * 1000);
+		super(interactionBehaviour.getAgent(), Resource.DURATION_LIMIT_IN_MILIS);
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = new ExecutionDeadline(agentDataStore);
 	}

@@ -7,7 +7,7 @@ public class Resource {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	public final static int DURATION_LIMIT = 5;
+	public final static int DURATION_LIMIT_IN_MILIS = 60000;
 
 	public Resource() {
 		logger.info("created");
