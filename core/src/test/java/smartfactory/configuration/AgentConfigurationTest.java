@@ -12,8 +12,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.models.ResourceType;
-
 public class AgentConfigurationTest {
 
 	private final Mockery context = new Mockery() {
@@ -88,10 +86,10 @@ public class AgentConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild("parameters");
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
 				will(returnValue(element_mock));
 
-				oneOf(element_mock).getChildren("parameter");
+				oneOf(element_mock).getChildren(ConfigurationTag.AGENT_PARAMETERS_PARAMETER);
 				will(returnValue(elements));
 
 				oneOf(element1_mock).getTextTrim();
@@ -109,24 +107,23 @@ public class AgentConfigurationTest {
 	}
 
 	@Test
-	public void loadResourceType() {
-		final String text = "virtual";
-
+	public void loadResourceConfiguration() {
 		Element root_mock = context.mock(Element.class, "root");
 		Element element_mock = context.mock(Element.class, "element");
 
+		ResourceConfiguration resourceConfiguration_mock = context.mock(ResourceConfiguration.class);
+		testable.resourceConfiguration = resourceConfiguration_mock;
+
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE);
 				will(returnValue(element_mock));
 
-				oneOf(element_mock).getTextTrim();
-				will(returnValue(text));
+				oneOf(resourceConfiguration_mock).load(element_mock);
 			}
 		});
 
-		testable.loadResourceType(root_mock);
-		Assert.assertEquals(ResourceType.virtual, testable.resourceType);
+		testable.loadResourceConfiguration(root_mock);
 	}
 
 	@Test
@@ -151,7 +148,7 @@ public class AgentConfigurationTest {
 				oneOf(classElement_mock).getTextTrim();
 				will(returnValue(agentClass));
 
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE);
 				will(returnValue(null));
 
 				oneOf(root_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
@@ -163,26 +160,17 @@ public class AgentConfigurationTest {
 
 		Assert.assertEquals(agentName, testable.agentName);
 		Assert.assertEquals(agentClass, testable.agentClass);
-		Assert.assertEquals(ResourceType.none, testable.resourceType);
 		Assert.assertEquals(0, testable.parameters.size());
 	}
 
 	@Test
 	public void getAgentName() {
-		final String agentName = "instance";
-
-		testable.agentName = agentName;
-
-		Assert.assertEquals(agentName, testable.getAgentName());
+		Assert.assertEquals(testable.agentName, testable.getAgentName());
 	}
 
 	@Test
 	public void getAgentClass() {
-		final String agentClass = "class";
-
-		testable.agentClass = agentClass;
-
-		Assert.assertEquals(agentClass, testable.getAgentClass());
+		Assert.assertEquals(testable.agentClass, testable.getAgentClass());
 	}
 
 	@Test
@@ -191,11 +179,7 @@ public class AgentConfigurationTest {
 	}
 
 	@Test
-	public void getResourceType() {
-		final ResourceType resourceType = ResourceType.none;
-
-		testable.resourceType = resourceType;
-
-		Assert.assertEquals(resourceType, testable.getResourceType());
+	public void getResourceConfiguration() {
+		Assert.assertEquals(testable.resourceConfiguration, testable.getResourceConfiguration());
 	}
 }

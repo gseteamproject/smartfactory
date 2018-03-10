@@ -11,7 +11,9 @@
 		<agent>
 			<name>lego-2</name>
 			<class>smartfactory.agents.LegoAgent</class>
-			<resource-type>virtual</resource-type>
+			<resource>
+				<type>virtual</type>
+			</resource>
 		</agent>
 	</agents>
 </configuration>

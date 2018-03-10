@@ -7,8 +7,6 @@ import org.jdom2.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import smartfactory.models.ResourceType;
-
 public class AgentConfiguration {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -19,7 +17,7 @@ public class AgentConfiguration {
 
 	List<String> parameters = new ArrayList<String>();
 
-	ResourceType resourceType = ResourceType.none;
+	ResourceConfiguration resourceConfiguration = new ResourceConfiguration();
 
 	public AgentConfiguration() {
 		this(null, null);
@@ -33,7 +31,7 @@ public class AgentConfiguration {
 	public void load(Element root) {
 		loadName(root);
 		loadClassName(root);
-		loadResourceType(root);
+		loadResourceConfiguration(root);
 		loadParameters(root);
 	}
 
@@ -59,12 +57,11 @@ public class AgentConfiguration {
 		logger.info("{} : {}", ConfigurationTag.AGENT_PARAMETERS, parameters);
 	}
 
-	void loadResourceType(Element root) {
-		Element element = root.getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+	void loadResourceConfiguration(Element root) {
+		Element element = root.getChild(ConfigurationTag.AGENT_RESOURCE);
 		if (element != null) {
-			resourceType = ResourceType.valueOf(element.getTextTrim());
+			resourceConfiguration.load(element);
 		}
-		logger.info("{} : {}", ConfigurationTag.AGENT_RESOURCE_TYPE, resourceType);
 	}
 
 	public String getAgentName() {
@@ -79,7 +76,7 @@ public class AgentConfiguration {
 		return new Object[] { this };
 	}
 
-	public ResourceType getResourceType() {
-		return resourceType;
+	public ResourceConfiguration getResourceConfiguration() {
+		return resourceConfiguration;
 	}
 }

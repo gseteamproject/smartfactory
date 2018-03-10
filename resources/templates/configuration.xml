@@ -11,7 +11,9 @@
 		<agent>
 			<name></name>
 			<class></class>
-			<resource-type></resource-type>
+			<resource>
+				<type></type>
+			</resource>
 			<parameters>
 				<parameter></parameter>
 			</parameters>

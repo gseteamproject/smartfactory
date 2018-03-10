@@ -8,7 +8,7 @@ public class ResourceAgent extends BaseAgent {
 	private static final long serialVersionUID = -1254510527324190708L;
 
 	protected Resource createResource() {
-		switch (getAgentConfiguration().getResourceType()) {
+		switch (getAgentConfiguration().getResourceConfiguration().getResourceType()) {
 		case physical:
 			return createPhysicalResource();
 		default:

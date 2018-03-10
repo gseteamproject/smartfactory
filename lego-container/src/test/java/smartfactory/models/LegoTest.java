@@ -4,7 +4,6 @@ import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
 
 public class LegoTest {
 
@@ -24,9 +23,5 @@ public class LegoTest {
 	@After
 	public void tearDown() {
 		context.assertIsSatisfied();
-	}
-
-	@Test
-	public void constructor() {
 	}
 }
