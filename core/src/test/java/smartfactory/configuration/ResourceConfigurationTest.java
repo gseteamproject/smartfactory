@@ -40,7 +40,7 @@ public class ResourceConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.RESOURCE_TYPE);
 				will(returnValue(element_mock));
 
 				oneOf(element_mock).getTextTrim();
@@ -58,7 +58,7 @@ public class ResourceConfigurationTest {
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+				oneOf(root_mock).getChild(ConfigurationTag.RESOURCE_TYPE);
 				will(returnValue(null));
 			}
 		});

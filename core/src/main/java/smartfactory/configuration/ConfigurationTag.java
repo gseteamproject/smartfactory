@@ -22,12 +22,17 @@ public class ConfigurationTag {
 
 	public static final String AGENT_CLASS = "class";
 
-	public static final String AGENT_PARAMETERS = "parameters";
+	public static final String RESOURCE = "resource";
 
-	public static final String AGENT_PARAMETERS_PARAMETER = "parameter";
+	public static final String RESOURCE_TYPE = "type";
 
-	public static final String AGENT_RESOURCE = "resource";
+	public static final String PROCESS = "process";
 
-	public static final String AGENT_RESOURCE_TYPE = "type";
+	public static final String PROCESS_NAME = "name";
 
+	public static final String PROCESS_OPERATIONS = "operations";
+
+	public static final String PROCESS_OPERATION = "operation";
+
+	public static final String PROCESS_OPERATION_NAME = "name";
 }

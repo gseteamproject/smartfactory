@@ -21,16 +21,14 @@ public class ConfigurationTest {
 	};
 
 	ContainerConfiguration containerConfiguration_mock;
-	AgentConfigurations agentConfigurations_mock;
 
 	Configuration testable;
 
 	@Before
 	public void startUp() {
 		containerConfiguration_mock = context.mock(ContainerConfiguration.class);
-		agentConfigurations_mock = context.mock(AgentConfigurations.class);
 
-		testable = new Configuration(containerConfiguration_mock, agentConfigurations_mock);
+		testable = new Configuration(containerConfiguration_mock);
 	}
 
 	@After
@@ -40,25 +38,39 @@ public class ConfigurationTest {
 
 	@Test
 	public void load() {
-		Element rootElement_mock = context.mock(Element.class);
-		Element containerElement_mock = context.mock(Element.class, ConfigurationTag.CONTAINER);
-		Element agentsElement_mock = context.mock(Element.class, ConfigurationTag.AGENTS);
+		Element root_mock = context.mock(Element.class);
+		Element container_mock = context.mock(Element.class, ConfigurationTag.CONTAINER);
+		Element agents_mock = context.mock(Element.class, ConfigurationTag.AGENTS);
+		Element agent_mock = context.mock(Element.class, ConfigurationTag.AGENT);
+		List<Element> agents = new ArrayList<Element>();
+		agents.add(agent_mock);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(rootElement_mock).getChild(ConfigurationTag.CONTAINER);
-				will(returnValue(containerElement_mock));
+				oneOf(root_mock).getChild(ConfigurationTag.CONTAINER);
+				will(returnValue(container_mock));
 
-				oneOf(containerConfiguration_mock).load(containerElement_mock);
+				oneOf(containerConfiguration_mock).load(container_mock);
 
-				oneOf(rootElement_mock).getChild(ConfigurationTag.AGENTS);
-				will(returnValue(agentsElement_mock));
+				oneOf(root_mock).getChild(ConfigurationTag.AGENTS);
+				will(returnValue(agents_mock));
 
-				oneOf(agentConfigurations_mock).load(agentsElement_mock);
+				oneOf(agents_mock).getChildren(ConfigurationTag.AGENT);
+				will(returnValue(agents));
+
+				oneOf(agent_mock).getChild(ConfigurationTag.AGENT_NAME);
+
+				oneOf(agent_mock).getChild(ConfigurationTag.AGENT_CLASS);
+
+				oneOf(agent_mock).getChild(ConfigurationTag.RESOURCE);
+				will(returnValue(null));
+
+				oneOf(agent_mock).getChild(ConfigurationTag.PROCESS);
+				will(returnValue(null));
 			}
 		});
 
-		testable.load(rootElement_mock);
+		testable.load(root_mock);
 	}
 
 	@Test
@@ -68,15 +80,6 @@ public class ConfigurationTest {
 
 	@Test
 	public void getAgentsConfigurations() {
-		List<AgentConfiguration> agentConfigurations = new ArrayList<AgentConfiguration>();
-
-		context.checking(new Expectations() {
-			{
-				oneOf(agentConfigurations_mock).asList();
-				will(returnValue(agentConfigurations));
-			}
-		});
-
-		Assert.assertEquals(agentConfigurations, testable.getAgentConfigurations());
+		Assert.assertEquals(testable.agentConfigurations, testable.getAgentConfigurations());
 	}
 }

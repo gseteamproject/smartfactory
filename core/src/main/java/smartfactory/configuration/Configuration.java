@@ -1,5 +1,6 @@
 package smartfactory.configuration;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.jdom2.Element;
 
@@ -7,20 +8,32 @@ public class Configuration {
 
 	private ContainerConfiguration containerConfiguration;
 
-	private AgentConfigurations agentConfigurations;
+	List<AgentConfiguration> agentConfigurations = new ArrayList<AgentConfiguration>();
 
 	public Configuration() {
-		this(new ContainerConfiguration(), new AgentConfigurations());
+		this(new ContainerConfiguration());
 	}
 
-	public Configuration(ContainerConfiguration containerConfiguration, AgentConfigurations agentConfigurations) {
+	public Configuration(ContainerConfiguration containerConfiguration) {
 		this.containerConfiguration = containerConfiguration;
-		this.agentConfigurations = agentConfigurations;
 	}
 
 	public void load(Element root) {
+		loadContainerConfiguration(root);
+		loadAgentConfigurations(root);
+	}
+
+	void loadContainerConfiguration(Element root) {
 		containerConfiguration.load(root.getChild(ConfigurationTag.CONTAINER));
-		agentConfigurations.load(root.getChild(ConfigurationTag.AGENTS));
+	}
+
+	void loadAgentConfigurations(Element root) {
+		Element agents = root.getChild(ConfigurationTag.AGENTS);
+		for (Element agent : agents.getChildren(ConfigurationTag.AGENT)) {
+			AgentConfiguration agentConfiguration = new AgentConfiguration();
+			agentConfiguration.load(agent);
+			agentConfigurations.add(agentConfiguration);
+		}
 	}
 
 	public ContainerConfiguration getContainerConfiguration() {
@@ -28,6 +41,6 @@ public class Configuration {
 	}
 
 	public List<AgentConfiguration> getAgentConfigurations() {
-		return agentConfigurations.asList();
+		return agentConfigurations;
 	}
 }

@@ -14,9 +14,13 @@
 			<resource>
 				<type></type>
 			</resource>
-			<parameters>
-				<parameter></parameter>
-			</parameters>
+			<process>
+				<operations>
+					<operation>
+						<name></name>
+					</operation>
+				</operations>
+			</process>
 		</agent>
 	</agents>
 </configuration>

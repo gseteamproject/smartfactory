@@ -1,8 +1,5 @@
 package smartfactory.configuration;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jdom2.Element;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -73,57 +70,43 @@ public class AgentConfigurationTest {
 	}
 
 	@Test
-	public void loadParameters() {
-		final String text1 = "text1";
-		final String text2 = "text2";
-		Element root_mock = context.mock(Element.class, "root");
-		Element element_mock = context.mock(Element.class, "element");
-		List<Element> elements = new ArrayList<Element>();
-		Element element1_mock = context.mock(Element.class, "parameter1");
-		Element element2_mock = context.mock(Element.class, "parameter2");
-		elements.add(element1_mock);
-		elements.add(element2_mock);
-
-		context.checking(new Expectations() {
-			{
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
-				will(returnValue(element_mock));
-
-				oneOf(element_mock).getChildren(ConfigurationTag.AGENT_PARAMETERS_PARAMETER);
-				will(returnValue(elements));
-
-				oneOf(element1_mock).getTextTrim();
-				will(returnValue(text1));
-
-				oneOf(element2_mock).getTextTrim();
-				will(returnValue(text2));
-			}
-		});
-
-		testable.loadParameters(root_mock);
-		Assert.assertEquals(2, testable.parameters.size());
-		Assert.assertEquals(text1, testable.parameters.get(0));
-		Assert.assertEquals(text2, testable.parameters.get(1));
-	}
-
-	@Test
 	public void loadResourceConfiguration() {
 		Element root_mock = context.mock(Element.class, "root");
 		Element element_mock = context.mock(Element.class, "element");
 
-		ResourceConfiguration resourceConfiguration_mock = context.mock(ResourceConfiguration.class);
-		testable.resourceConfiguration = resourceConfiguration_mock;
+		ResourceConfiguration configuration_mock = context.mock(ResourceConfiguration.class);
+		testable.resourceConfiguration = configuration_mock;
 
 		context.checking(new Expectations() {
 			{
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE);
+				oneOf(root_mock).getChild(ConfigurationTag.RESOURCE);
 				will(returnValue(element_mock));
 
-				oneOf(resourceConfiguration_mock).load(element_mock);
+				oneOf(configuration_mock).load(element_mock);
 			}
 		});
 
 		testable.loadResourceConfiguration(root_mock);
+	}
+
+	@Test
+	public void loadProcessConfiguration() {
+		Element root_mock = context.mock(Element.class, "root");
+		Element element_mock = context.mock(Element.class, "element");
+
+		ProcessConfiguration configuration_mock = context.mock(ProcessConfiguration.class);
+		testable.processConfiguration = configuration_mock;
+
+		context.checking(new Expectations() {
+			{
+				oneOf(root_mock).getChild(ConfigurationTag.PROCESS);
+				will(returnValue(element_mock));
+
+				oneOf(configuration_mock).load(element_mock);
+			}
+		});
+
+		testable.loadProcessConfiguration(root_mock);
 	}
 
 	@Test
@@ -148,10 +131,10 @@ public class AgentConfigurationTest {
 				oneOf(classElement_mock).getTextTrim();
 				will(returnValue(agentClass));
 
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_RESOURCE);
+				oneOf(root_mock).getChild(ConfigurationTag.RESOURCE);
 				will(returnValue(null));
 
-				oneOf(root_mock).getChild(ConfigurationTag.AGENT_PARAMETERS);
+				oneOf(root_mock).getChild(ConfigurationTag.PROCESS);
 				will(returnValue(null));
 			}
 		});
@@ -160,7 +143,6 @@ public class AgentConfigurationTest {
 
 		Assert.assertEquals(agentName, testable.agentName);
 		Assert.assertEquals(agentClass, testable.agentClass);
-		Assert.assertEquals(0, testable.parameters.size());
 	}
 
 	@Test
@@ -181,5 +163,10 @@ public class AgentConfigurationTest {
 	@Test
 	public void getResourceConfiguration() {
 		Assert.assertEquals(testable.resourceConfiguration, testable.getResourceConfiguration());
+	}
+
+	@Test
+	public void getProcessConfiguration() {
+		Assert.assertEquals(testable.processConfiguration, testable.getProcessConfiguration());
 	}
 }

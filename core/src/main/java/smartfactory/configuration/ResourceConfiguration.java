@@ -17,11 +17,11 @@ public class ResourceConfiguration {
 	}
 
 	void loadResourceType(Element root) {
-		Element element = root.getChild(ConfigurationTag.AGENT_RESOURCE_TYPE);
+		Element element = root.getChild(ConfigurationTag.RESOURCE_TYPE);
 		if (element != null) {
 			resourceType = ResourceType.valueOf(element.getTextTrim());
 		}
-		logger.info("{} : {}", ConfigurationTag.AGENT_RESOURCE_TYPE, resourceType);
+		logger.info("{} : {}", ConfigurationTag.RESOURCE_TYPE, resourceType);
 	}
 
 	public ResourceType getResourceType() {
