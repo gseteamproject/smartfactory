@@ -22,7 +22,7 @@ public class ProcessAgent extends BaseAgent {
 	}
 
 	public Process createProcess() {
-		return new Process();
+		return new Process(getAgentConfiguration().getProcessConfiguration());
 	}
 
 	public static String getUniqueName() {

@@ -23,4 +23,8 @@ public class ProcessConfiguration {
 			}
 		}
 	}
+
+	public List<ProcessOperationConfiguration> getOperationsConfigurations() {
+		return operationConfigurations;
+	}
 }

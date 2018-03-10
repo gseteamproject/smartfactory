@@ -10,6 +10,13 @@ public class ProcessOperationConfiguration {
 
 	String name;
 
+	public ProcessOperationConfiguration() {
+	}
+
+	public ProcessOperationConfiguration(String name) {
+		this.name = name;
+	}
+
 	public void load(Element root) {
 		loadName(root);
 	}
