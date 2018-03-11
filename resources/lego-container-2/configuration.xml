@@ -11,8 +11,34 @@
 		<agent>
 			<name>lego-2</name>
 			<class>smartfactory.agents.LegoAgent</class>
+			<services>
+				<service>
+					<name>cleaning</name>
+					<type>worker</type>
+				</service>
+				<service>
+					<name>painting</name>
+					<type>worker</type>
+				</service>
+				<service>
+					<name>transport</name>
+					<type>worker</type>
+				</service>
+			</services>
 			<resource>
 				<type>virtual</type>
+				<timeout>60</timeout>
+				<operations>
+					<operation>
+						<name>cleaning</name>
+					</operation>
+					<operation>
+						<name>painting</name>
+					</operation>
+					<operation>
+						<name>transport</name>
+					</operation>
+				</operations>
 			</resource>
 		</agent>
 	</agents>

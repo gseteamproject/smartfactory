@@ -11,29 +11,91 @@
 		<agent>
 			<name>warehouse</name>
 			<class>smartfactory.agents.WarehouseAgent</class>
+			<services>
+				<service>
+					<name>store</name>
+					<type>station</type>
+				</service>
+				<service>
+					<name>recognition</name>
+					<type>station</type>
+				</service>
+				<service>
+					<name>packing</name>
+					<type>station</type>
+				</service>
+			</services>
 			<resource>
 				<type>virtual</type>
+				<timeout>60</timeout>
+				<operations>
+					<operation>
+						<name>store</name>
+					</operation>
+					<operation>
+						<name>recognition</name>
+					</operation>
+					<operation>
+						<name>packing</name>
+					</operation>
+				</operations>
 			</resource>
 		</agent>
 		<agent>
 			<name>factory</name>
 			<class>smartfactory.agents.FactoryAgent</class>
+			<services>
+				<service>
+					<name>production</name>
+					<type>station</type>
+				</service>
+			</services>
 			<resource>
 				<type>virtual</type>
+				<timeout>60</timeout>
+				<operations>
+					<operation>
+						<name>production</name>
+					</operation>
+				</operations>
 			</resource>
 		</agent>
 		<agent>
 			<name>cleaning-station</name>
 			<class>smartfactory.agents.CleaningStationAgent</class>
+			<services>
+				<service>
+					<name>cleaning</name>
+					<type>station</type>
+				</service>
+			</services>
 			<resource>
 				<type>virtual</type>
+				<timeout>60</timeout>
+				<operations>
+					<operation>
+						<name>cleaning</name>
+					</operation>
+				</operations>
 			</resource>
 		</agent>
 		<agent>
 			<name>painting-station</name>
 			<class>smartfactory.agents.PaintingStationAgent</class>
+			<services>
+				<service>
+					<name>painting</name>
+					<type>station</type>
+				</service>
+			</services>
 			<resource>
 				<type>virtual</type>
+				<timeout>60</timeout>
+				<operations>
+					<operation>
+						<name>painting</name>
+					</operation>
+				</operations>
 			</resource>
 		</agent>
 	</agents>

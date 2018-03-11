@@ -11,8 +11,20 @@
 		<agent>
 			<name></name>
 			<class></class>
+			<services>
+				<service>
+					<name></name>
+					<type></type>
+				</service>
+			</services>
 			<resource>
 				<type></type>
+				<timeout></timeout>
+				<operations>
+					<operation>
+						<name></name>
+					</operation>
+				</operations>
 			</resource>
 			<process>
 				<operations>
