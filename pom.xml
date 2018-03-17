@@ -11,6 +11,7 @@
 		<module>factory-container</module>
 		<module>lego-container</module>
 		<module>remote-container</module>
+		<module>testing</module>
 	</modules>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

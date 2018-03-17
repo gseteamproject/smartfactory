@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='utf-8'?>
+	<!DOCTYPE TesterList [
+		<!ELEMENT TesterList (Tester)*>
+		<!ELEMENT Tester (ClassName, Description, TestsListRif)>
+		<!ATTLIST Tester 
+		    name     CDATA    #REQUIRED
+		    skip     CDATA    #REQUIRED
+		>
+		<!ELEMENT ClassName (#PCDATA)>
+		<!ELEMENT Description (#PCDATA)>
+		<!ELEMENT TestsListRif (#PCDATA)>
+	]>
+<TesterList>
+</TesterList>
