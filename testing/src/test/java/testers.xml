@@ -11,4 +11,9 @@
 		<!ELEMENT TestsListRif (#PCDATA)>
 	]>
 <TesterList>
+	<Tester name="BaseAgent" skip="false">
+		<ClassName>smartfactory.agents.BaseAgentTester</ClassName>
+		<Description></Description>
+		<TestsListRif>smartfactory/agents/BaseAgentTestsList.xml</TestsListRif>
+	</Tester>
 </TesterList>
