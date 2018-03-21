@@ -1,11 +1,14 @@
 package smartfactory.configuration;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.jdom2.Element;
 
-public class ProcessConfiguration {
+public class ProcessConfiguration implements Serializable {
+
+	private static final long serialVersionUID = -6641687841806236917L;
 
 	List<ProcessOperationConfiguration> operationConfigurations = new ArrayList<ProcessOperationConfiguration>();
 

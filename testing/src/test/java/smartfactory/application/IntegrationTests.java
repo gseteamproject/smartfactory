@@ -10,6 +10,8 @@ import test.common.Test;
 
 public class IntegrationTests {
 
+	public static final long TIMEOUT = 60 * 1000;
+
 	public static void main(String[] args) {
 		String[] parameters = new String[2];
 		parameters[0] = "-gui";

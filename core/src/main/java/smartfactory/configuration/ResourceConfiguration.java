@@ -1,12 +1,16 @@
 package smartfactory.configuration;
 
+import java.io.Serializable;
+
 import org.jdom2.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import smartfactory.models.ResourceType;
 
-public class ResourceConfiguration {
+public class ResourceConfiguration implements Serializable {
+
+	private static final long serialVersionUID = -1758132012598449481L;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 

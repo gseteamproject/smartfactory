@@ -13,7 +13,7 @@
 <TesterList>
 	<Tester name="BaseAgent" skip="false">
 		<ClassName>smartfactory.agents.base.Tester</ClassName>
-		<Description></Description>
+		<Description>BaseAgent integration tests</Description>
 		<TestsListRif>smartfactory/agents/base/tests.xml</TestsListRif>
 	</Tester>
 </TesterList>

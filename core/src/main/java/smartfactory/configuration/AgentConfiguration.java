@@ -1,10 +1,14 @@
 package smartfactory.configuration;
 
+import java.io.Serializable;
+
 import org.jdom2.Element;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class AgentConfiguration {
+public class AgentConfiguration implements Serializable {
+
+	private static final long serialVersionUID = 141253071465599556L;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
