@@ -12,8 +12,8 @@
 	]>
 <TesterList>
 	<Tester name="BaseAgent" skip="false">
-		<ClassName>smartfactory.agents.BaseAgentTester</ClassName>
+		<ClassName>smartfactory.agents.base.Tester</ClassName>
 		<Description></Description>
-		<TestsListRif>smartfactory/agents/BaseAgentTestsList.xml</TestsListRif>
+		<TestsListRif>smartfactory/agents/base/tests.xml</TestsListRif>
 	</Tester>
 </TesterList>

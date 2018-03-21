@@ -16,8 +16,8 @@
 		>
 	]>
 <TestsList>
-	<Test name="Startup" skip="false">
-		<TestClassName>smartfactory.agents.base.Startup</TestClassName>
+	<Test name="LifecycleStates" skip="false">
+		<TestClassName>smartfactory.agents.base.LifecycleStates</TestClassName>
 		<WhatTest></WhatTest>
 		<HowWorkTest></HowWorkTest>
 		<WhenTestPass></WhenTestPass>

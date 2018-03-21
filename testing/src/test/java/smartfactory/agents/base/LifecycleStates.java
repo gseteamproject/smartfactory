@@ -6,7 +6,7 @@ import jade.core.behaviours.OneShotBehaviour;
 import test.common.Test;
 import test.common.TestException;
 
-public class Startup extends Test {
+public class LifecycleStates extends Test {
 
 	private static final long serialVersionUID = 1658372934317164405L;
 
