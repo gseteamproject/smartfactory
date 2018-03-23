@@ -21,4 +21,9 @@
 		<Description>ProcessAgent integration tests</Description>
 		<TestsListRif>smartfactory/agents/process/tests.xml</TestsListRif>
 	</Tester>
+	<Tester name="ResourceAgent" skip="false">
+		<ClassName>smartfactory.agents.resource.Tester</ClassName>
+		<Description>ResourceAgent integration tests</Description>
+		<TestsListRif>smartfactory/agents/resource/tests.xml</TestsListRif>
+	</Tester>
 </TesterList>

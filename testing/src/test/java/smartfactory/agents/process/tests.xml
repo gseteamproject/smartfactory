@@ -17,7 +17,8 @@
 	]>
 <TestsList>
 	<Test name="LifecycleStates" skip="false">
-		<TestClassName>smartfactory.agents.process.LifecycleStates</TestClassName>
+		<TestClassName>smartfactory.agents.process.LifecycleStates
+		</TestClassName>
 		<WhatTest>Initialization and shutdown of the ProcessAgent</WhatTest>
 		<HowWorkTest></HowWorkTest>
 		<WhenTestPass></WhenTestPass>

@@ -2,9 +2,9 @@
 	<!DOCTYPE TesterList [
 		<!ELEMENT TestsList (Test)*>
 		<!ELEMENT Test (TestClassName, WhatTest, HowWorkTest, WhenTestPass, Argument*)>
-		<!ATTLIST Test 
-	    	name     CDATA    #REQUIRED
-	    	skip     CDATA    #REQUIRED
+		<!ATTLIST Test
+			name     CDATA    #REQUIRED
+			skip     CDATA    #REQUIRED
 		>
 		<!ELEMENT WhatTest (#PCDATA)*>
 		<!ELEMENT HowWorkTest (#PCDATA)*>
@@ -17,9 +17,9 @@
 	]>
 <TestsList>
 	<Test name="LifecycleStates" skip="false">
-		<TestClassName>smartfactory.agents.base.LifecycleStates
+		<TestClassName>smartfactory.agents.resource.LifecycleStates
 		</TestClassName>
-		<WhatTest>Initialization and shutdown of the BaseAgent</WhatTest>
+		<WhatTest>Initialization and shutdown of the ResourceAgent</WhatTest>
 		<HowWorkTest></HowWorkTest>
 		<WhenTestPass></WhenTestPass>
 	</Test>

@@ -35,7 +35,7 @@ public class LifecycleStates extends Test {
 			}
 
 			private void startAgent() throws TestException {
-				agent = TestUtility.createAgent(tester, "process", smartfactory.agents.ProcessAgent.class.getName(),
+				agent = TestUtility.createAgent(tester, "agent", smartfactory.agents.ProcessAgent.class.getName(),
 						new AgentConfiguration().getAgentParameters());
 			}
 
