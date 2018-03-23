@@ -16,4 +16,9 @@
 		<Description>BaseAgent integration tests</Description>
 		<TestsListRif>smartfactory/agents/base/tests.xml</TestsListRif>
 	</Tester>
+	<Tester name="ProcessAgent" skip="false">
+		<ClassName>smartfactory.agents.process.Tester</ClassName>
+		<Description>ProcessAgent integration tests</Description>
+		<TestsListRif>smartfactory/agents/process/tests.xml</TestsListRif>
+	</Tester>
 </TesterList>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+	<!DOCTYPE TesterList [
+		<!ELEMENT TestsList (Test)*>
+		<!ELEMENT Test (TestClassName, WhatTest, HowWorkTest, WhenTestPass, Argument*)>
+		<!ATTLIST Test 
+	    	name     CDATA    #REQUIRED
+	    	skip     CDATA    #REQUIRED
+		>
+		<!ELEMENT WhatTest (#PCDATA)*>
+		<!ELEMENT HowWorkTest (#PCDATA)*>
+		<!ELEMENT WhenTestPass (#PCDATA)*>
+		<!ELEMENT Argument (#PCDATA)*>
+		<!ATTLIST Argument
+			key      CDATA    #REQUIRED
+			value    CDATA    #REQUIRED
+		>
+	]>
+<TestsList>
+	<Test name="LifecycleStates" skip="false">
+		<TestClassName>smartfactory.agents.process.LifecycleStates</TestClassName>
+		<WhatTest>Initialization and shutdown of the ProcessAgent</WhatTest>
+		<HowWorkTest></HowWorkTest>
+		<WhenTestPass></WhenTestPass>
+	</Test>
+</TestsList>
