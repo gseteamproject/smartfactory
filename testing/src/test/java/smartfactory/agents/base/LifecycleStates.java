@@ -11,16 +11,13 @@ import test.common.TestException;
 import test.common.TestUtility;
 
 public class LifecycleStates extends Test {
-
 	private static final long serialVersionUID = 1658372934317164405L;
 
 	@Override
 	public Behaviour load(Agent tester) throws TestException {
-
-		setTimeout(IntegrationTests.TIMEOUT);
+		setTimeout(IntegrationTests.TEST_TIMEOUT);
 
 		return new OneShotBehaviour() {
-
 			private static final long serialVersionUID = -1242392710065493145L;
 
 			private AID agent;
@@ -31,7 +28,6 @@ public class LifecycleStates extends Test {
 					startAgent();
 					waitDFAgent();
 					stopAgent();
-
 					passed("done");
 				} catch (TestException e) {
 					failed(e.getMessage());
@@ -49,7 +45,7 @@ public class LifecycleStates extends Test {
 
 			private void waitDFAgent() {
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(IntegrationTests.DF_TIMEOUT);
 				} catch (InterruptedException e) {
 					failed(e.getMessage());
 				}

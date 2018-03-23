@@ -9,8 +9,9 @@ import jade.wrapper.AgentController;
 import test.common.Test;
 
 public class IntegrationTests {
+	public static final long TEST_TIMEOUT = 60 * 1000;
 
-	public static final long TIMEOUT = 60 * 1000;
+	public static final long DF_TIMEOUT = 1 * 1000;
 
 	public static void main(String[] args) {
 		String[] parameters = new String[2];
