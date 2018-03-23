@@ -5,7 +5,6 @@ import test.common.TestGroup;
 import test.common.TesterAgent;
 
 public class Tester extends TesterAgent {
-
 	private static final long serialVersionUID = -3117267002824169763L;
 
 	@Override

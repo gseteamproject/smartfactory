@@ -1,15 +1,15 @@
-package smartfactory.agents.resource;
+package smartfactory.usecase;
 
 import smartfactory.application.IntegrationTests;
 import test.common.TestGroup;
 import test.common.TesterAgent;
 
 public class Tester extends TesterAgent {
-	private static final long serialVersionUID = -3117267002824169763L;
+	private static final long serialVersionUID = 5767054729282628020L;
 
 	@Override
 	protected TestGroup getTestGroup() {
-		return new TestGroup("smartfactory/agents/resource/tests.xml");
+		return new TestGroup("smartfactory/usecase/tests.xml");
 	}
 
 	public static void main(String[] args) {

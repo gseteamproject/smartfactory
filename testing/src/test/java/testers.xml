@@ -11,19 +11,24 @@
 		<!ELEMENT TestsListRif (#PCDATA)>
 	]>
 <TesterList>
-	<Tester name="BaseAgent" skip="false">
+	<Tester name="Base Agent" skip="false">
 		<ClassName>smartfactory.agents.base.Tester</ClassName>
 		<Description>BaseAgent integration tests</Description>
 		<TestsListRif>smartfactory/agents/base/tests.xml</TestsListRif>
 	</Tester>
-	<Tester name="ProcessAgent" skip="false">
+	<Tester name="Process Agent" skip="false">
 		<ClassName>smartfactory.agents.process.Tester</ClassName>
 		<Description>ProcessAgent integration tests</Description>
 		<TestsListRif>smartfactory/agents/process/tests.xml</TestsListRif>
 	</Tester>
-	<Tester name="ResourceAgent" skip="false">
+	<Tester name="Resource Agent" skip="false">
 		<ClassName>smartfactory.agents.resource.Tester</ClassName>
 		<Description>ResourceAgent integration tests</Description>
 		<TestsListRif>smartfactory/agents/resource/tests.xml</TestsListRif>
+	</Tester>
+	<Tester name="Use cases" skip="false">
+		<ClassName>smartfactory.usecase.Tester</ClassName>
+		<Description>Use cases of smartfactory usage</Description>
+		<TestsListRif>smartfactory/usecase/tests.xml</TestsListRif>
 	</Tester>
 </TesterList>
