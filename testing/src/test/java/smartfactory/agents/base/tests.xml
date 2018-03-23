@@ -16,8 +16,8 @@
 		>
 	]>
 <TestsList>
-	<Test name="LifecycleStates" skip="false">
-		<TestClassName>smartfactory.agents.base.LifecycleStates
+	<Test name="Initialize and Shutdown" skip="false">
+		<TestClassName>smartfactory.agents.base.InitializeAndShutdownTest
 		</TestClassName>
 		<WhatTest>Initialization and shutdown of the BaseAgent</WhatTest>
 		<HowWorkTest></HowWorkTest>

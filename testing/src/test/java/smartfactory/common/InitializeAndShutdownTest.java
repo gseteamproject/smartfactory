@@ -1,4 +1,4 @@
-package smartfactory.agents.resource;
+package smartfactory.common;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -10,15 +10,21 @@ import test.common.Test;
 import test.common.TestException;
 import test.common.TestUtility;
 
-public class LifecycleStates extends Test {
-	private static final long serialVersionUID = -1443733688983658597L;
+public abstract class InitializeAndShutdownTest extends Test {
+	private static final long serialVersionUID = -8587645758077620733L;
+
+	private Class<?> agentClass;
+
+	public InitializeAndShutdownTest(Class<?> agentClass) {
+		this.agentClass = agentClass;
+	}
 
 	@Override
 	public Behaviour load(Agent tester) throws TestException {
 		setTimeout(IntegrationTests.TEST_TIMEOUT);
 
 		return new OneShotBehaviour() {
-			private static final long serialVersionUID = 3146063293714406761L;
+			private static final long serialVersionUID = -1242392710065493145L;
 
 			private AID agent;
 
@@ -35,7 +41,7 @@ public class LifecycleStates extends Test {
 			}
 
 			private void startAgent() throws TestException {
-				agent = TestUtility.createAgent(tester, "agent", smartfactory.agents.ResourceAgent.class.getName(),
+				agent = TestUtility.createAgent(tester, "agent", agentClass.getName(),
 						new AgentConfiguration().getAgentParameters());
 			}
 

@@ -16,8 +16,8 @@
 		>
 	]>
 <TestsList>
-	<Test name="LifecycleStates" skip="false">
-		<TestClassName>smartfactory.agents.resource.LifecycleStates
+	<Test name="Initialize and Shutdown" skip="false">
+		<TestClassName>smartfactory.agents.resource.InitializeAndShutdownTest
 		</TestClassName>
 		<WhatTest>Initialization and shutdown of the ResourceAgent</WhatTest>
 		<HowWorkTest></HowWorkTest>
