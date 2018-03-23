@@ -17,10 +17,12 @@
 	]>
 <TestsList>
 	<Test name="Initialize and Shutdown" skip="false">
-		<TestClassName>smartfactory.agents.resource.InitializeAndShutdownTest
+		<TestClassName>smartfactory.agents.common.InitializeAndShutdownTest
 		</TestClassName>
 		<WhatTest>Initialization and shutdown of the ResourceAgent</WhatTest>
 		<HowWorkTest></HowWorkTest>
 		<WhenTestPass></WhenTestPass>
+		<Argument key="agentClass"
+			value="smartfactory.agents.ResourceAgent"></Argument>
 	</Test>
 </TestsList>

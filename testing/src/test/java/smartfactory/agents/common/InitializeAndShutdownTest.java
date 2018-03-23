@@ -1,4 +1,4 @@
-package smartfactory.common;
+package smartfactory.agents.common;
 
 import jade.core.AID;
 import jade.core.Agent;
@@ -10,14 +10,8 @@ import test.common.Test;
 import test.common.TestException;
 import test.common.TestUtility;
 
-public abstract class InitializeAndShutdownTest extends Test {
+public class InitializeAndShutdownTest extends Test {
 	private static final long serialVersionUID = -8587645758077620733L;
-
-	private Class<?> agentClass;
-
-	public InitializeAndShutdownTest(Class<?> agentClass) {
-		this.agentClass = agentClass;
-	}
 
 	@Override
 	public Behaviour load(Agent tester) throws TestException {
@@ -41,7 +35,7 @@ public abstract class InitializeAndShutdownTest extends Test {
 			}
 
 			private void startAgent() throws TestException {
-				agent = TestUtility.createAgent(tester, "agent", agentClass.getName(),
+				agent = TestUtility.createAgent(tester, "agent", getTestArgument("agentClass"),
 						new AgentConfiguration().getAgentParameters());
 			}
 
