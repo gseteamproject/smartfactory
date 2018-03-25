@@ -2,6 +2,7 @@ package smartfactory.utility;
 
 import jade.core.AID;
 import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
 import smartfactory.configuration.AgentConfiguration;
 import test.common.TestException;
 import test.common.TestUtility;
@@ -32,5 +33,10 @@ public class TestingAgent {
 
 	public void stop() throws TestException {
 		TestUtility.killAgent(tester, agentAID);
+	}
+
+	public void receiveMessage(ACLMessage message) {
+		message.addReceiver(agentAID);
+		tester.send(message);
 	}
 }
