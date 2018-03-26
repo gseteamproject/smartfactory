@@ -2,9 +2,9 @@ package smartfactory.usecase;
 
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
-import jade.core.behaviours.CyclicBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.core.behaviours.SequentialBehaviour;
+import jade.core.behaviours.SimpleBehaviour;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -71,39 +71,21 @@ public class BlockProductionTest extends Test {
 				}
 			}
 		});
-		testflow.addSubBehaviour(new OneShotBehaviour() {
-			private static final long serialVersionUID = -323490842116977398L;
 
-			@Override
-			public void action() {
-				ACLMessage message = new ACLMessage(ACLMessage.SUBSCRIBE);
-				message.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
-				message.setConversationId("process-status");
+		ACLMessage message1 = new ACLMessage(ACLMessage.SUBSCRIBE);
+		message1.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
+		message1.setConversationId("process-status");
+		testflow.addSubBehaviour(sendMessage(order, message1));
 
-				order.receiveMessage(message);
-			}
-		});
-		testflow.addSubBehaviour(new CyclicBehaviour() {
-			private static final long serialVersionUID = 7523474841375429339L;
+		MessageTemplate pattern1 = MessageTemplate.and(MessageTemplate.MatchConversationId("process-status"),
+				MessageTemplate.MatchPerformative(ACLMessage.AGREE));
+		testflow.addSubBehaviour(waitMessage(pattern1));
 
-			private MessageTemplate pattern = MessageTemplate.and(MessageTemplate.MatchConversationId("process-status"),
-					MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+		MessageTemplate pattern2 = MessageTemplate.and(MessageTemplate.MatchConversationId("process-status"),
+				MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+		testflow.addSubBehaviour(waitMessage(pattern2, Event.PROCESS_COMPLETED_SUCCESS));
 
-			@Override
-			public void action() {
-				ACLMessage message = myAgent.receive(pattern);
-				if (message != null) {
-					String result = message.getContent();
-					if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
-						passed("done");
-					} else {
-						failed("failed");
-					}
-				} else {
-					block();
-				}
-			}
-		});
+		testflow.addSubBehaviour(assertUnhandledMessages());
 
 		return testflow;
 	}
@@ -120,5 +102,65 @@ public class BlockProductionTest extends Test {
 		} catch (TestException e) {
 			e.printStackTrace();
 		}
+	}
+
+	private Behaviour sendMessage(TestingAgent receiver, ACLMessage message) {
+		return new OneShotBehaviour() {
+			private static final long serialVersionUID = -4352165018377538440L;
+
+			@Override
+			public void action() {
+				receiver.receiveMessage(message);
+			}
+		};
+	}
+
+	private Behaviour waitMessage(MessageTemplate pattern, String content) {
+		return new SimpleBehaviour() {
+			private static final long serialVersionUID = -6230889827519202528L;
+
+			@Override
+			public void action() {
+				ACLMessage message = myAgent.receive(pattern);
+				if (message != null) {
+					isDone = true;
+					if (content != null) {
+						String result = message.getContent();
+						if (result.compareTo(content) != 0) {
+							failed(String.format("mismatch content, expected: %s, actual: %s ", content, result));
+						}
+					}
+				} else {
+					block();
+				}
+			}
+
+			private boolean isDone;
+
+			@Override
+			public boolean done() {
+				return isDone;
+			}
+		};
+	}
+
+	private Behaviour waitMessage(MessageTemplate pattern) {
+		return waitMessage(pattern, null);
+	}
+
+	private Behaviour assertUnhandledMessages() {
+		return new OneShotBehaviour() {
+			private static final long serialVersionUID = 4918689978403220156L;
+
+			@Override
+			public void action() {
+				ACLMessage message = myAgent.receive();
+				if (message == null) {
+					passed("done");
+				} else {
+					failed("unhandled message");
+				}
+			}
+		};
 	}
 }
