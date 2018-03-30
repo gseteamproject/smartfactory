@@ -26,8 +26,6 @@ class Artifact:
         shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
         core_jar_location = "\\lib\\" + "core" + version + ".jar"
         shutil.copy2(self.sources_dir + core_jar_location, self.deploy_dir + core_jar_location)
-        domain_jar_location = "\\lib\\" + "domain" + version + ".jar"
-        shutil.copy2(self.sources_dir + domain_jar_location, self.deploy_dir + domain_jar_location)
 
     def copy_lib(self):
         self.create_deploy_dir()
@@ -109,12 +107,12 @@ class Application:
         ]
 
     def run(self):
-        choices = []
+        available_actions = []
         for application_action in self.application_actions:
-            choices.append(application_action.action_name)
+            available_actions.append(application_action.action_name)
 
         parser = argparse.ArgumentParser()
-        parser.add_argument("action", help="specify action to perform", choices=choices)
+        parser.add_argument("action", help="specify action to perform", choices=available_actions)
 
         args = parser.parse_args()
 
