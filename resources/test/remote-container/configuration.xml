@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<container>
+		<host>localhost</host>
+		<local-host>localhost</local-host>
+		<name>Remote-Container</name>
+		<type>Container</type>
+		<rma>true</rma>
+	</container>
+	<agents>
+		<agent>
+			<name>customer</name>
+			<class>smartfactory.agents.CustomerAgent</class>
+		</agent>
+	</agents>
+</configuration>

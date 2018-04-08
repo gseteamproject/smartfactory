@@ -4,153 +4,168 @@ import shutil
 import subprocess
 import time
 
+TARGET_DIR = "target"
+SOURCES_DIR = "target"
+RESOURCES_DIR = "resources"
 
-deploy_dir_base = "target"
-resources_dir_base = "resources"
-version = "-0.2.0"
+ACTION_CLEAR = "clear"
+ACTION_COPY = "copy"
+ACTION_LAUNCH = "launch"
+
+TARGET_ALL = "all"
+TARGET_LIB = "lib"
+TARGET_RES = "res"
+TARGET_JAR = "jar"
+
+CFG_MAIN = "main"
+CFG_TEST = "test"
 
 
 class Artifact:
-    def __init__(self, artifact_name, instance_name):
-        self.deploy_dir = deploy_dir_base + "\\" + instance_name
-        self.sources_dir = artifact_name + "\\" + deploy_dir_base
-        self.resources_dir = resources_dir_base + "\\" + instance_name
-        self.jar_name = artifact_name + version + ".jar"
+    def __init__(self, artifact_name, instance_name, launch_delay=0):
+        self.__artifact_name = artifact_name
+        self.__instance_name = instance_name
+        self.__version = "-0.2.0"
+        self.__launch_delay = launch_delay
+        self.config = CFG_TEST
 
-    def create_deploy_dir(self):
-        os.makedirs(self.deploy_dir, exist_ok=True)
-        os.makedirs(self.deploy_dir + "\\lib\\", exist_ok=True)
+    def __get_target_dir(self):
+        return TARGET_DIR + "\\" + self.__instance_name + "\\"
+
+    def __get_target_lib_dir(self):
+        return self.__get_target_dir() + "lib\\"
+
+    def __get_sources_dir(self):
+        return self.__artifact_name + "\\" + SOURCES_DIR + "\\"
+
+    def __get_sources_lib_dir(self):
+        return self.__get_sources_dir() + "lib\\"
+
+    def __get_resources_dir(self):
+        return RESOURCES_DIR + "\\" + self.config + "\\" + self.__instance_name + "\\"
+
+    def __get_jar_name(self):
+        return self.__artifact_name + self.__version + ".jar"
+
+    def __get_core_jar_name(self):
+        return "core" + self.__version + ".jar"
+
+    def __get_configuration_file_name(self):
+        return "configuration.xml"
+
+    def create_target_dir(self):
+        os.makedirs(self.__get_target_dir(), exist_ok=True)
+        os.makedirs(self.__get_target_lib_dir(), exist_ok=True)
 
     def copy_jar(self):
-        self.create_deploy_dir()
-        shutil.copy2(self.sources_dir + "\\" + self.jar_name, self.deploy_dir)
-        core_jar_location = "\\lib\\" + "core" + version + ".jar"
-        shutil.copy2(self.sources_dir + core_jar_location, self.deploy_dir + core_jar_location)
+        self.create_target_dir()
+        shutil.copy2(self.__get_sources_dir() + self.__get_jar_name(), self.__get_target_dir())
+        shutil.copy2(self.__get_sources_lib_dir() + self.__get_core_jar_name(), self.__get_target_lib_dir())
 
     def copy_lib(self):
-        self.create_deploy_dir()
-        shutil.rmtree(self.deploy_dir+"\\lib")
-        shutil.copytree(self.sources_dir + "\\lib", self.deploy_dir + "\\lib")
+        self.create_target_dir()
+        shutil.rmtree(self.__get_target_lib_dir())
+        shutil.copytree(self.__get_sources_lib_dir(), self.__get_target_lib_dir())
 
-    def copy_configuration(self):
-        self.create_deploy_dir()
-        shutil.copy2(self.resources_dir + "\\configuration.xml", self.deploy_dir)
+    def copy_resources(self):
+        self.create_target_dir()
+        shutil.copy2(self.__get_resources_dir() + self.__get_configuration_file_name(), self.__get_target_dir())
 
-    def launch(self, base_dir):
-        os.chdir(base_dir + "\\" + self.deploy_dir)
-        subprocess.Popen("java -jar " + self.jar_name, shell=True, close_fds=True)
+    def launch(self):
+        launch_dir = os.getcwd() + "\\" + self.__get_target_dir()
+        subprocess.Popen("java -jar " + launch_dir + self.__get_jar_name(), shell=True, close_fds=True, cwd=launch_dir)
+        time.sleep(self.__launch_delay)
 
 
 class Automation:
     def __init__(self):
-        self.artifacts = [
-            Artifact("factory-container", "factory-container"),
+        self.__artifacts = [
+            Artifact("factory-container", "factory-container", launch_delay=2),
             Artifact("lego-container", "lego-container-1"),
             Artifact("lego-container", "lego-container-2"),
             Artifact("remote-container", "remote-container"),
         ]
 
-    def clear(self):
+    def set_config(self, config):
+        for artifact in self.__artifacts:
+            artifact.config = config
+
+    def __clear_all(self):
         print("deleting previous deployment ...")
-        if os.path.exists(deploy_dir_base):
-            shutil.rmtree(deploy_dir_base)
+        if os.path.exists(TARGET_DIR):
+            shutil.rmtree(TARGET_DIR)
 
-    def create_folders(self):
-        print("creating deployment structure ...")
-        os.mkdir(deploy_dir_base)
-        for artifact in self.artifacts:
-            artifact.create_deploy_dir()
+    def clear(self, target):
+        self.__clear_all()
 
-    def copy_jar_files(self):
+    def __copy_jar_files(self):
         print("copying jar files ...")
-        for artifact in self.artifacts:
+        for artifact in self.__artifacts:
             artifact.copy_jar()
 
-    def copy_lib_files(self):
+    def __copy_lib_files(self):
         print("copying lib files ...")
-        for artifact in self.artifacts:
+        for artifact in self.__artifacts:
             artifact.copy_lib()
 
-    def copy_configuration_files(self):
-        print("copying configuration files ...")
-        for artifact in self.artifacts:
-            artifact.copy_configuration()
+    def __copy_resource_files(self):
+        print("copying resource files ...")
+        for artifact in self.__artifacts:
+            artifact.copy_resources()
 
-    def launch_jar_files(self):
+    def __copy_all(self):
+        self.__clear_all()
+        self.__copy_jar_files()
+        self.__copy_lib_files()
+        self.__copy_resource_files()
+
+    def copy(self, target):
+        action = {
+            TARGET_ALL: self.__copy_all,
+            TARGET_JAR: self.__copy_jar_files,
+            TARGET_RES: self.__copy_resource_files,
+            TARGET_LIB: self.__copy_lib_files,
+        }
+        action[target]()
+
+    def launch(self, target):
         print("launching ...")
-        current_dir = os.getcwd()
-        for artifact in self.artifacts:
-            artifact.launch(current_dir)
-            time.sleep(2)
-
-
-class ApplicationAction:
-    def __init__(self, action_name, action_callback):
-        self.action_name = action_name
-        self.action_callback = action_callback
-
-    def execute(self):
-        self.action_callback()
-        print("done")
+        for artifact in self.__artifacts:
+            artifact.launch()
 
 
 class Application:
     def __init__(self):
-        self.automation = Automation()
-        self.application_actions = [
-            ApplicationAction("copy-all", self.action_copy_all),
-            ApplicationAction("copy-configuration", self.action_copy_configuration),
-            ApplicationAction("copy-jar", self.action_copy_jar),
-            ApplicationAction("copy-lib", self.action_copy_lib),
-            ApplicationAction("clear-all", self.action_clear_all),
-            ApplicationAction("launch-all", self.action_launch_all)
-        ]
+        self.__automation = Automation()
+
+        self.__actions = {
+            ACTION_CLEAR: self.__automation.clear,
+            ACTION_COPY: self.__automation.copy,
+            ACTION_LAUNCH: self.__automation.launch
+        }
+
+        self.__targets = {
+            TARGET_ALL,
+            TARGET_RES,
+            TARGET_JAR,
+            TARGET_LIB
+        }
+
+        self.__configs = {
+            CFG_TEST,
+            CFG_MAIN
+        }
 
     def run(self):
-        available_actions = []
-        for application_action in self.application_actions:
-            available_actions.append(application_action.action_name)
-
         parser = argparse.ArgumentParser()
-        parser.add_argument("action", help="specify action to perform", choices=available_actions)
-
+        parser.add_argument("action", help="action that will be performed", choices=self.__actions)
+        parser.add_argument("-t", "--target", choices=self.__targets, default=TARGET_ALL)
+        parser.add_argument("-c", "--config", choices=self.__configs, default=CFG_TEST)
         args = parser.parse_args()
+        print("args=", args)
 
-        is_application_action_found = False
-        for application_action in self.application_actions:
-            if args.action == application_action.action_name:
-                application_action.action_callback()
-                is_application_action_found = True
-                break
-
-        if not is_application_action_found:
-            parser.print_usage()
-
-    def action_copy_all(self):
-        self.automation.clear()
-        self.automation.copy_jar_files()
-        self.automation.copy_lib_files()
-        self.automation.copy_configuration_files()
-        print("done")
-
-    def action_clear_all(self):
-        self.automation.clear()
-        print("done")
-
-    def action_copy_configuration(self):
-        self.automation.copy_configuration_files()
-        print("done")
-
-    def action_copy_jar(self):
-        self.automation.copy_jar_files()
-        print("done")
-
-    def action_copy_lib(self):
-        self.automation.copy_lib_files()
-        print("done")
-
-    def action_launch_all(self):
-        self.automation.launch_jar_files()
+        self.__automation.set_config(args.config)
+        self.__actions[args.action](args.target)
         print("done")
 
 

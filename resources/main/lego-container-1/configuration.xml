@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration>
+	<container>
+		<host>localhost</host>
+		<local-host>localhost</local-host>
+		<name>LEGO-Container-1</name>
+		<type>Container</type>
+		<rma>false</rma>
+	</container>
+	<agents>
+		<agent>
+			<name>lego-1</name>
+			<class>smartfactory.agents.LegoAgent</class>
+			<services>
+				<service>
+					<name>cleaning</name>
+					<type>worker</type>
+				</service>
+				<service>
+					<name>painting</name>
+					<type>worker</type>
+				</service>
+				<service>
+					<name>transport</name>
+					<type>worker</type>
+				</service>
+			</services>
+			<resource>
+				<type>physical</type>
+				<timeout>60</timeout>
+				<operations>
+					<operation>
+						<name>cleaning</name>
+					</operation>
+					<operation>
+						<name>painting</name>
+					</operation>
+					<operation>
+						<name>transport</name>
+					</operation>
+				</operations>
+			</resource>
+		</agent>
+	</agents>
+</configuration>
