@@ -13,15 +13,18 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-public class StoneSeller extends Agent {
+public class Seller extends Agent {
 
     private static final long serialVersionUID = -7418692714860762106L;
     private MessageObject msgObj;
-
+    private String name;
+    
     @Override
     protected void setup() {
+        Object[] args = getArguments();
+        name = args[0].toString();
         ServiceDescription serviceDescription = new ServiceDescription();
-        serviceDescription.setName("Stone");
+        serviceDescription.setName(name);
         serviceDescription.setType("procurement-service");
         DFAgentDescription agentDescription = new DFAgentDescription();
         agentDescription.setName(getAID());
@@ -67,12 +70,11 @@ public class StoneSeller extends Agent {
                 int price = new Random().nextInt(100);
                 reply.setContent(String.valueOf(price));
 
-                msgObj = new MessageObject("AgentProcurementMarket", "Stone price is "+ price);
+                msgObj = new MessageObject("AgentProcurementMarket", name + " price is " + price);
                 Communication.server.sendMessageToClient(msgObj);
-
-/*
-                System.out.println(String.format("Stone: my price is %d", price));
-*/
+                /*
+                 * System.out.println(String.format(name + ": my price is %d", price));
+                 */
                 /* send reply for incoming message */
                 send(reply);
             } else {
@@ -97,13 +99,12 @@ public class StoneSeller extends Agent {
                 /* create reply for incoming message */
                 ACLMessage reply = msg.createReply();
                 reply.setPerformative(ACLMessage.INFORM);
-
-                msgObj = new MessageObject("AgentProcurementMarket" , "Delivering stone(s).");
+                msgObj = new MessageObject("AgentProcurementMarket", "Delivering " + name + "(s).");
                 Communication.server.sendMessageToClient(msgObj);
 
-/*
-                System.out.println("delivering...");
-*/
+                /*
+                 * System.out.println("delivering...");
+                 */
                 /* send reply for incoming message */
                 send(reply);
             } else {
