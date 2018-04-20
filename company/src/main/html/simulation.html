@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>grizlyagent</title>
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora">
+    <link rel="stylesheet" href="assets/css/styles.min.css">
+    <style>
+        .console {
+			height: 400px;
+			width: 1000px;
+			overflow: auto;
+			margin: auto;
+            display: block;
+		}
+		.agent-msg {color:orange;}
+		.connect-msg {color:green;}
+		.disconnect-msg {color:red;}
+    </style>
+
+    <script src="assets/js/socket.io/socket.io.js"></script>
+    <script src="assets/js/moment.min.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="assets/js/go.js"></script>
+    <script id="code">
+        var diagramModel = [
+          { key: "ProcurementMarket", color: "lightblue", loc: new go.Point(20, 175) },
+          { key: "Procurement", color: "orange", loc: new go.Point(200, 175) },
+          { key: "Production", color: "lightgreen", loc: new go.Point(400, 50) },
+          { key: "Selling", color: "pink", loc: new go.Point(600, 175) },
+          { key: "SalesMarket", color: "red", loc: new go.Point(750, 175) },
+          { key: "Finances", color: "yellow", loc: new go.Point(400, 300) }
+        ];
+      function init() {
+        var $ = go.GraphObject.make;  // for conciseness in defining templates
+        myDiagram = $(go.Diagram, "myDiagramDiv",  // create a Diagram for the DIV HTML element
+                      {
+                        initialContentAlignment: go.Spot.Center,  // center the content
+                        "animationManager.isEnabled": false,
+                        "undoManager.isEnabled": true
+                      });
+        // define a simple Node template
+        myDiagram.nodeTemplate =
+          $(go.Node, "Auto",
+            new go.Binding("location", "loc"),
+            $(go.Shape, "RoundedRectangle", { strokeWidth: 0}, new go.Binding("fill", "color")),
+            $(go.TextBlock, { margin: 8 }, new go.Binding("text", "key"))
+          );
+        myDiagram.linkTemplate = $(go.Link,
+                                    $(go.Shape, new go.Binding("stroke", "color")),
+                                    $(go.Shape, {fromArrow: ""}, new go.Binding("stroke", "color")),
+                                    $(go.Shape, {toArrow: "Triangle"}, new go.Binding("fill", "color")),
+                                    $(go.TextBlock, new go.Binding("text", "text"), { segmentOffset: new go.Point(0, -10) })
+                                    );
+
+        myDiagram.model = new go.GraphLinksModel(diagramModel);
+      }
+
+      function loadJson(json) {
+        //var model = myDiagram.model;
+        var obj = jQuery.parseJSON(json);
+
+        myDiagram.model = new go.GraphLinksModel(diagramModel, obj);
+        //myDiagram.startTransaction("start transaction");
+        //model.addLinkDataCollection(obj);
+        //myDiagram.commitTransaction("commit transaction");
+        myDiagram.updateAllTargetBindings();
+      }
+
+    </script>
+    <script>
+        var userID = 'user' + Math.floor((Math.random()*1000)+1);
+		var socket =  io.connect('http://localhost:9092');
+
+		socket.on('connect', function() {
+			output('<span class="connect-msg">Client has connected to the server!</span>');
+			//console.log("connected");
+		});
+        socket.on('alcevent', function(data) {
+            output('<span style="color: ' + data.color2 + '">' + data.message + '</span>');
+            //console.log(data.message);
+        });
+        socket.on('jsonevent', function(data) {
+            loadJson(data.message);
+        });
+		socket.on('disconnect', function() {
+			output('<span class="disconnect-msg">The client has disconnected!</span>');
+		});
+        function sendDisconnect() {
+            socket.disconnect();
+        }
+		function sendMessage() {
+          var agent = "Client";
+          var message = $('#msg').val();
+          $('#msg').val('');
+          //socket.emit('msgevent', {agent: agent, message: message});
+		}
+		function output(message) {
+            var currentTime = "<span class='time'>" +  moment().format('HH:mm:ss.SSS') + "</span>";
+            var element = $("<div>" + currentTime + " " + message + "</div>");
+			$('#box-output').prepend(element);
+		}
+	</script>
+</head>
+
+<body onload="init()">
+<div id="Maincontainer">
+    <div id="Head">
+        <div style="width:100%;height:auto;background-color:#368FA8;position:absolute;bottom:0px;padding-left:10%;">
+            <ul class="nav nav-tabs">
+                <li class="unactivetab"><a href="index.html" class="Tablink">Home </a></li>
+                <li class="activetab" style="background-color:#3138B5"><a href="simulation.html" class="Tablink">Simulation </a></li>
+                <li class="unactivetab"><a href="contact.html" class="Tablink"> Contact</a></li>
+            </ul>
+        </div>
+        <a href="index.html">
+            <img src="assets/img/Logo.png" alt="Logo" style="width:80px;height:80px;position:absolute;left:10%;top:8px">
+        </a>
+        <h1 id="h1head">Grizzly Agent Company</h1>
+    </div>
+    <div id="Content">
+        <div id="myDiagramDiv" class="console"></div>
+        <div id="box-output" class="console" style="margin-top: 20px; margin-bottom: 40px;"></div>
+    </div>
+    <div id="Footer">
+        <p id="copyright"> © Grizzly Agent Company 2017</p>
+    </div>
+</div>
+</body>
+
+</html>
