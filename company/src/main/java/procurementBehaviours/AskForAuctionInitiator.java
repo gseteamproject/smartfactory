@@ -42,20 +42,8 @@ public class AskForAuctionInitiator extends RequestInteractor implements Achieve
     }
 
     @Override
-    public void handleAgree(ACLMessage agree) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void handleRefuse(ACLMessage refuse) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void handleInform(ACLMessage inform) {
-        // TODO Auto-generated method stub
+        
         orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
         msgObj = new MessageObject(inform, "received [inform] order " + orderText + " is delivered to materialStorage");
         Communication.server.sendMessageToClient(msgObj);
@@ -70,7 +58,7 @@ public class AskForAuctionInitiator extends RequestInteractor implements Achieve
 
     @Override
     public void handleFailure(ACLMessage failure) {
-        // TODO Auto-generated method stub
+        
         orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
         msgObj = new MessageObject(failure, "received [failure] order " + orderText + " was not purchased");
         Communication.server.sendMessageToClient(msgObj);
@@ -81,8 +69,20 @@ public class AskForAuctionInitiator extends RequestInteractor implements Achieve
     }
 
     @Override
+    public void handleAgree(ACLMessage agree) {
+        
+
+    }
+
+    @Override
+    public void handleRefuse(ACLMessage refuse) {
+        
+
+    }
+
+    @Override
     public int next() {
-        // TODO Auto-generated method stub
+        
         return 0;
     }
 

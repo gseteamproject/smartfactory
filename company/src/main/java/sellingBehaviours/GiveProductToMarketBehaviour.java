@@ -20,7 +20,6 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
     private static final long serialVersionUID = -6498277261596869382L;
     private SellingResponder interactionBehaviour;
     private SellingRequestResult interactor;
-    private OrderDataStore dataStore;
     private String orderToGive;
     private MessageObject msgObj;
 
@@ -28,7 +27,6 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
         this.interactor = SellingResponder.interactor;
-        this.dataStore = dataStore;
         orderToGive = interactionBehaviour.getRequest().getContent();
     }
 
@@ -47,9 +45,12 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
             msgObj = new MessageObject("AgentSelling", "Taking " + orderPart.getTextOfOrderPart() + " from warehouse");
             Communication.server.sendMessageToClient(msgObj);
 
-           /* System.out.println("SellingAgent: "Taking " + orderPart.getTextOfOrderPart() + " from warehouse");
-            Communication.server.sendMessageToClient("SellingAgent",
-                    "Taking " + orderPart.getTextOfOrderPart() + " from warehouse");*/
+            /*
+             * System.out.println("SellingAgent: "Taking
+             * " + orderPart.getTextOfOrderPart() + " from warehouse");
+             * Communication.server.sendMessageToClient("SellingAgent", "Taking " +
+             * orderPart.getTextOfOrderPart() + " from warehouse");
+             */
             Selling.warehouse.remove(productToGive);
             takeCount += 1;
         }

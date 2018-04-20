@@ -22,27 +22,28 @@ public class SalesMarketDecision extends Decision {
         String orderText = order.getTextOfOrder();
 
         MessageObject msgObj = new MessageObject(request, "has ordered " + orderText);
-//        MessageObject msgObj = new MessageObject("AgentSalesMarket", orderText +  " is here");
+        // MessageObject msgObj = new MessageObject("AgentSalesMarket", orderText + " is
+        // here");
         Communication.server.sendMessageToClient(msgObj);
 
         dataStore.setDeadline(order.deadline);
-        
-        System.out.println("deadline SalesMarket: " + order.deadline  * 0.0667);
+
+        System.out.println("deadline SalesMarket: " + order.deadline * 0.0667);
         SalesMarket.currentDeadline = System.currentTimeMillis() + order.deadline;
-        
+
         order.deadline = (SalesMarket.currentDeadline);
         System.out.println("currentDeadline: " + order.deadline);
-        
+
         dataStore.setAgent(interactionBehaviour.getAgent().getLocalName());
         System.out.println("currentAgent: " + dataStore.getAgent());
 
         order.agent = (dataStore.getAgent());
-        
+
         String orderGson = Order.gson.toJson(order);
         request.setContent(orderGson);
-        
+
         dataStore.setRequestMessage(request);
-        
+
         // Agent should send agree or refuse
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());

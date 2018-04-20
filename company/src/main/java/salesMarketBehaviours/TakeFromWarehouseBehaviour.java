@@ -5,7 +5,6 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.lang.acl.ACLMessage;
 
 public class TakeFromWarehouseBehaviour extends OneShotBehaviour {
 

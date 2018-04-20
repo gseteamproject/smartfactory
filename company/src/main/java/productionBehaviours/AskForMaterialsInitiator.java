@@ -29,39 +29,21 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
         request = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Materials";
-        request.setConversationId(requestedAction);
         request.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
-        request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setContent(dataStore.getRequestMessage().getContent());
+        setup(request, requestedAction);
 
-
-
-        Vector<ACLMessage> l = new Vector<ACLMessage>(1);
-        l.addElement(request);
         return l;
     }
 
     @Override
-    public void handleAgree(ACLMessage agree) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void handleRefuse(ACLMessage refuse) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void handleInform(ACLMessage inform) {
-        // TODO Auto-generated method stub
+
         orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
 
         msgObj = new MessageObject(inform, "received [inform] materials for " + orderText + " are in storage");
         Communication.server.sendMessageToClient(msgObj);
 
-/*        System.out.println(msgObj.getReceivedMessage());*/
+        /* System.out.println(msgObj.getReceivedMessage()); */
 
         // System.out.println("ProductionAgent: received [inform] materials for " +
         // orderText + " are in storage");
@@ -72,12 +54,12 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
 
     @Override
     public void handleFailure(ACLMessage failure) {
-        // TODO Auto-generated method stub
+
         orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
 
         msgObj = new MessageObject(failure, "received [failure] materials for " + orderText + " are not in storage");
         Communication.server.sendMessageToClient(msgObj);
-       /* System.out.println(msgObj.getReceivedMessage());*/
+        /* System.out.println(msgObj.getReceivedMessage()); */
 
         // System.out
         // .println("ProductionAgent: received [failure] materials for " + orderText + "
@@ -90,8 +72,18 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
     }
 
     @Override
+    public void handleAgree(ACLMessage agree) {
+
+    }
+
+    @Override
+    public void handleRefuse(ACLMessage refuse) {
+
+    }
+
+    @Override
     public int next() {
-        // TODO Auto-generated method stub
+
         return 0;
     }
 

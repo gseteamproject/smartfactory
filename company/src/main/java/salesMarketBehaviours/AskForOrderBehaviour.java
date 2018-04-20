@@ -10,7 +10,6 @@ public class AskForOrderBehaviour extends OneShotBehaviour {
      * 
      */
     private static final long serialVersionUID = 8296971392230921846L;
-    private String orderToRequest;
     private OrderDataStore dataStore;
     private SalesMarketResponder interactionBehaviour;
     public MessageObject msgObj;
@@ -23,7 +22,6 @@ public class AskForOrderBehaviour extends OneShotBehaviour {
 
     @Override
     public void action() {
-        orderToRequest = interactionBehaviour.getRequest().getContent();
         dataStore.setRequestMessage(interactionBehaviour.getRequest());
         myAgent.addBehaviour(new AskForOrderInitiatorBehaviour(interactionBehaviour, dataStore));
     }

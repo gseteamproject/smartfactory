@@ -1,16 +1,11 @@
 package salesMarketBehaviours;
 
-import basicAgents.Production;
 import basicAgents.SalesMarket;
-import basicAgents.Selling;
 import basicClasses.Order;
-import basicClasses.OrderPart;
-import basicClasses.Product;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
 import jade.core.behaviours.OneShotBehaviour;
-import jade.core.event.MessageAdapter;
 
 class DeliverToCustomerBehaviour extends OneShotBehaviour {
 
