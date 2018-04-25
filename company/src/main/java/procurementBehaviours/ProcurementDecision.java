@@ -15,9 +15,6 @@ public class ProcurementDecision extends Decision {
         super(interactionBehaviour, dataStore);
     }
 
-    // CPD-OFF
-    // TODO : fix cpd
-
     public ACLMessage execute(ACLMessage request) {
         Order order = Order.gson.fromJson(request.getContent(), Order.class);
         String orderText = order.getTextOfOrder();
@@ -79,5 +76,4 @@ public class ProcurementDecision extends Decision {
         return response;
     }
 
-    // CPD-ON
 }

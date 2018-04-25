@@ -14,9 +14,6 @@ public class SellingDecision extends Decision {
         super(interactionBehaviour, dataStore);
     }
 
-    // CPD-OFF
-    // TODO : fix cpd
-
     @Override
     public ACLMessage execute(ACLMessage request) {
         // Selling reacts on SalesMarket's request
@@ -70,6 +67,4 @@ public class SellingDecision extends Decision {
         
         return response;
     }
-
-    // CPD-ON
 }

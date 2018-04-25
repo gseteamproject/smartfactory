@@ -15,9 +15,6 @@ import jade.lang.acl.MessageTemplate;
 
 public class StoneSeller extends Agent {
 
-	// CPD-OFF
-	// TODO : fix cpd
-
     private static final long serialVersionUID = -7418692714860762106L;
     private MessageObject msgObj;
 
@@ -51,8 +48,6 @@ public class StoneSeller extends Agent {
             exception.printStackTrace();
         }
     }
-
-    // CPD-ON
 
     class HandleCallForProposal extends CyclicBehaviour {
         private static final long serialVersionUID = 2429876704345890795L;

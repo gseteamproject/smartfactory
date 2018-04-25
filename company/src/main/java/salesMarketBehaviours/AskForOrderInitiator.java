@@ -24,9 +24,6 @@ public class AskForOrderInitiator extends RequestInteractor implements AchieveRE
         this.interactionBehaviour = interactionBehaviour;
     }
 
-    // CPD-OFF
-    // TODO : fix cpd
-
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
@@ -53,8 +50,6 @@ public class AskForOrderInitiator extends RequestInteractor implements AchieveRE
         // TODO Auto-generated method stub
 
     }
-
-    // CPD-ON
 
     @Override
     public void handleInform(ACLMessage inform) {

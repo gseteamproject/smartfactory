@@ -20,9 +20,6 @@ public class ProductionDecision extends Decision {
 
     }
 
-    // CPD-OFF
-    // TODO : fix cpd
-
     @Override
     public ACLMessage execute(ACLMessage request) {
         Order order = Order.gson.fromJson(request.getContent(), Order.class);
@@ -63,7 +60,5 @@ public class ProductionDecision extends Decision {
 
         return response;
     }
-
-    // CPD-ON
 
 }

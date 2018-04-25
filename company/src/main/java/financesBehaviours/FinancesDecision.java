@@ -15,9 +15,6 @@ public class FinancesDecision extends Decision {
         super(interactionBehaviour, dataStore);
     }
 
-    // CPD-OFF
-    // TODO : fix cpd
-
     public ACLMessage execute(ACLMessage request) {
         Order order = Order.gson.fromJson(request.getContent(), Order.class);
         String orderText = order.getTextOfOrder();
@@ -61,7 +58,5 @@ public class FinancesDecision extends Decision {
 
         return response;
     }
-
-    // CPD-ON
 
 }

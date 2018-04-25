@@ -24,9 +24,6 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
         this.interactionBehaviour = interactionBehaviour;
     }
 
-    // CPD-OFF
-    // TODO : fix cpd
-
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
@@ -55,8 +52,6 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
         // TODO Auto-generated method stub
 
     }
-
-    // CPD-ON
 
     @Override
     public void handleInform(ACLMessage inform) {
