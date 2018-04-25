@@ -22,27 +22,34 @@ public class ProcurementAskBehaviour extends AskBehaviour {
     public void action() {
         ACLMessage request = interactionBehaviour.getRequest();
         Order order = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
-        if (request.getConversationId() == "Materials") {
-            if (!this.isStarted) {
-                this.interactor.isDone = false;
+        if (order.searchInList(SalesMarket.orderQueue) > -1) {
+            if (request.getConversationId() == "Materials") {
+                if (!this.isStarted) {
+                    this.interactor.isDone = false;
 
-                SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour.getAgent().getLocalName();
-                
-                myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder) interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
-//                myAgent.addBehaviour(new CheckMaterialStorage((ProcurementResponder) interactionBehaviour, dataStore));
+                    SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                            .getAgent().getLocalName();
+
+                    // myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
+                    // interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
+                    myAgent.addBehaviour(
+                            new CheckMaterialStorage((ProcurementResponder) interactionBehaviour, dataStore));
+                }
+                this.isStarted = true;
+            } else if (request.getConversationId() == "Take") {
+                if (this.isStarted) {
+                    this.interactor.isDone = false;
+
+                    SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                            .getAgent().getLocalName();
+
+                    // myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
+                    // interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
+                    myAgent.addBehaviour(
+                            new GiveMaterialToProduction((ProcurementResponder) interactionBehaviour, dataStore));
+                }
+                this.isStarted = false;
             }
-            this.isStarted = true;
-        } else if (request.getConversationId() == "Take") {
-            if (this.isStarted) {
-                this.interactor.isDone = false;
-
-                SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour.getAgent().getLocalName();
-
-                myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder) interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
-//                myAgent.addBehaviour(
-//                        new GiveMaterialToProduction((ProcurementResponder) interactionBehaviour, dataStore));
-            }
-            this.isStarted = false;
         }
     }
 }

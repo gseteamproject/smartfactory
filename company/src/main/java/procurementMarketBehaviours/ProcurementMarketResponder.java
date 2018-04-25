@@ -1,5 +1,6 @@
 package procurementMarketBehaviours;
 
+import interactors.DeadlineBehaviour;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
@@ -14,10 +15,12 @@ public class ProcurementMarketResponder extends ResponderBehaviour {
     public ProcurementMarketResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
         super(a, mt, dataStore);
         interactor = new ProcurementMarketRequestResult(dataStore);
+        deadline = new DeadlineBehaviour(this, interactor, dataStore);
+        dataStore.setDeadlineBehaviour(deadline);
 
         registerHandleRequest(new ProcurementMarketDecisionBehaviour(this, dataStore));
-        registerPrepareResultNotification(new ProcurementMarketAskBehaviour(this, interactor, dataStore));
-//        registerPrepareResultNotification(new ProcurementMarketActivityBehaviour(this, dataStore));
+//        registerPrepareResultNotification(new ProcurementMarketAskBehaviour(this, interactor, dataStore));
+        registerPrepareResultNotification(new ProcurementMarketActivityBehaviour(this, interactor, dataStore));
     }
 
 }

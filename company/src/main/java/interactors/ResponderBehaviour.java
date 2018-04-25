@@ -4,9 +4,13 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.AchieveREResponder;
+import salesMarketBehaviours.SalesMarketRequestResult;
 
 public class ResponderBehaviour extends AchieveREResponder {
-
+    
+    public static SalesMarketRequestResult interactor;
+    protected static DeadlineBehaviour deadline;
+    
     public ACLMessage getRequest() {
         return (ACLMessage) getDataStore().get(REQUEST_KEY);
     }

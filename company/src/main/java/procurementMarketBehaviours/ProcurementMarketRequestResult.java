@@ -15,11 +15,16 @@ public class ProcurementMarketRequestResult extends RequestResult {
     public ACLMessage execute(ACLMessage request) {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
-        response.setPerformative(ACLMessage.INFORM);
         response.setSender(new AID(("AgentProcurementMarket"), AID.ISLOCALNAME));
-
-        this.isDone = true;
-
+        
+        if (!dataStore.getDeadlineResult()) {
+            response.setPerformative(ACLMessage.INFORM);
+            this.isDone = true;
+        } else {
+            response.setPerformative(ACLMessage.FAILURE);
+            this.isDone = false;
+        }
+        
         return response;
     }
 }

@@ -2,6 +2,8 @@ package interactors;
 
 import basicAgents.SalesMarket;
 import basicClasses.Order;
+import communication.Communication;
+import communication.MessageObject;
 import communication.Server;
 import jade.core.behaviours.WakerBehaviour;
 
@@ -15,8 +17,10 @@ public class DeadlineBehaviour extends WakerBehaviour {
     protected OrderDataStore dataStore;
     protected RequestResult interactor;
 
-    public DeadlineBehaviour(ResponderBehaviour interactionBehaviour, RequestResult interactor, OrderDataStore dataStore) {
-//        super(interactionBehaviour.getAgent(), dataStore.getDeadline() * Server.delaytime / 150);
+    public DeadlineBehaviour(ResponderBehaviour interactionBehaviour, RequestResult interactor,
+            OrderDataStore dataStore) {
+        // super(interactionBehaviour.getAgent(), dataStore.getDeadline() *
+        // Server.delaytime / 150);
         super(interactionBehaviour.getAgent(), 60000);
         this.interactionBehaviour = interactionBehaviour;
         this.interactor = interactor;
@@ -30,9 +34,19 @@ public class DeadlineBehaviour extends WakerBehaviour {
         Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
         System.out.println(SalesMarket.orderQueue);
         System.out.println(dataStore.getRequestMessage().getContent());
+        dataStore.setDeadlineResult(true);
         if (order.searchInList(SalesMarket.orderQueue) > -1) {
             System.out.println("Deadline of " + interactionBehaviour.getAgent().getLocalName());
             interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
+            if (SalesMarket.orderQueue.remove(order)) {
+                MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
+                        order.getTextOfOrder() + " is removed from Orderqueue.");
+                Communication.server.sendMessageToClient(msgObj);
+                /*
+                 * System.out.println("SalesMarketAgent: " + orderText +
+                 * " is removed from Orderqueue.");
+                 */
+            }
         }
     }
 }

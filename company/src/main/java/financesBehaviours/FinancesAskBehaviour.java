@@ -23,33 +23,40 @@ public class FinancesAskBehaviour extends AskBehaviour {
         ACLMessage request = interactionBehaviour.getRequest();
         Order order = Order.gson.fromJson(request.getContent(), Order.class);
         String orderText = order.getTextOfOrder();
-        if (request.getConversationId() == "Order") {
-            if (!this.isStarted) {
 
-                this.interactor.isDone = false;
-                msgObj = new MessageObject(request, "has accepted selling of " + orderText);
-                Communication.server.sendMessageToClient(msgObj);
-                System.out.println("Finances: Order");
+        if (order.searchInList(SalesMarket.orderQueue) > -1) {
+            if (request.getConversationId() == "Order") {
+                if (!this.isStarted) {
+                    this.interactor.isDone = false;
+                    msgObj = new MessageObject(request, " has accepted selling of " + orderText);
+                    Communication.server.sendMessageToClient(msgObj);
+                    System.out.println("Finances: Order");
 
-                SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour.getAgent().getLocalName();
-                
-//                myAgent.addBehaviour(new TransferMoneyToBank((FinancesResponder) interactionBehaviour, dataStore));
-                myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder) interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
+                    SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                            .getAgent().getLocalName();
+
+                    myAgent.addBehaviour(new TransferMoneyToBank((FinancesResponder) interactionBehaviour, dataStore));
+                    // myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder)
+                    // interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
+                }
+                this.isStarted = true;
+            } else if (request.getConversationId() == "Materials") {
+                if (this.isStarted) {
+                    this.interactor.isDone = false;
+                    msgObj = new MessageObject(request, "has accepted buying of " + orderText);
+                    Communication.server.sendMessageToClient(msgObj);
+                    System.out.println("Finances: Material");
+
+                    SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                            .getAgent().getLocalName();
+
+                    myAgent.addBehaviour(
+                            new TransferMoneyFromBank((FinancesResponder) interactionBehaviour, dataStore));
+                    // myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder)
+                    // interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
+                }
+                this.isStarted = false;
             }
-            this.isStarted = true;
-        } else if (request.getConversationId() == "Materials") {
-            if (this.isStarted) {
-                this.interactor.isDone = false;
-                msgObj = new MessageObject(request, "has accepted buying of " + orderText);
-                Communication.server.sendMessageToClient(msgObj);
-                System.out.println("Finances: Material");
-
-                SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour.getAgent().getLocalName();
-                
-//                myAgent.addBehaviour(new TransferMoneyFromBank((FinancesResponder) interactionBehaviour, dataStore));
-                myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder) interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
-            }
-            this.isStarted = false;
         }
     }
 }

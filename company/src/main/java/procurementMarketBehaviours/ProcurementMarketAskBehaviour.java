@@ -19,15 +19,22 @@ public class ProcurementMarketAskBehaviour extends AskBehaviour {
 
     @Override
     public void action() {
-        if (!this.isStarted) {
-            // TODO: pass DataStore?
-            Order order = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+        Order order = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+        if (order.searchInList(SalesMarket.orderQueue) > -1) {
+            if (!this.isStarted) {
+                SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                        .getAgent().getLocalName();
 
-            SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour.getAgent().getLocalName();
-            
-            myAgent.addBehaviour(new ProcurementMarketActivityBehaviour((ProcurementMarketResponder) interactionBehaviour, (ProcurementMarketRequestResult) interactor, dataStore));
-//            myAgent.addBehaviour(new AuctionInitiator((ProcurementMarketResponder) interactionBehaviour));
+                // myAgent.addBehaviour(new
+                // ProcurementMarketActivityBehaviour((ProcurementMarketResponder)
+                // interactionBehaviour, (ProcurementMarketRequestResult) interactor,
+                // dataStore));
+                // myAgent.addBehaviour(new AuctionInitiator((ProcurementMarketResponder)
+                // interactionBehaviour));
+                myAgent.addBehaviour(
+                        new ReportFinancesBehaviour((ProcurementMarketResponder) interactionBehaviour, dataStore));
+            }
+            this.isStarted = true;
         }
-        this.isStarted = true;
     }
 }

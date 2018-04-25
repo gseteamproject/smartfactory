@@ -1,8 +1,10 @@
 package interactors;
 
+import basicAgents.SalesMarket;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
+import communication.Server;
 import jade.lang.acl.ACLMessage;
 
 public class Decision {
@@ -23,19 +25,24 @@ public class Decision {
 
     public void setup(ACLMessage request) {
         Order order = Order.gson.fromJson(request.getContent(), Order.class);
-        String orderText = order.getTextOfOrder();
+        orderText = order.getTextOfOrder();
 
         // Agent should send agree or refuse
         // TODO: Add refuse answer (some conditions should be added)
 
-        System.out.println(
-                "deadline " + dataStore.getAgent() + ": " + (order.deadline - System.currentTimeMillis()) * 0.0667);
-
-        dataStore.setDeadline(order.deadline - System.currentTimeMillis());
-        System.out.println("currentDeadline: " + order.deadline);
-
         dataStore.setAgent(interactionBehaviour.getAgent().getLocalName());
         System.out.println("currentAgent: " + dataStore.getAgent());
+        System.out.println("currentAgent: " + "AgentSalesMarket");
+
+        if (dataStore.getAgent().equals("AgentSalesMarket")) {
+            dataStore.setDeadline(order.deadline);
+            SalesMarket.currentDeadline = System.currentTimeMillis() + order.deadline;
+            order.deadline = (SalesMarket.currentDeadline);
+        } else {
+            dataStore.setDeadline(order.deadline - System.currentTimeMillis());
+        }
+
+        System.out.println("currentDeadline: " + order.deadline);
 
         order.agent = dataStore.getAgent();
 
@@ -49,5 +56,8 @@ public class Decision {
         /*
          * System.out.println(msgObj.getReceivedMessage());
          */
+        dataStore.setDeadlineResult(false);
+
+        dataStore.getDeadlineBehaviour().reset(dataStore.getDeadline() * Server.delaytime / 150);
     }
 }

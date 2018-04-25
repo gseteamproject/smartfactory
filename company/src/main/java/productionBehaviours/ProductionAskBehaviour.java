@@ -19,14 +19,19 @@ public class ProductionAskBehaviour extends AskBehaviour {
 
     @Override
     public void action() {
-        if (!this.isStarted) {
-            Order order = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+        Order orderToProduce = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+        if (orderToProduce.searchInList(SalesMarket.orderQueue) > -1) {
+            if (!this.isStarted) {
+                SalesMarket.orderQueue
+                        .get(orderToProduce.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                                .getAgent().getLocalName();
 
-            SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour.getAgent().getLocalName();
-            
-            myAgent.addBehaviour(new ProductionActivityBehaviour((ProductionResponder) interactionBehaviour, (ProductionRequestResult) interactor, dataStore));
-//            myAgent.addBehaviour(new AskForMaterialsBehaviour((ProductionResponder) interactionBehaviour, dataStore));
+                // myAgent.addBehaviour(new ProductionActivityBehaviour((ProductionResponder)
+                // interactionBehaviour, (ProductionRequestResult) interactor, dataStore));
+                myAgent.addBehaviour(
+                        new AskForMaterialsBehaviour((ProductionResponder) interactionBehaviour, dataStore));
             }
-        this.isStarted = true;
+            this.isStarted = true;
+        }
     }
 }

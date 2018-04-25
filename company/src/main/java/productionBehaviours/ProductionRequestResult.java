@@ -16,9 +16,14 @@ public class ProductionRequestResult extends RequestResult {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
 
-        if (Production.isProduced) {
-            response.setPerformative(ACLMessage.INFORM);
-            this.isDone = true;
+        if (!dataStore.getDeadlineResult()) {
+            if (Production.isProduced) {
+                response.setPerformative(ACLMessage.INFORM);
+                this.isDone = true;
+            } else {
+                response.setPerformative(ACLMessage.FAILURE);
+                this.isDone = false;
+            }
         } else {
             response.setPerformative(ACLMessage.FAILURE);
             this.isDone = false;

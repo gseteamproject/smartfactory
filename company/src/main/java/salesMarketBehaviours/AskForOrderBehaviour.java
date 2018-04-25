@@ -1,5 +1,7 @@
 package salesMarketBehaviours;
 
+import basicAgents.SalesMarket;
+import basicClasses.Order;
 import communication.MessageObject;
 import interactors.OrderDataStore;
 import jade.core.behaviours.OneShotBehaviour;
@@ -22,7 +24,10 @@ public class AskForOrderBehaviour extends OneShotBehaviour {
 
     @Override
     public void action() {
-        dataStore.setRequestMessage(interactionBehaviour.getRequest());
-        myAgent.addBehaviour(new AskForOrderInitiatorBehaviour(interactionBehaviour, dataStore));
+        // dataStore.setRequestMessage(interactionBehaviour.getRequest());
+        Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
+        if (order.searchInList(SalesMarket.orderQueue) > -1) {
+            myAgent.addBehaviour(new AskForOrderInitiatorBehaviour(interactionBehaviour, dataStore));
+        }
     }
 }

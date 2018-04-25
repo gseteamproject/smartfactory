@@ -40,6 +40,10 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
         msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to customer");
         Communication.server.sendMessageToClient(msgObj);
 
+//        if (order.searchInList(SalesMarket.orderQueue) > -1) {
+//            interactor.execute(interactionBehaviour.getRequest());
+//        }
+        
         if (SalesMarket.orderQueue.remove(order)) {
             msgObj = new MessageObject("AgentSalesMarket", orderText + " is removed from Orderqueue.");
             Communication.server.sendMessageToClient(msgObj);

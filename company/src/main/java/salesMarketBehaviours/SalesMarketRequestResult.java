@@ -14,9 +14,13 @@ public class SalesMarketRequestResult extends RequestResult {
     public ACLMessage execute(ACLMessage request) {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
-        response.setPerformative(ACLMessage.INFORM);
-        this.isDone = true;
-        // response.setPerformative(ACLMessage.FAILURE);
+        if (!dataStore.getDeadlineResult()) {
+            response.setPerformative(ACLMessage.INFORM);
+            this.isDone = true;
+        } else {
+            response.setPerformative(ACLMessage.FAILURE);
+            this.isDone = false;
+        }
 
         return response;
     }

@@ -16,22 +16,28 @@ public class SellingRequestResult extends RequestResult {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
         // TODO: Need to check if in warehouse here?
-        if (request.getConversationId() == "Ask") {
-            if (Selling.isInWarehouse) {
-                response.setPerformative(ACLMessage.INFORM);
-                this.isDone = true;
-            } else {
-                response.setPerformative(ACLMessage.FAILURE);
-                this.isDone = false;
+        System.out.println("TEST S " + dataStore.getDeadlineResult());
+        if (!dataStore.getDeadlineResult()) {
+            if (request.getConversationId() == "Ask") {
+                if (Selling.isInWarehouse) {
+                    response.setPerformative(ACLMessage.INFORM);
+                    this.isDone = true;
+                } else {
+                    response.setPerformative(ACLMessage.FAILURE);
+                    this.isDone = false;
+                }
+            } else if (request.getConversationId() == "Take") {
+                if (Selling.isTaken) {
+                    response.setPerformative(ACLMessage.INFORM);
+                    this.isDone = true;
+                } else {
+                    response.setPerformative(ACLMessage.FAILURE);
+                    this.isDone = false;
+                }
             }
-        } else if (request.getConversationId() == "Take") {
-            if (Selling.isTaken) {
-                response.setPerformative(ACLMessage.INFORM);
-                this.isDone = true;
-            } else {
-                response.setPerformative(ACLMessage.FAILURE);
-                this.isDone = false;
-            }
+        } else {
+            response.setPerformative(ACLMessage.FAILURE);
+            this.isDone = false;
         }
 
         return response;
