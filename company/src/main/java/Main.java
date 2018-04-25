@@ -5,7 +5,7 @@ import jade.Boot;
 public class Main {
 
     public static void main(String[] args) {
-        Communication communication = new Communication();
+        new Communication();
         // todo: maybe start the program, when the client is connected first?
 
         String[] parameters = new String[3];

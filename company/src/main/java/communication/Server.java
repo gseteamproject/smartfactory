@@ -1,15 +1,13 @@
 package communication;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 
 import jade.lang.acl.ACLMessage;
-
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
 
 /*
     SocketIO implementation to communicate with the client website
@@ -27,7 +25,7 @@ public class Server implements Runnable {
 
     @Override
     /*
-    just an example of the communication, not finished yet.
+     * just an example of the communication, not finished yet.
      */
     public void run() {
         System.out.println("[Server] -> Started on port " + port);
@@ -38,8 +36,7 @@ public class Server implements Runnable {
         conServer = new SocketIOServer(getConfig());
 
         /*
-            get all incoming connections to the server
-            allow only one connection
+         * get all incoming connections to the server allow only one connection
          */
         conServer.addConnectListener(socketIOClient -> {
             // allow only one client connection
@@ -55,7 +52,7 @@ public class Server implements Runnable {
             conClient = socketIOClient;
         });
         /*
-            handle all disconnects
+         * handle all disconnects
          */
         conServer.addDisconnectListener(socketIOClient -> {
             // count connections
@@ -64,7 +61,7 @@ public class Server implements Runnable {
         });
 
         /*
-            receiving messages from the client
+         * receiving messages from the client
          */
         conServer.addEventListener("msgevent", MessageObject.class, (socketIOClient, messageObject, ackRequest) -> {
             if (messageObject.getMessage().equals("stop_server")) {
@@ -80,6 +77,7 @@ public class Server implements Runnable {
         if (conClient != null)
             conClient.sendEvent(event, object);
     }
+
     public void sendMessageToClient(MessageObject msgObj) {
         MessageWrapper wrapper = new MessageWrapper(msgObj);
 
@@ -89,39 +87,40 @@ public class Server implements Runnable {
             e.printStackTrace();
         }
 
-        if (conClient != null){
-                if (msgObj.getReceiver()!=null) {
-                    String from = msgObj.getSender().replace("Agent", "");
-                    String to = msgObj.getReceiver().replace("Agent", "");
+        if (conClient != null) {
+            if (msgObj.getReceiver() != null) {
+                String from = msgObj.getSender().replace("Agent", "");
+                String to = msgObj.getReceiver().replace("Agent", "");
 
-                    String json = "[";
-                    String identifier = from + ";" + to;
-                    JsonWrapper jsonWrapper = new JsonWrapper();
-                    jsonWrapper.setFrom(from);
-                    jsonWrapper.setTo(to);
-                    String text = msgObj.getPerformative() + ": " + msgObj.getOrderText();
-                    jsonWrapper.setText(text);
+                String json = "[";
+                String identifier = from + ";" + to;
+                JsonWrapper jsonWrapper = new JsonWrapper();
+                jsonWrapper.setFrom(from);
+                jsonWrapper.setTo(to);
+                String text = msgObj.getPerformative() + ": " + msgObj.getOrderText();
+                jsonWrapper.setText(text);
 
-                    for (Map.Entry<String, JsonWrapper> entry : arrows.entrySet()) {
-                        entry.getValue().setText("");
-                    }
-
-                    arrows.put(identifier, jsonWrapper);
-
-                    for (Map.Entry<String, JsonWrapper> entry : arrows.entrySet()) {
-                        json += "{\"from\": \"" + entry.getValue().getFrom() + "\", \"to\": \"" + entry.getValue().getTo() + "\", \"color\": \"red\", \"text\": \"" + entry.getValue().getText() + "\"},";
-                    }
-
-                    json = json.substring(0, json.length() - 1);
-                    json += "]";
-
-                    //System.out.println(json);
-                    wrapper.setMessage(json);
-                    conClient.sendEvent("jsonevent", wrapper);
-
-                } else {
-                    conClient.sendEvent("alcevent", wrapper);
+                for (Map.Entry<String, JsonWrapper> entry : arrows.entrySet()) {
+                    entry.getValue().setText("");
                 }
+
+                arrows.put(identifier, jsonWrapper);
+
+                for (Map.Entry<String, JsonWrapper> entry : arrows.entrySet()) {
+                    json += "{\"from\": \"" + entry.getValue().getFrom() + "\", \"to\": \"" + entry.getValue().getTo()
+                            + "\", \"color\": \"red\", \"text\": \"" + entry.getValue().getText() + "\"},";
+                }
+
+                json = json.substring(0, json.length() - 1);
+                json += "]";
+
+                // System.out.println(json);
+                wrapper.setMessage(json);
+                conClient.sendEvent("jsonevent", wrapper);
+
+            } else {
+                conClient.sendEvent("alcevent", wrapper);
+            }
         }
 
     }
@@ -139,7 +138,7 @@ public class Server implements Runnable {
     }
 
     /*
-    setup configuration
+     * setup configuration
      */
     private Configuration getConfig() {
         Configuration config = new Configuration();
