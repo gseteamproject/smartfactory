@@ -26,6 +26,9 @@ public class AskFinancesInitiator extends RequestInteractor implements AchieveRE
         this.interactor = SellingResponder.interactor;
     }
 
+    // CPD-OFF
+    // TODO : fix cpd
+
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
         request = new ACLMessage(ACLMessage.REQUEST);
@@ -59,6 +62,8 @@ public class AskFinancesInitiator extends RequestInteractor implements AchieveRE
     public void handleRefuse(ACLMessage refuse) {
         // TODO Auto-generated method stub
     }
+
+    // CPD-ON
 
     @Override
     public void handleInform(ACLMessage inform) {
