@@ -2,7 +2,6 @@ package procurementMarketBehaviours;
 
 import interactors.OrderDataStore;
 import interactors.RequestResult;
-import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementMarketRequestResult extends RequestResult {
@@ -15,8 +14,7 @@ public class ProcurementMarketRequestResult extends RequestResult {
     public ACLMessage execute(ACLMessage request) {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
-        response.setSender(new AID(("AgentProcurementMarket"), AID.ISLOCALNAME));
-        
+
         if (!dataStore.getDeadlineResult()) {
             response.setPerformative(ACLMessage.INFORM);
             this.isDone = true;
@@ -24,7 +22,7 @@ public class ProcurementMarketRequestResult extends RequestResult {
             response.setPerformative(ACLMessage.FAILURE);
             this.isDone = false;
         }
-        
+
         return response;
     }
 }

@@ -12,16 +12,16 @@ public class ProductionAskBehaviour extends AskBehaviour {
      */
     private static final long serialVersionUID = -4443443755165652310L;
 
-    public ProductionAskBehaviour(ProductionResponder interactionBehaviour, ProductionRequestResult interactor,
-            OrderDataStore dataStore) {
-        super(interactionBehaviour, interactor, dataStore);
+    public ProductionAskBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+        super(interactionBehaviour, dataStore);
     }
 
     @Override
     public void action() {
-        Order orderToProduce = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
-        if (orderToProduce.searchInList(SalesMarket.orderQueue) > -1) {
-            if (!this.isStarted) {
+        if (!this.isStarted()) {
+            Order orderToProduce = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+            if (orderToProduce.searchInList(SalesMarket.orderQueue) > -1) {
+                // if (!this.isStarted()) {
                 SalesMarket.orderQueue
                         .get(orderToProduce.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
                                 .getAgent().getLocalName();
@@ -30,8 +30,10 @@ public class ProductionAskBehaviour extends AskBehaviour {
                 // interactionBehaviour, (ProductionRequestResult) interactor, dataStore));
                 myAgent.addBehaviour(
                         new AskForMaterialsBehaviour((ProductionResponder) interactionBehaviour, dataStore));
+                // }
+                // this.setStarted(true);
             }
-            this.isStarted = true;
+            this.setStarted(true);
         }
     }
 }

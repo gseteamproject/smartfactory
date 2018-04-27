@@ -4,7 +4,6 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
-import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementMarketDecision extends Decision {
@@ -23,7 +22,7 @@ public class ProcurementMarketDecision extends Decision {
         response = request.createReply();
         response.setContent(request.getContent());
         response.setPerformative(ACLMessage.AGREE);
-        response.setSender(new AID(("AgentProcurementMarket"), AID.ISLOCALNAME));
+        response.setSender(interactionBehaviour.getAgent().getAID());
 
         msgObj = new MessageObject("AgentProcurementMarket", "I will look for materials for " + orderText);
         Communication.server.sendMessageToClient(msgObj);

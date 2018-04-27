@@ -15,13 +15,11 @@ import jade.lang.acl.ACLMessage;
 
 public class AskToProduceInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
 
-    private SellingRequestResult interactor;
     private String orderText;
     public MessageObject msgObj;
 
     public AskToProduceInitiator(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(dataStore);
-        this.interactor = SellingResponder.interactor;
     }
 
     @Override
@@ -52,7 +50,7 @@ public class AskToProduceInitiator extends RequestInteractor implements AchieveR
                 order = orderInQueue;
             }
         }
-        interactor.execute(dataStore.getRequestMessage());
+        dataStore.getRequestResult().execute(dataStore.getRequestMessage());
 
     }
 

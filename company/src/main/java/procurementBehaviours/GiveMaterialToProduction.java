@@ -17,7 +17,7 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
      */
     private static final long serialVersionUID = -1386982676634257780L;
     private ProcurementResponder interactionBehaviour;
-    private ProcurementRequestResult interactor;
+    private OrderDataStore dataStore;
     private String materialsToGive;
     private String orderText;
     private MessageObject msgObj;
@@ -25,7 +25,7 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
     public GiveMaterialToProduction(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = ProcurementResponder.interactor;
+        this.dataStore = dataStore;
         materialsToGive = interactionBehaviour.getRequest().getContent();
     }
 
@@ -51,6 +51,11 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
         }
 
         Procurement.isGiven = true;
-        interactor.execute(interactionBehaviour.getRequest());
+        dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+        if (Procurement.procurementQueue.remove(order)) {
+            MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
+                    order.getTextOfOrder() + " is removed from Procurement queue.");
+            Communication.server.sendMessageToClient(msgObj);
+        }
     }
 }

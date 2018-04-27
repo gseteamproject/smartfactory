@@ -11,19 +11,27 @@ public class AskBehaviour extends SimpleBehaviour {
     protected RequestResult interactor;
     protected ResponderBehaviour interactionBehaviour;
     protected OrderDataStore dataStore;
+    protected boolean isStarted;
 
-    protected boolean isStarted = false;
+    public boolean isStarted() {
+        return isStarted;
+    }
 
-    public AskBehaviour(ResponderBehaviour interactionBehaviour, RequestResult interactor, OrderDataStore dataStore) {
+    public void setStarted(boolean isStarted) {
+        this.isStarted = isStarted;
+    }
+
+    public AskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = interactor;
+        this.interactor = dataStore.getRequestResult();
         this.dataStore = dataStore;
+        this.setStarted(true);
     }
 
     @Override
     public void action() {
-        
+
     }
 
     @Override

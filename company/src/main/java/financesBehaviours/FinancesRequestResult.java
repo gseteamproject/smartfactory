@@ -15,7 +15,6 @@ public class FinancesRequestResult extends RequestResult {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
 
-        System.out.println("TEST F " + dataStore.getDeadlineResult());
         if (!dataStore.getDeadlineResult()) {
             if (request.getConversationId() == "Order") {
                 // if (Procurement.isInMaterialStorage) {

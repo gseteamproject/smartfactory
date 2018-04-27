@@ -12,14 +12,13 @@ public class SalesMarketAskBehaviour extends AskBehaviour {
      */
     private static final long serialVersionUID = 974888961701937616L;
 
-    public SalesMarketAskBehaviour(SalesMarketResponder interactionBehaviour, SalesMarketRequestResult interactor,
-            OrderDataStore dataStore) {
-        super(interactionBehaviour, interactor, dataStore);
+    public SalesMarketAskBehaviour(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+        super(interactionBehaviour, dataStore);
     }
 
     @Override
     public void action() {
-        if (!this.isStarted) {
+        if (!this.isStarted()) {
             Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
             if (!SalesMarket.orderQueue.contains(order)) {
                 SalesMarket.orderQueue.add(order);
@@ -32,7 +31,7 @@ public class SalesMarketAskBehaviour extends AskBehaviour {
                 // myAgent.addBehaviour(new DeadlineForOrderBehaviour((SalesMarketResponder)
                 // interactionBehaviour, dataStore, 6000));
             }
-            this.isStarted = true;
+            this.setStarted(true);
         }
     }
 }

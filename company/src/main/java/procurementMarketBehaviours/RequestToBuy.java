@@ -6,6 +6,7 @@ import basicAgents.Procurement;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
+import interactors.OrderDataStore;
 import jade.core.AID;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -24,7 +25,7 @@ public class RequestToBuy extends SimpleBehaviour {
     private static final long serialVersionUID = -1322936877118129497L;
 
     private ProcurementMarketResponder interactionBehaviour;
-    private ProcurementMarketRequestResult interactor;
+    private OrderDataStore dataStore;
     private MessageObject msgObj;
     public static int buyCount;
 
@@ -33,13 +34,13 @@ public class RequestToBuy extends SimpleBehaviour {
     OrderPart currentOrder;
 
     public RequestToBuy(List<AID> procurementAgents, ProcurementMarketResponder interactionBehaviour,
-            OrderPart currentOrder) {
+            OrderDataStore dataStore, OrderPart currentOrder) {
         this.procurementAgents = procurementAgents;
         /* initial state for behaviour */
         this.requestState = RequestState.PREPARE_CALL_FOR_PROPOSAL;
         this.currentOrder = currentOrder;
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = ProcurementMarketResponder.interactor;
+        this.dataStore = dataStore;
     }
 
     MessageTemplate replyTemplate = null;
@@ -108,12 +109,15 @@ public class RequestToBuy extends SimpleBehaviour {
             msg = myAgent.receive(replyTemplate);
             if (msg != null) {
 
-                msgObj = new MessageObject("AgentProcurementMarket", currentOrder.getPart().getClass().getSimpleName()
-                        + " is found with " + bestPrice);
+                msgObj = new MessageObject("AgentProcurementMarket",
+                        currentOrder.getPart().getClass().getSimpleName() + " is found with " + bestPrice);
                 Communication.server.sendMessageToClient(msgObj);
 
-            /*    System.out.println(String
-                        .format(currentOrder.getPart().getClass().getSimpleName() + " is found (price=%d)", bestPrice));*/
+                /*
+                 * System.out.println(String
+                 * .format(currentOrder.getPart().getClass().getSimpleName() +
+                 * " is found (price=%d)", bestPrice));
+                 */
 
                 repliesLeft = 0;
                 requestState = RequestState.DONE;
@@ -136,7 +140,7 @@ public class RequestToBuy extends SimpleBehaviour {
     public boolean done() {
         /* behaviour is finished when it reaches DONE state */
         if (buyCount == AuctionInitiator.partsCount) {
-            interactor.execute(interactionBehaviour.getRequest());
+            dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
         }
         return requestState == RequestState.DONE;
     }

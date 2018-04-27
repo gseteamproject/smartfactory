@@ -12,13 +12,12 @@ public class SellingActivityBehaviour extends ParallelBehaviour {
 
     // TODO: put this into DataStore
 
-    public SellingActivityBehaviour(SellingResponder interactionBehaviour, SellingRequestResult interactor,
-            OrderDataStore dataStore) {
+    public SellingActivityBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent(), WHEN_ANY);
         // interactor = new SellingRequestResult(dataStore);
 
         addSubBehaviour(dataStore.getDeadlineBehaviour());
-        addSubBehaviour(new SellingAskBehaviour(interactionBehaviour, interactor, dataStore));
+        addSubBehaviour(dataStore.getAskBehaviour());
 
     }
 }

@@ -32,7 +32,6 @@ public class Decision {
 
         dataStore.setAgent(interactionBehaviour.getAgent().getLocalName());
         System.out.println("currentAgent: " + dataStore.getAgent());
-        System.out.println("currentAgent: " + "AgentSalesMarket");
 
         if (dataStore.getAgent().equals("AgentSalesMarket")) {
             dataStore.setDeadline(order.deadline);
@@ -59,5 +58,8 @@ public class Decision {
         dataStore.setDeadlineResult(false);
 
         dataStore.getDeadlineBehaviour().reset(dataStore.getDeadline() * Server.delaytime / 150);
+
+        dataStore.getRequestResult().reset();
+        dataStore.getAskBehaviour().setStarted(false);
     }
 }

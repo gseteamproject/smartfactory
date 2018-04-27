@@ -58,7 +58,7 @@ public class ReportFinancesInitiator extends RequestInteractor implements Achiev
         Selling.productionQueue.add(order);
 
         interactionBehaviour.getAgent()
-                .addBehaviour(new AuctionInitiator((ProcurementMarketResponder) interactionBehaviour));
+                .addBehaviour(new AuctionInitiator((ProcurementMarketResponder) interactionBehaviour, dataStore));
 
     }
 

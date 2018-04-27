@@ -15,15 +15,12 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
     protected ResponderBehaviour interactionBehaviour;
     protected OrderDataStore dataStore;
-    protected RequestResult interactor;
 
-    public DeadlineBehaviour(ResponderBehaviour interactionBehaviour, RequestResult interactor,
-            OrderDataStore dataStore) {
+    public DeadlineBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
         // super(interactionBehaviour.getAgent(), dataStore.getDeadline() *
         // Server.delaytime / 150);
         super(interactionBehaviour.getAgent(), 60000);
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = interactor;
         this.dataStore = dataStore;
     }
 
@@ -37,14 +34,14 @@ public class DeadlineBehaviour extends WakerBehaviour {
         dataStore.setDeadlineResult(true);
         if (order.searchInList(SalesMarket.orderQueue) > -1) {
             System.out.println("Deadline of " + interactionBehaviour.getAgent().getLocalName());
-            interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
+            interactionBehaviour.setResult(dataStore.getRequestResult().execute(interactionBehaviour.getRequest()));
             if (SalesMarket.orderQueue.remove(order)) {
                 MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
-                        order.getTextOfOrder() + " is removed from Orderqueue.");
+                        order.getTextOfOrder() + " is removed from Order queue.");
                 Communication.server.sendMessageToClient(msgObj);
                 /*
                  * System.out.println("SalesMarketAgent: " + orderText +
-                 * " is removed from Orderqueue.");
+                 * " is removed from Order queue.");
                  */
             }
         }

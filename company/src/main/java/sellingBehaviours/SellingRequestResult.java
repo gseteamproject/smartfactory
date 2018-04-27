@@ -16,7 +16,6 @@ public class SellingRequestResult extends RequestResult {
         ACLMessage response = request.createReply();
         response.setContent(request.getContent());
         // TODO: Need to check if in warehouse here?
-        System.out.println("TEST S " + dataStore.getDeadlineResult());
         if (!dataStore.getDeadlineResult()) {
             if (request.getConversationId() == "Ask") {
                 if (Selling.isInWarehouse) {

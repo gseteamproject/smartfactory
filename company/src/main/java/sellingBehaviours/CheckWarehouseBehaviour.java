@@ -39,6 +39,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
         // check if this order is not in queue yet
         isInQueue = Selling.productionQueue.contains(order);
+        System.out.println("SELLisInQueue1 " + isInQueue);
 
         // part of order, that needs to be produced
         Order orderToProduce = new Order();
@@ -79,6 +80,9 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
                 }
             }
         }
+        System.out.println("2222222222222222222222222222");
+        System.out.println("SELLisInQueue2 " + isInQueue);
+        System.out.println("orderToProduce.orderList.size() " + orderToProduce.orderList.size());
 
         // productToCheck needs to be produced
         if (!isInQueue && (orderToProduce.orderList.size() > 0)) {
@@ -98,6 +102,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
             Communication.server.sendMessageToClient("SellingAgent",
                     "Sending an info to Finance Agent to produce " + orderToProduce.getTextOfOrder());*/
 
+            System.out.println("3333333333333333333333333333333333333");
             myAgent.addBehaviour(new AskFinancesBehaviour(interactionBehaviour, dataStore));
         }
     }

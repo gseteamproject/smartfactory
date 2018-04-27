@@ -57,4 +57,20 @@ public class OrderDataStore extends DataStore {
     public boolean getDeadlineResult() {
         return (boolean) get("is-deadline");
     }
+
+    public void setAskBehaviour(AskBehaviour askBehaviour) {
+        put("ask-behaviour", askBehaviour);
+    }
+
+    public AskBehaviour getAskBehaviour() {
+        return (AskBehaviour) get("ask-behaviour");
+    }
+
+    public void setRequestResult(RequestResult requestResult) {
+        put("request-result", requestResult);
+    }
+
+    public RequestResult getRequestResult() {
+        return (RequestResult) get("request-result");
+    }
 }

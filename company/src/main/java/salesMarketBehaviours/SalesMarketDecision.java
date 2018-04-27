@@ -6,7 +6,6 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
-import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class SalesMarketDecision extends Decision {
@@ -29,7 +28,7 @@ public class SalesMarketDecision extends Decision {
         // Agent should send agree or refuse
         response = request.createReply();
         response.setContent(request.getContent());
-        response.setSender(new AID(("AgentSalesMarket"), AID.ISLOCALNAME));
+        response.setSender(interactionBehaviour.getAgent().getAID());
 
         if (!SalesMarket.orderQueue.contains(order)) {
             response.setPerformative(ACLMessage.AGREE);
@@ -40,7 +39,6 @@ public class SalesMarketDecision extends Decision {
             response.setPerformative(ACLMessage.REFUSE);
             msgObj = new MessageObject(response, "has rejected order of " + orderText);
             Communication.server.sendMessageToClient(msgObj);
-
         }
 
         return response;

@@ -13,20 +13,21 @@ public class SellingAskBehaviour extends AskBehaviour {
     private static final long serialVersionUID = -4443443755165652310L;
     private MessageObject msgObj;
 
-    public SellingAskBehaviour(SellingResponder interactionBehaviour, SellingRequestResult interactor,
-            OrderDataStore dataStore) {
-        super(interactionBehaviour, interactor, dataStore);
+    public SellingAskBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
+        super(interactionBehaviour, dataStore);
     }
 
     @Override
     public void action() {
-        ACLMessage request = dataStore.getRequestMessage();
-        Order order = Order.gson.fromJson(request.getContent(), Order.class);
-        String orderText = order.getTextOfOrder();
+        if (!this.isStarted()) {
+            // ACLMessage request = dataStore.getRequestMessage();
+            ACLMessage request = interactionBehaviour.getRequest();
+            Order order = Order.gson.fromJson(request.getContent(), Order.class);
+            String orderText = order.getTextOfOrder();
 
-        if (order.searchInList(SalesMarket.orderQueue) > -1) {
-            if (request.getConversationId() == "Ask") {
-                if (!this.isStarted) {
+            if (order.searchInList(SalesMarket.orderQueue) > -1) {
+                if (request.getConversationId() == "Ask") {
+                    // if (!this.isStarted()) {
                     this.interactor.isDone = false;
                     msgObj = new MessageObject(request, "will check warehouse for " + orderText);
                     Communication.server.sendMessageToClient(msgObj);
@@ -44,13 +45,14 @@ public class SellingAskBehaviour extends AskBehaviour {
                      * Communication.server.sendMessageToClient("SellingAgent",
                      * "[agree] I will check warehouse for " + orderText);
                      */
+                    System.out.println("111111111111111111111111111111111");
                     myAgent.addBehaviour(
                             new CheckWarehouseBehaviour((SellingResponder) interactionBehaviour, dataStore));
-                }
-                this.isStarted = true;
-            } else if (request.getConversationId() == "Take") {
+                    // }
+                    // this.setStarted(true);
+                } else if (request.getConversationId() == "Take") {
 
-                if (this.isStarted) {
+                    // if (this.isStarted()) {
                     this.interactor.isDone = false;
                     msgObj = new MessageObject(request, "will give order " + orderText + " from warehouse");
                     Communication.server.sendMessageToClient(msgObj);
@@ -70,9 +72,11 @@ public class SellingAskBehaviour extends AskBehaviour {
                      */
                     myAgent.addBehaviour(
                             new GiveProductToMarketBehaviour((SellingResponder) interactionBehaviour, dataStore));
+                    // }
+                    // this.setStarted(false);
                 }
-                this.isStarted = false;
             }
+            this.setStarted(true);
         }
     }
 }

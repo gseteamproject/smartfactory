@@ -11,15 +11,13 @@ public class TransferMoneyFromBank extends OneShotBehaviour {
      */
     private static final long serialVersionUID = -8355136234160671855L;
     private FinancesResponder interactionBehaviour;
-    private FinancesRequestResult interactor;
-    // private OrderDataStore dataStore;
+    private OrderDataStore dataStore;
     private String orderToBuy;
     private String orderText;
 
     public TransferMoneyFromBank(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = FinancesResponder.interactor;
-        // this.dataStore = dataStore;
+        this.dataStore = dataStore;
         orderToBuy = interactionBehaviour.getRequest().getContent();
     }
 
@@ -29,6 +27,6 @@ public class TransferMoneyFromBank extends OneShotBehaviour {
         orderText = order.getTextOfOrder();
 
         System.out.println("Buy " + orderText);
-        interactor.execute(interactionBehaviour.getRequest());
+        dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 }

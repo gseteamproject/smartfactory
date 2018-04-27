@@ -4,7 +4,6 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
-import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class ProductionDecision extends Decision {
@@ -22,7 +21,7 @@ public class ProductionDecision extends Decision {
         response = request.createReply();
         response.setContent(request.getContent());
         response.setPerformative(ACLMessage.AGREE);
-        response.setSender(new AID(("AgentProduction"), AID.ISLOCALNAME));
+        response.setSender(interactionBehaviour.getAgent().getAID());
 
         msgObj = new MessageObject("AgentProduction", orderText + " will be produced");
         Communication.server.sendMessageToClient(msgObj);

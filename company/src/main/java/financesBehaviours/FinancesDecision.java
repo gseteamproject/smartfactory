@@ -4,7 +4,6 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
-import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class FinancesDecision extends Decision {
@@ -12,7 +11,7 @@ public class FinancesDecision extends Decision {
     public FinancesDecision(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour, dataStore);
     }
-    
+
     @Override
     public ACLMessage execute(ACLMessage request) {
 
@@ -21,7 +20,7 @@ public class FinancesDecision extends Decision {
         response = request.createReply();
         response.setContent(request.getContent());
         response.setPerformative(ACLMessage.AGREE);
-        response.setSender(new AID(("AgentFinances"), AID.ISLOCALNAME));
+        response.setSender(interactionBehaviour.getAgent().getAID());
 
         if (request.getConversationId() == "Order") {
             msgObj = new MessageObject("AgentFinances", "has accepted selling of " + orderText);

@@ -4,7 +4,6 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
-import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class SellingDecision extends Decision {
@@ -18,10 +17,10 @@ public class SellingDecision extends Decision {
 
         setup(request);
 
-        ACLMessage response = request.createReply();
+        response = request.createReply();
         response.setContent(request.getContent());
         response.setPerformative(ACLMessage.AGREE);
-        response.setSender(new AID(("AgentSelling"), AID.ISLOCALNAME));
+        response.setSender(interactionBehaviour.getAgent().getAID());
 
         // response.setPerformative(ACLMessage.REFUSE);
 

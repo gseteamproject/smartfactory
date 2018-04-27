@@ -19,13 +19,13 @@ class DeliverToSellingBehaviour extends OneShotBehaviour {
     private String orderToGive;
     private String orderText;
     private ProductionResponder interactionBehaviour;
-    private ProductionRequestResult interactor;
+    private OrderDataStore dataStore;
     private MessageObject msgObj;
 
     public DeliverToSellingBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = ProductionResponder.interactor;
+        this.dataStore = dataStore;
     }
 
     @Override
@@ -48,6 +48,6 @@ class DeliverToSellingBehaviour extends OneShotBehaviour {
             }
         }
         Production.isProduced = true;
-        interactor.execute(interactionBehaviour.getRequest());
+        dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 }

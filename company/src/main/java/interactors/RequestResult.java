@@ -18,4 +18,8 @@ public class RequestResult {
     public boolean done() {
         return isDone;
     }
+    
+    public void reset() {
+        this.isDone = false;
+    }
 }

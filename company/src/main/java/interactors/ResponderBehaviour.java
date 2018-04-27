@@ -4,13 +4,13 @@ import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.AchieveREResponder;
-import salesMarketBehaviours.SalesMarketRequestResult;
 
 public class ResponderBehaviour extends AchieveREResponder {
-    
-    public static SalesMarketRequestResult interactor;
-    protected static DeadlineBehaviour deadline;
-    
+
+    public static RequestResult interactor;
+    protected DeadlineBehaviour deadline;
+    protected AskBehaviour askBehaviour;
+
     public ACLMessage getRequest() {
         return (ACLMessage) getDataStore().get(REQUEST_KEY);
     }
@@ -25,6 +25,12 @@ public class ResponderBehaviour extends AchieveREResponder {
 
     public ResponderBehaviour(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
         super(a, mt);
+    }
+
+    public void setup(OrderDataStore dataStore) {
+        deadline = new DeadlineBehaviour(this, dataStore);
+        dataStore.setDeadlineBehaviour(deadline);
+        dataStore.setAskBehaviour(askBehaviour);
     }
 
     private static final long serialVersionUID = -6424797507265885988L;

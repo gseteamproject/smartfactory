@@ -39,6 +39,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 
         // check if this order is not in queue yet
         isInQueue = Procurement.procurementQueue.contains(order);
+        System.out.println("PROCisInQueue1 " + isInQueue);
 
         // part of order, that needs to be produced
         Order orderToBuy = new Order();
@@ -99,6 +100,9 @@ public class CheckMaterialStorage extends OneShotBehaviour {
                 }
             }
         }
+        System.out.println("888888888888888888888888888888888");
+        System.out.println("PROCisInQueue2 " + isInQueue);
+        System.out.println("orderToBuy.orderList.size() " + orderToBuy.orderList.size());
 
         if (!isInQueue && orderToBuy.orderList.size() > 0) {
             String testGson = Order.gson.toJson(orderToBuy);

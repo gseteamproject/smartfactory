@@ -16,14 +16,12 @@ import jade.lang.acl.ACLMessage;
 public class AskForAuctionInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
 
     private ProcurementResponder interactionBehaviour;
-    private ProcurementRequestResult interactor;
     private String orderText;
     public MessageObject msgObj;
 
     public AskForAuctionInitiator(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
         super(dataStore);
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = ProcurementResponder.interactor;
     }
 
     @Override
@@ -53,7 +51,7 @@ public class AskForAuctionInitiator extends RequestInteractor implements Achieve
                 "received [inform] " + orderText + " is delivered to materialStorage");*/
 
         Procurement.isInMaterialStorage = true;
-        interactor.execute(interactionBehaviour.getRequest());
+        dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 
     @Override

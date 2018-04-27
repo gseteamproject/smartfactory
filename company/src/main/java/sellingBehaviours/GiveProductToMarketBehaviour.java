@@ -19,14 +19,14 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
      */
     private static final long serialVersionUID = -6498277261596869382L;
     private SellingResponder interactionBehaviour;
-    private SellingRequestResult interactor;
+    private OrderDataStore dataStore;
     private String orderToGive;
     private MessageObject msgObj;
 
     public GiveProductToMarketBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
-        this.interactor = SellingResponder.interactor;
+        this.dataStore = dataStore;
         orderToGive = interactionBehaviour.getRequest().getContent();
     }
 
@@ -56,7 +56,12 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
         }
         if (takeCount == order.orderList.size()) {
             Selling.isTaken = true;
-            interactor.execute(interactionBehaviour.getRequest());
+            dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+            if (Selling.productionQueue.remove(order)) {
+                MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
+                        order.getTextOfOrder() + " is removed from Production queue.");
+                Communication.server.sendMessageToClient(msgObj);
+            }
         }
     }
 }
