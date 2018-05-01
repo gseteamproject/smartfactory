@@ -30,27 +30,15 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
         orderToGive = dataStore.getRequestMessage().getContent();
         Order order = Order.gson.fromJson(orderToGive, Order.class);
         orderText = order.getTextOfOrder();
-        /*
-         * System.out.println("ProductionAgent: Delivering " + orderText +
-         * " to customer");
-         */
 
         msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to customer");
         Communication.server.sendMessageToClient(msgObj);
 
-        // if (order.searchInList(SalesMarket.orderQueue) > -1) {
-        // interactor.execute(interactionBehaviour.getRequest());
-        // }
+        SalesMarket.orderQueue.remove(order);
 
-        if (SalesMarket.orderQueue.remove(order)) {
-            msgObj = new MessageObject("AgentSalesMarket", orderText + " is removed from Order queue.");
-            Communication.server.sendMessageToClient(msgObj);
-            /*
-             * System.out.println("SalesMarketAgent: " + orderText +
-             * " is removed from Order queue.");
-             */
-        }
-        // Production.isProduced = true;
+        msgObj = new MessageObject("AgentSalesMarket", orderText + " is removed from Order queue.");
+        Communication.server.sendMessageToClient(msgObj);
+
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 }

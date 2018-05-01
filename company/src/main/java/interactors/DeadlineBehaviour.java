@@ -26,7 +26,6 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
     @Override
     protected void onWake() {
-        System.out.println("zdes' " + interactionBehaviour.getAgent().getLocalName());
         System.out.println(dataStore.getDeadline() * Server.delaytime / 150);
         Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
         System.out.println(SalesMarket.orderQueue);

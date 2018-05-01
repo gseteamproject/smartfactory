@@ -14,7 +14,6 @@ import jade.lang.acl.ACLMessage;
 public class TakeFromStorageInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
 
     private ProductionResponder interactionBehaviour;
-    private String orderText;
     public MessageObject msgObj;
 
     public TakeFromStorageInitiator(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
@@ -28,7 +27,7 @@ public class TakeFromStorageInitiator extends RequestInteractor implements Achie
 
         String requestedAction = "Take";
         request.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
-        setup(request, requestedAction);
+        setup(request, requestedAction, false);
 
         return l;
     }

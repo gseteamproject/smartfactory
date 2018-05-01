@@ -54,7 +54,7 @@ public class Product extends Good {
 	}
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Good o) {
         if (this == o)
             return true;
         if (o == null || getClass() != o.getClass())

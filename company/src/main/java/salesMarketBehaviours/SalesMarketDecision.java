@@ -18,7 +18,7 @@ public class SalesMarketDecision extends Decision {
     public ACLMessage execute(ACLMessage request) {
 
         Order order = Order.gson.fromJson(request.getContent(), Order.class);
-        String orderText = order.getTextOfOrder();
+        orderText = order.getTextOfOrder();
 
         MessageObject msgObj = new MessageObject(request, "has ordered " + orderText);
         Communication.server.sendMessageToClient(msgObj);

@@ -33,22 +33,23 @@ public class Order implements Serializable {
         }
         return list;
     }
-
-    public void addProduct(Product product, int amount) {
+    
+    public boolean addGood(Good good, int amount) {
         if (amount > 0) {
-            OrderPart part = new OrderPart(product);
+            OrderPart part = new OrderPart(good);
             part.setAmount(amount);
             boolean count = false;
             for (OrderPart partInList : orderList) {
-                if (partInList.getProduct().equals(product)) {
+                if (partInList.getGood().equals(good)) {
                     partInList.setAmount(amount + 1);
                     count = true;
                 }
             }
             if (!count) {
-                orderList.add(part);
+                return orderList.add(part);
             }
         }
+        return false;
     }
 
     public int getID() {

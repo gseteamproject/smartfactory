@@ -5,9 +5,9 @@ package basicClasses;
  */
 
 public class Paint extends Good {
-	private String color;
+    private String color;
 
-    public Paint(String color){
+    public Paint(String color) {
         this.color = color;
     }
 
@@ -19,5 +19,12 @@ public class Paint extends Good {
         this.color = color;
     }
 
-
+    public boolean equals(Good paint) {
+        if (paint instanceof Paint) {
+            if (this.getColor().equals(((Paint) paint).getColor()) && this.getPrice() == ((Paint) paint).getPrice()) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

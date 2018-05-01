@@ -25,7 +25,7 @@ public class AskForOrderInitiator extends RequestInteractor implements AchieveRE
 
         String requestedAction = "Ask";
         request.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
-        setup(request, requestedAction);
+        setup(request, requestedAction, false);
 
         return l;
     }

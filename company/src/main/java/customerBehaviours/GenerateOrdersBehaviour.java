@@ -57,7 +57,7 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
             randSize = rand.nextInt(10) + 1;
             randAmount = rand.nextInt(100) + 1;
 
-            order.addProduct(new Product(randSize, randColS), randAmount);
+            order.addGood(new Product(randSize, randColS), randAmount);
         }
 
         String testGson = Order.gson.toJson(order);

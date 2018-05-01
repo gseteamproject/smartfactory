@@ -15,7 +15,6 @@ import jade.lang.acl.ACLMessage;
 public class AskFinancesInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
 
     private SellingResponder interactionBehaviour;
-    private String orderText;
     public MessageObject msgObj;
 
     public AskFinancesInitiator(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
@@ -29,7 +28,7 @@ public class AskFinancesInitiator extends RequestInteractor implements AchieveRE
 
         String requestedAction = "Order";
         request.addReceiver(new AID(("AgentFinances"), AID.ISLOCALNAME));
-        setup(request, requestedAction);
+        setup(request, requestedAction, true);
 
         return l;
     }

@@ -30,7 +30,6 @@ public class FinancesAskBehaviour extends AskBehaviour {
                     this.interactor.isDone = false;
                     msgObj = new MessageObject(request, " has accepted selling of " + orderText);
                     Communication.server.sendMessageToClient(msgObj);
-                    System.out.println("Finances: Order");
 
                     SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
                             .getAgent().getLocalName();
@@ -45,7 +44,6 @@ public class FinancesAskBehaviour extends AskBehaviour {
                     this.interactor.isDone = false;
                     msgObj = new MessageObject(request, "has accepted buying of " + orderText);
                     Communication.server.sendMessageToClient(msgObj);
-                    System.out.println("Finances: Material");
 
                     SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
                             .getAgent().getLocalName();

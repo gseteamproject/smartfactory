@@ -16,7 +16,6 @@ import jade.lang.acl.MessageTemplate;
 public class AskForMaterialsInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
 
     private ProductionResponder interactionBehaviour;
-    private String orderText;
     public MessageObject msgObj;
 
     public AskForMaterialsInitiator(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
@@ -30,7 +29,7 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
 
         String requestedAction = "Materials";
         request.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
-        setup(request, requestedAction);
+        setup(request, requestedAction, false);
 
         return l;
     }

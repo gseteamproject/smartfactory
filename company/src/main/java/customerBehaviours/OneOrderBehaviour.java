@@ -33,17 +33,17 @@ public class OneOrderBehaviour extends WakerBehaviour {
         testMsg.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 
         // improvised customer
-//         testMsg.setSender(new AID(("Customer"), AID.ISLOCALNAME));
+        // testMsg.setSender(new AID(("Customer"), AID.ISLOCALNAME));
 
         // it is an example of order
         Order order = new Order();
 
         order.id = SalesMarket.orderQueue.size() + 1;
 
-        order.addProduct(new Product(10, "red"), 1);
-        order.addProduct(new Product(10, "blue"), 2);
-        order.addProduct(new Product(10, "green"), 3);
-        
+        order.addGood(new Product(10, "red"), 1);
+        order.addGood(new Product(10, "blue"), 2);
+        order.addGood(new Product(10, "green"), 3);
+
         order.deadline = 60000; // 60 seconds
         order.price = 100;
         order.agent = getAgent().getLocalName();
@@ -84,5 +84,8 @@ public class OneOrderBehaviour extends WakerBehaviour {
         // 1 blue stone will be taken from warehouse
         // 1 blue stone will be produced
         // 3 green stones will be produced
+        // materials for 1 blue stone will be bought
+        // materials for 1 green stone will be bought
+        // materials for 2 green stones will be taken from storage
     }
 }

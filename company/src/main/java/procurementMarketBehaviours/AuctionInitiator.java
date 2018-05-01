@@ -76,9 +76,8 @@ public class AuctionInitiator extends OneShotBehaviour {
          * println("ProcurementAgent: Sending an info to ProcurementMarket to buy materials for "
          * + orderText);
          */
-
+        RequestToBuy.buyCount = 0;
         for (OrderPart orderPart : order.orderList) {
-            // System.out.println("mne nado: " + orderPart.getTextOfOrderPart());
             String requestedAction = "Order";
             ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
             msg.setConversationId(requestedAction);
@@ -87,14 +86,14 @@ public class AuctionInitiator extends OneShotBehaviour {
             msg.setContent(orderPart.getTextOfOrderPart());
 
             msgObj = new MessageObject("AgentProcurementMarket",
-                    "looking for agents with procurement service " + orderPart.getPart().getClass().getSimpleName());
+                    "looking for agents with procurement service " + orderPart.getGood().getClass().getSimpleName());
             Communication.server.sendMessageToClient(msgObj);
 
             /*
              * System.out.println("\nlooking for agents with procurement service = " +
              * orderPart.getPart().getClass().getSimpleName());
              */
-            List<AID> agents = findAgents(myAgent, orderPart.getPart().getClass().getSimpleName());
+            List<AID> agents = findAgents(myAgent, orderPart.getGood().getClass().getSimpleName());
             if (!agents.isEmpty()) {
 
                 msgObj = new MessageObject("AgentProcurementMarket",

@@ -28,8 +28,6 @@ public class SalesMarketAskBehaviour extends AskBehaviour {
                 // myAgent.addBehaviour(new SalesMarketActivityBehaviour((SalesMarketResponder)
                 // interactionBehaviour, (SalesMarketRequestResult) interactor, dataStore));
                 myAgent.addBehaviour(new AskForOrderBehaviour((SalesMarketResponder) interactionBehaviour, dataStore));
-                // myAgent.addBehaviour(new DeadlineForOrderBehaviour((SalesMarketResponder)
-                // interactionBehaviour, dataStore, 6000));
             }
             this.setStarted(true);
         }

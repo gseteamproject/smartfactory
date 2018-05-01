@@ -7,16 +7,25 @@ public class OrderPart {
     private Stone stone;
     private int amount;
 
-    public OrderPart(Product prod) {
-        this.product = prod;
-    }
+//    public OrderPart(Product prod) {
+//        this.product = prod;
+//    }
+//
+//    public OrderPart(Paint paint) {
+//        this.paint = paint;
+//    }
+//
+//    public OrderPart(Stone stone) {
+//        this.stone = stone;
+//    }
 
-    public OrderPart(Paint paint) {
-        this.paint = paint;
-    }
-
-    public OrderPart(Stone stone) {
-        this.stone = stone;
+    public OrderPart(Good good) {
+        if (good instanceof Product)
+            this.product = (Product) good;
+        else if (good instanceof Paint)
+            this.paint = (Paint) good;
+        else if (good instanceof Stone)
+            this.stone = (Stone) good;
     }
 
     public String getTextOfOrderPart() {
@@ -54,7 +63,7 @@ public class OrderPart {
         return false;
     }
 
-    public Good getPart() {
+    public Good getGood() {
         if (this.product != null) {
             return this.product;
         }

@@ -28,14 +28,8 @@ public class AskForAuction extends OneShotBehaviour {
     public void action() {
         materialsToRequest = interactionBehaviour.getRequest().getContent();
         orderText = Order.gson.fromJson(materialsToRequest, Order.class).getTextOfOrder();
-//        dataStore.setRequestMessage(interactionBehaviour.getRequest());
-
         msgObj = new MessageObject("AgentProduction", "is asking to get materials for " + orderText);
         Communication.server.sendMessageToClient(msgObj);
-
-/*
-        System.out.println("ProductionAgent: Asking ProcurementAgent to get materials for " + orderText);
-*/
         myAgent.addBehaviour(new AskForAuctionInitiatorBehaviour(interactionBehaviour, dataStore));
     }
 }

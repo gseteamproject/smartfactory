@@ -36,7 +36,6 @@ public class RequestToBuy extends SimpleBehaviour {
     public RequestToBuy(List<AID> procurementAgents, ProcurementMarketResponder interactionBehaviour,
             OrderDataStore dataStore, OrderPart currentOrder) {
         this.procurementAgents = procurementAgents;
-        /* initial state for behaviour */
         this.requestState = RequestState.PREPARE_CALL_FOR_PROPOSAL;
         this.currentOrder = currentOrder;
         this.interactionBehaviour = interactionBehaviour;
@@ -108,9 +107,8 @@ public class RequestToBuy extends SimpleBehaviour {
         case HANDLE_ACCEPT_PROPOSAL_REPLY:
             msg = myAgent.receive(replyTemplate);
             if (msg != null) {
-
                 msgObj = new MessageObject("AgentProcurementMarket",
-                        currentOrder.getPart().getClass().getSimpleName() + " is found with " + bestPrice);
+                        currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
                 Communication.server.sendMessageToClient(msgObj);
 
                 /*
@@ -121,7 +119,10 @@ public class RequestToBuy extends SimpleBehaviour {
 
                 repliesLeft = 0;
                 requestState = RequestState.DONE;
-                Procurement.materialStorage.add(currentOrder.getPart());
+
+                for (int i = 0; i < currentOrder.getAmount(); i++) {
+                    Procurement.materialStorage.add(currentOrder.getGood());
+                }
                 buyCount += 1;
             } else {
                 block();
@@ -142,6 +143,7 @@ public class RequestToBuy extends SimpleBehaviour {
         if (buyCount == AuctionInitiator.partsCount) {
             dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
         }
+
         return requestState == RequestState.DONE;
     }
 }

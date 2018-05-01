@@ -24,7 +24,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
     public CheckWarehouseBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         requestMessage = dataStore.getRequestMessage();
-        
+
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
     }
@@ -39,7 +39,6 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
         // check if this order is not in queue yet
         isInQueue = Selling.productionQueue.contains(order);
-        System.out.println("SELLisInQueue1 " + isInQueue);
 
         // part of order, that needs to be produced
         Order orderToProduce = new Order();
@@ -47,15 +46,19 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
         orderToProduce.deadline = order.deadline;
         orderToProduce.price = order.price;
         orderToProduce.agent = order.agent;
-
+        
         for (OrderPart orderPart : order.orderList) {
             Product productToCheck = orderPart.getProduct();
             int amount = orderPart.getAmount();
-           /* msgObj = new MessageObject("AgentSelling", "Asking warehouse about " + orderPart.getTextOfOrderPart());
-
-            System.out.println("SellingAgent: Asking warehouse about " + orderPart.getTextOfOrderPart());
-            Communication.server.sendMessageToClient("SellingAgent",
-                    "Asking warehouse about " + orderPart.getTextOfOrderPart());*/
+            /*
+             * msgObj = new MessageObject("AgentSelling", "Asking warehouse about " +
+             * orderPart.getTextOfOrderPart());
+             * 
+             * System.out.println("SellingAgent: Asking warehouse about " +
+             * orderPart.getTextOfOrderPart());
+             * Communication.server.sendMessageToClient("SellingAgent",
+             * "Asking warehouse about " + orderPart.getTextOfOrderPart());
+             */
 
             int amountInWH = Selling.warehouse.getAmountOfProduct(productToCheck);
 
@@ -64,11 +67,15 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
                     Selling.isInWarehouse = true;
                 }
 
-              /*  msgObj = new MessageObject("AgentSelling", "I say that " + orderPart.getTextOfOrderPart() + " is in warehouse");
-
-                System.out.println("SellingAgent: I say that " + orderPart.getTextOfOrderPart() + " is in warehouse");
-                Communication.server.sendMessageToClient("SellingAgent",
-                        "I say that " + orderPart.getTextOfOrderPart() + " is in warehouse");*/
+                /*
+                 * msgObj = new MessageObject("AgentSelling", "I say that " +
+                 * orderPart.getTextOfOrderPart() + " is in warehouse");
+                 * 
+                 * System.out.println("SellingAgent: I say that " +
+                 * orderPart.getTextOfOrderPart() + " is in warehouse");
+                 * Communication.server.sendMessageToClient("SellingAgent", "I say that " +
+                 * orderPart.getTextOfOrderPart() + " is in warehouse");
+                 */
             } else {
                 Selling.isInWarehouse = false;
 
@@ -80,29 +87,30 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
                 }
             }
         }
-        System.out.println("2222222222222222222222222222");
-        System.out.println("SELLisInQueue2 " + isInQueue);
-        System.out.println("orderToProduce.orderList.size() " + orderToProduce.orderList.size());
 
         // productToCheck needs to be produced
         if (!isInQueue && (orderToProduce.orderList.size() > 0)) {
             String testGson = Order.gson.toJson(orderToProduce);
             ACLMessage msgToFinances = (ACLMessage) requestMessage.clone();
             msgToFinances.setContent(testGson);
-            dataStore.setSubMessage(msgToFinances);            
+            dataStore.setSubMessage(msgToFinances);
 
-//            // add order to queue
-//            Selling.productionQueue.add(order);
+            // // add order to queue
+            // Selling.productionQueue.add(order);
 
-            msgObj = new MessageObject("AgentSelling", "Sending an info to Finance Agent to produce " + orderToProduce.getTextOfOrder());
+            msgObj = new MessageObject("AgentSelling",
+                    "Sending an info to Finance Agent to produce " + orderToProduce.getTextOfOrder());
             Communication.server.sendMessageToClient(msgObj);
 
-            /*System.out.println(
-                    "SellingAgent: Sending an info to Finance Agent to produce " + orderToProduce.getTextOfOrder());
-            Communication.server.sendMessageToClient("SellingAgent",
-                    "Sending an info to Finance Agent to produce " + orderToProduce.getTextOfOrder());*/
+            /*
+             * System.out.println(
+             * "SellingAgent: Sending an info to Finance Agent to produce " +
+             * orderToProduce.getTextOfOrder());
+             * Communication.server.sendMessageToClient("SellingAgent",
+             * "Sending an info to Finance Agent to produce " +
+             * orderToProduce.getTextOfOrder());
+             */
 
-            System.out.println("3333333333333333333333333333333333333");
             myAgent.addBehaviour(new AskFinancesBehaviour(interactionBehaviour, dataStore));
         }
     }

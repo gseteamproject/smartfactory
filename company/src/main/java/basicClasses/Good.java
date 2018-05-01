@@ -16,5 +16,14 @@ public abstract class Good {
         this.price = price;
     }
 
-
+    public boolean equals(Good good) {
+        if (good instanceof Stone) {
+            return ((Stone) this).equals(good);
+        } else if (good instanceof Paint) {
+            return ((Paint) this).equals(good);
+        } else if (good instanceof Product) {
+            return ((Product) this).equals(good);
+        }
+        return false;
+    }
 }

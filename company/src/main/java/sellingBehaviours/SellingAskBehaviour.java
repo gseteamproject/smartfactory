@@ -45,7 +45,6 @@ public class SellingAskBehaviour extends AskBehaviour {
                      * Communication.server.sendMessageToClient("SellingAgent",
                      * "[agree] I will check warehouse for " + orderText);
                      */
-                    System.out.println("111111111111111111111111111111111");
                     myAgent.addBehaviour(
                             new CheckWarehouseBehaviour((SellingResponder) interactionBehaviour, dataStore));
                     // }

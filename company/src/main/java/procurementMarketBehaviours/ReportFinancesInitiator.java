@@ -2,7 +2,6 @@ package procurementMarketBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.Selling;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -10,13 +9,11 @@ import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
 import interactors.RequestInteractor;
 import jade.core.AID;
-import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 
 public class ReportFinancesInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
 
     private ProcurementMarketResponder interactionBehaviour;
-    private String orderText;
     public MessageObject msgObj;
 
     public ReportFinancesInitiator(ProcurementMarketResponder interactionBehaviour, OrderDataStore dataStore) {
@@ -29,13 +26,9 @@ public class ReportFinancesInitiator extends RequestInteractor implements Achiev
         request = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Materials";
-        request.setConversationId(requestedAction);
         request.addReceiver(new AID(("AgentFinances"), AID.ISLOCALNAME));
-        request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setContent(dataStore.getRequestMessage().getContent());
-
-        Vector<ACLMessage> l = new Vector<ACLMessage>(1);
-        l.addElement(request);
+        System.out.println(dataStore.getRequestMessage().getContent());
+        setup(request, requestedAction, false);
 
         return l;
     }
@@ -55,7 +48,7 @@ public class ReportFinancesInitiator extends RequestInteractor implements Achiev
         dataStore.setSubMessage(msgToPurchase);
 
         // add order to queue
-        Selling.productionQueue.add(order);
+        // Selling.procurementQueue.add(order);
 
         interactionBehaviour.getAgent()
                 .addBehaviour(new AuctionInitiator((ProcurementMarketResponder) interactionBehaviour, dataStore));

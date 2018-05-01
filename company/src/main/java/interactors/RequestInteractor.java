@@ -19,10 +19,14 @@ public class RequestInteractor {
         this.dataStore = dataStore;
     }
     
-    protected void setup(ACLMessage request, String requestedAction) {
+    protected void setup(ACLMessage request, String requestedAction, boolean isSub) {
         request.setConversationId(requestedAction);
         request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setContent(dataStore.getRequestMessage().getContent());
+        if (isSub) {
+            request.setContent(dataStore.getSubMessage().getContent());
+        } else {
+            request.setContent(dataStore.getRequestMessage().getContent());            
+        }
 
         l = new Vector<ACLMessage>(1);
         l.addElement(request);

@@ -7,7 +7,6 @@ import interactors.OrderDataStore;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementDecision extends Decision {
-    private String orderText;
     private MessageObject msgObj;
 
     public ProcurementDecision(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {

@@ -2,7 +2,6 @@ package sellingBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.SalesMarket;
 import basicAgents.Selling;
 import basicClasses.Order;
 import communication.Communication;
@@ -14,8 +13,6 @@ import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class AskToProduceInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
-
-    private String orderText;
     public MessageObject msgObj;
 
     public AskToProduceInitiator(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
@@ -28,7 +25,7 @@ public class AskToProduceInitiator extends RequestInteractor implements AchieveR
 
         String requestedAction = "Produce";
         request.addReceiver(new AID(("AgentProduction"), AID.ISLOCALNAME));
-        setup(request, requestedAction);
+        setup(request, requestedAction, true);
 
         return l;
     }
@@ -43,15 +40,14 @@ public class AskToProduceInitiator extends RequestInteractor implements AchieveR
 
         msgObj = new MessageObject("AgentSelling", orderText + " is delivered to warehouse");
         Communication.server.sendMessageToClient(msgObj);
-
         Selling.isInWarehouse = true;
-        for (Order orderInQueue : SalesMarket.orderQueue) {
-            if (orderInQueue.id == order.id) {
-                order = orderInQueue;
-            }
-        }
+        // for (Order orderInQueue : SalesMarket.orderQueue) {
+        // if (orderInQueue.id == order.id) {
+        // order = orderInQueue;
+        // }
+        // }
         dataStore.getRequestResult().execute(dataStore.getRequestMessage());
-
+        Selling.productionQueue.remove(order);
     }
 
     @Override

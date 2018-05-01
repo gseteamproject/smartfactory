@@ -2,9 +2,8 @@ package procurementBehaviours;
 
 import basicAgents.Procurement;
 import basicClasses.Order;
-import basicClasses.Paint;
+import basicClasses.OrderPart;
 import basicClasses.Product;
-import basicClasses.Stone;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
@@ -26,14 +25,13 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
-        materialsToGive = interactionBehaviour.getRequest().getContent();
+        materialsToGive = dataStore.getRequestMessage().getContent();
     }
 
     @Override
     public void action() {
         Order order = Order.gson.fromJson(materialsToGive, Order.class);
         orderText = order.getTextOfOrder();
-
         msgObj = new MessageObject("AgentProcurement", "Taking " + orderText + " from materialStorage.");
         Communication.server.sendMessageToClient(msgObj);
 
@@ -44,10 +42,10 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
 
         Procurement.isGiven = false;
 
-        // TODO: get materials objects from message
-        for (Product product : order.getProducts()) {
-            Procurement.materialStorage.remove(new Paint(product.getColor()));
-            Procurement.materialStorage.remove(new Stone(product.getSize()));
+        for (OrderPart orderPart : order.orderList) {
+            for (int i = 0; i < orderPart.getAmount(); i++) {
+                Procurement.materialStorage.remove((Product) orderPart.getGood());
+            }
         }
 
         Procurement.isGiven = true;
