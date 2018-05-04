@@ -12,10 +12,10 @@ public class Decision extends Interactor {
 
 	public ACLMessage execute(ACLMessage request) {
 		// content = operation name
-		String operationName = request.getContent();
+		String serviceName = request.getContent();
 
 		ACLMessage response = request.createReply();
-		if (agentDataStore.getAgentServices().willExecuteService(operationName)) {
+		if (agentDataStore.getAgentServices().willExecuteService(serviceName)) {
 			response.setPerformative(ACLMessage.AGREE);
 
 		} else {
