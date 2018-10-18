@@ -1,3 +1,5 @@
+package application;
+
 import communication.Communication;
 import communication.Server;
 import jade.Boot;
