@@ -14,6 +14,7 @@ import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.AgentService;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.platform.JADEPlatform;
+import smartfactory.services.Services;
 import smartfactory.utility.AgentDataStore;
 import smartfactory.utility.AgentServices;
 import smartfactory.utility.EventSubscribers;
@@ -80,7 +81,7 @@ public class BaseAgent extends Agent {
 	}
 
 	protected void setupServices() {
-		agentServices.addService(new AgentService("discovering", agentDataStore));
+		agentServices.addService(new AgentService(Services.discovering, agentDataStore));
 	}
 
 	private void registerServices() {
