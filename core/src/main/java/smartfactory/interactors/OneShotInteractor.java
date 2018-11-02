@@ -1,7 +1,14 @@
 package smartfactory.interactors;
 
-public interface OneShotInteractor {
-	public void execute();
+import smartfactory.utility.AgentDataStore;
 
-	public int next();
+public abstract class OneShotInteractor extends Interactor {
+
+	public OneShotInteractor(AgentDataStore agentDataStore) {
+		super(agentDataStore);
+	}
+
+	public abstract void execute();
+
+	public abstract int next();
 }

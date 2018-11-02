@@ -1,11 +1,10 @@
 package smartfactory.interactors.base;
 
 import smartfactory.configuration.AgentConfiguration;
-import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
 import smartfactory.utility.AgentDataStore;
 
-public class LaunchAgent extends Interactor implements OneShotInteractor {
+public class LaunchAgent extends OneShotInteractor {
 
 	public LaunchAgent(AgentDataStore dataStore) {
 		super(dataStore);

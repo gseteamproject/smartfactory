@@ -7,11 +7,10 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
 import smartfactory.utility.AgentDataStore;
 
-public class SelectAgentToPerformService extends Interactor implements OneShotInteractor {
+public class SelectAgentToPerformService extends OneShotInteractor {
 
 	private DFAgentDescription agentProvidingService;
 

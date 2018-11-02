@@ -3,11 +3,10 @@ package smartfactory.interactors.process;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
 import smartfactory.utility.AgentDataStore;
 
-public class TransitProcessToNextOperation extends Interactor implements OneShotInteractor {
+public class TransitProcessToNextOperation extends OneShotInteractor {
 
 	public TransitProcessToNextOperation(AgentDataStore dataStore) {
 		super(dataStore);

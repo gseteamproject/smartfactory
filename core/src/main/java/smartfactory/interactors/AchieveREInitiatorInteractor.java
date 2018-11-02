@@ -3,18 +3,23 @@ package smartfactory.interactors;
 import java.util.Vector;
 
 import jade.lang.acl.ACLMessage;
+import smartfactory.utility.AgentDataStore;
 
-public interface AchieveREInitiatorInteractor {
+public abstract class AchieveREInitiatorInteractor extends Interactor {
 
-	public Vector<ACLMessage> prepareRequests(ACLMessage request);
+	public AchieveREInitiatorInteractor(AgentDataStore agentDataStore) {
+		super(agentDataStore);
+	}
 
-	public void handleAgree(ACLMessage agree);
+	public abstract Vector<ACLMessage> prepareRequests(ACLMessage request);
 
-	public void handleRefuse(ACLMessage refuse);
+	public abstract void handleAgree(ACLMessage agree);
 
-	public void handleInform(ACLMessage inform);
+	public abstract void handleRefuse(ACLMessage refuse);
 
-	public void handleFailure(ACLMessage failure);
+	public abstract void handleInform(ACLMessage inform);
 
-	public int next();
+	public abstract void handleFailure(ACLMessage failure);
+
+	public abstract int next();
 }

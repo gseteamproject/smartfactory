@@ -8,10 +8,9 @@ import org.slf4j.LoggerFactory;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.AchieveREInitiatorInteractor;
-import smartfactory.interactors.Interactor;
 import smartfactory.utility.AgentDataStore;
 
-public class ServiceProvisioningInitiator extends Interactor implements AchieveREInitiatorInteractor {
+public class ServiceProvisioningInitiator extends AchieveREInitiatorInteractor {
 
 	public ServiceProvisioningInitiator(AgentDataStore dataStore) {
 		super(dataStore);

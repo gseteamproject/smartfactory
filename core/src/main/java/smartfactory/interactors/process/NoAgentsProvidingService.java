@@ -3,12 +3,11 @@ package smartfactory.interactors.process;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
 import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
-public class NoAgentsProvidingService extends Interactor implements OneShotInteractor {
+public class NoAgentsProvidingService extends OneShotInteractor {
 
 	public NoAgentsProvidingService(AgentDataStore dataStore) {
 		super(dataStore);

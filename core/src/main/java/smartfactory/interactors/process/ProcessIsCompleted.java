@@ -3,12 +3,11 @@ package smartfactory.interactors.process;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import smartfactory.interactors.Interactor;
 import smartfactory.interactors.OneShotInteractor;
 import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
-public class ProcessIsCompleted extends Interactor implements OneShotInteractor {
+public class ProcessIsCompleted extends OneShotInteractor {
 
 	public ProcessIsCompleted(AgentDataStore dataObjects) {
 		super(dataObjects);
