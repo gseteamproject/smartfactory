@@ -3,6 +3,9 @@ package communication;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.corundumstudio.socketio.Configuration;
 import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
@@ -13,6 +16,9 @@ import jade.lang.acl.ACLMessage;
     SocketIO implementation to communicate with the client website
  */
 public class Server implements Runnable {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private final String server = "localhost";
     private final int port = 9092;
     public static long delaytime;
@@ -84,7 +90,7 @@ public class Server implements Runnable {
         try {
             Thread.sleep(delaytime);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            logger.error("sleep failed", e);
         }
 
         if (conClient != null) {

@@ -55,12 +55,9 @@ public class OrderPart {
 
         OrderPart orderPart = (OrderPart) o;
 
-        if (this.product != null && this.product.equals(orderPart.product) && this.amount == orderPart.amount)
-            return true;
+        return (this.product != null && this.product.equals(orderPart.product) && this.amount == orderPart.amount);
 
         // TODO: equals for stones and colors
-
-        return false;
     }
 
     public Good getGood() {

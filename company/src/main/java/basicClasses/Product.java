@@ -62,9 +62,6 @@ public class Product extends Good {
 
         Product product = (Product) o;
 
-        if (this.stone.getSize() == product.stone.getSize() && product.paint.getColor().equals(this.paint.getColor()))
-            return true;
-
-        return false;
+        return (this.stone.getSize() == product.stone.getSize() && product.paint.getColor().equals(this.paint.getColor()));
     }
 }

@@ -3,6 +3,9 @@ package procurementMarketBehaviours;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import communication.Communication;
@@ -20,6 +23,8 @@ import jade.lang.acl.ACLMessage;
 
 public class AuctionInitiator extends OneShotBehaviour {
 
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private static final long serialVersionUID = -6100676860519799721L;
     private ACLMessage materialToBuy;
     private Order order;
@@ -36,7 +41,7 @@ public class AuctionInitiator extends OneShotBehaviour {
         this.dataStore = dataStore;
     }
 
-    public static List<AID> findAgents(Agent a, String serviceName) {
+    public List<AID> findAgents(Agent a, String serviceName) {
         /* prepare service-search template */
         ServiceDescription requiredService = new ServiceDescription();
         requiredService.setName(serviceName);
@@ -56,7 +61,7 @@ public class AuctionInitiator extends OneShotBehaviour {
                 foundAgents.add(agentDescription.getName());
             }
         } catch (FIPAException exception) {
-            exception.printStackTrace();
+			logger.error("search failed", exception);
         }
 
         return foundAgents;

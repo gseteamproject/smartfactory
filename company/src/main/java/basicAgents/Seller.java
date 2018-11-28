@@ -2,6 +2,9 @@ package basicAgents;
 
 import java.util.Random;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import communication.Communication;
 import communication.MessageObject;
 import jade.core.Agent;
@@ -14,6 +17,8 @@ import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
 public class Seller extends Agent {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final long serialVersionUID = -7418692714860762106L;
     private MessageObject msgObj;
@@ -29,27 +34,24 @@ public class Seller extends Agent {
         DFAgentDescription agentDescription = new DFAgentDescription();
         agentDescription.setName(getAID());
         agentDescription.addServices(serviceDescription);
-        try {
-            DFService.register(this, agentDescription);
-        } catch (FIPAException exception) {
-            exception.printStackTrace();
-        }
+		try {
+			DFService.register(this, agentDescription);
+		} catch (FIPAException exception) {
+			logger.error("register failed", exception);
+		}
 
         /* registering Behaviours to react for different types of messages */
         addBehaviour(new HandleAcceptProposal());
         addBehaviour(new HandleCallForProposal());
-        /*
-         * 
-         */
     }
 
     @Override
-    protected void takeDown() {
-        try {
-            DFService.deregister(this);
-        } catch (FIPAException exception) {
-            exception.printStackTrace();
-        }
+	protected void takeDown() {
+		try {
+			DFService.deregister(this);
+		} catch (FIPAException exception) {
+			logger.error("deregister failed", exception);
+		}
     }
 
     class HandleCallForProposal extends CyclicBehaviour {
