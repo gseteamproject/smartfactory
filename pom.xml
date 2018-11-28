@@ -17,7 +17,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-		<pmdVersion>6.1.0</pmdVersion>
+		<pmdVersion>6.9.0</pmdVersion>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 	</properties>
@@ -109,7 +109,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-pmd-plugin</artifactId>
-				<version>3.8</version>
+				<version>3.11.0</version>
 				<configuration>
 					<linkXRef>true</linkXRef>
 					<analysisCache>true</analysisCache>

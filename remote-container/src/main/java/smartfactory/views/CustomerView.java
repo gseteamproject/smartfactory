@@ -33,6 +33,7 @@ public class CustomerView extends javax.swing.JFrame {
 		setResizable(false);
 		setSize(new java.awt.Dimension(250, 70));
 		addWindowListener(new java.awt.event.WindowAdapter() {
+			@Override
 			public void windowClosing(java.awt.event.WindowEvent evt) {
 				formWindowClosing(evt);
 			}
@@ -42,6 +43,7 @@ public class CustomerView extends javax.swing.JFrame {
 		CreateOrderButton.setToolTipText("Create Order to process blocks");
 		CreateOrderButton.setName(""); // NOI18N
 		CreateOrderButton.addActionListener(new java.awt.event.ActionListener() {
+			@Override
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				CreateOrderButtonActionPerformed(evt);
 			}

@@ -40,6 +40,7 @@ public class CustomerAgent extends BaseAgent {
 
 		addBehaviour(new LaunchAgentBehaviour(agentDataStore));
 		addBehaviour(new EventSubscriptionInitiatorBehaviour(agentName, "process-status", new EventHandler() {
+			@Override
 			public void callback(ACLMessage message) {
 				String result = message.getContent();
 				if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
