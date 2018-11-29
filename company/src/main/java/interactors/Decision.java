@@ -1,5 +1,8 @@
 package interactors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import basicAgents.SalesMarket;
 import basicClasses.Order;
 import communication.Communication;
@@ -8,6 +11,9 @@ import communication.Server;
 import jade.lang.acl.ACLMessage;
 
 public class Decision {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     protected OrderDataStore dataStore;
     protected ResponderBehaviour interactionBehaviour;
     protected String orderText;
@@ -31,7 +37,7 @@ public class Decision {
         // TODO: Add refuse answer (some conditions should be added)
 
         dataStore.setAgent(interactionBehaviour.getAgent().getLocalName());
-        System.out.println("currentAgent: " + dataStore.getAgent());
+		logger.info("currentAgent: {}", dataStore.getAgent());
 
         if (dataStore.getAgent().equals("AgentSalesMarket")) {
             dataStore.setDeadline(order.deadline);
@@ -41,7 +47,7 @@ public class Decision {
             dataStore.setDeadline(order.deadline - System.currentTimeMillis());
         }
 
-        System.out.println("currentDeadline: " + order.deadline);
+		logger.info("currentDeadline: {}", order.deadline);
 
         order.agent = dataStore.getAgent();
 

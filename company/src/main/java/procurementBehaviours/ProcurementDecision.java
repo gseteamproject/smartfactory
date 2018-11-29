@@ -13,6 +13,7 @@ public class ProcurementDecision extends Decision {
         super(interactionBehaviour, dataStore);
     }
 
+    @Override
     public ACLMessage execute(ACLMessage request) {
 
         setup(request);

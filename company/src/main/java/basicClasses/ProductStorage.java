@@ -9,7 +9,7 @@ import java.util.List;
 
 public class ProductStorage implements iStorage {
 
-    private ArrayList<Product> products;
+    private List<Product> products;
 
     public ProductStorage() {
         products = new ArrayList<>();
@@ -36,6 +36,7 @@ public class ProductStorage implements iStorage {
     }
 
     // TODO Catch adding and removing other types of Goods (e.g. Paint)
+    @Override
     public boolean add(Good good) {
         return products.add((Product) good);
     }

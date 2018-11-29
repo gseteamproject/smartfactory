@@ -5,7 +5,7 @@ package basicClasses;
   Materials (Stone and Paint) and Products have a Price
  */
 
-public abstract class Good {
+public class Good {
     private int price;
 
     public int getPrice() {

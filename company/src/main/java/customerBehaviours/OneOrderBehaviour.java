@@ -1,5 +1,8 @@
 package customerBehaviours;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import basicAgents.Procurement;
 import basicAgents.SalesMarket;
 import basicAgents.Selling;
@@ -15,10 +18,9 @@ import jade.lang.acl.ACLMessage;
 
 public class OneOrderBehaviour extends WakerBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3327849748177688933L;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	private static final long serialVersionUID = 3327849748177688933L;
 
     public OneOrderBehaviour(Agent a, long timeout) {
         super(a, timeout);
@@ -49,7 +51,7 @@ public class OneOrderBehaviour extends WakerBehaviour {
         order.agent = getAgent().getLocalName();
 
         String testGson = Order.gson.toJson(order);
-        System.out.println(testGson);
+        logger.info("{}", testGson);
         // {"id":1,"orderList":[{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"red","price":0},"price":0},"amount":1},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"blue","price":0},"price":0},"amount":2},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"green","price":0},"price":0},"amount":3}],"deadline":60000,"price":100}
 
         testMsg.setContent(testGson);

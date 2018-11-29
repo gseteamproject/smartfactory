@@ -33,9 +33,9 @@ public class Server implements Runnable {
     /*
      * just an example of the communication, not finished yet.
      */
-    public void run() {
-        System.out.println("[Server] -> Started on port " + port);
-        connectionCounter = 0;
+	public void run() {
+		logger.info("Started on port {}", port);
+		connectionCounter = 0;
 
         arrows = new HashMap<>();
 
@@ -71,7 +71,7 @@ public class Server implements Runnable {
          */
         conServer.addEventListener("msgevent", MessageObject.class, (socketIOClient, messageObject, ackRequest) -> {
             if (messageObject.getMessage().equals("stop_server")) {
-                System.out.println("[Server] -> Client stopped the server!");
+				logger.info("Client stopped the server!");
                 stopServer();
             }
         });

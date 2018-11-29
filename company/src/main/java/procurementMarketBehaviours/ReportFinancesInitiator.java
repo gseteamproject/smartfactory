@@ -2,6 +2,9 @@ package procurementMarketBehaviours;
 
 import java.util.Vector;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -12,6 +15,8 @@ import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class ReportFinancesInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private ProcurementMarketResponder interactionBehaviour;
     public MessageObject msgObj;
@@ -27,7 +32,7 @@ public class ReportFinancesInitiator extends RequestInteractor implements Achiev
 
         String requestedAction = "Materials";
         request.addReceiver(new AID(("AgentFinances"), AID.ISLOCALNAME));
-        System.out.println(dataStore.getRequestMessage().getContent());
+		logger.info("{}", dataStore.getRequestMessage().getContent());
         setup(request, requestedAction, false);
 
         return l;

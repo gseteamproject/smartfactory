@@ -1,9 +1,14 @@
 package communication;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class MessageObject {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private ACLMessage aclmsg;
     private String sender;
     private String receiver;
@@ -93,8 +98,7 @@ public class MessageObject {
 
     public String getColorForAgent() {
         String color = "";
-        
-        System.out.println("getReceiver " + this.getReceiver());
+        logger.info("getReceiver {}", this.getReceiver());
         
         if (this.receiver.equals("AgentProcurement")) {
             color = "#3CAD00";

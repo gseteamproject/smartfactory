@@ -1,13 +1,15 @@
 package interactors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import jade.core.behaviours.SimpleBehaviour;
 
 public class AskBehaviour extends SimpleBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -4846116296001548998L;
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	private static final long serialVersionUID = -4846116296001548998L;
     protected RequestResult interactor;
     protected ResponderBehaviour interactionBehaviour;
     protected OrderDataStore dataStore;
@@ -37,7 +39,7 @@ public class AskBehaviour extends SimpleBehaviour {
     @Override
     public boolean done() {
         if (interactor.done()) {
-            System.out.println("Done of " + interactionBehaviour.getAgent().getLocalName());
+			logger.info("Done of {}", interactionBehaviour.getAgent().getLocalName());
             interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
         }
         return interactor.done();

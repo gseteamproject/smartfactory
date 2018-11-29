@@ -1,6 +1,11 @@
 package communication;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 public class MessageWrapper {
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
     public String performative;
     public String message;
     public String color1;
@@ -20,7 +25,7 @@ public class MessageWrapper {
             this.setColor2(msgObj.getColorForAction());
 //            this.performative = msgObj.getPerformative();
         }
-        System.out.println(this.message);
+        logger.info(this.message);
     }
 
     public String getMessage() {

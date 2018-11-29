@@ -19,6 +19,7 @@ public class Stone extends Good {
         this.size = size;
     }
 
+    @Override
     public boolean equals(Good stone) {
         if (stone instanceof Stone) {
             if (this.getSize() == ((Stone) stone).getSize() && this.getPrice() == ((Stone) stone).getPrice()) {

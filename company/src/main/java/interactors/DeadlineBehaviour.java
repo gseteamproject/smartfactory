@@ -1,5 +1,8 @@
 package interactors;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import basicAgents.SalesMarket;
 import basicClasses.Order;
 import communication.Communication;
@@ -8,10 +11,10 @@ import communication.Server;
 import jade.core.behaviours.WakerBehaviour;
 
 public class DeadlineBehaviour extends WakerBehaviour {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 3660229129526762982L;
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	private static final long serialVersionUID = 3660229129526762982L;
 
     protected ResponderBehaviour interactionBehaviour;
     protected OrderDataStore dataStore;
@@ -26,13 +29,13 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
     @Override
     protected void onWake() {
-        System.out.println(dataStore.getDeadline() * Server.delaytime / 150);
+		logger.info("{}", dataStore.getDeadline() * Server.delaytime / 150);
         Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
-        System.out.println(SalesMarket.orderQueue);
-        System.out.println(dataStore.getRequestMessage().getContent());
+		logger.info("{}", SalesMarket.orderQueue);
+		logger.info("{}", dataStore.getRequestMessage().getContent());
         dataStore.setDeadlineResult(true);
         if (order.searchInList(SalesMarket.orderQueue) > -1) {
-            System.out.println("Deadline of " + interactionBehaviour.getAgent().getLocalName());
+			logger.info("Deadline of {}", interactionBehaviour.getAgent().getLocalName());
             interactionBehaviour.setResult(dataStore.getRequestResult().execute(interactionBehaviour.getRequest()));
             if (SalesMarket.orderQueue.remove(order)) {
                 MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),

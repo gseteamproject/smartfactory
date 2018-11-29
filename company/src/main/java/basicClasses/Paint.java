@@ -19,6 +19,7 @@ public class Paint extends Good {
         this.color = color;
     }
 
+    @Override
     public boolean equals(Good paint) {
         if (paint instanceof Paint) {
             if (this.getColor().equals(((Paint) paint).getColor()) && this.getPrice() == ((Paint) paint).getPrice()) {
