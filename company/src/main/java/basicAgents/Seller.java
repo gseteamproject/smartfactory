@@ -21,8 +21,8 @@ public class Seller extends Agent {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
     private static final long serialVersionUID = -7418692714860762106L;
-    private MessageObject msgObj;
-    private String name;
+    MessageObject msgObj;
+    String name;
     
     @Override
     protected void setup() {

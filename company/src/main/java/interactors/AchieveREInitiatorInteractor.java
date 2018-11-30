@@ -4,17 +4,21 @@ import java.util.Vector;
 
 import jade.lang.acl.ACLMessage;
 
-public interface AchieveREInitiatorInteractor {
+public abstract class AchieveREInitiatorInteractor extends RequestInteractor {
 
-    public Vector<ACLMessage> prepareRequests(ACLMessage request);
+	public AchieveREInitiatorInteractor(OrderDataStore dataStore) {
+		super(dataStore);
+	}
 
-    public void handleAgree(ACLMessage agree);
+	public abstract Vector<ACLMessage> prepareRequests(ACLMessage request);
 
-    public void handleRefuse(ACLMessage refuse);
+	public abstract void handleAgree(ACLMessage agree);
 
-    public void handleInform(ACLMessage inform);
+	public abstract void handleRefuse(ACLMessage refuse);
 
-    public void handleFailure(ACLMessage failure);
+	public abstract void handleInform(ACLMessage inform);
 
-    public int next();
+	public abstract void handleFailure(ACLMessage failure);
+
+	public abstract int next();
 }

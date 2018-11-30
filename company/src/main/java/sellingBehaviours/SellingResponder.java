@@ -10,7 +10,7 @@ public class SellingResponder extends ResponderBehaviour {
     private static final long serialVersionUID = -5695904570705958678L;
 
     public SellingResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-        super(a, mt, dataStore);
+        super(a, mt);
         interactor = new SellingRequestResult(dataStore);
         dataStore.setRequestResult(interactor);
         askBehaviour = new SellingAskBehaviour(this, dataStore);

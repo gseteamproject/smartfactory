@@ -13,10 +13,7 @@ import jade.lang.acl.ACLMessage;
 
 public class GenerateOrdersBehaviour extends TickerBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -7549190406155306008L;
+	private static final long serialVersionUID = -7549190406155306008L;
 
     public GenerateOrdersBehaviour(Agent a, long period) {
         super(a, period);
@@ -35,7 +32,9 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
         order.id = SalesMarket.orderQueue.size() + 1;
 
         Random rand = new Random();
-        int randSize, randAmount, randColI;
+		int randSize;
+		int randAmount;
+		int randColI;
         String randColS = "";
         for (int i = 0; i < 3; i++) {
             randColI = rand.nextInt(3);

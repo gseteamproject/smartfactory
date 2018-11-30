@@ -10,7 +10,7 @@ public class FinancesResponder extends ResponderBehaviour {
     private static final long serialVersionUID = 3805964860244663233L;
 
     public FinancesResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-        super(a, mt, dataStore);
+		super(a, mt);
         interactor = new FinancesRequestResult(dataStore);
         dataStore.setRequestResult(interactor);
         askBehaviour = new FinancesAskBehaviour(this, dataStore);

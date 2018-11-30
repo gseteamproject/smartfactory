@@ -4,12 +4,11 @@ import java.util.Vector;
 
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
-import interactors.RequestInteractor;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 
-public class TakeFromWarehouseInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
+public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
     private SalesMarketResponder interactionBehaviour;
 
@@ -20,16 +19,16 @@ public class TakeFromWarehouseInitiator extends RequestInteractor implements Ach
 
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        request = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Take";
-        request.setConversationId(requestedAction);
-        request.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
-        request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        request.setContent(dataStore.getRequestMessage().getContent());
+        message.setConversationId(requestedAction);
+        message.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
+        message.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+        message.setContent(dataStore.getRequestMessage().getContent());
 
         Vector<ACLMessage> l = new Vector<ACLMessage>(1);
-        l.addElement(request);
+        l.addElement(message);
         return l;
     }
 

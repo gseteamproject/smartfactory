@@ -10,7 +10,7 @@ public class ProductionResponder extends ResponderBehaviour {
     private static final long serialVersionUID = -5695904570705958678L;
 
     public ProductionResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-        super(a, mt, dataStore);
+        super(a, mt);
         interactor = new ProductionRequestResult(dataStore);
         dataStore.setRequestResult(interactor);
         askBehaviour = new ProductionAskBehaviour(this, dataStore);

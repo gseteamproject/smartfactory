@@ -7,13 +7,12 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
-import interactors.RequestInteractor;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 
-public class AskForMaterialsInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
+public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
     private ProductionResponder interactionBehaviour;
     public MessageObject msgObj;
@@ -25,11 +24,11 @@ public class AskForMaterialsInitiator extends RequestInteractor implements Achie
 
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        request = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Materials";
-        request.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
-        setup(request, requestedAction, false);
+        message.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
+        setup(message, requestedAction, false);
 
         return l;
     }

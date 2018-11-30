@@ -10,11 +10,10 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
-import interactors.RequestInteractor;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
-public class ReportFinancesInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
+public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -28,12 +27,12 @@ public class ReportFinancesInitiator extends RequestInteractor implements Achiev
 
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        request = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Materials";
-        request.addReceiver(new AID(("AgentFinances"), AID.ISLOCALNAME));
+        message.addReceiver(new AID(("AgentFinances"), AID.ISLOCALNAME));
 		logger.info("{}", dataStore.getRequestMessage().getContent());
-        setup(request, requestedAction, false);
+        setup(message, requestedAction, false);
 
         return l;
     }

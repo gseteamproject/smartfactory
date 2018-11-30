@@ -10,7 +10,7 @@ public class SalesMarketResponder extends ResponderBehaviour {
     private static final long serialVersionUID = 7386418031416044376L;
 
     public SalesMarketResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-        super(a, mt, dataStore);
+        super(a, mt);
         interactor = new SalesMarketRequestResult(dataStore);
         dataStore.setRequestResult(interactor);
         askBehaviour = new SalesMarketAskBehaviour(this, dataStore);

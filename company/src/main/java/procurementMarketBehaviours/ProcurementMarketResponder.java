@@ -10,7 +10,7 @@ public class ProcurementMarketResponder extends ResponderBehaviour {
     private static final long serialVersionUID = 8819328566657528097L;
     
     public ProcurementMarketResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-        super(a, mt, dataStore);
+        super(a, mt);
         interactor = new ProcurementMarketRequestResult(dataStore);
         dataStore.setRequestResult(interactor);
         askBehaviour = new ProcurementMarketAskBehaviour(this, dataStore);

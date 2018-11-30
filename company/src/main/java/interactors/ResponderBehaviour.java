@@ -23,7 +23,7 @@ public class ResponderBehaviour extends AchieveREResponder {
         getDataStore().put(RESULT_NOTIFICATION_KEY, result);
     }
 
-    public ResponderBehaviour(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
+    public ResponderBehaviour(Agent a, MessageTemplate mt) {
         super(a, mt);
     }
 

@@ -8,24 +8,23 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
-import interactors.RequestInteractor;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
-public class AskToProduceInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
+public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
     public MessageObject msgObj;
 
-    public AskToProduceInitiator(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
+    public AskToProduceInitiator(OrderDataStore dataStore) {
         super(dataStore);
     }
 
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        request = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Produce";
-        request.addReceiver(new AID(("AgentProduction"), AID.ISLOCALNAME));
-        setup(request, requestedAction, true);
+        message.addReceiver(new AID(("AgentProduction"), AID.ISLOCALNAME));
+        setup(message, requestedAction, true);
 
         return l;
     }

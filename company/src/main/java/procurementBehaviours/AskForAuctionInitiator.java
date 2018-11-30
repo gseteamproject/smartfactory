@@ -8,11 +8,10 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
-import interactors.RequestInteractor;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
-public class AskForAuctionInitiator extends RequestInteractor implements AchieveREInitiatorInteractor {
+public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
     private ProcurementResponder interactionBehaviour;
     public MessageObject msgObj;
@@ -24,11 +23,11 @@ public class AskForAuctionInitiator extends RequestInteractor implements Achieve
 
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        request = new ACLMessage(ACLMessage.REQUEST);
+        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
         String requestedAction = "Materials";
-        request.addReceiver(new AID(("AgentProcurementMarket"), AID.ISLOCALNAME));
-        setup(request, requestedAction, true);
+        message.addReceiver(new AID(("AgentProcurementMarket"), AID.ISLOCALNAME));
+        setup(message, requestedAction, true);
 
         return l;
     }
