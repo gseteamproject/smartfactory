@@ -1,5 +1,8 @@
 package communication;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -7,232 +10,146 @@ import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class MessageObject {
+
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    private ACLMessage aclmsg;
-    private String sender;
-    private String receiver;
-    private String orderText;
-    private String performative;
-    private String message;
-    private String receivedMessage;
+	private String sender;
 
-    private String actingAgent;
-    private String actionMessage;
+	private String receiver;
 
-    public MessageObject (ACLMessage acl, String orderText){
-        this.aclmsg = acl;
-        this.setOrderText(orderText);
-        this.setPerformative();
-        this.setSender();
-        this.setReceiver();
-        this.setReceivedMessage();
-        
-        this.actingAgent = this.getSender();
-        this.actionMessage = actingAgent + ": " + orderText;
-    }
+	private String orderText;
 
-    public MessageObject(String actingAgent, String actionMessage){
-        this.actingAgent = actingAgent;
-        this.actionMessage = actingAgent + ": " + actionMessage;
-    }
+	private String performative;
 
-   // public MessageObject (String manualSender, String manualMessage){this.message = manualSender + manualMessage;}
+	private String message;
 
-    public ACLMessage getAclmsg() {
-        return aclmsg;
-    }
+	public MessageObject(ACLMessage acl, String orderText) {
+		this.setOrderText(orderText);
+		this.setPerformative(acl.getPerformative());
+		this.setSender(acl.getSender().getLocalName());
+		this.setReceiver(((AID) acl.getAllReceiver().next()).getLocalName());
+	}
 
-    public void setAclmsg(ACLMessage aclmsg) {
-        this.aclmsg = aclmsg;
-    }
+	public MessageObject(String actingAgent, String actionMessage) {
+		this.sender = actingAgent;
+		this.orderText = actionMessage;
+	}
 
-    public String getSender() {
-        return sender;
-    }
+	public String getSender() {
+		return sender;
+	}
 
-    public void setSender() {
-        this.sender = this.aclmsg.getSender().getLocalName();
-    }
+	public void setSender(String sender) {
+		this.sender = sender;
+	}
 
-    public String getReceiver() {
-        return receiver;
-    }
+	public String getReceiver() {
+		return receiver;
+	}
 
-    public void setReceiver() {
-        this.receiver = ((AID) this.aclmsg.getAllReceiver().next()).getLocalName();
-    }
+	public void setReceiver(String receiver) {
+		this.receiver = receiver;
+	}
 
-    public String getOrderText() {
-        return orderText;
-    }
+	public String getOrderText() {
+		return orderText;
+	}
 
-    public void setOrderText(String message) {
-        this.orderText = message;
-    }
+	public void setOrderText(String message) {
+		this.orderText = message;
+	}
 
-    public String getPerformative() {
-        return performative;
-    }
+	public String getPerformative() {
+		return performative;
+	}
 
-    public void setPerformative() {
-        switch (this.aclmsg.getPerformative()) {
-            case 0: this.performative = "ACCEPT_PROPOSAL";
-                break;
-            case 1: this.performative = "AGREE";
-                break;
-            case 2: this.performative = "CANCEL";
-                break;
-            case 6: this.performative = "FAILURE";
-                break;
-            case 7: this.performative = "INFORM";
-                break;
-            case 14: this.performative = "REFUSE";
-                break;
-            case 16: this.performative = "REQUEST";
-                break;
-            default: this.performative = "UNKNOWN";
-                break;
-        }
-    }
+	public void setPerformative(int performative) {
+		this.performative = ACLMessage.getPerformative(performative);
+	}
 
-    public String getColorForAgent() {
-        String color = "";
-        logger.info("getReceiver {}", this.getReceiver());
-        
-        if (this.receiver.equals("AgentProcurement")) {
-            color = "#3CAD00";
-        }
-        else if (this.receiver.equals("AgentProcurementMarket")) {
-            color = "#52EA00";
-        }
-        else if (this.receiver.equals("AgentCapitalMarket")) {
-            color = "#00A6C4";
-        }
-        else if (this.receiver.equals("AgentPaintSelling")) {
-            color = "#C40000";
-        }
-        else if (this.receiver.equals("AgentSelling")) {
-            color = "#F2EE00";
-        }
-        else if (this.receiver.equals("AgentStoneSelling")) {
-            color = "#8EB19D";
-        }
-        else if (this.receiver.equals("AgentSalesMarket")) {
-            color = "#BC00BC";
-        }
-        else if (this.receiver.equals("AgentProduction")) {
-            color = "#A0AF79";
-        }
-        else if (this.receiver.equals("AgentFinances")) {
-            color = "#006863";
-        }
-        else {
-            color = "#000000";
-        }
+	private static final Map<String, String> colorForAgent = new HashMap<String, String>();
+	static {
+		colorForAgent.put("AgentProcurement", "#3CAD00");
+		colorForAgent.put("AgentProcurementMarket", "#52EA00");
+		colorForAgent.put("AgentCapitalMarket", "#00A6C4");
+		colorForAgent.put("AgentPaintSelling", "#C40000");
+		colorForAgent.put("AgentSelling", "#F2EE00");
+		colorForAgent.put("AgentStoneSelling", "#8EB19D");
+		colorForAgent.put("AgentSalesMarket", "#BC00BC");
+		colorForAgent.put("AgentProduction", "#A0AF79");
+		colorForAgent.put("AgentFinances", "#006863");
+	}
 
-        return color;
-    }
+	public String getColorForAgent() {
+		logger.info("getReceiver {}", this.getReceiver());
 
-    public String getColorForAction() {
-        String color = "";
+		String color = colorForAgent.get(receiver);
+		if (color == null) {
+			return "#000000";
+		}
+		return color;
+	}
 
-        if (this.actingAgent.equals("AgentProcurement")) {
-            color = "orange";
-        }
-        else if (this.actingAgent.equals("AgentProcurementMarket")) {
-//            color = "lightblue";
-            color = "#0096fa";
-        }
-        else if (this.actingAgent.equals("AgentCapitalMarket")) {
-//            color = "#00A6C4";
-            color = "#111111";
-        }
-        else if (this.actingAgent.equals("AgentPaintSelling")) {
-//            color = "#C40000";
-            color = "#0aff96";
-        }
-        else if (this.actingAgent.equals("AgentSelling")) {
-//            color = "pink";
-            color = "#dc96be";
-        }
-        else if (this.actingAgent.equals("AgentStoneSelling")) {
-//            color = "#8EB19D";
-            color = "#0aff96";
-        }
-        else if (this.actingAgent.equals("AgentSalesMarket")) {
-            color = "red";
-        }
-        else if (this.actingAgent.equals("AgentProduction")) {
-//            color = "lightgreen";
-            color = "#00be00";
-        }
-        else if (this.actingAgent.equals("AgentFinances")) {
-//            color = "yellow";
-            color = "#dcd201";
-        }
-        else {
-            color = "#000000";
-        }
+	private static final Map<String, String> colorForAction = new HashMap<String, String>();
+	static {
+		colorForAction.put("AgentProcurement", "orange");
+		colorForAction.put("AgentProcurementMarket", "#0096fa");
+		colorForAction.put("AgentCapitalMarket", "#111111");
+		colorForAction.put("AgentPaintSelling", "#0aff96");
+		colorForAction.put("AgentSelling", "#dc96be");
+		colorForAction.put("AgentStoneSelling", "#0aff96");
+		colorForAction.put("AgentSalesMarket", "red");
+		colorForAction.put("AgentProduction", "#00be00");
+		colorForAction.put("AgentFinances", "#dcd201");
+	}
 
-        return color;
-    }
+	public String getColorForAction() {
+		String color = colorForAction.get(sender);
+		if (color == null) {
+			return "#000000";
+		}
+		return color;
+	}
 
-    public String getColorForPerformative() {
-        String color = "";
+	public String getColorForPerformative() {
+		if ("ACCEPT_PROPOSAL".equals(performative)) {
+			return "3CAD00";
+		}
+		if ("AGREE".equals(performative)) {
+			return "52EA00";
+		}
+		if ("CANCEL".equals(performative)) {
+			return "00A6C4";
+		}
+		if ("FAILURE".equals(performative)) {
+			return "C40000";
+		}
+		if ("INFORM".equals(performative)) {
+			return "F2EE00";
+		}
+		if ("REFUSE".equals(performative)) {
+			return "8EB19D";
+		}
+		if ("REQUEST".equals(performative)) {
+			return "BC00BC";
+		}
+		return "FFFFFF";
+	}
 
-        if (this.performative.equals("ACCEPT_PROPOSAL")) {
-            color = "3CAD00";
-        }
-        else if (this.performative.equals("AGREE")) {
-            color = "52EA00";
-        }
-        else if (this.performative.equals("CANCEL")) {
-            color = "00A6C4";
-        }
-        else if (this.performative.equals("FAILURE")) {
-            color = "C40000";
-        }
-        else if (this.performative.equals("INFORM")) {
-            color = "F2EE00";
-        }
-        else if (this.performative.equals("REFUSE")) {
-            color = "8EB19D";
-        }
-        else if (this.performative.equals("REQUEST")) {
-            color = "BC00BC";
-        }
-        else {
-            color = "FFFFFF";
-        }
+	public String getMessage() {
+		return this.message;
+	}
 
-        return color;
-    }
+	public void setMessage(String message) {
+		this.message = message;
+	}
 
-    public String getMessage (){
-        return this.message;
-    }
+	public String getReceivedMessage() {
+		return String.format("%s received a Message of Type [%s] from %s. Order: %s;", receiver, performative, sender,
+				orderText);
+	}
 
-    public void setMessage(String message){
-        this.message = message;
-    }
-
-    public void setReceivedMessage() {
-        receivedMessage = this.receiver + " received a Message of Type [" + this.performative + "] from " + this.sender + ". Order: " + this.orderText + "; ";
-    }
-    public String getReceivedMessage (){
-        return receivedMessage;
-    }
-
-    public String getActingAgent() {
-        return actingAgent;
-    }
-    public String getActionMessage() {
-        return actionMessage;
-    }
-
-  /*  public String actionMessage(){
-       String msg = this.actingAgent + " " + this.actionMessage;
-        return msg;
-    }*/
+	public String getActionMessage() {
+		return sender + ": " + orderText;
+	}
 }
