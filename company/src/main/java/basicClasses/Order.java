@@ -103,30 +103,28 @@ public class Order implements Serializable {
         return index;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o)
+			return true;
+		if (o == null || getClass() != o.getClass())
+			return false;
 
-        Order order = (Order) o;
-        int isEqual;
+		Order order = (Order) o;
 
-        if (this.id == order.id && order.orderList.size() == this.orderList.size()) {
-            isEqual = 0;
-            for (OrderPart orderPart : order.orderList) {
-                for (OrderPart thisOrderPart : this.orderList) {
-                    if (orderPart.equals(thisOrderPart)) {
-                        isEqual += 1;
-                    }
-                }
-            }
-            if (isEqual == order.orderList.size() && isEqual != 0) {
-                return true;
-            }
-        }
-        return false;
-    }
+		if (this.id != order.id || order.orderList.size() != this.orderList.size()) {
+			return false;
+		}
 
+		outter_cycle: for (OrderPart orderPart : order.orderList) {
+			for (OrderPart thisOrderPart : this.orderList) {
+				if (orderPart.equals(thisOrderPart)) {
+					continue outter_cycle;
+				}
+			}
+			return false;
+		}
+
+		return true;
+	}
 }

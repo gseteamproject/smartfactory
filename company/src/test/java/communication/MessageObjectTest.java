@@ -1,4 +1,4 @@
-package company.communication;
+package communication;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
