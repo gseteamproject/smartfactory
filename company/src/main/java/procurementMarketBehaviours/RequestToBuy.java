@@ -50,83 +50,22 @@ public class RequestToBuy extends SimpleBehaviour {
 
     @Override
     public void action() {
-        ACLMessage msg = null;
-
         /* perform actions accordingly to behaviour state */
         switch (requestState) {
         case PREPARE_CALL_FOR_PROPOSAL:
-            msg = new ACLMessage(ACLMessage.CFP);
-            for (AID agentProvidingService : procurementAgents) {
-                msg.addReceiver(agentProvidingService);
-            }
-            msg.setConversationId("buying");
-            msg.setContent("material");
-            msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
-
-            replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
-                    MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
-            repliesLeft = procurementAgents.size();
-            myAgent.send(msg);
-
-            requestState = RequestState.HANDLE_CALL_FOR_PROPOSAL_REPLY;
+            prepareCallForProposal();
             break;
 
         case HANDLE_CALL_FOR_PROPOSAL_REPLY:
-            msg = myAgent.receive(replyTemplate);
-            if (msg != null) {
-                int price = Integer.parseInt(msg.getContent());
-                if (bestPrinterAgent == null || price < bestPrice) {
-                    bestPrinterAgent = msg.getSender();
-                    bestPrice = price;
-                }
-                repliesLeft--;
-                if (repliesLeft == 0) {
-                    requestState = RequestState.PREPARE_ACCEPT_PROPOSAL;
-                }
-            } else {
-                block();
-            }
+            handleCallForProposalReply();
             break;
 
         case PREPARE_ACCEPT_PROPOSAL:
-            msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-            msg.addReceiver(bestPrinterAgent);
-            msg.setConversationId("buying");
-            msg.setContent("material");
-            msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
-
-            replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
-                    MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
-            repliesLeft = 1;
-
-            myAgent.send(msg);
-
-            requestState = RequestState.HANDLE_ACCEPT_PROPOSAL_REPLY;
+            prepareAcceptProposal();
             break;
 
         case HANDLE_ACCEPT_PROPOSAL_REPLY:
-            msg = myAgent.receive(replyTemplate);
-            if (msg != null) {
-                msgObj = new MessageObject("AgentProcurementMarket",
-                        currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
-                Communication.server.sendMessageToClient(msgObj);
-
-                /*
-                 * System.out.println(String
-                 * .format(currentOrder.getPart().getClass().getSimpleName() +
-                 * " is found (price=%d)", bestPrice));
-                 */
-
-                repliesLeft = 0;
-                requestState = RequestState.DONE;
-
-                for (int i = 0; i < currentOrder.getAmount(); i++) {
-                    Procurement.materialStorage.add(currentOrder.getGood());
-                }
-                buyCount += 1;
-            } else {
-                block();
-            }
+            handleAcceptProposalReply();
             break;
 
         case DONE:
@@ -136,6 +75,81 @@ public class RequestToBuy extends SimpleBehaviour {
             break;
         }
     }
+
+	private void handleAcceptProposalReply() {
+		ACLMessage msg = myAgent.receive(replyTemplate);
+		if (msg != null) {
+		    msgObj = new MessageObject("AgentProcurementMarket",
+		            currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
+		    Communication.server.sendMessageToClient(msgObj);
+
+		    /*
+		     * System.out.println(String
+		     * .format(currentOrder.getPart().getClass().getSimpleName() +
+		     * " is found (price=%d)", bestPrice));
+		     */
+
+		    repliesLeft = 0;
+		    requestState = RequestState.DONE;
+
+		    for (int i = 0; i < currentOrder.getAmount(); i++) {
+		        Procurement.materialStorage.add(currentOrder.getGood());
+		    }
+		    buyCount += 1;
+		} else {
+		    block();
+		}
+	}
+
+	private void prepareAcceptProposal() {
+		ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
+		msg.addReceiver(bestPrinterAgent);
+		msg.setConversationId("buying");
+		msg.setContent("material");
+		msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
+
+		replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
+		        MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
+		repliesLeft = 1;
+
+		myAgent.send(msg);
+
+		requestState = RequestState.HANDLE_ACCEPT_PROPOSAL_REPLY;
+	}
+
+	private void handleCallForProposalReply() {
+		ACLMessage msg = myAgent.receive(replyTemplate);
+		if (msg != null) {
+		    int price = Integer.parseInt(msg.getContent());
+		    if (bestPrinterAgent == null || price < bestPrice) {
+		        bestPrinterAgent = msg.getSender();
+		        bestPrice = price;
+		    }
+		    repliesLeft--;
+		    if (repliesLeft == 0) {
+		        requestState = RequestState.PREPARE_ACCEPT_PROPOSAL;
+		    }
+		} else {
+		    block();
+		}
+	}
+
+	private void prepareCallForProposal() {
+		ACLMessage msg = new ACLMessage(ACLMessage.CFP);
+		for (AID agentProvidingService : procurementAgents) {
+		    msg.addReceiver(agentProvidingService);
+		}
+		msg.setConversationId("buying");
+		msg.setContent("material");
+		msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
+
+		replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
+		        MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
+		repliesLeft = procurementAgents.size();
+		myAgent.send(msg);
+
+		requestState = RequestState.HANDLE_CALL_FOR_PROPOSAL_REPLY;
+	}
 
     @Override
     public boolean done() {
