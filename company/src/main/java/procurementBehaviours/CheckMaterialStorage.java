@@ -74,10 +74,6 @@ public class CheckMaterialStorage extends OneShotBehaviour {
             int stoneAmountInMS = Procurement.materialStorage.getAmountOfStones(size);
 
             if (paintAmountInMS >= amount && stoneAmountInMS >= amount) {
-                if (Procurement.isInMaterialStorage) {
-                    Procurement.isInMaterialStorage = true;
-                }
-
                 msgObj = new MessageObject("AgentProcurement",
                         "I say that materials for " + orderPart.getTextOfOrderPart() + " are in materialStorage. ");
                 Communication.server.sendMessageToClient(msgObj);
@@ -90,35 +86,9 @@ public class CheckMaterialStorage extends OneShotBehaviour {
                 // need to describe multiple statements to check every material
                 Procurement.isInMaterialStorage = false;
 
-                int limit = 0;
+                prepareOrder(orderToBuy, orderPart.getProduct().getPaint(), amount, listToRemovePart, paintAmountInMS);
 
-                if (amount > paintAmountInMS) {
-                    limit = paintAmountInMS;
-                } else {
-                    limit = amount;
-                }
-
-                for (int i = 1; i <= limit; i++) {
-                    listToRemovePart.add(orderPart.getProduct().getPaint());
-                }
-
-                if (limit >= 0) {
-                    orderToBuy.addGood(orderPart.getProduct().getPaint(), amount - limit);
-                }
-
-                if (amount > stoneAmountInMS) {
-                    limit = stoneAmountInMS;
-                } else {
-                    limit = amount;
-                }
-
-                for (int i = 1; i <= limit; i++) {
-                    listToRemovePart.add(orderPart.getProduct().getStone());
-                }
-
-                if (limit >= 0) {
-                    orderToBuy.addGood(orderPart.getProduct().getStone(), amount - limit);
-                }
+                prepareOrder(orderToBuy, orderPart.getProduct().getStone(), amount, listToRemovePart, stoneAmountInMS);
 
                 Procurement.materialStorage.removeAll(listToRemovePart);
 
@@ -153,4 +123,21 @@ public class CheckMaterialStorage extends OneShotBehaviour {
             myAgent.addBehaviour(new AskForAuction(interactionBehaviour, dataStore));
         }
     }
+
+	private void prepareOrder(Order order, Good good, int amount, List<Good> listToRemovePart, int amountInMS) {
+		int limit;
+		if (amount > amountInMS) {
+			limit = amountInMS;
+		} else {
+			limit = amount;
+		}
+
+		for (int i = 1; i <= limit; i++) {
+			listToRemovePart.add(good);
+		}
+
+		if (limit >= 0) {
+			order.addGood(good, amount - limit);
+		}
+	}
 }
