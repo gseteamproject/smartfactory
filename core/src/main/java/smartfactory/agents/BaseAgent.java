@@ -5,6 +5,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
@@ -12,6 +13,7 @@ import smartfactory.behaviours.base.EventSubscriptionResponderBehaviour;
 import smartfactory.behaviours.base.SelfSubscribeBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.AgentService;
+import smartfactory.ontology.SmartfactoryOntology;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.platform.JADEPlatform;
 import smartfactory.services.Services;
@@ -33,6 +35,12 @@ public class BaseAgent extends Agent {
 
 	@Override
 	protected void setup() {
+		registerLanguage();
+		logger.debug("language registered");
+
+		registerOntology();
+		logger.debug("ontology registered");
+
 		setupData();
 		logger.debug("data setup completed");
 
@@ -49,6 +57,14 @@ public class BaseAgent extends Agent {
 		logger.debug("behaviours setup completed");
 
 		logger.info("setup completed");
+	}
+
+	protected void registerLanguage() {
+		getContentManager().registerLanguage(new SLCodec());
+	}
+
+	protected void registerOntology() {
+		getContentManager().registerOntology(SmartfactoryOntology.getInstance());
 	}
 
 	@Override
