@@ -1,25 +1,17 @@
 package smartfactory.agents;
 
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
-import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.behaviours.base.EventSubscriptionResponderBehaviour;
 import smartfactory.behaviours.base.SelfSubscribeBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.AgentService;
 import smartfactory.ontology.SmartfactoryOntology;
-import smartfactory.platform.AgentPlatform;
-import smartfactory.platform.JADEPlatform;
 import smartfactory.services.Services;
 import smartfactory.utility.AgentDataStore;
-import smartfactory.utility.AgentServices;
-import smartfactory.utility.EventSubscribers;
 
 public class BaseAgent extends Agent {
 
@@ -27,11 +19,7 @@ public class BaseAgent extends Agent {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	protected AgentDataStore agentDataStore = new AgentDataStore();
-
-	protected AgentServices agentServices = new AgentServices();
-
-	protected AgentPlatform agentPlatform = new JADEPlatform(this);
+	protected AgentDataStore agentDataStore = new AgentDataStore(this);
 
 	@Override
 	protected void setup() {
@@ -90,31 +78,18 @@ public class BaseAgent extends Agent {
 	}
 
 	protected void setupData() {
-		agentDataStore.setAgent(this);
-		agentDataStore.setAgentPlatform(agentPlatform);
-		agentDataStore.setAgentServices(agentServices);
-		agentDataStore.setEventSubscribers(new EventSubscribers());
 	}
 
 	protected void setupServices() {
-		agentServices.addService(new AgentService(Services.discovering, agentDataStore));
+		agentDataStore.getAgentServices().addService(new AgentService(Services.discovering, agentDataStore));
 	}
 
 	private void registerServices() {
-		List<ServiceDescription> serviceDescriptions = agentServices.getServiceDescriptions();
-
-		DFAgentDescription agentDescription = new DFAgentDescription();
-		agentDescription.setName(getAID());
-		for (ServiceDescription serviceDescription : serviceDescriptions) {
-			agentDescription.addServices(serviceDescription);
-			logger.info("providing \"{}\"", serviceDescription.getName());
-		}
-
-		agentPlatform.registerAgentServices(agentDescription);
+		agentDataStore.getAgentServices().registerAgentServices();
 	}
 
 	private void deregisterServices() {
-		agentPlatform.deregisterAgentServices();
+		agentDataStore.getAgentServices().deregisterAgentServices();
 	}
 
 	public AgentConfiguration getAgentConfiguration() {

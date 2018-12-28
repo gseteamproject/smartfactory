@@ -16,6 +16,6 @@ public class FactoryAgent extends ResourceAgent {
 	@Override
 	protected void setupServices() {
 		super.setupServices();
-		agentServices.addService(new BlockProductionService(agentDataStore));
+		agentDataStore.getAgentServices().addService(new BlockProductionService(agentDataStore));
 	}
 }

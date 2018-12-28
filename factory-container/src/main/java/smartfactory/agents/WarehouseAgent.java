@@ -17,8 +17,8 @@ public class WarehouseAgent extends ResourceAgent {
 	@Override
 	protected void setupServices() {
 		super.setupServices();
-		agentServices.addService(new AgentService(Services.store, agentDataStore));
-		agentServices.addService(new AgentService(Services.recognition, agentDataStore));
-		agentServices.addService(new AgentService(Services.packing, agentDataStore));
+		agentDataStore.getAgentServices().addService(new AgentService(Services.store, agentDataStore));
+		agentDataStore.getAgentServices().addService(new AgentService(Services.recognition, agentDataStore));
+		agentDataStore.getAgentServices().addService(new AgentService(Services.packing, agentDataStore));
 	}
 }

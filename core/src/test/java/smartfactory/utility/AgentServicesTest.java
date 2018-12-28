@@ -1,17 +1,17 @@
 package smartfactory.utility;
 
-import java.util.List;
-
 import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import jade.core.Agent;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import smartfactory.matchers.DFAgentDescriptionMatcher;
 import smartfactory.models.AgentService;
+import smartfactory.platform.AgentPlatform;
 
 public class AgentServicesTest {
 
@@ -23,9 +23,13 @@ public class AgentServicesTest {
 
 	AgentServices testable;
 
+	AgentDataStore agentDataStore_mock;
+
 	@Before
 	public void setUp() {
-		testable = new AgentServices();
+		agentDataStore_mock = context.mock(AgentDataStore.class);
+
+		testable = new AgentServices(agentDataStore_mock);
 	}
 
 	@After
@@ -41,16 +45,20 @@ public class AgentServicesTest {
 	}
 
 	@Test
-	public void getServiceDescriptions() {
+	public void registerAgentServices() {
+		final AgentService service_1_mock = context.mock(AgentService.class, "service_1");
+		final AgentService service_2_mock = context.mock(AgentService.class, "service_2");
 		final String service_1_name = "service-1";
 		final String service_2_name = "service-2";
+		final ServiceDescription description_1_mock = context.mock(ServiceDescription.class, "description_1");
+		final ServiceDescription description_2_mock = context.mock(ServiceDescription.class, "description_2");
+		final Agent agent_mock = context.mock(Agent.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 
-		AgentService service_1_mock = context.mock(AgentService.class, service_1_name);
 		service_1_mock.name = service_1_name;
-		AgentService service_2_mock = context.mock(AgentService.class, service_2_name);
 		service_2_mock.name = service_2_name;
-		ServiceDescription description_1_mock = context.mock(ServiceDescription.class, "description-1");
-		ServiceDescription description_2_mock = context.mock(ServiceDescription.class, "description-2");
+		testable.addService(service_1_mock);
+		testable.addService(service_2_mock);
 
 		context.checking(new Expectations() {
 			{
@@ -59,14 +67,34 @@ public class AgentServicesTest {
 
 				oneOf(service_2_mock).getServiceDescription();
 				will(returnValue(description_2_mock));
+
+				oneOf(agentDataStore_mock).getAgent();
+				will(returnValue(agent_mock));
+
+				oneOf(agentDataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).registerAgentServices(with(new DFAgentDescriptionMatcher().expectName(null)
+						.expectServices(new ServiceDescription[] { description_1_mock, description_2_mock })));
 			}
 		});
 
-		testable.addService(service_1_mock);
-		testable.addService(service_2_mock);
+		testable.registerAgentServices();
+	}
 
-		List<ServiceDescription> serviceDescriptions = testable.getServiceDescriptions();
-		Assert.assertEquals(description_1_mock, serviceDescriptions.get(0));
-		Assert.assertEquals(description_2_mock, serviceDescriptions.get(1));
+	@Test
+	public void deregisterAgentServices() {
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+
+		context.checking(new Expectations() {
+			{
+				oneOf(agentDataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).deregisterAgentServices();
+			}
+		});
+
+		testable.deregisterAgentServices();
 	}
 }

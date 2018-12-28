@@ -16,6 +16,6 @@ public class CleaningStationAgent extends ResourceAgent {
 	@Override
 	protected void setupServices() {
 		super.setupServices();
-		agentServices.addService(new CleaningService(agentDataStore));
+		agentDataStore.getAgentServices().addService(new CleaningService(agentDataStore));
 	}
 }

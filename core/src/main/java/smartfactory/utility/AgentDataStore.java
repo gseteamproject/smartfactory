@@ -12,12 +12,21 @@ import smartfactory.models.ProcessOperation;
 import smartfactory.models.Product;
 import smartfactory.models.Resource;
 import smartfactory.platform.AgentPlatform;
+import smartfactory.platform.JADEPlatform;
 
 public class AgentDataStore extends DataStore {
 
 	private static final long serialVersionUID = 4398092789071233362L;
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
+
+	public AgentDataStore(Agent agent) {
+		super();
+		setAgent(agent);
+		setAgentPlatform(new JADEPlatform(agent));
+		setAgentServices(new AgentServices(this));
+		setEventSubscribers(new EventSubscribers());
+	}
 
 	@Override
 	public Object get(Object key) {

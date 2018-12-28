@@ -16,6 +16,6 @@ public class PaintingStationAgent extends ResourceAgent {
 	@Override
 	protected void setupServices() {
 		super.setupServices();
-		agentServices.addService(new PaintingService(agentDataStore));
+		agentDataStore.getAgentServices().addService(new PaintingService(agentDataStore));
 	}
 }
