@@ -67,10 +67,14 @@ public class AgentService {
 	}
 
 	protected void completedSuccess() {
-		agentDataStore.getEventSubsribers().notifyAll(Event.OPERATION_COMPLETED_SUCCESS);
+		Event event = new Event();
+		event.setId(Event.OPERATION_COMPLETED_SUCCESS);
+		agentDataStore.getEventSubsribers().notifyAll(event);
 	}
 
 	protected void completedFailure() {
-		agentDataStore.getEventSubsribers().notifyAll(Event.OPERATION_COMPLETED_FAILURE);
+		Event event = new Event();
+		event.setId(Event.OPERATION_COMPLETED_FAILURE);
+		agentDataStore.getEventSubsribers().notifyAll(event);
 	}
 }

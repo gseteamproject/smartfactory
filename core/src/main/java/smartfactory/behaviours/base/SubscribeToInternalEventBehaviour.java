@@ -3,6 +3,7 @@ package smartfactory.behaviours.base;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
+import smartfactory.ontology.EventSubscriptionOntology;
 
 public class SubscribeToInternalEventBehaviour extends OneShotBehaviour {
 
@@ -14,6 +15,8 @@ public class SubscribeToInternalEventBehaviour extends OneShotBehaviour {
 		subscription.addReceiver(getAgent().getAID());
 		subscription.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
 		subscription.setConversationId("self-messaging");
+		subscription.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		subscription.setOntology(EventSubscriptionOntology.ONTOLOGY_NAME);
 		getAgent().send(subscription);
 	}
 }

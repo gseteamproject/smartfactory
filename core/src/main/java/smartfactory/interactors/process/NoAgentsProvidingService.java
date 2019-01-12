@@ -16,7 +16,9 @@ public class NoAgentsProvidingService extends OneShotInteractor {
 	@Override
 	public void execute() {
 		logger.info("no agents providing service found");
-		agentDataStore.getEventSubsribers().notifyAll(Event.PROCESS_COMPLETED_FAILURE);
+		Event event = new Event();
+		event.setId(Event.PROCESS_COMPLETED_FAILURE);
+		agentDataStore.getEventSubsribers().notifyAll(event);
 	}
 
 	@Override

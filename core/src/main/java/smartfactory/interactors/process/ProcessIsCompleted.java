@@ -16,7 +16,9 @@ public class ProcessIsCompleted extends OneShotInteractor {
 	@Override
 	public void execute() {
 		logger.info("process completed successfully");
-		agentDataStore.getEventSubsribers().notifyAll(Event.PROCESS_COMPLETED_SUCCESS);
+		Event event = new Event();
+		event.setId(Event.PROCESS_COMPLETED_SUCCESS);
+		agentDataStore.getEventSubsribers().notifyAll(event);
 	}
 
 	@Override

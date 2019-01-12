@@ -7,7 +7,9 @@ import jade.domain.FIPAAgentManagement.FailureException;
 import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.proto.SubscriptionResponder;
+import smartfactory.ontology.EventSubscriptionOntology;
 import smartfactory.utility.AgentDataStore;
 
 public class SubscribeToEventResponderBehaviour extends SubscriptionResponder {
@@ -17,7 +19,10 @@ public class SubscribeToEventResponderBehaviour extends SubscriptionResponder {
 	private static final long serialVersionUID = 7968922573963662440L;
 
 	public SubscribeToEventResponderBehaviour(AgentDataStore agentDataStore) {
-		super(null, SubscriptionResponder.createMessageTemplate(ACLMessage.SUBSCRIBE), agentDataStore.getEventSubsribers());
+		super(null,
+				MessageTemplate.and(SubscriptionResponder.createMessageTemplate(ACLMessage.SUBSCRIBE),
+						MessageTemplate.MatchOntology(EventSubscriptionOntology.ONTOLOGY_NAME)),
+				agentDataStore.getEventSubsribers());
 	}
 
 	@Override

@@ -8,6 +8,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import jade.domain.FIPANames;
 import jade.domain.FIPAAgentManagement.FailureException;
 import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
@@ -15,6 +16,8 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionResponder.Subscription;
 import smartfactory.matchers.ACLMessageMatcher;
 import smartfactory.models.Event;
+import smartfactory.ontology.EventSubscriptionOntology;
+import smartfactory.platform.AgentPlatform;
 
 public class EventSubscribersTest {
 
@@ -26,9 +29,13 @@ public class EventSubscribersTest {
 
 	EventSubscribers testable;
 
+	AgentDataStore dataStore_mock;
+
 	@Before
 	public void setUp() {
-		testable = new EventSubscribers();
+		dataStore_mock = context.mock(AgentDataStore.class);
+
+		testable = new EventSubscribers(dataStore_mock);
 	}
 
 	@After
@@ -74,8 +81,11 @@ public class EventSubscribersTest {
 
 	@Test
 	public void notifyAll_operation_success() throws RefuseException, NotUnderstoodException {
-		Subscription subscription_mock = context.mock(Subscription.class);
-		ACLMessage message_mock = context.mock(ACLMessage.class);
+		final Subscription subscription_mock = context.mock(Subscription.class);
+		final ACLMessage message_mock = context.mock(ACLMessage.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final Event event = new Event();
+		event.setId(Event.OPERATION_COMPLETED_SUCCESS);
 
 		context.checking(new Expectations() {
 			{
@@ -85,20 +95,29 @@ public class EventSubscribersTest {
 				oneOf(message_mock).getConversationId();
 				will(returnValue("self-messaging"));
 
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).fillContent(with(any(ACLMessage.class)), with(event));
+
 				oneOf(subscription_mock).notify(with(new ACLMessageMatcher().expectPerformative(ACLMessage.INFORM)
-						.expectContent(Event.OPERATION_COMPLETED_SUCCESS)));
+						.expectLanguage(FIPANames.ContentLanguage.FIPA_SL)
+						.expectOntology(EventSubscriptionOntology.ONTOLOGY_NAME)));
 			}
 		});
 
 		testable.register(subscription_mock);
 
-		testable.notifyAll(Event.OPERATION_COMPLETED_SUCCESS);
+		testable.notifyAll(event);
 	}
 
 	@Test
 	public void notifyAll_operation_failure() throws RefuseException, NotUnderstoodException {
-		Subscription subscription_mock = context.mock(Subscription.class);
-		ACLMessage message_mock = context.mock(ACLMessage.class);
+		final Subscription subscription_mock = context.mock(Subscription.class);
+		final ACLMessage message_mock = context.mock(ACLMessage.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final Event event = new Event();
+		event.setId(Event.OPERATION_COMPLETED_FAILURE);
 
 		context.checking(new Expectations() {
 			{
@@ -108,20 +127,29 @@ public class EventSubscribersTest {
 				oneOf(message_mock).getConversationId();
 				will(returnValue("self-messaging"));
 
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).fillContent(with(any(ACLMessage.class)), with(event));
+
 				oneOf(subscription_mock).notify(with(new ACLMessageMatcher().expectPerformative(ACLMessage.INFORM)
-						.expectContent(Event.OPERATION_COMPLETED_FAILURE)));
+						.expectLanguage(FIPANames.ContentLanguage.FIPA_SL)
+						.expectOntology(EventSubscriptionOntology.ONTOLOGY_NAME)));
 			}
 		});
 
 		testable.register(subscription_mock);
 
-		testable.notifyAll(Event.OPERATION_COMPLETED_FAILURE);
+		testable.notifyAll(event);
 	}
 
 	@Test
 	public void notifyAll_process_success() throws RefuseException, NotUnderstoodException {
-		Subscription subscription_mock = context.mock(Subscription.class);
-		ACLMessage message_mock = context.mock(ACLMessage.class);
+		final Subscription subscription_mock = context.mock(Subscription.class);
+		final ACLMessage message_mock = context.mock(ACLMessage.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final Event event = new Event();
+		event.setId(Event.PROCESS_COMPLETED_SUCCESS);
 
 		context.checking(new Expectations() {
 			{
@@ -131,20 +159,29 @@ public class EventSubscribersTest {
 				oneOf(message_mock).getConversationId();
 				will(returnValue("process-status"));
 
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).fillContent(with(any(ACLMessage.class)), with(event));
+
 				oneOf(subscription_mock).notify(with(new ACLMessageMatcher().expectPerformative(ACLMessage.INFORM)
-						.expectContent(Event.PROCESS_COMPLETED_SUCCESS)));
+						.expectLanguage(FIPANames.ContentLanguage.FIPA_SL)
+						.expectOntology(EventSubscriptionOntology.ONTOLOGY_NAME)));
 			}
 		});
 
 		testable.register(subscription_mock);
 
-		testable.notifyAll(Event.PROCESS_COMPLETED_SUCCESS);
+		testable.notifyAll(event);
 	}
 
 	@Test
 	public void notifyAll_process_failure() throws RefuseException, NotUnderstoodException {
-		Subscription subscription_mock = context.mock(Subscription.class);
-		ACLMessage message_mock = context.mock(ACLMessage.class);
+		final Subscription subscription_mock = context.mock(Subscription.class);
+		final ACLMessage message_mock = context.mock(ACLMessage.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final Event event = new Event();
+		event.setId(Event.PROCESS_COMPLETED_FAILURE);
 
 		context.checking(new Expectations() {
 			{
@@ -154,20 +191,29 @@ public class EventSubscribersTest {
 				oneOf(message_mock).getConversationId();
 				will(returnValue("process-status"));
 
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).fillContent(with(any(ACLMessage.class)), with(event));
+
 				oneOf(subscription_mock).notify(with(new ACLMessageMatcher().expectPerformative(ACLMessage.INFORM)
-						.expectContent(Event.PROCESS_COMPLETED_FAILURE)));
+						.expectLanguage(FIPANames.ContentLanguage.FIPA_SL)
+						.expectOntology(EventSubscriptionOntology.ONTOLOGY_NAME)));
 			}
 		});
 
 		testable.register(subscription_mock);
 
-		testable.notifyAll(Event.PROCESS_COMPLETED_FAILURE);
+		testable.notifyAll(event);
 	}
 
 	@Test
 	public void notifyAll_event() throws RefuseException, NotUnderstoodException {
-		Subscription subscription_mock = context.mock(Subscription.class);
-		ACLMessage message_mock = context.mock(ACLMessage.class);
+		final Subscription subscription_mock = context.mock(Subscription.class);
+		final ACLMessage message_mock = context.mock(ACLMessage.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final Event event = new Event();
+		event.setId("event");
 
 		context.checking(new Expectations() {
 			{
@@ -177,13 +223,19 @@ public class EventSubscribersTest {
 				oneOf(message_mock).getConversationId();
 				will(returnValue("event"));
 
-				oneOf(subscription_mock).notify(
-						with(new ACLMessageMatcher().expectPerformative(ACLMessage.INFORM).expectContent("event")));
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).fillContent(with(any(ACLMessage.class)), with(event));
+
+				oneOf(subscription_mock).notify(with(new ACLMessageMatcher().expectPerformative(ACLMessage.INFORM)
+						.expectLanguage(FIPANames.ContentLanguage.FIPA_SL)
+						.expectOntology(EventSubscriptionOntology.ONTOLOGY_NAME)));
 			}
 		});
 
 		testable.register(subscription_mock);
 
-		testable.notifyAll("event");
+		testable.notifyAll(event);
 	}
 }

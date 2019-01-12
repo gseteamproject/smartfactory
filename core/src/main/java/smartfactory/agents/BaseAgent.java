@@ -9,6 +9,7 @@ import smartfactory.behaviours.base.SubscribeToEventResponderBehaviour;
 import smartfactory.behaviours.base.SubscribeToInternalEventBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.AgentService;
+import smartfactory.ontology.EventSubscriptionOntology;
 import smartfactory.serviceProvisioning.behaviours.ServiceProvisioningResponderBehaviour;
 import smartfactory.serviceProvisioning.ontology.ServiceProvisioningOntology;
 import smartfactory.services.Services;
@@ -54,6 +55,7 @@ public class BaseAgent extends Agent {
 
 	protected void registerOntology() {
 		getContentManager().registerOntology(ServiceProvisioningOntology.getInstance());
+		getContentManager().registerOntology(EventSubscriptionOntology.getInstance());
 	}
 
 	@Override

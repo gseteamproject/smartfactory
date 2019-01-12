@@ -25,7 +25,7 @@ public class AgentDataStore extends DataStore {
 		setAgent(agent);
 		setAgentPlatform(new JADEPlatform(agent));
 		setAgentServices(new AgentServices(this));
-		setEventSubscribers(new EventSubscribers());
+		setEventSubscribers(new EventSubscribers(this));
 	}
 
 	@Override

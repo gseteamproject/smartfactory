@@ -3,10 +3,10 @@ package smartfactory.services;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour;
+import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour.EventHandler;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.models.AgentService;
 import smartfactory.models.Event;
-import smartfactory.models.EventHandler;
 import smartfactory.utility.AgentDataStore;
 
 public class LaunchProcessService extends AgentService {
@@ -23,8 +23,9 @@ public class LaunchProcessService extends AgentService {
 				agentDataStore.getSubAgentConfiguration().getAgentName(), "process-status", new EventHandler() {
 					@Override
 					public void callback(ACLMessage message) {
-						String result = message.getContent();
-						if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
+						Event event = (Event) agentDataStore.getAgentPlatform().extractContent(message);
+						String eventId = event.getId();
+						if (eventId.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
 							completedSuccess();
 						} else {
 							completedFailure();

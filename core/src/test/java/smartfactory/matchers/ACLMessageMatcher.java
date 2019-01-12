@@ -23,4 +23,24 @@ public class ACLMessageMatcher extends Matcher<ACLMessage> {
 		});
 		return this;
 	}
+
+	public ACLMessageMatcher expectLanguage(String language) {
+		addExpectation(new MatcherExpectation() {
+			@Override
+			public void trigger(ACLMessage arg) throws MatcherException {
+				compare("language", language, arg.getLanguage());
+			}
+		});
+		return this;
+	}
+
+	public ACLMessageMatcher expectOntology(String ontology) {
+		addExpectation(new MatcherExpectation() {
+			@Override
+			public void trigger(ACLMessage arg) throws MatcherException {
+				compare("ontology", ontology, arg.getOntology());
+			}
+		});
+		return this;
+	}
 }

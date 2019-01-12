@@ -1,5 +1,7 @@
 package smartfactory.usecase;
 
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
 import jade.core.Agent;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.OneShotBehaviour;
@@ -16,6 +18,7 @@ import smartfactory.agents.PaintingStationAgent;
 import smartfactory.agents.WarehouseAgent;
 import smartfactory.application.IntegrationTests;
 import smartfactory.models.Event;
+import smartfactory.ontology.EventSubscriptionOntology;
 import smartfactory.utility.TestHelpers;
 import smartfactory.utility.TestingAgent;
 import test.common.Test;
@@ -75,6 +78,8 @@ public class BlockProductionTest extends Test {
 		ACLMessage message1 = new ACLMessage(ACLMessage.SUBSCRIBE);
 		message1.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
 		message1.setConversationId("process-status");
+		message1.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		message1.setOntology(EventSubscriptionOntology.ONTOLOGY_NAME);
 		testflow.addSubBehaviour(sendMessage(order, message1));
 
 		MessageTemplate pattern1 = MessageTemplate.and(MessageTemplate.MatchConversationId("process-status"),
@@ -83,7 +88,9 @@ public class BlockProductionTest extends Test {
 
 		MessageTemplate pattern2 = MessageTemplate.and(MessageTemplate.MatchConversationId("process-status"),
 				MessageTemplate.MatchPerformative(ACLMessage.INFORM));
-		testflow.addSubBehaviour(waitMessage(pattern2, Event.PROCESS_COMPLETED_SUCCESS));
+		Event event = new Event();
+		event.setId(Event.PROCESS_COMPLETED_SUCCESS);
+		testflow.addSubBehaviour(waitMessage(pattern2, event));
 
 		testflow.addSubBehaviour(assertUnhandledMessages());
 
@@ -115,7 +122,7 @@ public class BlockProductionTest extends Test {
 		};
 	}
 
-	private Behaviour waitMessage(MessageTemplate pattern, String content) {
+	private Behaviour waitMessage(MessageTemplate pattern, Event content) {
 		return new SimpleBehaviour() {
 			private static final long serialVersionUID = -6230889827519202528L;
 
@@ -125,9 +132,16 @@ public class BlockProductionTest extends Test {
 				if (message != null) {
 					isDone = true;
 					if (content != null) {
-						String result = message.getContent();
-						if (result.compareTo(content) != 0) {
-							failed(String.format("mismatch content, expected: %s, actual: %s ", content, result));
+						Event result = null;
+						try {
+							myAgent.getContentManager().registerOntology(EventSubscriptionOntology.getInstance());
+							result = (Event) myAgent.getContentManager().extractContent(message);
+						} catch (CodecException | OntologyException e) {
+							e.printStackTrace();
+						}
+						if (result.getId().compareTo(content.getId()) != 0) {
+							failed(String.format("mismatch event-id, expected: %s, actual: %s ", content.getId(),
+									result.getId()));
 						}
 					}
 				} else {

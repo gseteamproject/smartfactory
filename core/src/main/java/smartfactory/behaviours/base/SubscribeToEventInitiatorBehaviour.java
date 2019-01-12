@@ -6,7 +6,7 @@ import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionInitiator;
-import smartfactory.models.EventHandler;
+import smartfactory.ontology.EventSubscriptionOntology;
 
 public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 
@@ -19,6 +19,10 @@ public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 	String event;
 
 	EventHandler callback;
+
+	public static interface EventHandler {
+		public void callback(ACLMessage message);
+	}
 
 	public SubscribeToEventInitiatorBehaviour(String responderAgent, String event, EventHandler callback) {
 		super(null, null);
@@ -33,6 +37,8 @@ public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 		ACLMessage message = new ACLMessage(ACLMessage.SUBSCRIBE);
 		message.addReceiver(new AID((responderAgent), AID.ISLOCALNAME));
 		message.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
+		message.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		message.setOntology(EventSubscriptionOntology.ONTOLOGY_NAME);
 		message.setConversationId(event);
 		Vector l = new Vector(1);
 		l.addElement(message);

@@ -5,10 +5,10 @@ import org.slf4j.LoggerFactory;
 
 import jade.lang.acl.ACLMessage;
 import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour;
+import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour.EventHandler;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.Event;
-import smartfactory.models.EventHandler;
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerAgent extends BaseAgent {
@@ -42,8 +42,9 @@ public class CustomerAgent extends BaseAgent {
 		addBehaviour(new SubscribeToEventInitiatorBehaviour(agentName, "process-status", new EventHandler() {
 			@Override
 			public void callback(ACLMessage message) {
-				String result = message.getContent();
-				if (result.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
+				Event event = (Event) agentDataStore.getAgentPlatform().extractContent(message);
+				String eventId = event.getId();
+				if (eventId.compareTo(Event.PROCESS_COMPLETED_SUCCESS) == 0) {
 					logger.debug("order is completed");
 					presenter.showOrderIsCompleted();
 				} else {

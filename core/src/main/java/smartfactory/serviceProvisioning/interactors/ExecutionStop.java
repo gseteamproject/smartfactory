@@ -15,15 +15,16 @@ public class ExecutionStop extends Interactor {
 
 	public ACLMessage execute(ACLMessage msg) {
 		ACLMessage response = agentDataStore.getActivityRequest().createReply();
-		String result = msg.getContent();
-		if (result.compareTo(Event.OPERATION_COMPLETED_SUCCESS) == 0) {
+		Event event = (Event) extractContent(msg);
+		String eventId = event.getId();
+		if (eventId.compareTo(Event.OPERATION_COMPLETED_SUCCESS) == 0) {
 			response.setPerformative(ACLMessage.INFORM);
 			ServiceCompleted serviceCompleted = new ServiceCompleted();
 			// TODO : interactor must know service name
 			serviceCompleted.setServiceName("");
 			serviceCompleted.setDurationCompleted(1);
 			fillContent(response, serviceCompleted);
-		} else if (result.compareTo(Event.OPERATION_COMPLETED_FAILURE) == 0) {
+		} else if (eventId.compareTo(Event.OPERATION_COMPLETED_FAILURE) == 0) {
 			response.setPerformative(ACLMessage.FAILURE);
 			ServiceFailed serviceFailed = new ServiceFailed();
 			// TODO : interactor must know service name

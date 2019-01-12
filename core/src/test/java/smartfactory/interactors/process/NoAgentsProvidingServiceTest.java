@@ -46,7 +46,8 @@ public class NoAgentsProvidingServiceTest {
 				oneOf(dataStore_mock).getEventSubsribers();
 				will(returnValue(eventSubscribers_mock));
 
-				oneOf(eventSubscribers_mock).notifyAll(Event.PROCESS_COMPLETED_FAILURE);
+				// TODO : add Event matcher
+				oneOf(eventSubscribers_mock).notifyAll(with(any(Event.class)));
 			}
 		});
 

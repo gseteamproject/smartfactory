@@ -61,7 +61,8 @@ public class AgentServiceTest {
 				oneOf(agentDataStore_mock).getEventSubsribers();
 				will(returnValue(eventSubscribers_mock));
 
-				oneOf(eventSubscribers_mock).notifyAll(Event.OPERATION_COMPLETED_SUCCESS);
+				// TODO : add Event matcher
+				oneOf(eventSubscribers_mock).notifyAll(with(any(Event.class)));
 			}
 		});
 
@@ -83,7 +84,8 @@ public class AgentServiceTest {
 				oneOf(agentDataStore_mock).getEventSubsribers();
 				will(returnValue(eventSubscribers_mock));
 
-				oneOf(eventSubscribers_mock).notifyAll(Event.OPERATION_COMPLETED_FAILURE);
+				// TODO : add Event matcher
+				oneOf(eventSubscribers_mock).notifyAll(with(any(Event.class)));
 			}
 		});
 
