@@ -11,6 +11,7 @@ public class SubscribeToInternalEventBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
+		// TODO : add corresponding Interactor
 		ACLMessage subscription = new ACLMessage(ACLMessage.SUBSCRIBE);
 		subscription.addReceiver(getAgent().getAID());
 		subscription.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);

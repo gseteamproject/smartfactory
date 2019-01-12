@@ -14,6 +14,7 @@ public class Decision extends Interactor {
 		super(dataStore);
 	}
 
+	// TODO : add generalization from OneShotInteractor
 	public ACLMessage execute(ACLMessage request) {
 		Action a = (Action) extractContent(request);
 		ServiceRequest serviceRequest = (ServiceRequest) a.getAction();

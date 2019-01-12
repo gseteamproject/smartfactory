@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import smartfactory.models.AgentService;
 
+// TODO : move to "services" package
 public class AgentServices {
 
 	private HashMap<String, AgentService> agentServices = new HashMap<String, AgentService>();

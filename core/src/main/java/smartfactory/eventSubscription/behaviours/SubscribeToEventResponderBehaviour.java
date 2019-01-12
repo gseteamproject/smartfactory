@@ -12,6 +12,7 @@ import jade.proto.SubscriptionResponder;
 import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 import smartfactory.utility.AgentDataStore;
 
+//TODO: add corresponding Interactor
 public class SubscribeToEventResponderBehaviour extends SubscriptionResponder {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -12,6 +12,7 @@ public class ExecutionStart extends Interactor {
 		super(dataStore);
 	}
 
+	// TODO : add generalization from OneShotInteractor
 	public void execute(ACLMessage request) {
 		agentDataStore.setActivityRequest(request);
 		Action a = (Action) extractContent(request);

@@ -7,6 +7,7 @@ import jade.domain.FIPAAgentManagement.ServiceDescription;
 import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.utility.AgentDataStore;
 
+//TODO : move to "services" package
 public class AgentService {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

@@ -13,6 +13,7 @@ public class ExecutionStop extends Interactor {
 		super(agentDataStore);
 	}
 
+	// TODO : add generalization from OneShotInteractor
 	public ACLMessage execute(ACLMessage msg) {
 		ACLMessage response = agentDataStore.getActivityRequest().createReply();
 		Event event = (Event) extractContent(msg);

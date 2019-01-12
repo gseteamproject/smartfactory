@@ -8,6 +8,7 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionInitiator;
 import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 
+//TODO: add corresponding Interactor
 public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 
 	private static final long serialVersionUID = -2386799595521331797L;
