@@ -1,6 +1,5 @@
 package smartfactory.agents;
 
-import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
 import smartfactory.models.Resource;
 
 public class ResourceAgent extends BaseAgent {
@@ -24,11 +23,5 @@ public class ResourceAgent extends BaseAgent {
 	protected void setupData() {
 		super.setupData();
 		agentDataStore.setResource(createResource());
-	}
-
-	@Override
-	protected void setupBehaviours() {
-		super.setupBehaviours();
-		addBehaviour(new ServiceProvisioningResponderBehaviour(agentDataStore));
 	}
 }

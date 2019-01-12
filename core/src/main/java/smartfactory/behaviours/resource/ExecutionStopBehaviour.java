@@ -3,6 +3,7 @@ package smartfactory.behaviours.resource;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.interactors.resource.ExecutionStop;
 import smartfactory.utility.AgentDataStore;
 

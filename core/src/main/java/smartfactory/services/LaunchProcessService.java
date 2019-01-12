@@ -2,7 +2,7 @@ package smartfactory.services;
 
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
-import smartfactory.behaviours.base.EventSubscriptionInitiatorBehaviour;
+import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.models.AgentService;
 import smartfactory.models.Event;
@@ -19,7 +19,7 @@ public class LaunchProcessService extends AgentService {
 	public void execute() {
 		Agent agent = agentDataStore.getAgent();
 		agent.addBehaviour(new LaunchAgentBehaviour(agentDataStore));
-		agent.addBehaviour(new EventSubscriptionInitiatorBehaviour(
+		agent.addBehaviour(new SubscribeToEventInitiatorBehaviour(
 				agentDataStore.getSubAgentConfiguration().getAgentName(), "process-status", new EventHandler() {
 					@Override
 					public void callback(ACLMessage message) {

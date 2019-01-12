@@ -1,8 +1,12 @@
-package smartfactory.behaviours.resource;
+package smartfactory.behaviours.base;
 
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
+import jade.lang.acl.MessageTemplate;
 import jade.proto.AchieveREResponder;
+import smartfactory.behaviours.resource.DecisionBehaviour;
+import smartfactory.behaviours.resource.ExecutionBehaviour;
+import smartfactory.ontology.SmartfactoryOntology;
 import smartfactory.utility.AgentDataStore;
 
 public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
@@ -20,7 +24,10 @@ public class ServiceProvisioningResponderBehaviour extends AchieveREResponder {
 	}
 
 	public ServiceProvisioningResponderBehaviour(AgentDataStore dataStore) {
-		super(null, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST));
+		super(null,
+				MessageTemplate.and(
+						AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST),
+						MessageTemplate.MatchOntology(SmartfactoryOntology.ONTOLOGY_NAME)));
 
 		registerHandleRequest(new DecisionBehaviour(this, dataStore));
 		registerPrepareResultNotification(new ExecutionBehaviour(this, dataStore));

@@ -1,6 +1,7 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.OneShotBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.interactors.resource.Decision;
 import smartfactory.utility.AgentDataStore;
 

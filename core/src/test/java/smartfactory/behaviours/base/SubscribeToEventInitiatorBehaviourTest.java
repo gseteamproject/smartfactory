@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import smartfactory.models.EventHandler;
 
-public class EventSubscriptionInitiatorBehaviourTest {
+public class SubscribeToEventInitiatorBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -16,7 +16,7 @@ public class EventSubscriptionInitiatorBehaviourTest {
 		}
 	};
 
-	EventSubscriptionInitiatorBehaviour testable;
+	SubscribeToEventInitiatorBehaviour testable;
 
 	EventHandler callback_mock;
 
@@ -30,7 +30,7 @@ public class EventSubscriptionInitiatorBehaviourTest {
 		event = "event";
 		callback_mock = context.mock(EventHandler.class);
 
-		testable = new EventSubscriptionInitiatorBehaviour(responderAgent, event, callback_mock);
+		testable = new SubscribeToEventInitiatorBehaviour(responderAgent, event, callback_mock);
 	}
 
 	@After

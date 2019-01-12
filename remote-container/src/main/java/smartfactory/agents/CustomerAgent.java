@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.lang.acl.ACLMessage;
-import smartfactory.behaviours.base.EventSubscriptionInitiatorBehaviour;
+import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.Event;
@@ -39,7 +39,7 @@ public class CustomerAgent extends BaseAgent {
 		agentDataStore.setSubAgentConfiguration(agentConfiguration);
 
 		addBehaviour(new LaunchAgentBehaviour(agentDataStore));
-		addBehaviour(new EventSubscriptionInitiatorBehaviour(agentName, "process-status", new EventHandler() {
+		addBehaviour(new SubscribeToEventInitiatorBehaviour(agentName, "process-status", new EventHandler() {
 			@Override
 			public void callback(ACLMessage message) {
 				String result = message.getContent();

@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.behaviours.resource.ExecutionStartBehaviour;
 import smartfactory.utility.AgentDataStore;
 

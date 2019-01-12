@@ -1,6 +1,7 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.TickerBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.interactors.resource.ExecutionStatus;
 import smartfactory.utility.AgentDataStore;
 

@@ -6,6 +6,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jade.content.ContentElement;
+import jade.content.lang.Codec.CodecException;
+import jade.content.onto.OntologyException;
 import jade.core.Agent;
 import jade.core.Profile;
 import jade.core.ProfileImpl;
@@ -13,6 +16,7 @@ import jade.core.Runtime;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
+import jade.lang.acl.ACLMessage;
 import jade.util.ExtendedProperties;
 import jade.wrapper.AgentContainer;
 import jade.wrapper.StaleProxyException;
@@ -20,8 +24,6 @@ import smartfactory.configuration.AgentConfiguration;
 import smartfactory.configuration.ContainerConfiguration;
 
 public class JADEPlatform implements AgentPlatform {
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private Agent agent;
 
@@ -96,4 +98,25 @@ public class JADEPlatform implements AgentPlatform {
 			logger.error("createNewAgent failed", e);
 		}
 	}
+
+	@Override
+	public ContentElement extractContent(ACLMessage message) {
+		try {
+			return agent.getContentManager().extractContent(message);
+		} catch (CodecException | OntologyException e) {
+			logger.error("", e);
+		}
+		return null;
+	}
+
+	@Override
+	public void fillContent(ACLMessage message, ContentElement content) {
+		try {
+			agent.getContentManager().fillContent(message, content);
+		} catch (CodecException | OntologyException e) {
+			logger.error("", e);
+		}
+	}
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

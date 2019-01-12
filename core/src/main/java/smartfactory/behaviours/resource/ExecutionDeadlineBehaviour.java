@@ -1,6 +1,7 @@
 package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.WakerBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.interactors.resource.ExecutionDeadline;
 import smartfactory.models.Resource;
 import smartfactory.utility.AgentDataStore;

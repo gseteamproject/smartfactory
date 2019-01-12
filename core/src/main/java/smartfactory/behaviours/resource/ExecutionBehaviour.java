@@ -2,7 +2,7 @@ package smartfactory.behaviours.resource;
 
 import jade.core.behaviours.ParallelBehaviour;
 import jade.core.behaviours.ThreadedBehaviourFactory;
-import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.utility.AgentDataStore;
 
 public class ExecutionBehaviour extends ParallelBehaviour {

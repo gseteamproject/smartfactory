@@ -1,7 +1,9 @@
 package smartfactory.interactors.resource;
 
+import jade.content.onto.basic.Action;
 import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.Interactor;
+import smartfactory.ontology.ServiceRequest;
 import smartfactory.utility.AgentDataStore;
 
 public class ExecutionStatus extends Interactor {
@@ -11,8 +13,9 @@ public class ExecutionStatus extends Interactor {
 	}
 
 	public void execute(ACLMessage request) {
-		// content = operation name
-		String serviceName = request.getContent();
+		Action a = (Action) extractContent(request);
+		ServiceRequest serviceRequest = (ServiceRequest) a.getAction();
+		String serviceName = serviceRequest.getServiceName();
 		agentDataStore.getAgentServices().statusOfService(serviceName);
 	}
 }

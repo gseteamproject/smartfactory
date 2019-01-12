@@ -1,4 +1,4 @@
-package smartfactory.behaviours.resource;
+package smartfactory.behaviours.base;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.utility.AgentDataStore;
 
 public class ServiceProvisioningResponderBehaviourTest {

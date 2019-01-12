@@ -10,12 +10,18 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import jade.content.onto.basic.Action;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import smartfactory.interactors.process.ServiceProvisioningInitiator;
 import smartfactory.models.ProcessOperation;
+import smartfactory.ontology.ServiceCompleted;
+import smartfactory.ontology.ServiceFailed;
+import smartfactory.ontology.ServiceProposal;
+import smartfactory.ontology.ServiceRefusal;
+import smartfactory.platform.AgentPlatform;
 import smartfactory.utility.AgentDataStore;
 
 public class ServiceProvisioningInitiatorTest {
@@ -49,9 +55,20 @@ public class ServiceProvisioningInitiatorTest {
 		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		final ProcessOperation processOperation_mock = context.mock(ProcessOperation.class);
 		processOperation_mock.agentDescription = agentDescription;
+		final ServiceCompleted serviceCompleted_mock = context.mock(ServiceCompleted.class);
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
 			{
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).extractContent(message);
+				will(returnValue(serviceCompleted_mock));
+
+				oneOf(serviceCompleted_mock).getDurationCompleted();
+				will(returnValue(123));
+
 				exactly(2).of(dataStore_mock).getProcessOperation();
 				will(returnValue(processOperation_mock));
 
@@ -69,9 +86,20 @@ public class ServiceProvisioningInitiatorTest {
 		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		final ProcessOperation processOperation_mock = context.mock(ProcessOperation.class);
 		processOperation_mock.agentDescription = agentDescription;
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final ServiceProposal serviceProposal_mock = context.mock(ServiceProposal.class);
 
 		context.checking(new Expectations() {
 			{
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).extractContent(message);
+				will(returnValue(serviceProposal_mock));
+
+				oneOf(serviceProposal_mock).getDurationEstimated();
+				will(returnValue(123));
+
 				oneOf(dataStore_mock).getProcessOperation();
 				will(returnValue(processOperation_mock));
 			}
@@ -87,9 +115,20 @@ public class ServiceProvisioningInitiatorTest {
 		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		ProcessOperation processOperation_mock = context.mock(ProcessOperation.class);
 		processOperation_mock.agentDescription = agentDescription;
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final ServiceRefusal serviceRefuse_mock = context.mock(ServiceRefusal.class);
 
 		context.checking(new Expectations() {
 			{
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).extractContent(message);
+				will(returnValue(serviceRefuse_mock));
+
+				oneOf(serviceRefuse_mock).getRefusalReason();
+				will(returnValue("planned-refusal"));
+
 				exactly(2).of(dataStore_mock).getProcessOperation();
 				will(returnValue(processOperation_mock));
 
@@ -107,9 +146,20 @@ public class ServiceProvisioningInitiatorTest {
 		agentDescription.setName(new AID("test-agent", AID.ISGUID));
 		ProcessOperation processOperation_mock = context.mock(ProcessOperation.class);
 		processOperation_mock.agentDescription = agentDescription;
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+		final ServiceFailed serviceFailed_mock = context.mock(ServiceFailed.class);
 
 		context.checking(new Expectations() {
 			{
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				oneOf(agentPlatform_mock).extractContent(message);
+				will(returnValue(serviceFailed_mock));
+
+				oneOf(serviceFailed_mock).getFailedReason();
+				will(returnValue("planned-refusal"));
+
 				exactly(2).of(dataStore_mock).getProcessOperation();
 				will(returnValue(processOperation_mock));
 
@@ -129,10 +179,19 @@ public class ServiceProvisioningInitiatorTest {
 		processOperation.agentDescription = new DFAgentDescription();
 		processOperation.agentDescription.setName(aid);
 
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+
 		context.checking(new Expectations() {
 			{
 				exactly(2).of(dataStore_mock).getProcessOperation();
 				will(returnValue(processOperation));
+
+				oneOf(dataStore_mock).getAgentPlatform();
+				will(returnValue(agentPlatform_mock));
+
+				// TODO : add Action matcher
+				// TODO : add ACLMessage matcher
+				oneOf(agentPlatform_mock).fillContent(with(any(ACLMessage.class)), with(any(Action.class)));
 			}
 		});
 

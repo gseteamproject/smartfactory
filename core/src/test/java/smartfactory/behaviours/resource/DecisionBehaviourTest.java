@@ -6,8 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.behaviours.resource.DecisionBehaviour;
-import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
 import smartfactory.utility.AgentDataStore;
 
 public class DecisionBehaviourTest {

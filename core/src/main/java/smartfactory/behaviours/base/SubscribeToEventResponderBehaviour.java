@@ -8,15 +8,16 @@ import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionResponder;
+import smartfactory.utility.AgentDataStore;
 
-public class EventSubscriptionResponderBehaviour extends SubscriptionResponder {
+public class SubscribeToEventResponderBehaviour extends SubscriptionResponder {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final long serialVersionUID = 7968922573963662440L;
 
-	public EventSubscriptionResponderBehaviour(SubscriptionManager manager) {
-		super(null, SubscriptionResponder.createMessageTemplate(ACLMessage.SUBSCRIBE), manager);
+	public SubscribeToEventResponderBehaviour(AgentDataStore agentDataStore) {
+		super(null, SubscriptionResponder.createMessageTemplate(ACLMessage.SUBSCRIBE), agentDataStore.getEventSubsribers());
 	}
 
 	@Override

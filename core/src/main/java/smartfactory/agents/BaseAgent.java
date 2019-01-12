@@ -5,8 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
-import smartfactory.behaviours.base.EventSubscriptionResponderBehaviour;
-import smartfactory.behaviours.base.SelfSubscribeBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
+import smartfactory.behaviours.base.SubscribeToEventResponderBehaviour;
+import smartfactory.behaviours.base.SubscribeToInternalEventBehaviour;
 import smartfactory.configuration.AgentConfiguration;
 import smartfactory.models.AgentService;
 import smartfactory.ontology.SmartfactoryOntology;
@@ -67,8 +68,9 @@ public class BaseAgent extends Agent {
 	}
 
 	protected void setupBehaviours() {
-		addBehaviour(new EventSubscriptionResponderBehaviour(agentDataStore.getEventSubsribers()));
-		addBehaviour(new SelfSubscribeBehaviour());
+		addBehaviour(new ServiceProvisioningResponderBehaviour(agentDataStore));
+		addBehaviour(new SubscribeToEventResponderBehaviour(agentDataStore));
+		addBehaviour(new SubscribeToInternalEventBehaviour());
 	}
 
 	protected void setupGUI() {

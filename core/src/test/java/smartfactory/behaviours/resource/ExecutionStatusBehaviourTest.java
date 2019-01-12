@@ -8,7 +8,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jade.core.Agent;
-import smartfactory.behaviours.resource.ServiceProvisioningResponderBehaviour;
+import smartfactory.behaviours.base.ServiceProvisioningResponderBehaviour;
 import smartfactory.behaviours.resource.ExecutionStatusBehaviour;
 import smartfactory.utility.AgentDataStore;
 

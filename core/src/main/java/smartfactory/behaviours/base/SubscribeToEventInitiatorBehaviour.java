@@ -8,7 +8,7 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionInitiator;
 import smartfactory.models.EventHandler;
 
-public class EventSubscriptionInitiatorBehaviour extends SubscriptionInitiator {
+public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 
 	private static final long serialVersionUID = -2386799595521331797L;
 
@@ -20,7 +20,7 @@ public class EventSubscriptionInitiatorBehaviour extends SubscriptionInitiator {
 
 	EventHandler callback;
 
-	public EventSubscriptionInitiatorBehaviour(String responderAgent, String event, EventHandler callback) {
+	public SubscribeToEventInitiatorBehaviour(String responderAgent, String event, EventHandler callback) {
 		super(null, null);
 		this.responderAgent = responderAgent;
 		this.event = event;
@@ -58,6 +58,7 @@ public class EventSubscriptionInitiatorBehaviour extends SubscriptionInitiator {
 			callback.callback(inform);
 
 			cancel(inform.getSender(), false);
+			// TODO: check if subscription cancelled after first notification
 			cancel_inform = true;
 		}
 	}
