@@ -1,4 +1,4 @@
-package smartfactory.ontology;
+package smartfactory.eventSubscription.ontology;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,7 +6,6 @@ import org.slf4j.LoggerFactory;
 import jade.content.onto.BasicOntology;
 import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
-import smartfactory.models.Event;
 
 public class EventSubscriptionOntology extends Ontology {
 

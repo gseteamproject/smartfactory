@@ -1,4 +1,4 @@
-package smartfactory.behaviours.base;
+package smartfactory.eventSubscription.behaviours;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,7 +9,7 @@ import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.SubscriptionResponder;
-import smartfactory.ontology.EventSubscriptionOntology;
+import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 import smartfactory.utility.AgentDataStore;
 
 public class SubscribeToEventResponderBehaviour extends SubscriptionResponder {

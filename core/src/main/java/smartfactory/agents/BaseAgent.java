@@ -5,11 +5,11 @@ import org.slf4j.LoggerFactory;
 
 import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
-import smartfactory.behaviours.base.SubscribeToEventResponderBehaviour;
-import smartfactory.behaviours.base.SubscribeToInternalEventBehaviour;
 import smartfactory.configuration.AgentConfiguration;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventResponderBehaviour;
+import smartfactory.eventSubscription.behaviours.SubscribeToInternalEventBehaviour;
+import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 import smartfactory.models.AgentService;
-import smartfactory.ontology.EventSubscriptionOntology;
 import smartfactory.serviceProvisioning.behaviours.ServiceProvisioningResponderBehaviour;
 import smartfactory.serviceProvisioning.ontology.ServiceProvisioningOntology;
 import smartfactory.services.Services;

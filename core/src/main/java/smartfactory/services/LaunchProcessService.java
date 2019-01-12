@@ -2,11 +2,11 @@ package smartfactory.services;
 
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
-import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour;
-import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour.EventHandler;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventInitiatorBehaviour;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventInitiatorBehaviour.EventHandler;
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.models.AgentService;
-import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
 public class LaunchProcessService extends AgentService {

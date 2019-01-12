@@ -4,11 +4,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.lang.acl.ACLMessage;
-import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour;
-import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour.EventHandler;
 import smartfactory.behaviours.base.LaunchAgentBehaviour;
 import smartfactory.configuration.AgentConfiguration;
-import smartfactory.models.Event;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventInitiatorBehaviour;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventInitiatorBehaviour.EventHandler;
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.presenters.CustomerPresenter;
 
 public class CustomerAgent extends BaseAgent {

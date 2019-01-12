@@ -8,6 +8,15 @@ import org.hamcrest.TypeSafeMatcher;
 
 public class Matcher<T> extends TypeSafeMatcher<T> {
 
+	static class MatcherException extends Exception {
+
+		public MatcherException(String mismatch) {
+			super(mismatch);
+		}
+
+		private static final long serialVersionUID = 6963868936283233715L;
+	}
+
 	private List<MatcherExpectation> expectations = new ArrayList<MatcherExpectation>();
 
 	protected abstract class MatcherExpectation {

@@ -1,4 +1,4 @@
-package smartfactory.utility;
+package smartfactory.eventSubscription;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -13,8 +13,9 @@ import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionResponder.Subscription;
 import jade.proto.SubscriptionResponder.SubscriptionManager;
-import smartfactory.models.Event;
-import smartfactory.ontology.EventSubscriptionOntology;
+import smartfactory.eventSubscription.ontology.Event;
+import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
+import smartfactory.utility.AgentDataStore;
 
 public class EventSubscribers implements SubscriptionManager {
 

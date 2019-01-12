@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.utility.AgentDataStore;
 
 public class AgentService {

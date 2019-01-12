@@ -1,4 +1,4 @@
-package smartfactory.behaviours.base;
+package smartfactory.eventSubscription.behaviours;
 
 import java.util.Vector;
 
@@ -6,7 +6,7 @@ import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionInitiator;
-import smartfactory.ontology.EventSubscriptionOntology;
+import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 
 public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 
@@ -16,7 +16,7 @@ public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 
 	String responderAgent;
 
-	String event;
+	String conversationId;
 
 	EventHandler callback;
 
@@ -24,10 +24,10 @@ public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 		public void callback(ACLMessage message);
 	}
 
-	public SubscribeToEventInitiatorBehaviour(String responderAgent, String event, EventHandler callback) {
+	public SubscribeToEventInitiatorBehaviour(String responderAgent, String conversationId, EventHandler callback) {
 		super(null, null);
 		this.responderAgent = responderAgent;
-		this.event = event;
+		this.conversationId = conversationId;
 		this.callback = callback;
 	}
 
@@ -39,7 +39,7 @@ public class SubscribeToEventInitiatorBehaviour extends SubscriptionInitiator {
 		message.setProtocol(FIPANames.InteractionProtocol.FIPA_SUBSCRIBE);
 		message.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
 		message.setOntology(EventSubscriptionOntology.ONTOLOGY_NAME);
-		message.setConversationId(event);
+		message.setConversationId(conversationId);
 		Vector l = new Vector(1);
 		l.addElement(message);
 		return l;

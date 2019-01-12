@@ -1,8 +1,8 @@
 package smartfactory.serviceProvisioning.interactors;
 
 import jade.lang.acl.ACLMessage;
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.interactors.Interactor;
-import smartfactory.models.Event;
 import smartfactory.serviceProvisioning.ontology.ServiceCompleted;
 import smartfactory.serviceProvisioning.ontology.ServiceFailed;
 import smartfactory.utility.AgentDataStore;

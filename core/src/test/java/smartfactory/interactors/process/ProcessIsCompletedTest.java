@@ -8,10 +8,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import smartfactory.eventSubscription.EventSubscribers;
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.interactors.process.ProcessIsCompleted;
-import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
-import smartfactory.utility.EventSubscribers;
 
 public class ProcessIsCompletedTest {
 

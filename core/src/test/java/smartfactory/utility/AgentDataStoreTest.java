@@ -10,6 +10,7 @@ import org.junit.Test;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import smartfactory.configuration.AgentConfiguration;
+import smartfactory.eventSubscription.EventSubscribers;
 import smartfactory.models.Process;
 import smartfactory.models.ProcessOperation;
 import smartfactory.models.Product;

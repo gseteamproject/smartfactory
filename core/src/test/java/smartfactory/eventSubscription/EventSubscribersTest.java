@@ -1,4 +1,4 @@
-package smartfactory.utility;
+package smartfactory.eventSubscription;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -14,10 +14,12 @@ import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionResponder.Subscription;
+import smartfactory.eventSubscription.EventSubscribers;
+import smartfactory.eventSubscription.ontology.Event;
+import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 import smartfactory.matchers.ACLMessageMatcher;
-import smartfactory.models.Event;
-import smartfactory.ontology.EventSubscriptionOntology;
 import smartfactory.platform.AgentPlatform;
+import smartfactory.utility.AgentDataStore;
 
 public class EventSubscribersTest {
 

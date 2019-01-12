@@ -1,4 +1,4 @@
-package smartfactory.behaviours.base;
+package smartfactory.eventSubscription.behaviours;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -6,7 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.behaviours.base.SubscribeToEventInitiatorBehaviour.EventHandler;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventInitiatorBehaviour;
+import smartfactory.eventSubscription.behaviours.SubscribeToEventInitiatorBehaviour.EventHandler;
 
 public class SubscribeToEventInitiatorBehaviourTest {
 

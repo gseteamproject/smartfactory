@@ -1,4 +1,4 @@
-package smartfactory.models;
+package smartfactory.eventSubscription.ontology;
 
 import jade.content.Predicate;
 import jade.content.onto.BasicOntology;

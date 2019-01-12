@@ -9,8 +9,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import smartfactory.eventSubscription.EventSubscribers;
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.utility.AgentDataStore;
-import smartfactory.utility.EventSubscribers;
 
 public class AgentServiceTest {
 

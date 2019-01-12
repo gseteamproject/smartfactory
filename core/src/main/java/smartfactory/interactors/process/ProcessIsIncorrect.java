@@ -3,8 +3,8 @@ package smartfactory.interactors.process;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.interactors.OneShotInteractor;
-import smartfactory.models.Event;
 import smartfactory.utility.AgentDataStore;
 
 public class ProcessIsIncorrect extends OneShotInteractor {
