@@ -3,6 +3,7 @@ package smartfactory.behaviours.process;
 import jade.core.behaviours.Behaviour;
 import jade.core.behaviours.FSMBehaviour;
 import smartfactory.models.ProcessOperation;
+import smartfactory.serviceProvisioning.behaviours.ServiceProvisioningInitiatorBehaviour;
 import smartfactory.utility.AgentDataStore;
 import smartfactory.models.Process;
 
