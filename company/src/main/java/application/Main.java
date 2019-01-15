@@ -6,23 +6,36 @@ import jade.Boot;
 
 public class Main {
 
-    public static void main(String[] args) {
-        new Communication();
-        // todo: maybe start the program, when the client is connected first?
+	private final static long DELAY_TIME_MS = 10; // delayTime for the GUI-Messages of the Agent-Communication
 
-        String[] parameters = new String[3];
-        parameters[0] = "-gui";
-        parameters[1] = "AgentCustomer:basicAgents.Customer;" + "AgentSalesMarket:basicAgents.SalesMarket;"
-                + "AgentSelling:basicAgents.Selling;" + "AgentFinances:basicAgents.Finances;"
-                + "AgentProcurement:basicAgents.Procurement;" + "AgentProcurementMarket:basicAgents.ProcurementMarket;"
-                + "AgentStoneSelling:basicAgents.Seller(Stone);" + "AgentPaintSelling:basicAgents.Seller(Paint);"
-                + "AgentProduction:basicAgents.Production;" + "sniffer:jade.tools.sniffer.Sniffer(Agent*);";
-        // AgentSalesMarket, AgentSelling, AgentFinances, AgentCapitalMarket,
-        // AgentProcurement, AgentProcurementMarket, AgentProduction
+	public static void main(String[] args) {
+		new Communication();
+		// todo: maybe start the program, when the client is connected first?
 
-        parameters[2] = "10"; // this is the delayTime in ms for the GUI-Messages of the Agent-Communication
+		String[] parameters = new String[3];
+		parameters[0] = "-gui";
+		parameters[1] = addAgent("AgentCustomer", basicAgents.CustomerAgent.class)
+				+ addAgent("AgentSalesMarket", basicAgents.SalesMarketAgent.class)
+				+ addAgent("AgentSelling", basicAgents.SellingAgent.class)
+				+ addAgent("AgentFinances", basicAgents.FinancesAgent.class)
+				+ addAgent("AgentProcurement", basicAgents.ProcurementAgent.class)
+				+ addAgent("AgentProcurementMarket", basicAgents.ProcurementMarketAgent.class)
+				+ addAgent("AgentStoneSelling", basicAgents.SellerAgent.class, "Stone")
+				+ addAgent("AgentPaintSelling", basicAgents.SellerAgent.class, "Paint")
+				+ addAgent("AgentProduction", basicAgents.ProductionAgent.class)
+				+ addAgent("sniffer", jade.tools.sniffer.Sniffer.class, "Agent*");
 
-        Server.delaytime = Long.parseLong(parameters[2]);
-        Boot.main(parameters);
-    }
+		parameters[2] = String.valueOf(DELAY_TIME_MS);
+		Server.delaytime = DELAY_TIME_MS;
+
+		Boot.main(parameters);
+	}
+
+	private static String addAgent(String agentName, Class<?> agentClass) {
+		return agentName + ":" + agentClass.getName() + ";";
+	}
+
+	private static String addAgent(String agentName, Class<?> agentClass, String parameters) {
+		return agentName + ":" + agentClass.getName() + "(" + parameters + ");";
+	}
 }

@@ -1,6 +1,6 @@
 package salesMarketBehaviours;
 
-import basicAgents.SalesMarket;
+import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -30,7 +30,7 @@ public class SalesMarketDecision extends Decision {
         response.setContent(request.getContent());
         response.setSender(interactionBehaviour.getAgent().getAID());
 
-        if (!SalesMarket.orderQueue.contains(order)) {
+        if (!SalesMarketAgent.orderQueue.contains(order)) {
             response.setPerformative(ACLMessage.AGREE);
             msgObj = new MessageObject(response, "has accepted order of " + orderText);
             Communication.server.sendMessageToClient(msgObj);

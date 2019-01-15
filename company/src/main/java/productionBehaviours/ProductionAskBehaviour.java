@@ -1,6 +1,6 @@
 package productionBehaviours;
 
-import basicAgents.SalesMarket;
+import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
@@ -20,10 +20,10 @@ public class ProductionAskBehaviour extends AskBehaviour {
     public void action() {
         if (!this.isStarted()) {
             Order orderToProduce = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
-            if (orderToProduce.searchInList(SalesMarket.orderQueue) > -1) {
+            if (orderToProduce.searchInList(SalesMarketAgent.orderQueue) > -1) {
                 // if (!this.isStarted()) {
-                SalesMarket.orderQueue
-                        .get(orderToProduce.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                SalesMarketAgent.orderQueue
+                        .get(orderToProduce.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
                                 .getAgent().getLocalName();
 
                 // myAgent.addBehaviour(new ProductionActivityBehaviour((ProductionResponder)

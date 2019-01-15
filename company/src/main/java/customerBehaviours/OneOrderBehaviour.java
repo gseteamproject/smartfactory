@@ -3,9 +3,9 @@ package customerBehaviours;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import basicAgents.Procurement;
-import basicAgents.SalesMarket;
-import basicAgents.Selling;
+import basicAgents.ProcurementAgent;
+import basicAgents.SalesMarketAgent;
+import basicAgents.SellingAgent;
 import basicClasses.Order;
 import basicClasses.Paint;
 import basicClasses.Product;
@@ -40,7 +40,7 @@ public class OneOrderBehaviour extends WakerBehaviour {
         // it is an example of order
         Order order = new Order();
 
-        order.id = SalesMarket.orderQueue.size() + 1;
+        order.id = SalesMarketAgent.orderQueue.size() + 1;
 
         order.addGood(new Product(10, "red"), 1);
         order.addGood(new Product(10, "blue"), 2);
@@ -64,22 +64,22 @@ public class OneOrderBehaviour extends WakerBehaviour {
         Paint paint = new Paint("red");
         Stone stone = new Stone(10);
         Product prdct = new Product(stone, paint);
-        Selling.warehouse.add(prdct);
+        SellingAgent.warehouse.add(prdct);
 
         paint = new Paint("blue");
         stone = new Stone(10);
         prdct = new Product(stone, paint);
-        Selling.warehouse.add(prdct);
+        SellingAgent.warehouse.add(prdct);
         // Procurement.materialStorage.add(paint);
         // Procurement.materialStorage.add(stone);
 
         paint = new Paint("green");
         stone = new Stone(10);
         prdct = new Product(stone, paint);
-        Procurement.materialStorage.add(paint);
-        Procurement.materialStorage.add(stone);
-        Procurement.materialStorage.add(paint);
-        Procurement.materialStorage.add(stone);
+        ProcurementAgent.materialStorage.add(paint);
+        ProcurementAgent.materialStorage.add(stone);
+        ProcurementAgent.materialStorage.add(paint);
+        ProcurementAgent.materialStorage.add(stone);
 
         // That means:
         // 1 red stone will be taken from warehouse

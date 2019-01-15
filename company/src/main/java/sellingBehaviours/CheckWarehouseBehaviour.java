@@ -1,6 +1,6 @@
 package sellingBehaviours;
 
-import basicAgents.Selling;
+import basicAgents.SellingAgent;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
@@ -34,11 +34,11 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
         // save this request message to reply on it later
         Order order = Order.gson.fromJson(requestMessage.getContent(), Order.class);
 
-        Selling.isInWarehouse = true;
+        SellingAgent.isInWarehouse = true;
         boolean isInQueue = false;
 
         // check if this order is not in queue yet
-        isInQueue = Selling.productionQueue.contains(order);
+        isInQueue = SellingAgent.productionQueue.contains(order);
 
         // part of order, that needs to be produced
         Order orderToProduce = new Order();
@@ -60,11 +60,11 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
              * "Asking warehouse about " + orderPart.getTextOfOrderPart());
              */
 
-            int amountInWH = Selling.warehouse.getAmountOfProduct(productToCheck);
+            int amountInWH = SellingAgent.warehouse.getAmountOfProduct(productToCheck);
 
             if (amountInWH >= amount) {
-                if (Selling.isInWarehouse) {
-                    Selling.isInWarehouse = true;
+                if (SellingAgent.isInWarehouse) {
+                    SellingAgent.isInWarehouse = true;
                 }
 
                 /*
@@ -77,7 +77,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
                  * orderPart.getTextOfOrderPart() + " is in warehouse");
                  */
             } else {
-                Selling.isInWarehouse = false;
+                SellingAgent.isInWarehouse = false;
 
                 // creating new instance of OrderPart to change its amount
                 OrderPart newOrderPart = new OrderPart(orderPart.getProduct());

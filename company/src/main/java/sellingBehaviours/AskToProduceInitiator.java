@@ -2,7 +2,7 @@ package sellingBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.Selling;
+import basicAgents.SellingAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -39,14 +39,14 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
         msgObj = new MessageObject("AgentSelling", orderText + " is delivered to warehouse");
         Communication.server.sendMessageToClient(msgObj);
-        Selling.isInWarehouse = true;
+        SellingAgent.isInWarehouse = true;
         // for (Order orderInQueue : SalesMarket.orderQueue) {
         // if (orderInQueue.id == order.id) {
         // order = orderInQueue;
         // }
         // }
         dataStore.getRequestResult().execute(dataStore.getRequestMessage());
-        Selling.productionQueue.remove(order);
+        SellingAgent.productionQueue.remove(order);
     }
 
     @Override

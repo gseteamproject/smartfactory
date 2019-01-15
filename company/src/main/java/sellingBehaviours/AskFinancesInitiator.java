@@ -2,7 +2,7 @@ package sellingBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.Selling;
+import basicAgents.SellingAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -47,7 +47,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
         dataStore.setSubMessage(msgToProduction);
 
         // add order to queue
-        Selling.productionQueue.add(order);
+        SellingAgent.productionQueue.add(order);
 
         interactionBehaviour.getAgent().addBehaviour(new AskToProduceBehaviour(interactionBehaviour, dataStore));
     }

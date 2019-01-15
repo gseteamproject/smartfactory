@@ -2,7 +2,7 @@ package customerBehaviours;
 
 import java.util.Random;
 
-import basicAgents.SalesMarket;
+import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import basicClasses.Product;
 import jade.core.AID;
@@ -29,7 +29,7 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
         // orderMsg.setSender(new AID(("Customer"), AID.ISLOCALNAME));
 
         Order order = new Order();
-        order.id = SalesMarket.orderQueue.size() + 1;
+        order.id = SalesMarketAgent.orderQueue.size() + 1;
 
         Random rand = new Random();
 		int randSize;

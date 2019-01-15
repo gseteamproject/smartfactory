@@ -1,6 +1,6 @@
 package sellingBehaviours;
 
-import basicAgents.Selling;
+import basicAgents.SellingAgent;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
@@ -31,7 +31,7 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
     public void action() {
         Order order = Order.gson.fromJson(orderToGive, Order.class);
 
-        Selling.isTaken = false;
+        SellingAgent.isTaken = false;
         int takeCount = 0;
         // TODO
         for (OrderPart orderPart : order.orderList) {
@@ -47,12 +47,12 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
                  * Communication.server.sendMessageToClient("SellingAgent", "Taking " +
                  * orderPart.getTextOfOrderPart() + " from warehouse");
                  */
-                Selling.warehouse.remove(productToGive);
+                SellingAgent.warehouse.remove(productToGive);
             }
             takeCount += 1;
         }
         if (takeCount == order.orderList.size()) {
-            Selling.isTaken = true;
+            SellingAgent.isTaken = true;
             dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
             // if (Selling.productionQueue.remove(order)) {
             // MessageObject msgObj = new

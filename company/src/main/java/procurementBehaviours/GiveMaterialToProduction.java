@@ -1,6 +1,6 @@
 package procurementBehaviours;
 
-import basicAgents.Procurement;
+import basicAgents.ProcurementAgent;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
@@ -40,17 +40,17 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
          * " from materialStorage");
          */
 
-        Procurement.isGiven = false;
+        ProcurementAgent.isGiven = false;
 
         for (OrderPart orderPart : order.orderList) {
             for (int i = 0; i < orderPart.getAmount(); i++) {
-                Procurement.materialStorage.remove((Product) orderPart.getGood());
+                ProcurementAgent.materialStorage.remove((Product) orderPart.getGood());
             }
         }
 
-        Procurement.isGiven = true;
+        ProcurementAgent.isGiven = true;
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
-        if (Procurement.procurementQueue.remove(order)) {
+        if (ProcurementAgent.procurementQueue.remove(order)) {
             MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
                     order.getTextOfOrder() + " is removed from Procurement queue.");
             Communication.server.sendMessageToClient(msgObj);

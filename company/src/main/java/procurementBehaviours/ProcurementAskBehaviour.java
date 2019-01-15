@@ -1,6 +1,6 @@
 package procurementBehaviours;
 
-import basicAgents.SalesMarket;
+import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
@@ -22,12 +22,12 @@ public class ProcurementAskBehaviour extends AskBehaviour {
         if (!this.isStarted()) {
             ACLMessage request = interactionBehaviour.getRequest();
             Order order = Order.gson.fromJson(request.getContent(), Order.class);
-            if (order.searchInList(SalesMarket.orderQueue) > -1) {
+            if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
                 if (request.getConversationId() == "Materials") {
                     // if (!this.isStarted()) {
                     this.interactor.isDone = false;
 
-                    SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                    SalesMarketAgent.orderQueue.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
                             .getAgent().getLocalName();
 
                     // myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
@@ -40,7 +40,7 @@ public class ProcurementAskBehaviour extends AskBehaviour {
                     // if (this.isStarted()) {
                     this.interactor.isDone = false;
 
-                    SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+                    SalesMarketAgent.orderQueue.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
                             .getAgent().getLocalName();
 
                     // myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)

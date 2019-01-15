@@ -1,6 +1,6 @@
 package procurementBehaviours;
 
-import basicAgents.Procurement;
+import basicAgents.ProcurementAgent;
 import interactors.OrderDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
@@ -18,7 +18,7 @@ public class ProcurementRequestResult extends RequestResult {
 
         if (!dataStore.getDeadlineResult()) {
             if (request.getConversationId() == "Materials") {
-                if (Procurement.isInMaterialStorage) {
+                if (ProcurementAgent.isInMaterialStorage) {
                     response.setPerformative(ACLMessage.INFORM);
                     this.isDone = true;
                 } else {
@@ -26,7 +26,7 @@ public class ProcurementRequestResult extends RequestResult {
                     this.isDone = false;
                 }
             } else if (request.getConversationId() == "Take") {
-                if (Procurement.isGiven) {
+                if (ProcurementAgent.isGiven) {
                     response.setPerformative(ACLMessage.INFORM);
                     this.isDone = true;
                 } else {

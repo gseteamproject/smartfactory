@@ -2,7 +2,7 @@ package procurementBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.Procurement;
+import basicAgents.ProcurementAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -46,7 +46,7 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
          * "received [inform] " + orderText + " is delivered to materialStorage");
          */
 
-        Procurement.isInMaterialStorage = true;
+        ProcurementAgent.isInMaterialStorage = true;
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 

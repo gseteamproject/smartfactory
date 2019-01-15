@@ -1,6 +1,6 @@
 package productionBehaviours;
 
-import basicAgents.Production;
+import basicAgents.ProductionAgent;
 import interactors.OrderDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
@@ -17,7 +17,7 @@ public class ProductionRequestResult extends RequestResult {
         response.setContent(request.getContent());
 
         if (!dataStore.getDeadlineResult()) {
-            if (Production.isProduced) {
+            if (ProductionAgent.isProduced) {
                 response.setPerformative(ACLMessage.INFORM);
                 this.isDone = true;
             } else {

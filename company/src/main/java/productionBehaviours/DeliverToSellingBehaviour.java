@@ -1,7 +1,7 @@
 package productionBehaviours;
 
-import basicAgents.Production;
-import basicAgents.Selling;
+import basicAgents.ProductionAgent;
+import basicAgents.SellingAgent;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
@@ -44,10 +44,10 @@ class DeliverToSellingBehaviour extends OneShotBehaviour {
         for (OrderPart orderPart : order.orderList) {
             Product productToGive = orderPart.getProduct();
             for (int i = 0; i < orderPart.getAmount(); i++) {
-                Selling.warehouse.add(productToGive);
+                SellingAgent.warehouse.add(productToGive);
             }
         }
-        Production.isProduced = true;
+        ProductionAgent.isProduced = true;
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 }

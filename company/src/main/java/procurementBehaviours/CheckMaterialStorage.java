@@ -3,7 +3,7 @@ package procurementBehaviours;
 import java.util.ArrayList;
 import java.util.List;
 
-import basicAgents.Procurement;
+import basicAgents.ProcurementAgent;
 import basicClasses.Good;
 import basicClasses.Order;
 import basicClasses.OrderPart;
@@ -38,11 +38,11 @@ public class CheckMaterialStorage extends OneShotBehaviour {
     public void action() {
         Order order = Order.gson.fromJson(requestedMaterial, Order.class);
 
-        Procurement.isInMaterialStorage = true;
+        ProcurementAgent.isInMaterialStorage = true;
         boolean isInQueue = false;
 
         // check if this order is not in queue yet
-        isInQueue = Procurement.procurementQueue.contains(order);
+        isInQueue = ProcurementAgent.procurementQueue.contains(order);
 
         // part of order, that needs to be produced
         Order orderToBuy = new Order();
@@ -70,8 +70,8 @@ public class CheckMaterialStorage extends OneShotBehaviour {
              * orderPart.getTextOfOrderPart());
              */
 
-            int paintAmountInMS = Procurement.materialStorage.getAmountOfPaint(color);
-            int stoneAmountInMS = Procurement.materialStorage.getAmountOfStones(size);
+            int paintAmountInMS = ProcurementAgent.materialStorage.getAmountOfPaint(color);
+            int stoneAmountInMS = ProcurementAgent.materialStorage.getAmountOfStones(size);
 
             if (paintAmountInMS >= amount && stoneAmountInMS >= amount) {
                 msgObj = new MessageObject("AgentProcurement",
@@ -84,13 +84,13 @@ public class CheckMaterialStorage extends OneShotBehaviour {
                  */
             } else {
                 // need to describe multiple statements to check every material
-                Procurement.isInMaterialStorage = false;
+                ProcurementAgent.isInMaterialStorage = false;
 
                 prepareOrder(orderToBuy, orderPart.getProduct().getPaint(), amount, listToRemovePart, paintAmountInMS);
 
                 prepareOrder(orderToBuy, orderPart.getProduct().getStone(), amount, listToRemovePart, stoneAmountInMS);
 
-                Procurement.materialStorage.removeAll(listToRemovePart);
+                ProcurementAgent.materialStorage.removeAll(listToRemovePart);
 
                 listToRemove.addAll(listToRemovePart);
                 /*
@@ -100,7 +100,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
             }
         }
 
-        Procurement.materialStorage.addAll(listToRemove);
+        ProcurementAgent.materialStorage.addAll(listToRemove);
 
         if (!isInQueue && orderToBuy.orderList.size() > 0) {
             String testGson = Order.gson.toJson(orderToBuy);
@@ -109,7 +109,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
             dataStore.setSubMessage(msgToMarket);
 
             // add order to queue
-            Procurement.procurementQueue.add(order);
+            ProcurementAgent.procurementQueue.add(order);
 
             msgObj = new MessageObject("AgentProcurement",
                     "send info to ProcurementMarket to buy materials for " + orderToBuy.getTextOfOrder());

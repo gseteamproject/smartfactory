@@ -1,6 +1,6 @@
 package salesMarketBehaviours;
 
-import basicAgents.SalesMarket;
+import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
@@ -20,9 +20,9 @@ public class SalesMarketAskBehaviour extends AskBehaviour {
     public void action() {
         if (!this.isStarted()) {
             Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
-            if (!SalesMarket.orderQueue.contains(order)) {
-                SalesMarket.orderQueue.add(order);
-                SalesMarket.orderQueue.get(order.searchInList(SalesMarket.orderQueue)).agent = interactionBehaviour
+            if (!SalesMarketAgent.orderQueue.contains(order)) {
+                SalesMarketAgent.orderQueue.add(order);
+                SalesMarketAgent.orderQueue.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
                         .getAgent().getLocalName();
                 // if agent agrees it starts executing request
                 // myAgent.addBehaviour(new SalesMarketActivityBehaviour((SalesMarketResponder)
