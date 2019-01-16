@@ -11,21 +11,20 @@ import jade.core.behaviours.OneShotBehaviour;
 
 public class GiveMaterialToProduction extends OneShotBehaviour {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -1386982676634257780L;
     private ProcurementResponder interactionBehaviour;
     private OrderDataStore dataStore;
     private String materialsToGive;
     private String orderText;
     private MessageObject msgObj;
+    private ProcurementAgent thisProcurementAgent;
 
     public GiveMaterialToProduction(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
         materialsToGive = dataStore.getRequestMessage().getContent();
+        thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
     }
 
     @Override
@@ -40,7 +39,7 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
          * " from materialStorage");
          */
 
-        ProcurementAgent.isGiven = false;
+        thisProcurementAgent.isGiven = false;
 
         for (OrderPart orderPart : order.orderList) {
             for (int i = 0; i < orderPart.getAmount(); i++) {
@@ -48,7 +47,7 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
             }
         }
 
-        ProcurementAgent.isGiven = true;
+        thisProcurementAgent.isGiven = true;
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
         if (ProcurementAgent.procurementQueue.remove(order)) {
             MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),

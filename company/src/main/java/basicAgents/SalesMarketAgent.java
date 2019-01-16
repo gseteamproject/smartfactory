@@ -15,6 +15,8 @@ public class SalesMarketAgent extends Agent {
 
 	private static final long serialVersionUID = 2003110338808844985L;
 
+	// TODO : remove static modifier from members
+
 	// creating list of orders
 	public static List<Order> orderQueue = new ArrayList<Order>();
 	public static long currentDeadline;

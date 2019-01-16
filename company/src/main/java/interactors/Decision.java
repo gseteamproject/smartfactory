@@ -36,10 +36,10 @@ public class Decision {
         // Agent should send agree or refuse
         // TODO: Add refuse answer (some conditions should be added)
 
-        dataStore.setAgent(interactionBehaviour.getAgent().getLocalName());
-		logger.info("currentAgent: {}", dataStore.getAgent());
+        dataStore.setAgentName(interactionBehaviour.getAgent().getLocalName());
+		logger.info("currentAgent: {}", dataStore.getAgentName());
 
-        if (dataStore.getAgent().equals("AgentSalesMarket")) {
+        if (dataStore.getAgentName().equals("AgentSalesMarket")) {
             dataStore.setDeadline(order.deadline);
             SalesMarketAgent.currentDeadline = System.currentTimeMillis() + order.deadline;
             order.deadline = (SalesMarketAgent.currentDeadline);
@@ -49,7 +49,7 @@ public class Decision {
 
 		logger.info("currentDeadline: {}", order.deadline);
 
-        order.agent = dataStore.getAgent();
+        order.agent = dataStore.getAgentName();
 
         String orderGson = Order.gson.toJson(order);
         request.setContent(orderGson);

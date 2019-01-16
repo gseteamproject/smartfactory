@@ -7,9 +7,12 @@ import jade.lang.acl.ACLMessage;
 
 public class SellingRequestResult extends RequestResult {
 
-    public SellingRequestResult(OrderDataStore dataStore) {
-        super(dataStore);
-    }
+	private SellingAgent thisSellingAgent;
+
+	public SellingRequestResult(OrderDataStore dataStore) {
+		super(dataStore);
+		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
+	}
 
     @Override
     public ACLMessage execute(ACLMessage request) {
@@ -18,7 +21,7 @@ public class SellingRequestResult extends RequestResult {
         // TODO: Need to check if in warehouse here?
         if (!dataStore.getDeadlineResult()) {
             if (request.getConversationId() == "Ask") {
-                if (SellingAgent.isInWarehouse) {
+                if (thisSellingAgent.isInWarehouse) {
                     response.setPerformative(ACLMessage.INFORM);
                     this.isDone = true;
                 } else {
@@ -26,7 +29,7 @@ public class SellingRequestResult extends RequestResult {
                     this.isDone = false;
                 }
             } else if (request.getConversationId() == "Take") {
-                if (SellingAgent.isTaken) {
+                if (thisSellingAgent.isTaken) {
                     response.setPerformative(ACLMessage.INFORM);
                     this.isDone = true;
                 } else {

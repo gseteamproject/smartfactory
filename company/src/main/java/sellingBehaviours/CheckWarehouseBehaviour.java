@@ -12,14 +12,12 @@ import jade.lang.acl.ACLMessage;
 
 public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 3856126876248315456L;
     private ACLMessage requestMessage;
     private OrderDataStore dataStore;
     private SellingResponder interactionBehaviour;
     private MessageObject msgObj;
+    private SellingAgent thisSellingAgent;
 
     public CheckWarehouseBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
@@ -27,6 +25,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
+        this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
     }
 
     @Override
@@ -34,11 +33,11 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
         // save this request message to reply on it later
         Order order = Order.gson.fromJson(requestMessage.getContent(), Order.class);
 
-        SellingAgent.isInWarehouse = true;
+        thisSellingAgent.isInWarehouse = true;
         boolean isInQueue = false;
 
         // check if this order is not in queue yet
-        isInQueue = SellingAgent.productionQueue.contains(order);
+        isInQueue = thisSellingAgent.productionQueue.contains(order);
 
         // part of order, that needs to be produced
         Order orderToProduce = new Order();
@@ -62,10 +61,10 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
             int amountInWH = SellingAgent.warehouse.getAmountOfProduct(productToCheck);
 
-            if (amountInWH >= amount) {
-                if (SellingAgent.isInWarehouse) {
-                    SellingAgent.isInWarehouse = true;
-                }
+			if (amountInWH >= amount) {
+				if (thisSellingAgent.isInWarehouse) {
+					thisSellingAgent.isInWarehouse = true;
+				}
 
                 /*
                  * msgObj = new MessageObject("AgentSelling", "I say that " +
@@ -77,7 +76,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
                  * orderPart.getTextOfOrderPart() + " is in warehouse");
                  */
             } else {
-                SellingAgent.isInWarehouse = false;
+				thisSellingAgent.isInWarehouse = false;
 
                 // creating new instance of OrderPart to change its amount
                 OrderPart newOrderPart = new OrderPart(orderPart.getProduct());

@@ -7,8 +7,11 @@ import jade.lang.acl.ACLMessage;
 
 public class ProcurementRequestResult extends RequestResult {
 
+	private ProcurementAgent thisProcurementAgent;
+
     public ProcurementRequestResult(OrderDataStore dataStore) {
         super(dataStore);
+        thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
     }
 
     @Override
@@ -18,7 +21,7 @@ public class ProcurementRequestResult extends RequestResult {
 
         if (!dataStore.getDeadlineResult()) {
             if (request.getConversationId() == "Materials") {
-                if (ProcurementAgent.isInMaterialStorage) {
+                if (thisProcurementAgent.isInMaterialStorage) {
                     response.setPerformative(ACLMessage.INFORM);
                     this.isDone = true;
                 } else {
@@ -26,7 +29,7 @@ public class ProcurementRequestResult extends RequestResult {
                     this.isDone = false;
                 }
             } else if (request.getConversationId() == "Take") {
-                if (ProcurementAgent.isGiven) {
+                if (thisProcurementAgent.isGiven) {
                     response.setPerformative(ACLMessage.INFORM);
                     this.isDone = true;
                 } else {

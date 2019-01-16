@@ -7,9 +7,12 @@ import jade.lang.acl.ACLMessage;
 
 public class ProductionRequestResult extends RequestResult {
 
-    public ProductionRequestResult(OrderDataStore dataStore) {
-        super(dataStore);
-    }
+	private ProductionAgent thisProductionAgent;
+
+	public ProductionRequestResult(OrderDataStore dataStore) {
+		super(dataStore);
+		thisProductionAgent = (ProductionAgent) dataStore.getThisAgent();
+	}
 
     @Override
     public ACLMessage execute(ACLMessage request) {
@@ -17,7 +20,7 @@ public class ProductionRequestResult extends RequestResult {
         response.setContent(request.getContent());
 
         if (!dataStore.getDeadlineResult()) {
-            if (ProductionAgent.isProduced) {
+            if (thisProductionAgent.isProduced) {
                 response.setPerformative(ACLMessage.INFORM);
                 this.isDone = true;
             } else {

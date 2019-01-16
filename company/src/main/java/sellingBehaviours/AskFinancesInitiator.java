@@ -15,10 +15,12 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
     private SellingResponder interactionBehaviour;
     public MessageObject msgObj;
+    private SellingAgent thisSellingAgent;
 
     public AskFinancesInitiator(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(dataStore);
         this.interactionBehaviour = interactionBehaviour;
+        this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
     }
 
     @Override
@@ -47,7 +49,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
         dataStore.setSubMessage(msgToProduction);
 
         // add order to queue
-        SellingAgent.productionQueue.add(order);
+        thisSellingAgent.productionQueue.add(order);
 
         interactionBehaviour.getAgent().addBehaviour(new AskToProduceBehaviour(interactionBehaviour, dataStore));
     }

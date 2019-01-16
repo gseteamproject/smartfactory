@@ -1,6 +1,5 @@
 package basicAgents;
 
-import basicClasses.ProductStorage;
 import financesBehaviours.FinancesResponder;
 import interactors.OrderDataStore;
 import jade.core.Agent;
@@ -16,8 +15,9 @@ public class FinancesAgent extends Agent {
 	public boolean isInWarehouse;
 	protected OrderDataStore dataStore;
 
+	// TODO: remove
 	// creating storage for products
-	public static ProductStorage warehouse = new ProductStorage();
+	//public ProductStorage warehouse = new ProductStorage();
 
 	@Override
 	protected void setup() {

@@ -12,20 +12,19 @@ import jade.core.behaviours.OneShotBehaviour;
 
 class DeliverToSellingBehaviour extends OneShotBehaviour {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = 313682933400751868L;
     private String orderToGive;
     private String orderText;
     private ProductionResponder interactionBehaviour;
     private OrderDataStore dataStore;
     private MessageObject msgObj;
+    private ProductionAgent thisProductionAgent;
 
     public DeliverToSellingBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
+        thisProductionAgent = (ProductionAgent) dataStore.getThisAgent();
     }
 
     @Override
@@ -47,7 +46,7 @@ class DeliverToSellingBehaviour extends OneShotBehaviour {
                 SellingAgent.warehouse.add(productToGive);
             }
         }
-        ProductionAgent.isProduced = true;
+        thisProductionAgent.isProduced = true;
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 }

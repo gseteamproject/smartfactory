@@ -11,27 +11,26 @@ import jade.core.behaviours.OneShotBehaviour;
 
 public class GiveProductToMarketBehaviour extends OneShotBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -6498277261596869382L;
-    private SellingResponder interactionBehaviour;
-    private OrderDataStore dataStore;
-    private String orderToGive;
-    private MessageObject msgObj;
+	private static final long serialVersionUID = -6498277261596869382L;
+	private SellingResponder interactionBehaviour;
+	private OrderDataStore dataStore;
+	private String orderToGive;
+	private MessageObject msgObj;
+	private SellingAgent thisSellingAgent;
 
     public GiveProductToMarketBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
         orderToGive = dataStore.getRequestMessage().getContent();
+        thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
     }
 
     @Override
     public void action() {
         Order order = Order.gson.fromJson(orderToGive, Order.class);
 
-        SellingAgent.isTaken = false;
+        thisSellingAgent.isTaken = false;
         int takeCount = 0;
         // TODO
         for (OrderPart orderPart : order.orderList) {
@@ -52,7 +51,7 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
             takeCount += 1;
         }
         if (takeCount == order.orderList.size()) {
-            SellingAgent.isTaken = true;
+            thisSellingAgent.isTaken = true;
             dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
             // if (Selling.productionQueue.remove(order)) {
             // MessageObject msgObj = new

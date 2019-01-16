@@ -15,10 +15,12 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
     private ProcurementResponder interactionBehaviour;
     public MessageObject msgObj;
+    private ProcurementAgent thisProcurementAgent;
 
     public AskForAuctionInitiator(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
         super(dataStore);
         this.interactionBehaviour = interactionBehaviour;
+        thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
     }
 
     @Override
@@ -46,7 +48,7 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
          * "received [inform] " + orderText + " is delivered to materialStorage");
          */
 
-        ProcurementAgent.isInMaterialStorage = true;
+        thisProcurementAgent.isInMaterialStorage = true;
         dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
     }
 

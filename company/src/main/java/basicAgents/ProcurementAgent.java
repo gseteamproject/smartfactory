@@ -15,8 +15,8 @@ import procurementBehaviours.ProcurementResponder;
 public class ProcurementAgent extends Agent {
 
 	private static final long serialVersionUID = 2923962894395399488L;
-	public static boolean isInMaterialStorage;
-	public static boolean isGiven;
+	public boolean isInMaterialStorage;
+	public boolean isGiven;
 	protected OrderDataStore dataStore;
 
 	// queue for procurement orders
@@ -30,6 +30,7 @@ public class ProcurementAgent extends Agent {
 		MessageTemplate reqTemp = AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST);
 
 		dataStore = new OrderDataStore();
+		dataStore.setThisAgent(this);
 
 		// adding behaviours
 		addBehaviour(new ProcurementResponder(this, reqTemp, dataStore));

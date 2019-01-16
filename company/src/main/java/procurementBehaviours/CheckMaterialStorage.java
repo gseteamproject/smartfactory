@@ -16,29 +16,28 @@ import jade.lang.acl.ACLMessage;
 
 public class CheckMaterialStorage extends OneShotBehaviour {
 
-    /**
-     * 
-     */
     private static final long serialVersionUID = -4869963544017982955L;
     private String requestedMaterial;
     private OrderDataStore dataStore;
     private ProcurementResponder interactionBehaviour;
     private MessageObject msgObj;
     private ACLMessage request;
+    private ProcurementAgent thisProcurementAgent;
 
     public CheckMaterialStorage(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
         super(interactionBehaviour.getAgent());
-        requestedMaterial = interactionBehaviour.getRequest().getContent();
         request = interactionBehaviour.getRequest();
+        requestedMaterial = request.getContent();
         this.interactionBehaviour = interactionBehaviour;
         this.dataStore = dataStore;
+        thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
     }
 
     @Override
     public void action() {
         Order order = Order.gson.fromJson(requestedMaterial, Order.class);
 
-        ProcurementAgent.isInMaterialStorage = true;
+        thisProcurementAgent.isInMaterialStorage = true;
         boolean isInQueue = false;
 
         // check if this order is not in queue yet
@@ -84,7 +83,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
                  */
             } else {
                 // need to describe multiple statements to check every material
-                ProcurementAgent.isInMaterialStorage = false;
+                thisProcurementAgent.isInMaterialStorage = false;
 
                 prepareOrder(orderToBuy, orderPart.getProduct().getPaint(), amount, listToRemovePart, paintAmountInMS);
 

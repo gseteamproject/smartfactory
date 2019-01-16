@@ -12,11 +12,15 @@ import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
-    public MessageObject msgObj;
 
-    public AskToProduceInitiator(OrderDataStore dataStore) {
-        super(dataStore);
-    }
+	public MessageObject msgObj;
+
+	private SellingAgent thisSellingAgent;
+
+	public AskToProduceInitiator(OrderDataStore dataStore) {
+		super(dataStore);
+		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
+	}
 
     @Override
     public Vector<ACLMessage> prepareRequests(ACLMessage request) {
@@ -39,14 +43,14 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
         msgObj = new MessageObject("AgentSelling", orderText + " is delivered to warehouse");
         Communication.server.sendMessageToClient(msgObj);
-        SellingAgent.isInWarehouse = true;
+        thisSellingAgent.isInWarehouse = true;
         // for (Order orderInQueue : SalesMarket.orderQueue) {
         // if (orderInQueue.id == order.id) {
         // order = orderInQueue;
         // }
         // }
         dataStore.getRequestResult().execute(dataStore.getRequestMessage());
-        SellingAgent.productionQueue.remove(order);
+        thisSellingAgent.productionQueue.remove(order);
     }
 
     @Override
