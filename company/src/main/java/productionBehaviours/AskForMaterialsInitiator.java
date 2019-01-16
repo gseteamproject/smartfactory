@@ -14,75 +14,71 @@ import jade.lang.acl.MessageTemplate;
 
 public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
-    private ProductionResponder interactionBehaviour;
-    public MessageObject msgObj;
+	private ProductionResponder interactionBehaviour;
+	public MessageObject msgObj;
 
-    public AskForMaterialsInitiator(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
-        super(dataStore);
-        this.interactionBehaviour = interactionBehaviour;
-    }
+	public AskForMaterialsInitiator(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+		super(dataStore);
+		this.interactionBehaviour = interactionBehaviour;
+	}
 
-    @Override
-    public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+	@Override
+	public Vector<ACLMessage> prepareRequests(ACLMessage request) {
+		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
-        String requestedAction = "Materials";
-        message.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
-        setup(message, requestedAction, false);
+		String requestedAction = "Materials";
+		message.addReceiver(new AID(("AgentProcurement"), AID.ISLOCALNAME));
+		setup(message, requestedAction, false);
 
-        return l;
-    }
+		return l;
+	}
 
-    @Override
-    public void handleInform(ACLMessage inform) {
+	@Override
+	public void handleInform(ACLMessage inform) {
 
-        orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
 
-        msgObj = new MessageObject(inform, "received [inform] materials for " + orderText + " are in storage");
-        Communication.server.sendMessageToClient(msgObj);
+		msgObj = new MessageObject(inform, "received [inform] materials for " + orderText + " are in storage");
+		Communication.server.sendMessageToClient(msgObj);
 
-        /* System.out.println(msgObj.getReceivedMessage()); */
+		/* System.out.println(msgObj.getReceivedMessage()); */
 
-        // System.out.println("ProductionAgent: received [inform] materials for " +
-        // orderText + " are in storage");
-        // stop();
-        interactionBehaviour.getAgent().addBehaviour(new TakeFromStorageBehaviour(interactionBehaviour, dataStore));
+		// System.out.println("ProductionAgent: received [inform] materials for " +
+		// orderText + " are in storage");
+		// stop();
+		interactionBehaviour.getAgent().addBehaviour(new TakeFromStorageBehaviour(interactionBehaviour, dataStore));
 
-    }
+	}
 
-    @Override
-    public void handleFailure(ACLMessage failure) {
+	@Override
+	public void handleFailure(ACLMessage failure) {
 
-        orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
 
-        msgObj = new MessageObject(failure, "received [failure] materials for " + orderText + " are not in storage");
-        Communication.server.sendMessageToClient(msgObj);
-        /* System.out.println(msgObj.getReceivedMessage()); */
+		msgObj = new MessageObject(failure, "received [failure] materials for " + orderText + " are not in storage");
+		Communication.server.sendMessageToClient(msgObj);
+		/* System.out.println(msgObj.getReceivedMessage()); */
 
-        // System.out
-        // .println("ProductionAgent: received [failure] materials for " + orderText + "
-        // are not in storage");
+		// System.out
+		// .println("ProductionAgent: received [failure] materials for " + orderText + "
+		// are not in storage");
 
-        MessageTemplate temp = MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        MessageTemplate infTemp = MessageTemplate.and(temp, MessageTemplate.MatchPerformative(ACLMessage.INFORM));
-        infTemp = MessageTemplate.and(infTemp, MessageTemplate.MatchConversationId("Materials"));
+		MessageTemplate temp = MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		MessageTemplate infTemp = MessageTemplate.and(temp, MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+		infTemp = MessageTemplate.and(infTemp, MessageTemplate.MatchConversationId("Materials"));
 
-    }
+	}
 
-    @Override
-    public void handleAgree(ACLMessage agree) {
+	@Override
+	public void handleAgree(ACLMessage agree) {
+	}
 
-    }
+	@Override
+	public void handleRefuse(ACLMessage refuse) {
+	}
 
-    @Override
-    public void handleRefuse(ACLMessage refuse) {
-
-    }
-
-    @Override
-    public int next() {
-
-        return 0;
-    }
-
+	@Override
+	public int next() {
+		return 0;
+	}
 }

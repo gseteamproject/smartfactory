@@ -10,34 +10,34 @@ import jade.lang.acl.ACLMessage;
 
 public class RequestInteractor {
 
-    protected OrderDataStore dataStore;
-    protected String orderText;
-    protected MessageObject msgObj;
-    protected Vector<ACLMessage> l;
+	protected OrderDataStore dataStore;
+	protected String orderText;
+	protected MessageObject msgObj;
+	protected Vector<ACLMessage> l;
 
-    public RequestInteractor(OrderDataStore dataStore) {
-        this.dataStore = dataStore;
-    }
-    
-    protected void setup(ACLMessage request, String requestedAction, boolean isSub) {
-        request.setConversationId(requestedAction);
-        request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        if (isSub) {
-            request.setContent(dataStore.getSubMessage().getContent());
-        } else {
-            request.setContent(dataStore.getRequestMessage().getContent());            
-        }
+	public RequestInteractor(OrderDataStore dataStore) {
+		this.dataStore = dataStore;
+	}
 
-        l = new Vector<ACLMessage>(1);
-        l.addElement(request);
-    }
+	protected void setup(ACLMessage request, String requestedAction, boolean isSub) {
+		request.setConversationId(requestedAction);
+		request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		if (isSub) {
+			request.setContent(dataStore.getSubMessage().getContent());
+		} else {
+			request.setContent(dataStore.getRequestMessage().getContent());
+		}
 
-    protected void handleResponse(ACLMessage message) {
+		l = new Vector<ACLMessage>(1);
+		l.addElement(request);
+	}
 
-        Order order = Order.gson.fromJson(message.getContent(), Order.class);
-        orderText = order.getTextOfOrder();
+	protected void handleResponse(ACLMessage message) {
 
-        msgObj = new MessageObject(message, orderText);
-        Communication.server.sendMessageToClient(msgObj);
-    }
+		Order order = Order.gson.fromJson(message.getContent(), Order.class);
+		orderText = order.getTextOfOrder();
+
+		msgObj = new MessageObject(message, orderText);
+		Communication.server.sendMessageToClient(msgObj);
+	}
 }

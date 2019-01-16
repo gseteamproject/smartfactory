@@ -12,41 +12,41 @@ import jade.core.behaviours.OneShotBehaviour;
 
 class DeliverToSellingBehaviour extends OneShotBehaviour {
 
-    private static final long serialVersionUID = 313682933400751868L;
-    private String orderToGive;
-    private String orderText;
-    private ProductionResponder interactionBehaviour;
-    private OrderDataStore dataStore;
-    private MessageObject msgObj;
-    private ProductionAgent thisProductionAgent;
+	private static final long serialVersionUID = 313682933400751868L;
+	private String orderToGive;
+	private String orderText;
+	private ProductionResponder interactionBehaviour;
+	private OrderDataStore dataStore;
+	private MessageObject msgObj;
+	private ProductionAgent thisProductionAgent;
 
-    public DeliverToSellingBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
-        super(interactionBehaviour.getAgent());
-        this.interactionBehaviour = interactionBehaviour;
-        this.dataStore = dataStore;
-        thisProductionAgent = (ProductionAgent) dataStore.getThisAgent();
-    }
+	public DeliverToSellingBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+		super(interactionBehaviour.getAgent());
+		this.interactionBehaviour = interactionBehaviour;
+		this.dataStore = dataStore;
+		thisProductionAgent = (ProductionAgent) dataStore.getThisAgent();
+	}
 
-    @Override
-    public void action() {
-        orderToGive = interactionBehaviour.getRequest().getContent();
-        Order order = Order.gson.fromJson(orderToGive, Order.class);
-        orderText = order.getTextOfOrder();
-        /*
-         * System.out.println("ProductionAgent: Delivering " + orderText +
-         * " to warehouse");
-         */
+	@Override
+	public void action() {
+		orderToGive = interactionBehaviour.getRequest().getContent();
+		Order order = Order.gson.fromJson(orderToGive, Order.class);
+		orderText = order.getTextOfOrder();
+		/*
+		 * System.out.println("ProductionAgent: Delivering " + orderText +
+		 * " to warehouse");
+		 */
 
-        msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to warehouse");
-        Communication.server.sendMessageToClient(msgObj);
+		msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to warehouse");
+		Communication.server.sendMessageToClient(msgObj);
 
-        for (OrderPart orderPart : order.orderList) {
-            Product productToGive = orderPart.getProduct();
-            for (int i = 0; i < orderPart.getAmount(); i++) {
-                SellingAgent.warehouse.add(productToGive);
-            }
-        }
-        thisProductionAgent.isProduced = true;
-        dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
-    }
+		for (OrderPart orderPart : order.orderList) {
+			Product productToGive = orderPart.getProduct();
+			for (int i = 0; i < orderPart.getAmount(); i++) {
+				SellingAgent.warehouse.add(productToGive);
+			}
+		}
+		thisProductionAgent.isProduced = true;
+		dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+	}
 }

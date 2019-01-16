@@ -6,46 +6,44 @@ import jade.lang.acl.ACLMessage;
 import jade.proto.AchieveREInitiator;
 
 public class AchieveREInitiatorInteractorBehaviour extends AchieveREInitiator {
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5125279661376713044L;
 
-    private AchieveREInitiatorInteractor interactor;
+	private static final long serialVersionUID = 5125279661376713044L;
 
-    public AchieveREInitiatorInteractorBehaviour(AchieveREInitiatorInteractor interactor) {
-        super(null, null);
-        this.interactor = interactor;
-    }
+	private AchieveREInitiatorInteractor interactor;
 
-    @SuppressWarnings("rawtypes")
-    @Override
-    protected Vector prepareRequests(ACLMessage request) {
-        return interactor.prepareRequests(request);
-    }
+	public AchieveREInitiatorInteractorBehaviour(AchieveREInitiatorInteractor interactor) {
+		super(null, null);
+		this.interactor = interactor;
+	}
 
-    @Override
-    protected void handleAgree(ACLMessage agree) {
-        interactor.handleAgree(agree);
-    }
+	@SuppressWarnings("rawtypes")
+	@Override
+	protected Vector prepareRequests(ACLMessage request) {
+		return interactor.prepareRequests(request);
+	}
 
-    @Override
-    protected void handleRefuse(ACLMessage refuse) {
-        interactor.handleRefuse(refuse);
-    }
+	@Override
+	protected void handleAgree(ACLMessage agree) {
+		interactor.handleAgree(agree);
+	}
 
-    @Override
-    protected void handleInform(ACLMessage inform) {
-        interactor.handleInform(inform);
-    }
+	@Override
+	protected void handleRefuse(ACLMessage refuse) {
+		interactor.handleRefuse(refuse);
+	}
 
-    @Override
-    protected void handleFailure(ACLMessage failure) {
-        interactor.handleFailure(failure);
-    }
+	@Override
+	protected void handleInform(ACLMessage inform) {
+		interactor.handleInform(inform);
+	}
 
-    @Override
-    public int onEnd() {
-        return interactor.next();
-    }
+	@Override
+	protected void handleFailure(ACLMessage failure) {
+		interactor.handleFailure(failure);
+	}
+
+	@Override
+	public int onEnd() {
+		return interactor.next();
+	}
 }

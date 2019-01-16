@@ -8,26 +8,23 @@ import jade.core.behaviours.OneShotBehaviour;
 
 public class AskForOrderBehaviour extends OneShotBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 8296971392230921846L;
-    private OrderDataStore dataStore;
-    private SalesMarketResponder interactionBehaviour;
-    public MessageObject msgObj;
+	private static final long serialVersionUID = 8296971392230921846L;
+	private OrderDataStore dataStore;
+	private SalesMarketResponder interactionBehaviour;
+	public MessageObject msgObj;
 
-    public AskForOrderBehaviour(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
-        super(interactionBehaviour.getAgent());
-        this.interactionBehaviour = interactionBehaviour;
-        this.dataStore = dataStore;
-    }
+	public AskForOrderBehaviour(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+		super(interactionBehaviour.getAgent());
+		this.interactionBehaviour = interactionBehaviour;
+		this.dataStore = dataStore;
+	}
 
-    @Override
-    public void action() {
-        // dataStore.setRequestMessage(interactionBehaviour.getRequest());
-        Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
-        if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
-            myAgent.addBehaviour(new AskForOrderInitiatorBehaviour(interactionBehaviour, dataStore));
-        }
-    }
+	@Override
+	public void action() {
+		// dataStore.setRequestMessage(interactionBehaviour.getRequest());
+		Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
+		if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
+			myAgent.addBehaviour(new AskForOrderInitiatorBehaviour(interactionBehaviour, dataStore));
+		}
+	}
 }

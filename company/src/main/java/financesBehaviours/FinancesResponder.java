@@ -7,18 +7,18 @@ import jade.lang.acl.MessageTemplate;
 
 public class FinancesResponder extends ResponderBehaviour {
 
-    private static final long serialVersionUID = 3805964860244663233L;
+	private static final long serialVersionUID = 3805964860244663233L;
 
-    public FinancesResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
+	public FinancesResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
 		super(a, mt);
-        interactor = new FinancesRequestResult(dataStore);
-        dataStore.setRequestResult(interactor);
-        askBehaviour = new FinancesAskBehaviour(this, dataStore);
-        setup(dataStore);
+		interactor = new FinancesRequestResult(dataStore);
+		dataStore.setRequestResult(interactor);
+		askBehaviour = new FinancesAskBehaviour(this, dataStore);
+		setup(dataStore);
 
-        registerHandleRequest(new FinancesDecisionBehaviour(this, dataStore));
-        // registerPrepareResultNotification(new FinancesAskBehaviour(this, interactor,
-        // dataStore));
-        registerPrepareResultNotification(new FinancesActivityBehaviour(this, dataStore));
-    }
+		registerHandleRequest(new FinancesDecisionBehaviour(this, dataStore));
+		// registerPrepareResultNotification(new FinancesAskBehaviour(this, interactor,
+		// dataStore));
+		registerPrepareResultNotification(new FinancesActivityBehaviour(this, dataStore));
+	}
 }

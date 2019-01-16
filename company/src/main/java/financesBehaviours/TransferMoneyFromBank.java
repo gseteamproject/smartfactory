@@ -12,23 +12,23 @@ public class TransferMoneyFromBank extends OneShotBehaviour {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final long serialVersionUID = -8355136234160671855L;
-    private FinancesResponder interactionBehaviour;
-    private OrderDataStore dataStore;
-    private String orderToBuy;
-    private String orderText;
+	private FinancesResponder interactionBehaviour;
+	private OrderDataStore dataStore;
+	private String orderToBuy;
+	private String orderText;
 
-    public TransferMoneyFromBank(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
-        this.interactionBehaviour = interactionBehaviour;
-        this.dataStore = dataStore;
-        orderToBuy = interactionBehaviour.getRequest().getContent();
-    }
+	public TransferMoneyFromBank(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
+		this.interactionBehaviour = interactionBehaviour;
+		this.dataStore = dataStore;
+		orderToBuy = interactionBehaviour.getRequest().getContent();
+	}
 
-    @Override
-    public void action() {
-        Order order = Order.gson.fromJson(orderToBuy, Order.class);
-        orderText = order.getTextOfOrder();
+	@Override
+	public void action() {
+		Order order = Order.gson.fromJson(orderToBuy, Order.class);
+		orderText = order.getTextOfOrder();
 
 		logger.info("Buy {}", orderText);
-        dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
-    }
+		dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+	}
 }

@@ -7,48 +7,48 @@ import interactors.OrderDataStore;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementDecision extends Decision {
-    private MessageObject msgObj;
 
-    public ProcurementDecision(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
-        super(interactionBehaviour, dataStore);
-    }
+	private MessageObject msgObj;
 
-    @Override
-    public ACLMessage execute(ACLMessage request) {
+	public ProcurementDecision(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
+		super(interactionBehaviour, dataStore);
+	}
 
-        setup(request);
+	@Override
+	public ACLMessage execute(ACLMessage request) {
 
-        response = request.createReply();
-        response.setContent(request.getContent());
-        response.setPerformative(ACLMessage.AGREE);
+		setup(request);
 
-        if (request.getConversationId() == "Materials") {
-            msgObj = new MessageObject("AgentProcurement",
-                    "I will check materialStorage for materials for " + orderText);
-            Communication.server.sendMessageToClient(msgObj);
+		response = request.createReply();
+		response.setContent(request.getContent());
+		response.setPerformative(ACLMessage.AGREE);
 
-            /*
-             * System.out.
-             * println("ProcurementAgent: [request] ProductionAgent asks for materials for "
-             * + orderText); System.out.
-             * println("ProcurementAgent: [agree] I will check materialStorage for materials for "
-             * + orderText);
-             */
-        } else if (request.getConversationId() == "Take") {
-            msgObj = new MessageObject("AgentProcurement",
-                    "I will give materials for " + orderText + " from materialStorage");
-            Communication.server.sendMessageToClient(msgObj);
+		if (request.getConversationId() == "Materials") {
+			msgObj = new MessageObject("AgentProcurement",
+					"I will check materialStorage for materials for " + orderText);
+			Communication.server.sendMessageToClient(msgObj);
 
-            /*
-             * System.out.
-             * println("ProcurementAgent: [request] ProductionAgent wants to get materials for "
-             * + orderText + " from materialStorage"); System.out.println(
-             * "ProcurementAgent: [agree] I will give you materials for " + orderText +
-             * " from materialStorage");
-             */
-        }
+			/*
+			 * System.out.
+			 * println("ProcurementAgent: [request] ProductionAgent asks for materials for "
+			 * + orderText); System.out.
+			 * println("ProcurementAgent: [agree] I will check materialStorage for materials for "
+			 * + orderText);
+			 */
+		} else if (request.getConversationId() == "Take") {
+			msgObj = new MessageObject("AgentProcurement",
+					"I will give materials for " + orderText + " from materialStorage");
+			Communication.server.sendMessageToClient(msgObj);
 
-        return response;
-    }
+			/*
+			 * System.out.
+			 * println("ProcurementAgent: [request] ProductionAgent wants to get materials for "
+			 * + orderText + " from materialStorage"); System.out.println(
+			 * "ProcurementAgent: [agree] I will give you materials for " + orderText +
+			 * " from materialStorage");
+			 */
+		}
 
+		return response;
+	}
 }

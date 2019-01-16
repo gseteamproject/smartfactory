@@ -14,90 +14,88 @@ import jade.lang.acl.MessageTemplate;
 
 /* possible states of request */
 enum RequestState {
-    PREPARE_CALL_FOR_PROPOSAL, HANDLE_CALL_FOR_PROPOSAL_REPLY, PREPARE_ACCEPT_PROPOSAL, HANDLE_ACCEPT_PROPOSAL_REPLY, DONE
+	PREPARE_CALL_FOR_PROPOSAL, HANDLE_CALL_FOR_PROPOSAL_REPLY, PREPARE_ACCEPT_PROPOSAL, HANDLE_ACCEPT_PROPOSAL_REPLY,
+	DONE
 };
 
 public class RequestToBuy extends SimpleBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = -1322936877118129497L;
+	private static final long serialVersionUID = -1322936877118129497L;
 
-    private ProcurementMarketResponder interactionBehaviour;
-    private OrderDataStore dataStore;
-    private MessageObject msgObj;
-    public static int buyCount;
+	private ProcurementMarketResponder interactionBehaviour;
+	private OrderDataStore dataStore;
+	private MessageObject msgObj;
+	public static int buyCount;
 
-    List<AID> procurementAgents;
-    RequestState requestState;
-    OrderPart currentOrder;
+	List<AID> procurementAgents;
+	RequestState requestState;
+	OrderPart currentOrder;
 
-    public RequestToBuy(List<AID> procurementAgents, ProcurementMarketResponder interactionBehaviour,
-            OrderDataStore dataStore, OrderPart currentOrder) {
-        this.procurementAgents = procurementAgents;
-        this.requestState = RequestState.PREPARE_CALL_FOR_PROPOSAL;
-        this.currentOrder = currentOrder;
-        this.interactionBehaviour = interactionBehaviour;
-        this.dataStore = dataStore;
-    }
+	public RequestToBuy(List<AID> procurementAgents, ProcurementMarketResponder interactionBehaviour,
+			OrderDataStore dataStore, OrderPart currentOrder) {
+		this.procurementAgents = procurementAgents;
+		this.requestState = RequestState.PREPARE_CALL_FOR_PROPOSAL;
+		this.currentOrder = currentOrder;
+		this.interactionBehaviour = interactionBehaviour;
+		this.dataStore = dataStore;
+	}
 
-    MessageTemplate replyTemplate = null;
-    int repliesLeft = 0;
+	MessageTemplate replyTemplate = null;
+	int repliesLeft = 0;
 
-    AID bestPrinterAgent = null;
-    int bestPrice = 0;
+	AID bestPrinterAgent = null;
+	int bestPrice = 0;
 
-    @Override
-    public void action() {
-        /* perform actions accordingly to behaviour state */
-        switch (requestState) {
-        case PREPARE_CALL_FOR_PROPOSAL:
-            prepareCallForProposal();
-            break;
+	@Override
+	public void action() {
+		/* perform actions accordingly to behaviour state */
+		switch (requestState) {
+		case PREPARE_CALL_FOR_PROPOSAL:
+			prepareCallForProposal();
+			break;
 
-        case HANDLE_CALL_FOR_PROPOSAL_REPLY:
-            handleCallForProposalReply();
-            break;
+		case HANDLE_CALL_FOR_PROPOSAL_REPLY:
+			handleCallForProposalReply();
+			break;
 
-        case PREPARE_ACCEPT_PROPOSAL:
-            prepareAcceptProposal();
-            break;
+		case PREPARE_ACCEPT_PROPOSAL:
+			prepareAcceptProposal();
+			break;
 
-        case HANDLE_ACCEPT_PROPOSAL_REPLY:
-            handleAcceptProposalReply();
-            break;
+		case HANDLE_ACCEPT_PROPOSAL_REPLY:
+			handleAcceptProposalReply();
+			break;
 
-        case DONE:
-            break;
+		case DONE:
+			break;
 
-        default:
-            break;
-        }
-    }
+		default:
+			break;
+		}
+	}
 
 	private void handleAcceptProposalReply() {
 		ACLMessage msg = myAgent.receive(replyTemplate);
 		if (msg != null) {
-		    msgObj = new MessageObject("AgentProcurementMarket",
-		            currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
-		    Communication.server.sendMessageToClient(msgObj);
+			msgObj = new MessageObject("AgentProcurementMarket",
+					currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
+			Communication.server.sendMessageToClient(msgObj);
 
-		    /*
-		     * System.out.println(String
-		     * .format(currentOrder.getPart().getClass().getSimpleName() +
-		     * " is found (price=%d)", bestPrice));
-		     */
+			/*
+			 * System.out.println(String
+			 * .format(currentOrder.getPart().getClass().getSimpleName() +
+			 * " is found (price=%d)", bestPrice));
+			 */
 
-		    repliesLeft = 0;
-		    requestState = RequestState.DONE;
+			repliesLeft = 0;
+			requestState = RequestState.DONE;
 
-		    for (int i = 0; i < currentOrder.getAmount(); i++) {
-		        ProcurementAgent.materialStorage.add(currentOrder.getGood());
-		    }
-		    buyCount += 1;
+			for (int i = 0; i < currentOrder.getAmount(); i++) {
+				ProcurementAgent.materialStorage.add(currentOrder.getGood());
+			}
+			buyCount += 1;
 		} else {
-		    block();
+			block();
 		}
 	}
 
@@ -109,7 +107,7 @@ public class RequestToBuy extends SimpleBehaviour {
 		msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
 
 		replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
-		        MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
+				MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
 		repliesLeft = 1;
 
 		myAgent.send(msg);
@@ -120,44 +118,44 @@ public class RequestToBuy extends SimpleBehaviour {
 	private void handleCallForProposalReply() {
 		ACLMessage msg = myAgent.receive(replyTemplate);
 		if (msg != null) {
-		    int price = Integer.parseInt(msg.getContent());
-		    if (bestPrinterAgent == null || price < bestPrice) {
-		        bestPrinterAgent = msg.getSender();
-		        bestPrice = price;
-		    }
-		    repliesLeft--;
-		    if (repliesLeft == 0) {
-		        requestState = RequestState.PREPARE_ACCEPT_PROPOSAL;
-		    }
+			int price = Integer.parseInt(msg.getContent());
+			if (bestPrinterAgent == null || price < bestPrice) {
+				bestPrinterAgent = msg.getSender();
+				bestPrice = price;
+			}
+			repliesLeft--;
+			if (repliesLeft == 0) {
+				requestState = RequestState.PREPARE_ACCEPT_PROPOSAL;
+			}
 		} else {
-		    block();
+			block();
 		}
 	}
 
 	private void prepareCallForProposal() {
 		ACLMessage msg = new ACLMessage(ACLMessage.CFP);
 		for (AID agentProvidingService : procurementAgents) {
-		    msg.addReceiver(agentProvidingService);
+			msg.addReceiver(agentProvidingService);
 		}
 		msg.setConversationId("buying");
 		msg.setContent("material");
 		msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
 
 		replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
-		        MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
+				MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
 		repliesLeft = procurementAgents.size();
 		myAgent.send(msg);
 
 		requestState = RequestState.HANDLE_CALL_FOR_PROPOSAL_REPLY;
 	}
 
-    @Override
-    public boolean done() {
-        /* behaviour is finished when it reaches DONE state */
-        if (buyCount == AuctionInitiator.partsCount) {
-            dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
-        }
+	@Override
+	public boolean done() {
+		/* behaviour is finished when it reaches DONE state */
+		if (buyCount == AuctionInitiator.partsCount) {
+			dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+		}
 
-        return requestState == RequestState.DONE;
-    }
+		return requestState == RequestState.DONE;
+	}
 }

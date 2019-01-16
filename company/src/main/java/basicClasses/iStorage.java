@@ -7,14 +7,13 @@ import java.util.List;
  */
 
 public interface iStorage {
-    boolean add(Good good);
+	boolean add(Good good);
 
-    boolean addAll(List<Good> list);
+	boolean addAll(List<Good> list);
 
-    boolean remove(Good good);
+	boolean remove(Good good);
 
-    boolean remove(Product product);
+	boolean remove(Product product);
 
-    boolean removeAll(List<Good> list);
-
+	boolean removeAll(List<Good> list);
 }

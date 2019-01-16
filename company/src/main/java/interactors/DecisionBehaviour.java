@@ -4,22 +4,18 @@ import jade.core.behaviours.OneShotBehaviour;
 
 public class DecisionBehaviour extends OneShotBehaviour {
 
-    /**
-     * 
-     */
-    private static final long serialVersionUID = 5281539625153081963L;
+	private static final long serialVersionUID = 5281539625153081963L;
 
-    protected ResponderBehaviour interactionBehaviour;
+	protected ResponderBehaviour interactionBehaviour;
 
-    protected Decision interactor;
+	protected Decision interactor;
 
-    public DecisionBehaviour(ResponderBehaviour interactionBehaviour) {
-        this.interactionBehaviour = interactionBehaviour;
-    }
+	public DecisionBehaviour(ResponderBehaviour interactionBehaviour) {
+		this.interactionBehaviour = interactionBehaviour;
+	}
 
-    @Override
-    public void action() {
-        interactionBehaviour.setResponse(interactor.execute(interactionBehaviour.getRequest()));
-    }
-
+	@Override
+	public void action() {
+		interactionBehaviour.setResponse(interactor.execute(interactionBehaviour.getRequest()));
+	}
 }

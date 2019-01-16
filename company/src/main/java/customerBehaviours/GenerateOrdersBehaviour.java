@@ -15,59 +15,59 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
 
 	private static final long serialVersionUID = -7549190406155306008L;
 
-    public GenerateOrdersBehaviour(Agent a, long period) {
-        super(a, period);
-    }
+	public GenerateOrdersBehaviour(Agent a, long period) {
+		super(a, period);
+	}
 
-    @Override
-    protected void onTick() {
-        ACLMessage orderMsg = new ACLMessage(ACLMessage.REQUEST);
-        orderMsg.addReceiver(new AID(("AgentSalesMarket"), AID.ISLOCALNAME));
-        orderMsg.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+	@Override
+	protected void onTick() {
+		ACLMessage orderMsg = new ACLMessage(ACLMessage.REQUEST);
+		orderMsg.addReceiver(new AID(("AgentSalesMarket"), AID.ISLOCALNAME));
+		orderMsg.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 
-        // improvised customer
-        // orderMsg.setSender(new AID(("Customer"), AID.ISLOCALNAME));
+		// improvised customer
+		// orderMsg.setSender(new AID(("Customer"), AID.ISLOCALNAME));
 
-        Order order = new Order();
-        order.id = SalesMarketAgent.orderQueue.size() + 1;
+		Order order = new Order();
+		order.id = SalesMarketAgent.orderQueue.size() + 1;
 
-        Random rand = new Random();
+		Random rand = new Random();
 		int randSize;
 		int randAmount;
 		int randColI;
-        String randColS = "";
-        for (int i = 0; i < 3; i++) {
-            randColI = rand.nextInt(3);
-            switch (randColI) {
-            case 0:
-                randColS = "red";
-                break;
-            case 1:
-                randColS = "blue";
-                break;
-            case 2:
-                randColS = "green";
-                break;
-            default:
-                randColS = "other";
-                break;
-            }
+		String randColS = "";
+		for (int i = 0; i < 3; i++) {
+			randColI = rand.nextInt(3);
+			switch (randColI) {
+			case 0:
+				randColS = "red";
+				break;
+			case 1:
+				randColS = "blue";
+				break;
+			case 2:
+				randColS = "green";
+				break;
+			default:
+				randColS = "other";
+				break;
+			}
 
-            randSize = rand.nextInt(10) + 1;
-            randAmount = rand.nextInt(100) + 1;
+			randSize = rand.nextInt(10) + 1;
+			randAmount = rand.nextInt(100) + 1;
 
-            order.addGood(new Product(randSize, randColS), randAmount);
-        }
+			order.addGood(new Product(randSize, randColS), randAmount);
+		}
 
-        String testGson = Order.gson.toJson(order);
-        // {"id":1,"orderList":[{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"blue","price":0},"price":0},"amount":2},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"red","price":0},"price":0},"amount":2}]}
+		String testGson = Order.gson.toJson(order);
+		// {"id":1,"orderList":[{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"blue","price":0},"price":0},"amount":2},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"red","price":0},"price":0},"amount":2}]}
 
-        orderMsg.setContent(testGson);
-        myAgent.send(orderMsg);
-    }
+		orderMsg.setContent(testGson);
+		myAgent.send(orderMsg);
+	}
 
-    @Override
-    public void stop() {
-        super.stop();
-    }
+	@Override
+	public void stop() {
+		super.stop();
+	}
 }

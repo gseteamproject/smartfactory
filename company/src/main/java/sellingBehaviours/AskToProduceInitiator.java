@@ -22,71 +22,68 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
 	}
 
-    @Override
-    public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+	@Override
+	public Vector<ACLMessage> prepareRequests(ACLMessage request) {
+		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
-        String requestedAction = "Produce";
-        message.addReceiver(new AID(("AgentProduction"), AID.ISLOCALNAME));
-        setup(message, requestedAction, true);
+		String requestedAction = "Produce";
+		message.addReceiver(new AID(("AgentProduction"), AID.ISLOCALNAME));
+		setup(message, requestedAction, true);
 
-        return l;
-    }
+		return l;
+	}
 
-    @Override
-    public void handleInform(ACLMessage inform) {
+	@Override
+	public void handleInform(ACLMessage inform) {
 
-        handleResponse(inform);
+		handleResponse(inform);
 
-        Order order = Order.gson.fromJson(inform.getContent(), Order.class);
-        orderText = order.getTextOfOrder();
+		Order order = Order.gson.fromJson(inform.getContent(), Order.class);
+		orderText = order.getTextOfOrder();
 
-        msgObj = new MessageObject("AgentSelling", orderText + " is delivered to warehouse");
-        Communication.server.sendMessageToClient(msgObj);
-        thisSellingAgent.isInWarehouse = true;
-        // for (Order orderInQueue : SalesMarket.orderQueue) {
-        // if (orderInQueue.id == order.id) {
-        // order = orderInQueue;
-        // }
-        // }
-        dataStore.getRequestResult().execute(dataStore.getRequestMessage());
-        thisSellingAgent.productionQueue.remove(order);
-    }
+		msgObj = new MessageObject("AgentSelling", orderText + " is delivered to warehouse");
+		Communication.server.sendMessageToClient(msgObj);
+		thisSellingAgent.isInWarehouse = true;
+		// for (Order orderInQueue : SalesMarket.orderQueue) {
+		// if (orderInQueue.id == order.id) {
+		// order = orderInQueue;
+		// }
+		// }
+		dataStore.getRequestResult().execute(dataStore.getRequestMessage());
+		thisSellingAgent.productionQueue.remove(order);
+	}
 
-    @Override
-    public void handleFailure(ACLMessage failure) {
+	@Override
+	public void handleFailure(ACLMessage failure) {
 
-        handleResponse(failure);
+		handleResponse(failure);
 
-        orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
 
-        msgObj = new MessageObject("AgentSelling", orderText + " is not produced.");
-        Communication.server.sendMessageToClient(msgObj);
+		msgObj = new MessageObject("AgentSelling", orderText + " is not produced.");
+		Communication.server.sendMessageToClient(msgObj);
 
-    }
+	}
 
-    @Override
-    public void handleAgree(ACLMessage agree) {
+	@Override
+	public void handleAgree(ACLMessage agree) {
 
-        orderText = Order.gson.fromJson(agree.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.gson.fromJson(agree.getContent(), Order.class).getTextOfOrder();
 
-        msgObj = new MessageObject(agree, orderText);
-        Communication.server.sendMessageToClient(msgObj);
+		msgObj = new MessageObject(agree, orderText);
+		Communication.server.sendMessageToClient(msgObj);
 
-        msgObj = new MessageObject("AgentSelling", "Production of " + orderText + " is initiated.");
-        Communication.server.sendMessageToClient(msgObj);
+		msgObj = new MessageObject("AgentSelling", "Production of " + orderText + " is initiated.");
+		Communication.server.sendMessageToClient(msgObj);
 
-    }
+	}
 
-    @Override
-    public void handleRefuse(ACLMessage refuse) {
+	@Override
+	public void handleRefuse(ACLMessage refuse) {
+	}
 
-    }
-
-    @Override
-    public int next() {
-
-        return 0;
-    }
-
+	@Override
+	public int next() {
+		return 0;
+	}
 }

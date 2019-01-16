@@ -10,39 +10,39 @@ public class AskBehaviour extends SimpleBehaviour {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final long serialVersionUID = -4846116296001548998L;
-    protected RequestResult interactor;
-    protected ResponderBehaviour interactionBehaviour;
-    protected OrderDataStore dataStore;
-    protected boolean isStarted;
+	protected RequestResult interactor;
+	protected ResponderBehaviour interactionBehaviour;
+	protected OrderDataStore dataStore;
+	protected boolean isStarted;
 
-    public boolean isStarted() {
-        return isStarted;
-    }
+	public boolean isStarted() {
+		return isStarted;
+	}
 
-    public void setStarted(boolean isStarted) {
-        this.isStarted = isStarted;
-    }
+	public void setStarted(boolean isStarted) {
+		this.isStarted = isStarted;
+	}
 
-    public AskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
-        super(interactionBehaviour.getAgent());
-        this.interactionBehaviour = interactionBehaviour;
-        this.interactor = dataStore.getRequestResult();
-        this.dataStore = dataStore;
-        this.setStarted(true);
-    }
+	public AskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+		super(interactionBehaviour.getAgent());
+		this.interactionBehaviour = interactionBehaviour;
+		this.interactor = dataStore.getRequestResult();
+		this.dataStore = dataStore;
+		this.setStarted(true);
+	}
 
-    @Override
-    public void action() {
+	@Override
+	public void action() {
 
-    }
+	}
 
-    @Override
-    public boolean done() {
-        if (interactor.done()) {
+	@Override
+	public boolean done() {
+		if (interactor.done()) {
 			logger.info("Done of {}", interactionBehaviour.getAgent().getLocalName());
-            interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
-        }
-        return interactor.done();
-    }
+			interactionBehaviour.setResult(interactor.execute(interactionBehaviour.getRequest()));
+		}
+		return interactor.done();
+	}
 
 }

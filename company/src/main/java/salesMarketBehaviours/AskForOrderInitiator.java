@@ -11,56 +11,52 @@ import jade.lang.acl.MessageTemplate;
 
 public class AskForOrderInitiator extends AchieveREInitiatorInteractor {
 
-    private SalesMarketResponder interactionBehaviour;
+	private SalesMarketResponder interactionBehaviour;
 
-    public AskForOrderInitiator(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
-        super(dataStore);
-        this.interactionBehaviour = interactionBehaviour;
-    }
+	public AskForOrderInitiator(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+		super(dataStore);
+		this.interactionBehaviour = interactionBehaviour;
+	}
 
-    @Override
-    public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-        ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
+	@Override
+	public Vector<ACLMessage> prepareRequests(ACLMessage request) {
+		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
 
-        String requestedAction = "Ask";
-        message.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
-        setup(message, requestedAction, false);
+		String requestedAction = "Ask";
+		message.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
+		setup(message, requestedAction, false);
 
-        return l;
-    }
+		return l;
+	}
 
-    @Override
-    public void handleInform(ACLMessage inform) {
+	@Override
+	public void handleInform(ACLMessage inform) {
 
-        handleResponse(inform);
+		handleResponse(inform);
 
-        interactionBehaviour.getAgent().addBehaviour(new TakeFromWarehouseBehaviour(interactionBehaviour, dataStore));
-    }
+		interactionBehaviour.getAgent().addBehaviour(new TakeFromWarehouseBehaviour(interactionBehaviour, dataStore));
+	}
 
-    @Override
-    public void handleFailure(ACLMessage failure) {
+	@Override
+	public void handleFailure(ACLMessage failure) {
 
-        handleResponse(failure);
+		handleResponse(failure);
 
-        MessageTemplate temp = MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-        MessageTemplate infTemp = MessageTemplate.and(temp, MessageTemplate.MatchPerformative(ACLMessage.INFORM));
-        infTemp = MessageTemplate.and(infTemp, MessageTemplate.MatchConversationId("Ask"));
-    }
+		MessageTemplate temp = MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		MessageTemplate infTemp = MessageTemplate.and(temp, MessageTemplate.MatchPerformative(ACLMessage.INFORM));
+		infTemp = MessageTemplate.and(infTemp, MessageTemplate.MatchConversationId("Ask"));
+	}
 
-    @Override
-    public void handleAgree(ACLMessage agree) {
+	@Override
+	public void handleAgree(ACLMessage agree) {
+	}
 
-    }
+	@Override
+	public void handleRefuse(ACLMessage refuse) {
+	}
 
-    @Override
-    public void handleRefuse(ACLMessage refuse) {
-
-    }
-
-    @Override
-    public int next() {
-
-        return 0;
-    }
-
+	@Override
+	public int next() {
+		return 0;
+	}
 }

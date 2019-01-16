@@ -12,96 +12,96 @@ import com.google.gson.GsonBuilder;
  */
 
 public class Order implements Serializable {
-    private static final long serialVersionUID = 8348788729049247785L;
+	private static final long serialVersionUID = 8348788729049247785L;
 
-    public static GsonBuilder builder = new GsonBuilder();
-    public static Gson gson = builder.create();
+	public static GsonBuilder builder = new GsonBuilder();
+	public static Gson gson = builder.create();
 
-    public int id;
-    public List<OrderPart> orderList = new ArrayList<OrderPart>();
-    public long deadline;
-    public int price;
-    public String agent;
+	public int id;
+	public List<OrderPart> orderList = new ArrayList<OrderPart>();
+	public long deadline;
+	public int price;
+	public String agent;
 
-    public Order() {
-    }
+	public Order() {
+	}
 
-    public List<Product> getProducts() {
-        List<Product> list = new ArrayList<Product>();
-        for (OrderPart part : orderList) {
-            list.add(part.getProduct());
-        }
-        return list;
-    }
-    
-    public boolean addGood(Good good, int amount) {
-        if (amount > 0) {
-            OrderPart part = new OrderPart(good);
-            part.setAmount(amount);
-            boolean count = false;
-            for (OrderPart partInList : orderList) {
-                if (partInList.getGood().equals(good)) {
-                    partInList.setAmount(amount + 1);
-                    count = true;
-                }
-            }
-            if (!count) {
-                return orderList.add(part);
-            }
-        }
-        return false;
-    }
+	public List<Product> getProducts() {
+		List<Product> list = new ArrayList<Product>();
+		for (OrderPart part : orderList) {
+			list.add(part.getProduct());
+		}
+		return list;
+	}
 
-    public int getID() {
-        return id;
-    }
+	public boolean addGood(Good good, int amount) {
+		if (amount > 0) {
+			OrderPart part = new OrderPart(good);
+			part.setAmount(amount);
+			boolean count = false;
+			for (OrderPart partInList : orderList) {
+				if (partInList.getGood().equals(good)) {
+					partInList.setAmount(amount + 1);
+					count = true;
+				}
+			}
+			if (!count) {
+				return orderList.add(part);
+			}
+		}
+		return false;
+	}
 
-    public int getAmountByProduct(Product product) {
-        int amount = 0;
-        for (OrderPart part : orderList) {
-            if (part.getProduct().equals(product)) {
-                amount = part.getAmount();
-            }
-        }
-        return amount;
-    }
+	public int getID() {
+		return id;
+	}
 
-    public String getTextOfOrder() {
-        String text = "";
-        for (OrderPart part : orderList) {
+	public int getAmountByProduct(Product product) {
+		int amount = 0;
+		for (OrderPart part : orderList) {
+			if (part.getProduct().equals(product)) {
+				amount = part.getAmount();
+			}
+		}
+		return amount;
+	}
 
-            Integer value = part.getAmount();
+	public String getTextOfOrder() {
+		String text = "";
+		for (OrderPart part : orderList) {
 
-            if (part.getProduct() != null) {
+			Integer value = part.getAmount();
 
-                Product key = part.getProduct();
-                text += value.toString() + " " + key.getColor() + " stone of size " + key.getSize() + "; ";
-            }
-            if (part.getPaint() != null) {
+			if (part.getProduct() != null) {
 
-                Paint key = part.getPaint();
-                text += value.toString() + " portions of " + key.getColor() + " color; ";
-            }
-            if (part.getStone() != null) {
+				Product key = part.getProduct();
+				text += value.toString() + " " + key.getColor() + " stone of size " + key.getSize() + "; ";
+			}
+			if (part.getPaint() != null) {
 
-                Stone key = part.getStone();
-                text += value.toString() + " stone of size " + key.getSize() + "; ";
-            }
+				Paint key = part.getPaint();
+				text += value.toString() + " portions of " + key.getColor() + " color; ";
+			}
+			if (part.getStone() != null) {
 
-        }
-        return text;
-    }
+				Stone key = part.getStone();
+				text += value.toString() + " stone of size " + key.getSize() + "; ";
+			}
 
-    public int searchInList(List<Order> list) {
-        int index = -1;
-        for (int idx = 0; idx < list.size(); idx++) {
-            Order order = list.get(idx);
-            if (order.id == this.id) {
-                index = idx;
-            }
-        }
-        return index;
-    }
+		}
+		return text;
+	}
+
+	public int searchInList(List<Order> list) {
+		int index = -1;
+		for (int idx = 0; idx < list.size(); idx++) {
+			Order order = list.get(idx);
+			if (order.id == this.id) {
+				index = idx;
+			}
+		}
+		return index;
+	}
 
 	@Override
 	public boolean equals(Object o) {
