@@ -71,4 +71,12 @@ public class OrderDataStore extends DataStore {
 	public boolean getIsGiven() {
 		return (boolean) get("isGiven");
 	}
+
+	public void setIsProduced(boolean b) {
+		put("isProduced", b);
+	}
+
+	public boolean getIsProduced() {
+		return (boolean) get("isProduced");
+	}
 }

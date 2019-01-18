@@ -1,17 +1,13 @@
 package productionBehaviours;
 
-import basicAgents.ProductionAgent;
 import interactors.OrderDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
 
 public class ProductionRequestResult extends RequestResult {
 
-	private ProductionAgent thisProductionAgent;
-
 	public ProductionRequestResult(OrderDataStore dataStore) {
 		super(dataStore);
-		thisProductionAgent = (ProductionAgent) dataStore.getThisAgent();
 	}
 
 	@Override
@@ -20,7 +16,7 @@ public class ProductionRequestResult extends RequestResult {
 		response.setContent(request.getContent());
 
 		if (!dataStore.getDeadlineResult()) {
-			if (thisProductionAgent.isProduced) {
+			if (dataStore.getIsProduced()) {
 				response.setPerformative(ACLMessage.INFORM);
 				this.isDone = true;
 			} else {

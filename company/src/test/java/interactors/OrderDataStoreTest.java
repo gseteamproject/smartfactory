@@ -82,4 +82,22 @@ public class OrderDataStoreTest {
 
 		Assert.assertEquals(value, testable.getIsGiven());
 	}
+
+	@Test
+	public void setIsProduced() {
+		final boolean value = true;
+
+		testable.setIsProduced(value);
+
+		Assert.assertEquals(value, testable.get("isProduced"));
+	}
+
+	@Test
+	public void getIsProduced() {
+		final boolean value = true;
+
+		testable.put("isProduced", value);
+
+		Assert.assertEquals(value, testable.getIsProduced());
+	}
 }
