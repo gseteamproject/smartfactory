@@ -4,14 +4,15 @@ import interactors.ActivityBehaviour;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
-import jade.lang.acl.MessageTemplate;
+import jade.domain.FIPANames;
+import jade.proto.AchieveREResponder;
 
 public class ProcurementMarketResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = 8819328566657528097L;
 
-	public ProcurementMarketResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-		super(a, mt, dataStore);
+	public ProcurementMarketResponder(Agent a, OrderDataStore dataStore) {
+		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
 		interactor = new ProcurementMarketRequestResult(dataStore);
 		askBehaviour = new ProcurementMarketAskBehaviour(this, dataStore);
 

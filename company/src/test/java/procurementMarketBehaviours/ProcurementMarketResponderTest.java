@@ -8,7 +8,6 @@ import org.junit.Test;
 
 import basicAgents.ProcurementMarketAgent;
 import interactors.OrderDataStore;
-import jade.lang.acl.MessageTemplate;
 
 public class ProcurementMarketResponderTest {
 
@@ -24,15 +23,12 @@ public class ProcurementMarketResponderTest {
 
 	ProcurementMarketAgent agent_mock;
 
-	MessageTemplate messageTemplate;
-
 	@Before
 	public void setUp() {
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(ProcurementMarketAgent.class);
-		messageTemplate = MessageTemplate.MatchAll();
 
-		testable = new ProcurementMarketResponder(agent_mock, messageTemplate, dataStore_mock);
+		testable = new ProcurementMarketResponder(agent_mock, dataStore_mock);
 	}
 
 	@After
