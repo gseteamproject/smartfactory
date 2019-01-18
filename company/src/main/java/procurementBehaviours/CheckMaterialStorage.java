@@ -3,7 +3,7 @@ package procurementBehaviours;
 import java.util.ArrayList;
 import java.util.List;
 
-import basicAgents.ProcurementAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Good;
 import basicClasses.Order;
 import basicClasses.OrderPart;
@@ -23,7 +23,6 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 	private ACLMessage request;
-	private ProcurementAgent thisProcurementAgent;
 
 	public CheckMaterialStorage(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
@@ -31,18 +30,17 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 		requestedMaterial = request.getContent();
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
-		thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
 	}
 
 	@Override
 	public void action() {
 		Order order = Order.gson.fromJson(requestedMaterial, Order.class);
 
-		thisProcurementAgent.isInMaterialStorage = true;
+		dataStore.setIsInMaterialStorage(true);
 		boolean isInQueue = false;
 
 		// check if this order is not in queue yet
-		isInQueue = ProcurementAgent.procurementQueue.contains(order);
+		isInQueue = CrossAgentData.procurementQueue.contains(order);
 
 		// part of order, that needs to be produced
 		Order orderToBuy = new Order();
@@ -70,8 +68,8 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 			 * orderPart.getTextOfOrderPart());
 			 */
 
-			int paintAmountInMS = ProcurementAgent.materialStorage.getAmountOfPaint(color);
-			int stoneAmountInMS = ProcurementAgent.materialStorage.getAmountOfStones(size);
+			int paintAmountInMS = CrossAgentData.materialStorage.getAmountOfPaint(color);
+			int stoneAmountInMS = CrossAgentData.materialStorage.getAmountOfStones(size);
 
 			if (paintAmountInMS >= amount && stoneAmountInMS >= amount) {
 				msgObj = new MessageObject("AgentProcurement",
@@ -84,13 +82,13 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 				 */
 			} else {
 				// need to describe multiple statements to check every material
-				thisProcurementAgent.isInMaterialStorage = false;
+				dataStore.setIsInMaterialStorage(false);
 
 				prepareOrder(orderToBuy, orderPart.getProduct().getPaint(), amount, listToRemovePart, paintAmountInMS);
 
 				prepareOrder(orderToBuy, orderPart.getProduct().getStone(), amount, listToRemovePart, stoneAmountInMS);
 
-				ProcurementAgent.materialStorage.removeAll(listToRemovePart);
+				CrossAgentData.materialStorage.removeAll(listToRemovePart);
 
 				listToRemove.addAll(listToRemovePart);
 				/*
@@ -100,7 +98,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 			}
 		}
 
-		ProcurementAgent.materialStorage.addAll(listToRemove);
+		CrossAgentData.materialStorage.addAll(listToRemove);
 
 		if (!isInQueue && orderToBuy.orderList.size() > 0) {
 			String testGson = Order.gson.toJson(orderToBuy);
@@ -109,7 +107,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 			dataStore.setSubMessage(msgToMarket);
 
 			// add order to queue
-			ProcurementAgent.procurementQueue.add(order);
+			CrossAgentData.procurementQueue.add(order);
 
 			msgObj = new MessageObject("AgentProcurement",
 					"send info to ProcurementMarket to buy materials for " + orderToBuy.getTextOfOrder());

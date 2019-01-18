@@ -1,4 +1,4 @@
-package procurementBehaviours;
+package customerBehaviours;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -6,10 +6,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import interactors.OrderDataStore;
 import jade.core.Agent;
 
-public class ProcurementResponderTest {
+public class OneOrderBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -17,18 +16,17 @@ public class ProcurementResponderTest {
 		}
 	};
 
-	ProcurementResponder testable;
-
-	OrderDataStore dataStore_mock;
+	OneOrderBehaviour testable;
 
 	Agent agent_mock;
 
+	long timeout;
+
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
-		testable = new ProcurementResponder(agent_mock, dataStore_mock);
+		testable = new OneOrderBehaviour(agent_mock, timeout);
 	}
 
 	@After
@@ -37,6 +35,6 @@ public class ProcurementResponderTest {
 	}
 
 	@Test
-	public void constructor() {
+	public void action() {
 	}
 }

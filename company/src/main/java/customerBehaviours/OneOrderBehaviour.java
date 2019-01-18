@@ -3,9 +3,9 @@ package customerBehaviours;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import basicAgents.ProcurementAgent;
 import basicAgents.SalesMarketAgent;
 import basicAgents.SellingAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import basicClasses.Paint;
 import basicClasses.Product;
@@ -76,10 +76,10 @@ public class OneOrderBehaviour extends WakerBehaviour {
 		paint = new Paint("green");
 		stone = new Stone(10);
 		prdct = new Product(stone, paint);
-		ProcurementAgent.materialStorage.add(paint);
-		ProcurementAgent.materialStorage.add(stone);
-		ProcurementAgent.materialStorage.add(paint);
-		ProcurementAgent.materialStorage.add(stone);
+		CrossAgentData.materialStorage.add(paint);
+		CrossAgentData.materialStorage.add(stone);
+		CrossAgentData.materialStorage.add(paint);
+		CrossAgentData.materialStorage.add(stone);
 
 		// That means:
 		// 1 red stone will be taken from warehouse

@@ -46,4 +46,40 @@ public class OrderDataStoreTest {
 
 		Assert.assertEquals(mock, testable.get("thisAgent"));
 	}
+
+	@Test
+	public void setIsInMaterialStorage() {
+		final boolean value = true;
+
+		testable.setIsInMaterialStorage(value);
+
+		Assert.assertEquals(value, testable.get("isInMaterialStorage"));
+	}
+
+	@Test
+	public void getIsInMaterialStorage() {
+		final boolean value = true;
+
+		testable.put("isInMaterialStorage", value);
+
+		Assert.assertEquals(value, testable.getIsInMaterialStorage());
+	}
+
+	@Test
+	public void setIsGiven() {
+		final boolean value = true;
+
+		testable.setIsGiven(value);
+
+		Assert.assertEquals(value, testable.get("isGiven"));
+	}
+
+	@Test
+	public void getIsGiven() {
+		final boolean value = true;
+
+		testable.put("isGiven", value);
+
+		Assert.assertEquals(value, testable.getIsGiven());
+	}
 }

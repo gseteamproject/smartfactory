@@ -2,7 +2,7 @@ package procurementMarketBehaviours;
 
 import java.util.List;
 
-import basicAgents.ProcurementAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
@@ -89,7 +89,7 @@ public class RequestToBuy extends SimpleBehaviour {
 			requestState = RequestState.DONE;
 
 			for (int i = 0; i < currentOrder.getAmount(); i++) {
-				ProcurementAgent.materialStorage.add(currentOrder.getGood());
+				CrossAgentData.materialStorage.add(currentOrder.getGood());
 			}
 			buyCount += 1;
 		} else {

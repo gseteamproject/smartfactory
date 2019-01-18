@@ -7,9 +7,9 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import basicAgents.ProcurementAgent;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
+import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 
 public class GiveMaterialToProductionTest {
@@ -26,7 +26,7 @@ public class GiveMaterialToProductionTest {
 
 	OrderDataStore dataStore_mock;
 
-	ProcurementAgent agent_mock;
+	Agent agent_mock;
 
 	ACLMessage message_mock;
 
@@ -34,7 +34,7 @@ public class GiveMaterialToProductionTest {
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
-		agent_mock = context.mock(ProcurementAgent.class);
+		agent_mock = context.mock(Agent.class);
 		message_mock = context.mock(ACLMessage.class);
 
 		context.checking(new Expectations() {
@@ -47,9 +47,6 @@ public class GiveMaterialToProductionTest {
 
 				oneOf(message_mock).getContent();
 				will(returnValue("request-content"));
-
-				oneOf(dataStore_mock).getThisAgent();
-				will(returnValue(agent_mock));
 			}
 		});
 

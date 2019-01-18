@@ -55,4 +55,20 @@ public class OrderDataStore extends DataStore {
 	public Agent getThisAgent() {
 		return (Agent) get("thisAgent");
 	}
+
+	public void setIsInMaterialStorage(boolean b) {
+		put("isInMaterialStorage", b);
+	}
+
+	public boolean getIsInMaterialStorage() {
+		return (boolean) get("isInMaterialStorage");
+	}
+
+	public void setIsGiven(boolean b) {
+		put("isGiven", b);
+	}
+
+	public boolean getIsGiven() {
+		return (boolean) get("isGiven");
+	}
 }

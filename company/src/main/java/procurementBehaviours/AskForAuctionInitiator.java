@@ -2,7 +2,6 @@ package procurementBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.ProcurementAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -16,12 +15,10 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
 	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
-	private ProcurementAgent thisProcurementAgent;
 
 	public AskForAuctionInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
-		thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
 	}
 
 	@Override
@@ -49,7 +46,7 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 		 * "received [inform] " + orderText + " is delivered to materialStorage");
 		 */
 
-		thisProcurementAgent.isInMaterialStorage = true;
+		dataStore.setIsInMaterialStorage(true);
 		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}
 
