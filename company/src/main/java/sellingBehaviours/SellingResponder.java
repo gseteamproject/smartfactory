@@ -1,5 +1,6 @@
 package sellingBehaviours;
 
+import interactors.ActivityBehaviour;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
@@ -10,15 +11,11 @@ public class SellingResponder extends ResponderBehaviour {
 	private static final long serialVersionUID = -5695904570705958678L;
 
 	public SellingResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-		super(a, mt);
+		super(a, mt, dataStore);
 		interactor = new SellingRequestResult(dataStore);
-		dataStore.setRequestResult(interactor);
 		askBehaviour = new SellingAskBehaviour(this, dataStore);
-		setup(dataStore);
 
 		registerHandleRequest(new SellingDecisionBehaviour(this, dataStore));
-		// registerPrepareResultNotification(new SellingAskBehaviour(this, interactor,
-		// dataStore));
-		registerPrepareResultNotification(new SellingActivityBehaviour(this, dataStore));
+		registerPrepareResultNotification(new ActivityBehaviour(this));
 	}
 }

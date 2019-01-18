@@ -36,7 +36,7 @@ public class DeadlineBehaviour extends WakerBehaviour {
 		dataStore.setDeadlineResult(true);
 		if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
 			logger.info("Deadline of {}", interactionBehaviour.getAgent().getLocalName());
-			interactionBehaviour.setResult(dataStore.getRequestResult().execute(interactionBehaviour.getRequest()));
+			interactionBehaviour.setResult(interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest()));
 			if (SalesMarketAgent.orderQueue.remove(order)) {
 				MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
 						order.getTextOfOrder() + " is removed from Order queue.");

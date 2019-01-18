@@ -4,12 +4,13 @@ import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
 public class SalesMarketAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = 974888961701937616L;
 
-	public SalesMarketAskBehaviour(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public SalesMarketAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -25,7 +26,7 @@ public class SalesMarketAskBehaviour extends AskBehaviour {
 				// if agent agrees it starts executing request
 				// myAgent.addBehaviour(new SalesMarketActivityBehaviour((SalesMarketResponder)
 				// interactionBehaviour, (SalesMarketRequestResult) interactor, dataStore));
-				myAgent.addBehaviour(new AskForOrderBehaviour((SalesMarketResponder) interactionBehaviour, dataStore));
+				myAgent.addBehaviour(new AskForOrderBehaviour(interactionBehaviour, dataStore));
 			}
 			this.setStarted(true);
 		}

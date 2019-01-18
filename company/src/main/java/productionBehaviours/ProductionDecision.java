@@ -4,11 +4,12 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class ProductionDecision extends Decision {
 
-	public ProductionDecision(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ProductionDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 

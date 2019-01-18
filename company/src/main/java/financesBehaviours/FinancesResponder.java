@@ -1,24 +1,22 @@
 package financesBehaviours;
 
+import interactors.ActivityBehaviour;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
-import jade.lang.acl.MessageTemplate;
+import jade.domain.FIPANames;
+import jade.proto.AchieveREResponder;
 
 public class FinancesResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = 3805964860244663233L;
 
-	public FinancesResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-		super(a, mt);
+	public FinancesResponder(Agent a, OrderDataStore dataStore) {
+		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
 		interactor = new FinancesRequestResult(dataStore);
-		dataStore.setRequestResult(interactor);
 		askBehaviour = new FinancesAskBehaviour(this, dataStore);
-		setup(dataStore);
 
 		registerHandleRequest(new FinancesDecisionBehaviour(this, dataStore));
-		// registerPrepareResultNotification(new FinancesAskBehaviour(this, interactor,
-		// dataStore));
-		registerPrepareResultNotification(new FinancesActivityBehaviour(this, dataStore));
+		registerPrepareResultNotification(new ActivityBehaviour(this));
 	}
 }

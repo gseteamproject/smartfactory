@@ -8,17 +8,21 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
+	private ResponderBehaviour interactionBehaviour;
+
 	public MessageObject msgObj;
 
 	private SellingAgent thisSellingAgent;
 
-	public AskToProduceInitiator(OrderDataStore dataStore) {
+	public AskToProduceInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
+		this.interactionBehaviour = interactionBehaviour;
 		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
 	}
 
@@ -49,7 +53,7 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 		// order = orderInQueue;
 		// }
 		// }
-		dataStore.getRequestResult().execute(dataStore.getRequestMessage());
+		interactionBehaviour.getRequestResult().execute(dataStore.getRequestMessage());
 		thisSellingAgent.productionQueue.remove(order);
 	}
 
@@ -62,7 +66,6 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is not produced.");
 		Communication.server.sendMessageToClient(msgObj);
-
 	}
 
 	@Override
@@ -75,7 +78,6 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
 		msgObj = new MessageObject("AgentSelling", "Production of " + orderText + " is initiated.");
 		Communication.server.sendMessageToClient(msgObj);
-
 	}
 
 	@Override

@@ -7,9 +7,25 @@ import jade.proto.AchieveREResponder;
 
 public class ResponderBehaviour extends AchieveREResponder {
 
-	public static RequestResult interactor;
+	private static final long serialVersionUID = -6424797507265885988L;
+
+	protected RequestResult interactor;
+
 	protected DeadlineBehaviour deadline;
+
 	protected AskBehaviour askBehaviour;
+
+	public RequestResult getRequestResult() {
+		return interactor;
+	}
+
+	public AskBehaviour getAskBehaviour() {
+		return askBehaviour;
+	}
+
+	public DeadlineBehaviour getDeadlineBehaviour() {
+		return deadline;
+	}
 
 	public ACLMessage getRequest() {
 		return (ACLMessage) getDataStore().get(REQUEST_KEY);
@@ -23,15 +39,8 @@ public class ResponderBehaviour extends AchieveREResponder {
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	public ResponderBehaviour(Agent a, MessageTemplate mt) {
+	public ResponderBehaviour(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
 		super(a, mt);
-	}
-
-	public void setup(OrderDataStore dataStore) {
 		deadline = new DeadlineBehaviour(this, dataStore);
-		dataStore.setDeadlineBehaviour(deadline);
-		dataStore.setAskBehaviour(askBehaviour);
 	}
-
-	private static final long serialVersionUID = -6424797507265885988L;
 }

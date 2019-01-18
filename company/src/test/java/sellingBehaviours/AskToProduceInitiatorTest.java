@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import basicAgents.SellingAgent;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
 public class AskToProduceInitiatorTest {
 
@@ -20,12 +21,15 @@ public class AskToProduceInitiatorTest {
 
 	AskToProduceInitiator testable;
 
+	ResponderBehaviour responderBehaviour_mock;
+
 	OrderDataStore dataStore_mock;
 
 	SellingAgent agent_mock;
 
 	@Before
 	public void setUp() {
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(SellingAgent.class);
 
@@ -36,7 +40,7 @@ public class AskToProduceInitiatorTest {
 			}
 		});
 
-		testable = new AskToProduceInitiator(dataStore_mock);
+		testable = new AskToProduceInitiator(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After

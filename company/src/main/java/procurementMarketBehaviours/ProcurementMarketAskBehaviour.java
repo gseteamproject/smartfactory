@@ -4,12 +4,13 @@ import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
 public class ProcurementMarketAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = -121063921816472827L;
 
-	public ProcurementMarketAskBehaviour(ProcurementMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ProcurementMarketAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -30,7 +31,7 @@ public class ProcurementMarketAskBehaviour extends AskBehaviour {
 				// myAgent.addBehaviour(new AuctionInitiator((ProcurementMarketResponder)
 				// interactionBehaviour));
 				myAgent.addBehaviour(
-						new ReportFinancesBehaviour((ProcurementMarketResponder) interactionBehaviour, dataStore));
+						new ReportFinancesBehaviour(interactionBehaviour, dataStore));
 				// }
 				// this.setStarted(true);
 			}

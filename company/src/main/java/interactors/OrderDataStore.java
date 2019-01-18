@@ -40,36 +40,12 @@ public class OrderDataStore extends DataStore {
 		return (String) get("agentName");
 	}
 
-	public void setDeadlineBehaviour(DeadlineBehaviour deadline) {
-		put("deadline-behaviour", deadline);
-	}
-
-	public DeadlineBehaviour getDeadlineBehaviour() {
-		return (DeadlineBehaviour) get("deadline-behaviour");
-	}
-
 	public void setDeadlineResult(boolean isDeadline) {
 		put("is-deadline", isDeadline);
 	}
 
 	public boolean getDeadlineResult() {
 		return (boolean) get("is-deadline");
-	}
-
-	public void setAskBehaviour(AskBehaviour askBehaviour) {
-		put("ask-behaviour", askBehaviour);
-	}
-
-	public AskBehaviour getAskBehaviour() {
-		return (AskBehaviour) get("ask-behaviour");
-	}
-
-	public void setRequestResult(RequestResult requestResult) {
-		put("request-result", requestResult);
-	}
-
-	public RequestResult getRequestResult() {
-		return (RequestResult) get("request-result");
 	}
 
 	public void setThisAgent(Agent thisAgent) {

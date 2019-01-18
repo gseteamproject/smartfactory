@@ -6,6 +6,7 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class FinancesAskBehaviour extends AskBehaviour {
@@ -13,7 +14,7 @@ public class FinancesAskBehaviour extends AskBehaviour {
 	private static final long serialVersionUID = 2249201124835167657L;
 	private MessageObject msgObj;
 
-	public FinancesAskBehaviour(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
+	public FinancesAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -35,7 +36,7 @@ public class FinancesAskBehaviour extends AskBehaviour {
 							.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
 									.getAgent().getLocalName();
 
-					myAgent.addBehaviour(new TransferMoneyToBank((FinancesResponder) interactionBehaviour, dataStore));
+					myAgent.addBehaviour(new TransferMoneyToBank(interactionBehaviour));
 					// myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder)
 					// interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
 					// }
@@ -50,8 +51,7 @@ public class FinancesAskBehaviour extends AskBehaviour {
 							.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
 									.getAgent().getLocalName();
 
-					myAgent.addBehaviour(
-							new TransferMoneyFromBank((FinancesResponder) interactionBehaviour, dataStore));
+					myAgent.addBehaviour(new TransferMoneyFromBank(interactionBehaviour));
 					// myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder)
 					// interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
 					// }

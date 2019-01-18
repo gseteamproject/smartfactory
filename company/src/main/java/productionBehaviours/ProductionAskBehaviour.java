@@ -4,12 +4,13 @@ import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
 public class ProductionAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = -4443443755165652310L;
 
-	public ProductionAskBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ProductionAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -25,8 +26,7 @@ public class ProductionAskBehaviour extends AskBehaviour {
 
 				// myAgent.addBehaviour(new ProductionActivityBehaviour((ProductionResponder)
 				// interactionBehaviour, (ProductionRequestResult) interactor, dataStore));
-				myAgent.addBehaviour(
-						new AskForMaterialsBehaviour((ProductionResponder) interactionBehaviour, dataStore));
+				myAgent.addBehaviour(new AskForMaterialsBehaviour(interactionBehaviour, dataStore));
 				// }
 				// this.setStarted(true);
 			}

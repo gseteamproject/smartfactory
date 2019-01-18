@@ -10,6 +10,7 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
@@ -17,10 +18,10 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	private ProcurementMarketResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 
-	public ReportFinancesInitiator(ProcurementMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ReportFinancesInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}
@@ -55,7 +56,7 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 		// Selling.procurementQueue.add(order);
 
 		interactionBehaviour.getAgent()
-				.addBehaviour(new AuctionInitiator((ProcurementMarketResponder) interactionBehaviour, dataStore));
+				.addBehaviour(new AuctionInitiator(interactionBehaviour));
 
 	}
 
@@ -85,12 +86,10 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleRefuse(ACLMessage refuse) {
-
 	}
 
 	@Override
 	public int next() {
-
 		return 0;
 	}
 }

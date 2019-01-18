@@ -10,7 +10,7 @@ import basicClasses.Order;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
-import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.OneShotBehaviour;
@@ -29,16 +29,14 @@ public class AuctionInitiator extends OneShotBehaviour {
 	private ACLMessage materialToBuy;
 	private Order order;
 	private String orderText;
-	private ProcurementMarketResponder interactionBehaviour;
-	private OrderDataStore dataStore;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 	public static int partsCount;
 
-	public AuctionInitiator(ProcurementMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AuctionInitiator(ResponderBehaviour interactionBehaviour) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.materialToBuy = interactionBehaviour.getRequest();
-		this.dataStore = dataStore;
 	}
 
 	public List<AID> findAgents(Agent a, String serviceName) {
@@ -108,7 +106,7 @@ public class AuctionInitiator extends OneShotBehaviour {
 				 * System.out.
 				 * println("agents providing service are found. trying to get infromation...");
 				 */
-				myAgent.addBehaviour(new RequestToBuy(agents, interactionBehaviour, dataStore, orderPart));
+				myAgent.addBehaviour(new RequestToBuy(agents, interactionBehaviour, orderPart));
 				// TODO: Check if material is really bought
 			} else {
 				msgObj = new MessageObject("AgentProcurementMarket", "No agents providing service are found.");

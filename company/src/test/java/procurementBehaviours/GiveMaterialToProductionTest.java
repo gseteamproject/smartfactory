@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import basicAgents.ProcurementAgent;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class GiveMaterialToProductionTest {
@@ -21,7 +22,7 @@ public class GiveMaterialToProductionTest {
 
 	GiveMaterialToProduction testable;
 
-	ProcurementResponder responderBehaviour_mock;
+	ResponderBehaviour responderBehaviour_mock;
 
 	OrderDataStore dataStore_mock;
 
@@ -31,7 +32,7 @@ public class GiveMaterialToProductionTest {
 
 	@Before
 	public void setUp() {
-		responderBehaviour_mock = context.mock(ProcurementResponder.class);
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(ProcurementAgent.class);
 		message_mock = context.mock(ACLMessage.class);

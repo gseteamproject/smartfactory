@@ -4,6 +4,7 @@ import java.util.Vector;
 
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
@@ -11,9 +12,9 @@ import jade.lang.acl.MessageTemplate;
 
 public class AskForOrderInitiator extends AchieveREInitiatorInteractor {
 
-	private SalesMarketResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 
-	public AskForOrderInitiator(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AskForOrderInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}

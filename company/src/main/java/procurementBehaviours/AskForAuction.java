@@ -4,6 +4,7 @@ import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class AskForAuction extends OneShotBehaviour {
@@ -12,10 +13,10 @@ public class AskForAuction extends OneShotBehaviour {
 	private String materialsToRequest;
 	private String orderText;
 	private OrderDataStore dataStore;
-	private ProcurementResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 
-	public AskForAuction(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AskForAuction(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;

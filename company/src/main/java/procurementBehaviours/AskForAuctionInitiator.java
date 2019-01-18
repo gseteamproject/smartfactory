@@ -8,16 +8,17 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
-	private ProcurementResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 	private ProcurementAgent thisProcurementAgent;
 
-	public AskForAuctionInitiator(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AskForAuctionInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 		thisProcurementAgent = (ProcurementAgent) dataStore.getThisAgent();
@@ -49,7 +50,7 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 		 */
 
 		thisProcurementAgent.isInMaterialStorage = true;
-		dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}
 
 	@Override
@@ -69,18 +70,14 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleAgree(ACLMessage agree) {
-
 	}
 
 	@Override
 	public void handleRefuse(ACLMessage refuse) {
-
 	}
 
 	@Override
 	public int next() {
-
 		return 0;
 	}
-
 }

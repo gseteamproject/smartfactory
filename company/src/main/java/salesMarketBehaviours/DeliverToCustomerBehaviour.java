@@ -5,6 +5,7 @@ import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 class DeliverToCustomerBehaviour extends OneShotBehaviour {
@@ -13,10 +14,10 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
 	private String orderToGive;
 	private String orderText;
 	private OrderDataStore dataStore;
-	private SalesMarketResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 
-	public DeliverToCustomerBehaviour(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public DeliverToCustomerBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.dataStore = dataStore;
 		this.interactionBehaviour = interactionBehaviour;
@@ -36,6 +37,6 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
 		msgObj = new MessageObject("AgentSalesMarket", orderText + " is removed from Order queue.");
 		Communication.server.sendMessageToClient(msgObj);
 
-		dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}
 }

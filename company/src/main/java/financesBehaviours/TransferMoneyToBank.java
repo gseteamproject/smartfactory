@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import basicClasses.Order;
-import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class TransferMoneyToBank extends OneShotBehaviour {
@@ -12,14 +12,12 @@ public class TransferMoneyToBank extends OneShotBehaviour {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final long serialVersionUID = 6133055540457867642L;
-	private FinancesResponder interactionBehaviour;
-	private OrderDataStore dataStore;
+	private ResponderBehaviour interactionBehaviour;
 	private String orderToSell;
 	private String orderText;
 
-	public TransferMoneyToBank(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
+	public TransferMoneyToBank(ResponderBehaviour interactionBehaviour) {
 		this.interactionBehaviour = interactionBehaviour;
-		this.dataStore = dataStore;
 		orderToSell = interactionBehaviour.getRequest().getContent();
 	}
 
@@ -29,6 +27,6 @@ public class TransferMoneyToBank extends OneShotBehaviour {
 		orderText = order.getTextOfOrder();
 
 		logger.info("Sell {}", orderText);
-		dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}
 }

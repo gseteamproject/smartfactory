@@ -14,14 +14,17 @@ public class DecisionTest {
 		}
 	};
 
+	Decision testable;
+
 	ResponderBehaviour responderBehaviour_mock;
 
 	OrderDataStore orderDataStore_mock;
 
-	Decision testable;
-
 	@Before
 	public void setUp() {
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
+		orderDataStore_mock = context.mock(OrderDataStore.class);
+
 		testable = new Decision(responderBehaviour_mock, orderDataStore_mock);
 	}
 

@@ -4,13 +4,14 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementDecision extends Decision {
 
 	private MessageObject msgObj;
 
-	public ProcurementDecision(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ProcurementDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 

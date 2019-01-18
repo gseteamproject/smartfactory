@@ -6,7 +6,7 @@ import basicAgents.ProcurementAgent;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
-import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.core.behaviours.SimpleBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -22,8 +22,7 @@ public class RequestToBuy extends SimpleBehaviour {
 
 	private static final long serialVersionUID = -1322936877118129497L;
 
-	private ProcurementMarketResponder interactionBehaviour;
-	private OrderDataStore dataStore;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 	public static int buyCount;
 
@@ -31,13 +30,12 @@ public class RequestToBuy extends SimpleBehaviour {
 	RequestState requestState;
 	OrderPart currentOrder;
 
-	public RequestToBuy(List<AID> procurementAgents, ProcurementMarketResponder interactionBehaviour,
-			OrderDataStore dataStore, OrderPart currentOrder) {
+	public RequestToBuy(List<AID> procurementAgents, ResponderBehaviour interactionBehaviour,
+			OrderPart currentOrder) {
 		this.procurementAgents = procurementAgents;
 		this.requestState = RequestState.PREPARE_CALL_FOR_PROPOSAL;
 		this.currentOrder = currentOrder;
 		this.interactionBehaviour = interactionBehaviour;
-		this.dataStore = dataStore;
 	}
 
 	MessageTemplate replyTemplate = null;
@@ -153,7 +151,7 @@ public class RequestToBuy extends SimpleBehaviour {
 	public boolean done() {
 		/* behaviour is finished when it reaches DONE state */
 		if (buyCount == AuctionInitiator.partsCount) {
-			dataStore.getRequestResult().execute(interactionBehaviour.getRequest());
+			interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 		}
 
 		return requestState == RequestState.DONE;

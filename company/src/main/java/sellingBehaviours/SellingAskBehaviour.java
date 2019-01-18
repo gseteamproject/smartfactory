@@ -6,6 +6,7 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class SellingAskBehaviour extends AskBehaviour {
@@ -13,7 +14,7 @@ public class SellingAskBehaviour extends AskBehaviour {
 	private static final long serialVersionUID = -4443443755165652310L;
 	private MessageObject msgObj;
 
-	public SellingAskBehaviour(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
+	public SellingAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -47,7 +48,7 @@ public class SellingAskBehaviour extends AskBehaviour {
 					 * "[agree] I will check warehouse for " + orderText);
 					 */
 					myAgent.addBehaviour(
-							new CheckWarehouseBehaviour((SellingResponder) interactionBehaviour, dataStore));
+							new CheckWarehouseBehaviour(interactionBehaviour, dataStore));
 					// }
 					// this.setStarted(true);
 				} else if (request.getConversationId() == "Take") {
@@ -72,7 +73,7 @@ public class SellingAskBehaviour extends AskBehaviour {
 					 * "[agree] I will give you " + orderText + " from warehouse");
 					 */
 					myAgent.addBehaviour(
-							new GiveProductToMarketBehaviour((SellingResponder) interactionBehaviour, dataStore));
+							new GiveProductToMarketBehaviour(interactionBehaviour, dataStore));
 					// }
 					// this.setStarted(false);
 				}

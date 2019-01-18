@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import basicAgents.ProductionAgent;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
 public class DeliverToSellingBehaviourTest {
 
@@ -20,7 +21,7 @@ public class DeliverToSellingBehaviourTest {
 
 	DeliverToSellingBehaviour testable;
 
-	ProductionResponder responderBehaviour_mock;
+	ResponderBehaviour responderBehaviour_mock;
 
 	OrderDataStore dataStore_mock;
 
@@ -28,7 +29,7 @@ public class DeliverToSellingBehaviourTest {
 
 	@Before
 	public void setUp() {
-		responderBehaviour_mock = context.mock(ProductionResponder.class);
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(ProductionAgent.class);
 

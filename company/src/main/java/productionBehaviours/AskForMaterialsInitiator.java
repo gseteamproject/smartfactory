@@ -7,6 +7,7 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
@@ -14,10 +15,10 @@ import jade.lang.acl.MessageTemplate;
 
 public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
-	private ProductionResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 
-	public AskForMaterialsInitiator(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AskForMaterialsInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}

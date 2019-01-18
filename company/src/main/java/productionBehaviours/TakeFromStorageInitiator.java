@@ -7,15 +7,16 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class TakeFromStorageInitiator extends AchieveREInitiatorInteractor {
 
-	private ProductionResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 
-	public TakeFromStorageInitiator(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+	public TakeFromStorageInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}

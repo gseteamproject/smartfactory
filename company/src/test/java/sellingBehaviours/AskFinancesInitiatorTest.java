@@ -9,6 +9,7 @@ import org.junit.Test;
 
 import basicAgents.SellingAgent;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
 public class AskFinancesInitiatorTest {
 
@@ -20,7 +21,7 @@ public class AskFinancesInitiatorTest {
 
 	AskFinancesInitiator testable;
 
-	SellingResponder responderBehaviour_mock;
+	ResponderBehaviour responderBehaviour_mock;
 
 	OrderDataStore dataStore_mock;
 
@@ -28,7 +29,7 @@ public class AskFinancesInitiatorTest {
 
 	@Before
 	public void setUp() {
-		responderBehaviour_mock = context.mock(SellingResponder.class);
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(SellingAgent.class);
 

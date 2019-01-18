@@ -26,14 +26,13 @@ public class AskBehaviour extends SimpleBehaviour {
 	public AskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
-		this.interactor = dataStore.getRequestResult();
+		this.interactor = interactionBehaviour.getRequestResult();
 		this.dataStore = dataStore;
 		this.setStarted(true);
 	}
 
 	@Override
 	public void action() {
-
 	}
 
 	@Override
@@ -44,5 +43,4 @@ public class AskBehaviour extends SimpleBehaviour {
 		}
 		return interactor.done();
 	}
-
 }

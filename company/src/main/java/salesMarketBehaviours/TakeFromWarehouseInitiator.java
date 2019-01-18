@@ -4,15 +4,16 @@ import java.util.Vector;
 
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 
 public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
-	private SalesMarketResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 
-	public TakeFromWarehouseInitiator(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public TakeFromWarehouseInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}

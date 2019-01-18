@@ -4,6 +4,7 @@ import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class AskForMaterialsBehaviour extends OneShotBehaviour {
@@ -12,10 +13,10 @@ public class AskForMaterialsBehaviour extends OneShotBehaviour {
 	private String materialsToRequest;
 	private String orderText;
 	private OrderDataStore dataStore;
-	private ProductionResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 
-	public AskForMaterialsBehaviour(ProductionResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AskForMaterialsBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;

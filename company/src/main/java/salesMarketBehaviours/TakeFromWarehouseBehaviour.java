@@ -4,6 +4,7 @@ import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class TakeFromWarehouseBehaviour extends OneShotBehaviour {
@@ -12,10 +13,10 @@ public class TakeFromWarehouseBehaviour extends OneShotBehaviour {
 	private String orderToTake;
 	private String orderText;
 	private OrderDataStore dataStore;
-	private SalesMarketResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 
-	public TakeFromWarehouseBehaviour(SalesMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public TakeFromWarehouseBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.dataStore = dataStore;
 		this.interactionBehaviour = interactionBehaviour;

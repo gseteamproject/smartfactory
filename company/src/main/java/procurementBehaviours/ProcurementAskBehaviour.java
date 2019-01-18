@@ -4,13 +4,14 @@ import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = -4443443755165652310L;
 
-	public ProcurementAskBehaviour(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ProcurementAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -31,7 +32,7 @@ public class ProcurementAskBehaviour extends AskBehaviour {
 					// myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
 					// interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
 					myAgent.addBehaviour(
-							new CheckMaterialStorage((ProcurementResponder) interactionBehaviour, dataStore));
+							new CheckMaterialStorage(interactionBehaviour, dataStore));
 					// }
 					// this.setStarted(true);
 				} else if (request.getConversationId() == "Take") {
@@ -45,7 +46,7 @@ public class ProcurementAskBehaviour extends AskBehaviour {
 					// myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
 					// interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
 					myAgent.addBehaviour(
-							new GiveMaterialToProduction((ProcurementResponder) interactionBehaviour, dataStore));
+							new GiveMaterialToProduction(interactionBehaviour, dataStore));
 					// }
 					// this.setStarted(false);
 				}

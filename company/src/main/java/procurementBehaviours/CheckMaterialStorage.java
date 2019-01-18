@@ -11,6 +11,7 @@ import basicClasses.Product;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -19,12 +20,12 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 	private static final long serialVersionUID = -4869963544017982955L;
 	private String requestedMaterial;
 	private OrderDataStore dataStore;
-	private ProcurementResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 	private ACLMessage request;
 	private ProcurementAgent thisProcurementAgent;
 
-	public CheckMaterialStorage(ProcurementResponder interactionBehaviour, OrderDataStore dataStore) {
+	public CheckMaterialStorage(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		request = interactionBehaviour.getRequest();
 		requestedMaterial = request.getContent();

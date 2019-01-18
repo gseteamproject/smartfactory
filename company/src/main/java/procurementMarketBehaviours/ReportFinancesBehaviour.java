@@ -4,6 +4,7 @@ import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class ReportFinancesBehaviour extends OneShotBehaviour {
@@ -11,10 +12,10 @@ public class ReportFinancesBehaviour extends OneShotBehaviour {
 	private static final long serialVersionUID = -6365251601845699295L;
 	private String orderText;
 	private OrderDataStore dataStore;
-	private ProcurementMarketResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 
-	public ReportFinancesBehaviour(ProcurementMarketResponder interactionBehaviour, OrderDataStore dataStore) {
+	public ReportFinancesBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;

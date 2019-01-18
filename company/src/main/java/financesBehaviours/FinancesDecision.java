@@ -4,11 +4,12 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.Decision;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class FinancesDecision extends Decision {
 
-	public FinancesDecision(FinancesResponder interactionBehaviour, OrderDataStore dataStore) {
+	public FinancesDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -28,10 +29,8 @@ public class FinancesDecision extends Decision {
 		} else if (request.getConversationId() == "Materials") {
 			msgObj = new MessageObject("AgentFinances", "has accepted buying of " + orderText);
 			Communication.server.sendMessageToClient(msgObj);
-
 		}
 
 		return response;
 	}
-
 }

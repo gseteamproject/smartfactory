@@ -63,9 +63,9 @@ public class Decision {
 		 */
 		dataStore.setDeadlineResult(false);
 
-		dataStore.getDeadlineBehaviour().reset(dataStore.getDeadline() * Server.delaytime / 150);
+		interactionBehaviour.getDeadlineBehaviour().reset(dataStore.getDeadline() * Server.delaytime / 150);
 
-		dataStore.getRequestResult().reset();
-		dataStore.getAskBehaviour().setStarted(false);
+		interactionBehaviour.getRequestResult().reset();
+		interactionBehaviour.getAskBehaviour().setStarted(false);
 	}
 }

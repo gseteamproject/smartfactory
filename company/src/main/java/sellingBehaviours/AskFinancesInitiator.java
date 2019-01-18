@@ -8,16 +8,17 @@ import communication.Communication;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 
 public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
-	private SellingResponder interactionBehaviour;
+	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 	private SellingAgent thisSellingAgent;
 
-	public AskFinancesInitiator(SellingResponder interactionBehaviour, OrderDataStore dataStore) {
+	public AskFinancesInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
@@ -80,13 +81,10 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleRefuse(ACLMessage refuse) {
-
 	}
 
 	@Override
 	public int next() {
-
 		return 0;
 	}
-
 }
