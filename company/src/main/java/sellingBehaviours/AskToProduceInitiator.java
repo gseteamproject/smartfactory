@@ -2,7 +2,6 @@ package sellingBehaviours;
 
 import java.util.Vector;
 
-import basicAgents.SellingAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -18,12 +17,9 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
 	public MessageObject msgObj;
 
-	private SellingAgent thisSellingAgent;
-
 	public AskToProduceInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
-		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
 	}
 
 	@Override
@@ -47,14 +43,14 @@ public class AskToProduceInitiator extends AchieveREInitiatorInteractor {
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is delivered to warehouse");
 		Communication.server.sendMessageToClient(msgObj);
-		thisSellingAgent.isInWarehouse = true;
+		dataStore.setIsInWarehouse(true);
 		// for (Order orderInQueue : SalesMarket.orderQueue) {
 		// if (orderInQueue.id == order.id) {
 		// order = orderInQueue;
 		// }
 		// }
 		interactionBehaviour.getRequestResult().execute(dataStore.getRequestMessage());
-		thisSellingAgent.productionQueue.remove(order);
+		dataStore.getProductionQueue().remove(order);
 	}
 
 	@Override

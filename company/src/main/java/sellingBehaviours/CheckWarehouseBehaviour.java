@@ -1,6 +1,6 @@
 package sellingBehaviours;
 
-import basicAgents.SellingAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
@@ -18,7 +18,6 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 	private OrderDataStore dataStore;
 	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
-	private SellingAgent thisSellingAgent;
 
 	public CheckWarehouseBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
@@ -26,7 +25,6 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
-		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
 	}
 
 	@Override
@@ -34,11 +32,11 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 		// save this request message to reply on it later
 		Order order = Order.gson.fromJson(requestMessage.getContent(), Order.class);
 
-		thisSellingAgent.isInWarehouse = true;
+		dataStore.setIsInWarehouse(true);
 		boolean isInQueue = false;
 
 		// check if this order is not in queue yet
-		isInQueue = thisSellingAgent.productionQueue.contains(order);
+		isInQueue = dataStore.getProductionQueue().contains(order);
 
 		// part of order, that needs to be produced
 		Order orderToProduce = new Order();
@@ -60,11 +58,11 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 			 * "Asking warehouse about " + orderPart.getTextOfOrderPart());
 			 */
 
-			int amountInWH = SellingAgent.warehouse.getAmountOfProduct(productToCheck);
+			int amountInWH = CrossAgentData.warehouse.getAmountOfProduct(productToCheck);
 
 			if (amountInWH >= amount) {
-				if (thisSellingAgent.isInWarehouse) {
-					thisSellingAgent.isInWarehouse = true;
+				if (dataStore.getIsInWarehouse()) {
+					dataStore.setIsInWarehouse(true);
 				}
 
 				/*
@@ -77,7 +75,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 				 * orderPart.getTextOfOrderPart() + " is in warehouse");
 				 */
 			} else {
-				thisSellingAgent.isInWarehouse = false;
+				dataStore.setIsInWarehouse(false);
 
 				// creating new instance of OrderPart to change its amount
 				OrderPart newOrderPart = new OrderPart(orderPart.getProduct());

@@ -1,5 +1,8 @@
 package interactors;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
@@ -7,7 +10,7 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import jade.core.Agent;
+import basicClasses.Order;
 
 public class OrderDataStoreTest {
 
@@ -27,24 +30,6 @@ public class OrderDataStoreTest {
 	@After
 	public void tearDown() {
 		context.assertIsSatisfied();
-	}
-
-	@Test
-	public void getThisAgent() {
-		final Agent mock = context.mock(Agent.class, "agent_mock");
-
-		testable.put("thisAgent", mock);
-
-		Assert.assertEquals(mock, testable.getThisAgent());
-	}
-
-	@Test
-	public void setThisAgent() {
-		final Agent mock = context.mock(Agent.class, "agent_mock");
-
-		testable.setThisAgent(mock);
-
-		Assert.assertEquals(mock, testable.get("thisAgent"));
 	}
 
 	@Test
@@ -99,5 +84,59 @@ public class OrderDataStoreTest {
 		testable.put("isProduced", value);
 
 		Assert.assertEquals(value, testable.getIsProduced());
+	}
+
+	@Test
+	public void setIsTaken() {
+		final boolean value = true;
+
+		testable.setIsTaken(value);
+
+		Assert.assertEquals(value, testable.get("isTaken"));
+	}
+
+	@Test
+	public void getIsTaken() {
+		final boolean value = true;
+
+		testable.put("isTaken", value);
+
+		Assert.assertEquals(value, testable.getIsTaken());
+	}
+
+	@Test
+	public void setIsInWarehouse() {
+		final boolean value = true;
+
+		testable.setIsInWarehouse(value);
+
+		Assert.assertEquals(value, testable.get("isInWarehouse"));
+	}
+
+	@Test
+	public void getIsInWarehouse() {
+		final boolean value = true;
+
+		testable.put("isInWarehouse", value);
+
+		Assert.assertEquals(value, testable.getIsInWarehouse());
+	}
+
+	@Test
+	public void setProductionQueue() {
+		final List<Order> queue = new ArrayList<Order>();
+
+		testable.setProductionQueue(queue);
+
+		Assert.assertEquals(queue, testable.get("productionQueue"));
+	}
+
+	@Test
+	public void getProductionQueue() {
+		final List<Order> queue = new ArrayList<Order>();
+
+		testable.put("productionQueue", queue);
+
+		Assert.assertEquals(queue, testable.getProductionQueue());
 	}
 }

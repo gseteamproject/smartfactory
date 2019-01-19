@@ -1,6 +1,8 @@
 package interactors;
 
-import jade.core.Agent;
+import java.util.List;
+
+import basicClasses.Order;
 import jade.core.behaviours.DataStore;
 import jade.lang.acl.ACLMessage;
 
@@ -48,14 +50,6 @@ public class OrderDataStore extends DataStore {
 		return (boolean) get("is-deadline");
 	}
 
-	public void setThisAgent(Agent thisAgent) {
-		put("thisAgent", thisAgent);
-	}
-
-	public Agent getThisAgent() {
-		return (Agent) get("thisAgent");
-	}
-
 	public void setIsInMaterialStorage(boolean b) {
 		put("isInMaterialStorage", b);
 	}
@@ -78,5 +72,31 @@ public class OrderDataStore extends DataStore {
 
 	public boolean getIsProduced() {
 		return (boolean) get("isProduced");
+	}
+
+	public void setIsTaken(boolean b) {
+		put("isTaken", b);
+	}
+
+	public boolean getIsTaken() {
+		return (boolean) get("isTaken");
+	}
+
+	public void setIsInWarehouse(boolean b) {
+		put("isInWarehouse", b);
+	}
+
+	public boolean getIsInWarehouse() {
+		return (boolean) get("isInWarehouse");
+	}
+
+	// queue for orders that in production
+	public void setProductionQueue(List<Order> productionQueue) {
+		put("productionQueue", productionQueue);
+	}
+
+	@SuppressWarnings("unchecked")
+	public List<Order> getProductionQueue() {
+		return (List<Order>) get("productionQueue");
 	}
 }

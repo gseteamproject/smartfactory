@@ -1,17 +1,13 @@
 package sellingBehaviours;
 
-import basicAgents.SellingAgent;
 import interactors.OrderDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
 
 public class SellingRequestResult extends RequestResult {
 
-	private SellingAgent thisSellingAgent;
-
 	public SellingRequestResult(OrderDataStore dataStore) {
 		super(dataStore);
-		this.thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
 	}
 
 	@Override
@@ -21,7 +17,7 @@ public class SellingRequestResult extends RequestResult {
 		// TODO: Need to check if in warehouse here?
 		if (!dataStore.getDeadlineResult()) {
 			if (request.getConversationId() == "Ask") {
-				if (thisSellingAgent.isInWarehouse) {
+				if (dataStore.getIsInWarehouse()) {
 					response.setPerformative(ACLMessage.INFORM);
 					this.isDone = true;
 				} else {
@@ -29,7 +25,7 @@ public class SellingRequestResult extends RequestResult {
 					this.isDone = false;
 				}
 			} else if (request.getConversationId() == "Take") {
-				if (thisSellingAgent.isTaken) {
+				if (dataStore.getIsTaken()) {
 					response.setPerformative(ACLMessage.INFORM);
 					this.isDone = true;
 				} else {

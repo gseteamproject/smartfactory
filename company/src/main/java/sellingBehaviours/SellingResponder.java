@@ -4,14 +4,15 @@ import interactors.ActivityBehaviour;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
-import jade.lang.acl.MessageTemplate;
+import jade.domain.FIPANames;
+import jade.proto.AchieveREResponder;
 
 public class SellingResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = -5695904570705958678L;
 
-	public SellingResponder(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
-		super(a, mt, dataStore);
+	public SellingResponder(Agent a, OrderDataStore dataStore) {
+		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
 		interactor = new SellingRequestResult(dataStore);
 		askBehaviour = new SellingAskBehaviour(this, dataStore);
 

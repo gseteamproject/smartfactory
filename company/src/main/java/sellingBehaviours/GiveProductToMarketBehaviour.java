@@ -1,6 +1,6 @@
 package sellingBehaviours;
 
-import basicAgents.SellingAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
@@ -16,20 +16,19 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
 	private ResponderBehaviour interactionBehaviour;
 	private String orderToGive;
 	private MessageObject msgObj;
-	private SellingAgent thisSellingAgent;
+	private OrderDataStore dataStore;
 
 	public GiveProductToMarketBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		orderToGive = dataStore.getRequestMessage().getContent();
-		thisSellingAgent = (SellingAgent) dataStore.getThisAgent();
 	}
 
 	@Override
 	public void action() {
 		Order order = Order.gson.fromJson(orderToGive, Order.class);
 
-		thisSellingAgent.isTaken = false;
+		dataStore.setIsTaken(false);
 		int takeCount = 0;
 		// TODO
 		for (OrderPart orderPart : order.orderList) {
@@ -45,12 +44,12 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
 				 * Communication.server.sendMessageToClient("SellingAgent", "Taking " +
 				 * orderPart.getTextOfOrderPart() + " from warehouse");
 				 */
-				SellingAgent.warehouse.remove(productToGive);
+				CrossAgentData.warehouse.remove(productToGive);
 			}
 			takeCount += 1;
 		}
 		if (takeCount == order.orderList.size()) {
-			thisSellingAgent.isTaken = true;
+			dataStore.setIsTaken(true);
 			interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 			// if (Selling.productionQueue.remove(order)) {
 			// MessageObject msgObj = new

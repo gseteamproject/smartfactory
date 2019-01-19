@@ -3,7 +3,6 @@ package customerBehaviours;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import basicAgents.SellingAgent;
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import basicClasses.Paint;
@@ -63,12 +62,12 @@ public class OneOrderBehaviour extends WakerBehaviour {
 		Paint paint = new Paint("red");
 		Stone stone = new Stone(10);
 		Product prdct = new Product(stone, paint);
-		SellingAgent.warehouse.add(prdct);
+		CrossAgentData.warehouse.add(prdct);
 
 		paint = new Paint("blue");
 		stone = new Stone(10);
 		prdct = new Product(stone, paint);
-		SellingAgent.warehouse.add(prdct);
+		CrossAgentData.warehouse.add(prdct);
 		// Procurement.materialStorage.add(paint);
 		// Procurement.materialStorage.add(stone);
 

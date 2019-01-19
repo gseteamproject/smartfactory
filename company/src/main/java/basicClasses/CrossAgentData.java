@@ -15,4 +15,7 @@ public class CrossAgentData {
 
 	// creating list of orders
 	public static List<Order> orderQueue = new ArrayList<Order>();
+
+	// creating storage for products
+	public static ProductStorage warehouse = new ProductStorage();
 }
