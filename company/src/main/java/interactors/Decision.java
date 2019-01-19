@@ -3,7 +3,6 @@ package interactors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import basicAgents.SalesMarketAgent;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -41,8 +40,8 @@ public class Decision {
 
 		if (dataStore.getAgentName().equals("AgentSalesMarket")) {
 			dataStore.setDeadline(order.deadline);
-			SalesMarketAgent.currentDeadline = System.currentTimeMillis() + order.deadline;
-			order.deadline = (SalesMarketAgent.currentDeadline);
+			long currentDeadline = System.currentTimeMillis() + order.deadline;
+			order.deadline = currentDeadline;
 		} else {
 			dataStore.setDeadline(order.deadline - System.currentTimeMillis());
 		}

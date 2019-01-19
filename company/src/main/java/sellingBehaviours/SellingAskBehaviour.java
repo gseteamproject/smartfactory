@@ -1,6 +1,6 @@
 package sellingBehaviours;
 
-import basicAgents.SalesMarketAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -26,7 +26,7 @@ public class SellingAskBehaviour extends AskBehaviour {
 			Order order = Order.gson.fromJson(request.getContent(), Order.class);
 			String orderText = order.getTextOfOrder();
 
-			if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
+			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 				if (request.getConversationId() == "Ask") {
 					// if (!this.isStarted()) {
 					this.interactor.isDone = false;
@@ -38,8 +38,8 @@ public class SellingAskBehaviour extends AskBehaviour {
 					// myAgent.addBehaviour(new SellingDeadlineBehaviour((SellingResponder)
 					// interactionBehaviour, (SellingRequestResult) interactor, dataStore));
 
-					SalesMarketAgent.orderQueue
-							.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
+					CrossAgentData.orderQueue
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
 									.getAgent().getLocalName();
 
 					/*
@@ -63,8 +63,8 @@ public class SellingAskBehaviour extends AskBehaviour {
 					// myAgent.addBehaviour(new SellingDeadlineBehaviour((SellingResponder)
 					// interactionBehaviour, (SellingRequestResult) interactor, dataStore));
 
-					SalesMarketAgent.orderQueue
-							.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
+					CrossAgentData.orderQueue
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
 									.getAgent().getLocalName();
 
 					/*

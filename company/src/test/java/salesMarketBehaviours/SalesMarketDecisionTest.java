@@ -6,10 +6,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import basicAgents.SalesMarketAgent;
 import interactors.OrderDataStore;
+import interactors.ResponderBehaviour;
 
-public class SalesMarketResponderTest {
+public class SalesMarketDecisionTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -17,18 +17,18 @@ public class SalesMarketResponderTest {
 		}
 	};
 
-	SalesMarketResponder testable;
+	SalesMarketDecision testable;
+
+	ResponderBehaviour responderBehaviour_mock;
 
 	OrderDataStore dataStore_mock;
 
-	SalesMarketAgent agent_mock;
-
 	@Before
 	public void setUp() {
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
-		agent_mock = context.mock(SalesMarketAgent.class);
 
-		testable = new SalesMarketResponder(agent_mock, dataStore_mock);
+		testable = new SalesMarketDecision(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After
@@ -37,6 +37,6 @@ public class SalesMarketResponderTest {
 	}
 
 	@Test
-	public void constructor() {
+	public void prepareRequests() {
 	}
 }

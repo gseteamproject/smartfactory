@@ -3,7 +3,6 @@ package customerBehaviours;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import basicAgents.SalesMarketAgent;
 import basicAgents.SellingAgent;
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
@@ -40,7 +39,7 @@ public class OneOrderBehaviour extends WakerBehaviour {
 		// it is an example of order
 		Order order = new Order();
 
-		order.id = SalesMarketAgent.orderQueue.size() + 1;
+		order.id = CrossAgentData.orderQueue.size() + 1;
 
 		order.addGood(new Product(10, "red"), 1);
 		order.addGood(new Product(10, "blue"), 2);

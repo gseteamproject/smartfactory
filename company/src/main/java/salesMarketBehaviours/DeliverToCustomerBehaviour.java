@@ -1,6 +1,6 @@
 package salesMarketBehaviours;
 
-import basicAgents.SalesMarketAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -32,7 +32,7 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
 		msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to customer");
 		Communication.server.sendMessageToClient(msgObj);
 
-		SalesMarketAgent.orderQueue.remove(order);
+		CrossAgentData.orderQueue.remove(order);
 
 		msgObj = new MessageObject("AgentSalesMarket", orderText + " is removed from Order queue.");
 		Communication.server.sendMessageToClient(msgObj);

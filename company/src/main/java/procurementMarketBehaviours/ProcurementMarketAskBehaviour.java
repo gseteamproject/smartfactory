@@ -1,6 +1,6 @@
 package procurementMarketBehaviours;
 
-import basicAgents.SalesMarketAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import interactors.AskBehaviour;
 import interactors.OrderDataStore;
@@ -18,10 +18,10 @@ public class ProcurementMarketAskBehaviour extends AskBehaviour {
 	public void action() {
 		if (!this.isStarted()) {
 			Order order = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
-			if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
+			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 				// if (!this.isStarted()) {
-				SalesMarketAgent.orderQueue
-						.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour.getAgent()
+				CrossAgentData.orderQueue
+						.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
 								.getLocalName();
 
 				// myAgent.addBehaviour(new

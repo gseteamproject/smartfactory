@@ -1,4 +1,4 @@
-package financesBehaviours;
+package procurementMarketBehaviours;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -12,7 +12,7 @@ import interactors.RequestResult;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
 
-public class FinancesAskBehaviourTest {
+public class ProcurementMarketAskBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -20,7 +20,7 @@ public class FinancesAskBehaviourTest {
 		}
 	};
 
-	FinancesAskBehaviour testable;
+	ProcurementMarketAskBehaviour testable;
 
 	ResponderBehaviour responderBehaviour_mock;
 
@@ -35,7 +35,6 @@ public class FinancesAskBehaviourTest {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(Agent.class);
-		requestResult_mock = context.mock(RequestResult.class);
 
 		context.checking(new Expectations() {
 			{
@@ -47,7 +46,7 @@ public class FinancesAskBehaviourTest {
 			}
 		});
 
-		testable = new FinancesAskBehaviour(responderBehaviour_mock, dataStore_mock);
+		testable = new ProcurementMarketAskBehaviour(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After

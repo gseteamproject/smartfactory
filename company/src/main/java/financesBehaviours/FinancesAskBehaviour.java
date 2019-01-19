@@ -1,6 +1,6 @@
 package financesBehaviours;
 
-import basicAgents.SalesMarketAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import communication.Communication;
 import communication.MessageObject;
@@ -25,15 +25,15 @@ public class FinancesAskBehaviour extends AskBehaviour {
 			Order order = Order.gson.fromJson(request.getContent(), Order.class);
 			String orderText = order.getTextOfOrder();
 
-			if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
+			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 				if (request.getConversationId() == "Order") {
 					// if (!this.isStarted()) {
 					this.interactor.isDone = false;
 					msgObj = new MessageObject(request, " has accepted selling of " + orderText);
 					Communication.server.sendMessageToClient(msgObj);
 
-					SalesMarketAgent.orderQueue
-							.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
+					CrossAgentData.orderQueue
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
 									.getAgent().getLocalName();
 
 					myAgent.addBehaviour(new TransferMoneyToBank(interactionBehaviour));
@@ -47,8 +47,8 @@ public class FinancesAskBehaviour extends AskBehaviour {
 					msgObj = new MessageObject(request, "has accepted buying of " + orderText);
 					Communication.server.sendMessageToClient(msgObj);
 
-					SalesMarketAgent.orderQueue
-							.get(order.searchInList(SalesMarketAgent.orderQueue)).agent = interactionBehaviour
+					CrossAgentData.orderQueue
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
 									.getAgent().getLocalName();
 
 					myAgent.addBehaviour(new TransferMoneyFromBank(interactionBehaviour));

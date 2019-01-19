@@ -1,6 +1,6 @@
 package salesMarketBehaviours;
 
-import basicAgents.SalesMarketAgent;
+import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import communication.MessageObject;
 import interactors.OrderDataStore;
@@ -24,7 +24,7 @@ public class AskForOrderBehaviour extends OneShotBehaviour {
 	public void action() {
 		// dataStore.setRequestMessage(interactionBehaviour.getRequest());
 		Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
-		if (order.searchInList(SalesMarketAgent.orderQueue) > -1) {
+		if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 			myAgent.addBehaviour(new AskForOrderInitiatorBehaviour(interactionBehaviour, dataStore));
 		}
 	}

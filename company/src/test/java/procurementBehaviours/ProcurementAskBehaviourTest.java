@@ -1,5 +1,6 @@
 package procurementBehaviours;
 
+import org.jmock.Expectations;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
@@ -7,9 +8,11 @@ import org.junit.Before;
 import org.junit.Test;
 
 import interactors.OrderDataStore;
+import interactors.RequestResult;
 import interactors.ResponderBehaviour;
+import jade.core.Agent;
 
-public class AskForAuctionInitiatorTest {
+public class ProcurementAskBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -17,18 +20,33 @@ public class AskForAuctionInitiatorTest {
 		}
 	};
 
-	AskForAuctionInitiator testable;
+	ProcurementAskBehaviour testable;
 
 	ResponderBehaviour responderBehaviour_mock;
 
 	OrderDataStore dataStore_mock;
 
+	Agent agent_mock;
+
+	RequestResult requestResult_mock;
+
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
+		agent_mock = context.mock(Agent.class);
 
-		testable = new AskForAuctionInitiator(responderBehaviour_mock, dataStore_mock);
+		context.checking(new Expectations() {
+			{
+				oneOf(responderBehaviour_mock).getAgent();
+				will(returnValue(agent_mock));
+
+				oneOf(responderBehaviour_mock).getRequestResult();
+				will(returnValue(requestResult_mock));
+			}
+		});
+
+		testable = new ProcurementAskBehaviour(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After
@@ -37,6 +55,6 @@ public class AskForAuctionInitiatorTest {
 	}
 
 	@Test
-	public void prepareRequests() {
+	public void action() {
 	}
 }
