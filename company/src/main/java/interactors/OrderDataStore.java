@@ -99,4 +99,12 @@ public class OrderDataStore extends DataStore {
 	public List<Order> getProductionQueue() {
 		return (List<Order>) get("productionQueue");
 	}
+
+	public void setGoodName(String goodName) {
+		put("goodName", goodName);
+	}
+
+	public String getGoodName() {
+		return (String) get("goodName");
+	}
 }

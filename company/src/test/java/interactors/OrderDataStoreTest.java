@@ -139,4 +139,22 @@ public class OrderDataStoreTest {
 
 		Assert.assertEquals(queue, testable.getProductionQueue());
 	}
+
+	@Test
+	public void setGoodName() {
+		final String value = "string";
+
+		testable.setGoodName(value);
+
+		Assert.assertEquals(value, testable.get("goodName"));
+	}
+
+	@Test
+	public void getGoodName() {
+		final String value = "string";
+
+		testable.put("goodName", value);
+
+		Assert.assertEquals(value, testable.getGoodName());
+	}
 }
