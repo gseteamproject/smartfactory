@@ -10,6 +10,7 @@ import basicClasses.Order;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
+import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
@@ -31,12 +32,14 @@ public class AuctionInitiator extends OneShotBehaviour {
 	private String orderText;
 	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
-	public static int partsCount;
 
-	public AuctionInitiator(ResponderBehaviour interactionBehaviour) {
+	protected OrderDataStore dataStore;
+
+	public AuctionInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.materialToBuy = interactionBehaviour.getRequest();
+		this.dataStore = dataStore;
 	}
 
 	public List<AID> findAgents(Agent a, String serviceName) {
@@ -69,7 +72,7 @@ public class AuctionInitiator extends OneShotBehaviour {
 	public void action() {
 		order = Order.gson.fromJson(materialToBuy.getContent(), Order.class);
 		orderText = order.getTextOfOrder();
-		partsCount = order.orderList.size();
+		dataStore.setPartsCount(order.orderList.size());
 
 		msgObj = new MessageObject(materialToBuy, orderText);
 		Communication.server.sendMessageToClient(msgObj);
@@ -79,7 +82,7 @@ public class AuctionInitiator extends OneShotBehaviour {
 		 * println("ProcurementAgent: Sending an info to ProcurementMarket to buy materials for "
 		 * + orderText);
 		 */
-		RequestToBuy.buyCount = 0;
+		dataStore.setBuyCount(0);
 		for (OrderPart orderPart : order.orderList) {
 			String requestedAction = "Order";
 			ACLMessage msg = new ACLMessage(ACLMessage.REQUEST);
@@ -106,7 +109,7 @@ public class AuctionInitiator extends OneShotBehaviour {
 				 * System.out.
 				 * println("agents providing service are found. trying to get infromation...");
 				 */
-				myAgent.addBehaviour(new RequestToBuy(agents, interactionBehaviour, orderPart));
+				myAgent.addBehaviour(new RequestToBuy(agents, interactionBehaviour, orderPart, dataStore));
 				// TODO: Check if material is really bought
 			} else {
 				msgObj = new MessageObject("AgentProcurementMarket", "No agents providing service are found.");

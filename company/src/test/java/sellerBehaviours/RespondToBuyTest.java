@@ -9,7 +9,7 @@ import org.junit.Test;
 import interactors.OrderDataStore;
 import jade.core.Agent;
 
-public class HandleAcceptProposalTest {
+public class RespondToBuyTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -17,7 +17,7 @@ public class HandleAcceptProposalTest {
 		}
 	};
 
-	HandleAcceptProposal testable;
+	RespondToBuy testable;
 
 	OrderDataStore dataStore_mock;
 
@@ -28,7 +28,7 @@ public class HandleAcceptProposalTest {
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
-		testable = new HandleAcceptProposal(agent_mock, dataStore_mock);
+		testable = new RespondToBuy(agent_mock, dataStore_mock);
 	}
 
 	@After
@@ -37,6 +37,6 @@ public class HandleAcceptProposalTest {
 	}
 
 	@Test
-	public void action() {
+	public void prepareRequests() {
 	}
 }

@@ -1,4 +1,4 @@
-package sellerBehaviours;
+package procurementMarketBehaviours;
 
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
@@ -7,9 +7,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import interactors.OrderDataStore;
-import jade.core.Agent;
+import interactors.ResponderBehaviour;
 
-public class HandleCallForProposalTest {
+public class ReportFinancesInitiatorTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -17,18 +17,18 @@ public class HandleCallForProposalTest {
 		}
 	};
 
-	HandleCallForProposal testable;
+	ReportFinancesInitiator testable;
+
+	ResponderBehaviour interactionBehaviour_mock;
 
 	OrderDataStore dataStore_mock;
 
-	Agent agent_mock;
-
 	@Before
 	public void setUp() {
+		interactionBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
-		agent_mock = context.mock(Agent.class);
 
-		testable = new HandleCallForProposal(agent_mock, dataStore_mock);
+		testable = new ReportFinancesInitiator(interactionBehaviour_mock, dataStore_mock);
 	}
 
 	@After

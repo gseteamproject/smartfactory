@@ -1,4 +1,4 @@
-package procurementBehaviours;
+package procurementMarketBehaviours;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -10,8 +10,9 @@ import org.junit.Test;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
+import jade.lang.acl.ACLMessage;
 
-public class AskForAuctionTest {
+public class AuctionInitiatorTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -19,7 +20,7 @@ public class AskForAuctionTest {
 		}
 	};
 
-	AskForAuction testable;
+	AuctionInitiator testable;
 
 	ResponderBehaviour responderBehaviour_mock;
 
@@ -27,20 +28,26 @@ public class AskForAuctionTest {
 
 	Agent agent_mock;
 
+	ACLMessage request_mock;
+
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(Agent.class);
+		request_mock = context.mock(ACLMessage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(responderBehaviour_mock).getAgent();
 				will(returnValue(agent_mock));
+
+				oneOf(responderBehaviour_mock).getRequest();
+				will(returnValue(request_mock));
 			}
 		});
 
-		testable = new AskForAuction(responderBehaviour_mock, dataStore_mock);
+		testable = new AuctionInitiator(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After

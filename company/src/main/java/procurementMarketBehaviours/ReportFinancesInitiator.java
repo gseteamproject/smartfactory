@@ -55,9 +55,7 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 		// add order to queue
 		// Selling.procurementQueue.add(order);
 
-		interactionBehaviour.getAgent()
-				.addBehaviour(new AuctionInitiator(interactionBehaviour));
-
+		interactionBehaviour.getAgent().addBehaviour(new AuctionInitiator(interactionBehaviour, dataStore));
 	}
 
 	@Override

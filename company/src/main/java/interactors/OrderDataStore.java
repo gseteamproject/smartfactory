@@ -107,4 +107,20 @@ public class OrderDataStore extends DataStore {
 	public String getGoodName() {
 		return (String) get("goodName");
 	}
+
+	public void setPartsCount(int value) {
+		put("partsCount", value);
+	}
+
+	public int getPartsCount() {
+		return (int) get("partsCount");
+	}
+
+	public void setBuyCount(int value) {
+		put("buyCount", value);
+	}
+
+	public int getBuyCount() {
+		return (int) get("buyCount");
+	}
 }

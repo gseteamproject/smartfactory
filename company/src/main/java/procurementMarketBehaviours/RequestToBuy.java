@@ -1,159 +1,100 @@
 package procurementMarketBehaviours;
 
 import java.util.List;
+import java.util.Vector;
 
 import basicClasses.CrossAgentData;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
+import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
-import jade.core.behaviours.SimpleBehaviour;
+import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
+import jade.proto.ContractNetInitiator;
 
-/* possible states of request */
-enum RequestState {
-	PREPARE_CALL_FOR_PROPOSAL, HANDLE_CALL_FOR_PROPOSAL_REPLY, PREPARE_ACCEPT_PROPOSAL, HANDLE_ACCEPT_PROPOSAL_REPLY,
-	DONE
-};
+public class RequestToBuy extends ContractNetInitiator {
 
-public class RequestToBuy extends SimpleBehaviour {
-
-	private static final long serialVersionUID = -1322936877118129497L;
+	private static final long serialVersionUID = 1531911633025115677L;
 
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
-	public static int buyCount;
 
-	List<AID> procurementAgents;
-	RequestState requestState;
-	OrderPart currentOrder;
+	private List<AID> procurementAgents;
 
-	public RequestToBuy(List<AID> procurementAgents, ResponderBehaviour interactionBehaviour,
-			OrderPart currentOrder) {
+	private OrderPart currentOrder;
+
+	private OrderDataStore dataStore;
+
+	private int bestPrice = -1;
+
+	public RequestToBuy(List<AID> procurementAgents, ResponderBehaviour interactionBehaviour, OrderPart currentOrder,
+			OrderDataStore dataStore) {
+		super(null, null);
 		this.procurementAgents = procurementAgents;
-		this.requestState = RequestState.PREPARE_CALL_FOR_PROPOSAL;
 		this.currentOrder = currentOrder;
 		this.interactionBehaviour = interactionBehaviour;
+		this.dataStore = dataStore;
 	}
 
-	MessageTemplate replyTemplate = null;
-	int repliesLeft = 0;
-
-	AID bestPrinterAgent = null;
-	int bestPrice = 0;
-
+	@SuppressWarnings("rawtypes")
 	@Override
-	public void action() {
-		/* perform actions accordingly to behaviour state */
-		switch (requestState) {
-		case PREPARE_CALL_FOR_PROPOSAL:
-			prepareCallForProposal();
-			break;
-
-		case HANDLE_CALL_FOR_PROPOSAL_REPLY:
-			handleCallForProposalReply();
-			break;
-
-		case PREPARE_ACCEPT_PROPOSAL:
-			prepareAcceptProposal();
-			break;
-
-		case HANDLE_ACCEPT_PROPOSAL_REPLY:
-			handleAcceptProposalReply();
-			break;
-
-		case DONE:
-			break;
-
-		default:
-			break;
-		}
-	}
-
-	private void handleAcceptProposalReply() {
-		ACLMessage msg = myAgent.receive(replyTemplate);
-		if (msg != null) {
-			msgObj = new MessageObject("AgentProcurementMarket",
-					currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
-			Communication.server.sendMessageToClient(msgObj);
-
-			/*
-			 * System.out.println(String
-			 * .format(currentOrder.getPart().getClass().getSimpleName() +
-			 * " is found (price=%d)", bestPrice));
-			 */
-
-			repliesLeft = 0;
-			requestState = RequestState.DONE;
-
-			for (int i = 0; i < currentOrder.getAmount(); i++) {
-				CrossAgentData.materialStorage.add(currentOrder.getGood());
-			}
-			buyCount += 1;
-		} else {
-			block();
-		}
-	}
-
-	private void prepareAcceptProposal() {
-		ACLMessage msg = new ACLMessage(ACLMessage.ACCEPT_PROPOSAL);
-		msg.addReceiver(bestPrinterAgent);
-		msg.setConversationId("buying");
-		msg.setContent("material");
-		msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
-
-		replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
-				MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
-		repliesLeft = 1;
-
-		myAgent.send(msg);
-
-		requestState = RequestState.HANDLE_ACCEPT_PROPOSAL_REPLY;
-	}
-
-	private void handleCallForProposalReply() {
-		ACLMessage msg = myAgent.receive(replyTemplate);
-		if (msg != null) {
-			int price = Integer.parseInt(msg.getContent());
-			if (bestPrinterAgent == null || price < bestPrice) {
-				bestPrinterAgent = msg.getSender();
-				bestPrice = price;
-			}
-			repliesLeft--;
-			if (repliesLeft == 0) {
-				requestState = RequestState.PREPARE_ACCEPT_PROPOSAL;
-			}
-		} else {
-			block();
-		}
-	}
-
-	private void prepareCallForProposal() {
+	protected Vector prepareCfps(ACLMessage cfp) {
 		ACLMessage msg = new ACLMessage(ACLMessage.CFP);
-		for (AID agentProvidingService : procurementAgents) {
-			msg.addReceiver(agentProvidingService);
+		for (AID procurementAgent : procurementAgents) {
+			msg.addReceiver(procurementAgent);
 		}
-		msg.setConversationId("buying");
 		msg.setContent("material");
-		msg.setReplyWith(String.valueOf(System.currentTimeMillis()));
+		msg.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
 
-		replyTemplate = MessageTemplate.and(MessageTemplate.MatchConversationId("buying"),
-				MessageTemplate.MatchInReplyTo(msg.getReplyWith()));
-		repliesLeft = procurementAgents.size();
-		myAgent.send(msg);
+		Vector<ACLMessage> v = new Vector<ACLMessage>();
+		v.add(msg);
+		return v;
+	}
 
-		requestState = RequestState.HANDLE_CALL_FOR_PROPOSAL_REPLY;
+	@SuppressWarnings({ "rawtypes", "unchecked" })
+	@Override
+	protected void handleAllResponses(Vector responses, Vector acceptances) {
+		int messageId = -1;
+		for (int i = 0; i < responses.size(); i++) {
+			ACLMessage response = (ACLMessage) responses.get(i);
+			if (response.getPerformative() == ACLMessage.PROPOSE) {
+				int price = Integer.parseInt(response.getContent());
+				if (messageId == -1 || price < bestPrice) {
+					messageId = i;
+					bestPrice = price;
+				}
+			}
+		}
+		for (int i = 0; i < responses.size(); i++) {
+			ACLMessage accept = ((ACLMessage) responses.get(i)).createReply();
+			accept.setContent("material");
+			if (i == messageId) {
+				accept.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+			} else {
+				accept.setPerformative(ACLMessage.REJECT_PROPOSAL);
+			}
+			acceptances.add(accept);
+		}
 	}
 
 	@Override
-	public boolean done() {
-		/* behaviour is finished when it reaches DONE state */
-		if (buyCount == AuctionInitiator.partsCount) {
+	protected void handleInform(ACLMessage inform) {
+		msgObj = new MessageObject("AgentProcurementMarket",
+				currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
+		Communication.server.sendMessageToClient(msgObj);
+
+		for (int i = 0; i < currentOrder.getAmount(); i++) {
+			CrossAgentData.materialStorage.add(currentOrder.getGood());
+		}
+		int buyCount = dataStore.getBuyCount();
+		buyCount += 1;
+		dataStore.setBuyCount(buyCount);
+
+		if (dataStore.getBuyCount() == dataStore.getPartsCount()) {
 			interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 		}
-
-		return requestState == RequestState.DONE;
 	}
 }

@@ -9,8 +9,7 @@ import jade.domain.DFService;
 import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import sellerBehaviours.HandleAcceptProposal;
-import sellerBehaviours.HandleCallForProposal;
+import sellerBehaviours.RespondToBuy;
 
 public class SellerAgent extends Agent {
 
@@ -27,8 +26,7 @@ public class SellerAgent extends Agent {
 
 		registerServices();
 
-		addBehaviour(new HandleAcceptProposal(this, dataStore));
-		addBehaviour(new HandleCallForProposal(this, dataStore));
+		addBehaviour(new RespondToBuy(this, dataStore));
 	}
 
 	private void registerServices() {
