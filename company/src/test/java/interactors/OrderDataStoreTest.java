@@ -157,40 +157,4 @@ public class OrderDataStoreTest {
 
 		Assert.assertEquals(value, testable.getGoodName());
 	}
-
-	@Test
-	public void setPartsCount() {
-		final int value = 1;
-
-		testable.setPartsCount(1);
-
-		Assert.assertEquals(value, testable.get("partsCount"));
-	}
-
-	@Test
-	public void getPartsCount() {
-		final int value = 1;
-
-		testable.put("partsCount", value);
-
-		Assert.assertEquals(value, testable.getPartsCount());
-	}
-
-	@Test
-	public void setBuyCount() {
-		final int value = 1;
-
-		testable.setBuyCount(1);
-
-		Assert.assertEquals(value, testable.get("buyCount"));
-	}
-
-	@Test
-	public void getBuyCount() {
-		final int value = 1;
-
-		testable.put("buyCount", value);
-
-		Assert.assertEquals(value, testable.getBuyCount());
-	}
 }

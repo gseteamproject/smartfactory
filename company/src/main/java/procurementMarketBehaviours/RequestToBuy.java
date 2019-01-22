@@ -7,8 +7,6 @@ import basicClasses.CrossAgentData;
 import basicClasses.OrderPart;
 import communication.Communication;
 import communication.MessageObject;
-import interactors.OrderDataStore;
-import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
@@ -18,25 +16,16 @@ public class RequestToBuy extends ContractNetInitiator {
 
 	private static final long serialVersionUID = 1531911633025115677L;
 
-	private ResponderBehaviour interactionBehaviour;
-
-	private MessageObject msgObj;
-
 	private List<AID> procurementAgents;
 
 	private OrderPart currentOrder;
 
-	private OrderDataStore dataStore;
-
 	private int bestPrice = -1;
 
-	public RequestToBuy(List<AID> procurementAgents, ResponderBehaviour interactionBehaviour, OrderPart currentOrder,
-			OrderDataStore dataStore) {
+	public RequestToBuy(List<AID> procurementAgents, OrderPart currentOrder) {
 		super(null, null);
 		this.procurementAgents = procurementAgents;
 		this.currentOrder = currentOrder;
-		this.interactionBehaviour = interactionBehaviour;
-		this.dataStore = dataStore;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -82,19 +71,12 @@ public class RequestToBuy extends ContractNetInitiator {
 
 	@Override
 	protected void handleInform(ACLMessage inform) {
-		msgObj = new MessageObject("AgentProcurementMarket",
+		MessageObject msgObj = new MessageObject("AgentProcurementMarket",
 				currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
 		Communication.server.sendMessageToClient(msgObj);
 
 		for (int i = 0; i < currentOrder.getAmount(); i++) {
 			CrossAgentData.materialStorage.add(currentOrder.getGood());
-		}
-		int buyCount = dataStore.getBuyCount();
-		buyCount += 1;
-		dataStore.setBuyCount(buyCount);
-
-		if (dataStore.getBuyCount() == dataStore.getPartsCount()) {
-			interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 		}
 	}
 }

@@ -10,7 +10,6 @@ import org.junit.Test;
 import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
 
 public class AuctionInitiatorTest {
 
@@ -28,22 +27,16 @@ public class AuctionInitiatorTest {
 
 	Agent agent_mock;
 
-	ACLMessage request_mock;
-
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(OrderDataStore.class);
 		agent_mock = context.mock(Agent.class);
-		request_mock = context.mock(ACLMessage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(responderBehaviour_mock).getAgent();
 				will(returnValue(agent_mock));
-
-				oneOf(responderBehaviour_mock).getRequest();
-				will(returnValue(request_mock));
 			}
 		});
 
@@ -56,6 +49,6 @@ public class AuctionInitiatorTest {
 	}
 
 	@Test
-	public void prepareRequests() {
+	public void action() {
 	}
 }

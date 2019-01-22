@@ -13,9 +13,6 @@ public class ProcurementMarketAgent extends Agent {
 	@Override
 	protected void setup() {
 		dataStore = new OrderDataStore();
-		// TODO: this variable can be replaced with parallel and sequence behaviours combination
-		dataStore.setPartsCount(0);
-		dataStore.setBuyCount(0);
 
 		addBehaviour(new ProcurementMarketResponder(this, dataStore));
 	}

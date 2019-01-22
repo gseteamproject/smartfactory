@@ -1,18 +1,14 @@
 package procurementMarketBehaviours;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import basicClasses.OrderPart;
-import jade.core.AID;
+import interactors.ResponderBehaviour;
 
-public class RequestToBuyTest {
+public class RequestsToBuyCompletedTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -20,18 +16,15 @@ public class RequestToBuyTest {
 		}
 	};
 
-	RequestToBuy testable;
+	RequestsToBuyCompleted testable;
 
-	List<AID> procurementAgents;
-
-	OrderPart orderPart_mock;
+	ResponderBehaviour responderBehaviour_mock;
 
 	@Before
 	public void setUp() {
-		procurementAgents = new ArrayList<AID>();
-		orderPart_mock = context.mock(OrderPart.class);
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 
-		testable = new RequestToBuy(procurementAgents, orderPart_mock);
+		testable = new RequestsToBuyCompleted(responderBehaviour_mock);
 	}
 
 	@After
