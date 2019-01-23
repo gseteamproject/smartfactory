@@ -64,122 +64,231 @@ public class MessageObjectTest {
 	}
 
 	@Test
-	public void test_1_case_1() {
+	public void getColorForAgent_case_01() {
 		testable.setReceiver("AgentProcurement");
+
 		Assert.assertEquals("#3CAD00", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_2() {
+	public void getColorForAgent_case_02() {
 		testable.setReceiver("AgentProcurementMarket");
+
 		Assert.assertEquals("#52EA00", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_3() {
+	public void getColorForAgent_case_03() {
 		testable.setReceiver("AgentCapitalMarket");
+
 		Assert.assertEquals("#00A6C4", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_4() {
+	public void getColorForAgent_case_04() {
 		testable.setReceiver("AgentPaintSelling");
+
 		Assert.assertEquals("#C40000", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_5() {
+	public void getColorForAgent_case_05() {
 		testable.setReceiver("AgentSelling");
+
 		Assert.assertEquals("#F2EE00", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_6() {
+	public void getColorForAgent_case_06() {
 		testable.setReceiver("AgentStoneSelling");
+
 		Assert.assertEquals("#8EB19D", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_7() {
+	public void getColorForAgent_case_07() {
 		testable.setReceiver("AgentSalesMarket");
+
 		Assert.assertEquals("#BC00BC", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_8() {
+	public void getColorForAgent_case_08() {
 		testable.setReceiver("AgentProduction");
+
 		Assert.assertEquals("#A0AF79", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_9() {
+	public void getColorForAgent_case_09() {
 		testable.setReceiver("AgentFinances");
+
 		Assert.assertEquals("#006863", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_1_case_10() {
+	public void getColorForAgent_case_10() {
 		testable.setReceiver("unknown");
+
 		Assert.assertEquals("#000000", testable.getColorForAgent());
 	}
 
 	@Test
-	public void test_2_case_1() {
+	public void getColorForAction_case_01() {
 		testable.setSender("AgentProcurement");
+
 		Assert.assertEquals("orange", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_2() {
+	public void getColorForAction_case_02() {
 		testable.setSender("AgentProcurementMarket");
+
 		Assert.assertEquals("#0096fa", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_3() {
+	public void getColorForAction_case_03() {
 		testable.setSender("AgentCapitalMarket");
+
 		Assert.assertEquals("#111111", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_4() {
+	public void getColorForAction_case_04() {
 		testable.setSender("AgentPaintSelling");
+
 		Assert.assertEquals("#0aff96", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_5() {
+	public void getColorForAction_case_05() {
 		testable.setSender("AgentSelling");
+
 		Assert.assertEquals("#dc96be", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_6() {
+	public void getColorForAction_case_06() {
 		testable.setSender("AgentStoneSelling");
+
 		Assert.assertEquals("#0aff96", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_7() {
+	public void getColorForAction_case_07() {
 		testable.setSender("AgentSalesMarket");
+
 		Assert.assertEquals("red", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_8() {
+	public void getColorForAction_case_08() {
 		testable.setSender("AgentProduction");
+
 		Assert.assertEquals("#00be00", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_9() {
+	public void getColorForAction_case_09() {
 		testable.setSender("AgentFinances");
+
 		Assert.assertEquals("#dcd201", testable.getColorForAction());
 	}
 
 	@Test
-	public void test_2_case_10() {
+	public void getColorForAction_case_10() {
 		testable.setSender("unknown");
+
 		Assert.assertEquals("#000000", testable.getColorForAction());
+	}
+
+	@Test
+	public void getColorForPerformative_case_01() {
+		testable.setPerformative(ACLMessage.ACCEPT_PROPOSAL);
+
+		Assert.assertEquals("3CAD00", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_02() {
+		testable.setPerformative(ACLMessage.AGREE);
+
+		Assert.assertEquals("52EA00", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_03() {
+		testable.setPerformative(ACLMessage.CANCEL);
+
+		Assert.assertEquals("00A6C4", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_04() {
+		testable.setPerformative(ACLMessage.FAILURE);
+
+		Assert.assertEquals("C40000", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_05() {
+		testable.setPerformative(ACLMessage.INFORM);
+
+		Assert.assertEquals("F2EE00", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_06() {
+		testable.setPerformative(ACLMessage.REFUSE);
+
+		Assert.assertEquals("8EB19D", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_07() {
+		testable.setPerformative(ACLMessage.REQUEST);
+
+		Assert.assertEquals("BC00BC", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void getColorForPerformative_case_08() {
+		testable.setPerformative(ACLMessage.NOT_UNDERSTOOD);
+
+		Assert.assertEquals("FFFFFF", testable.getColorForPerformative());
+	}
+
+	@Test
+	public void setOrderText() {
+		final String orderText = "abc";
+
+		testable.setOrderText(orderText);
+
+		Assert.assertEquals(orderText, testable.getOrderText());
+	}
+
+	@Test
+	public void getOrderText() {
+		Assert.assertEquals("orderText", testable.getOrderText());
+	}
+
+	@Test
+	public void setMessage() {
+		final String message = "message";
+
+		testable.setMessage(message);
+
+		Assert.assertEquals(message, testable.getMessage());
+	}
+
+	@Test
+	public void getMessage() {
+		Assert.assertEquals(null, testable.getMessage());
+	}
+
+	@Test
+	public void getActionMessage() {
+		Assert.assertEquals("senderAgent: orderText", testable.getActionMessage());
 	}
 }

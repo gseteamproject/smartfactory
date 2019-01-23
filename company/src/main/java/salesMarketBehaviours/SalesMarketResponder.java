@@ -15,7 +15,7 @@ public class SalesMarketResponder extends ResponderBehaviour {
 	public SalesMarketResponder(Agent a, OrderDataStore dataStore) {
 		super(a, MessageTemplate.and(MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST),
 				MessageTemplate.MatchPerformative(ACLMessage.REQUEST)), dataStore);
-		interactor = new SalesMarketRequestResult(dataStore);
+		requestResult = new SalesMarketRequestResult(dataStore);
 		askBehaviour = new SalesMarketAskBehaviour(this, dataStore);
 
 		registerHandleRequest(new SalesMarketDecisionBehaviour(this, dataStore));

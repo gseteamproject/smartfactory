@@ -13,7 +13,7 @@ public class SellingResponder extends ResponderBehaviour {
 
 	public SellingResponder(Agent a, OrderDataStore dataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
-		interactor = new SellingRequestResult(dataStore);
+		requestResult = new SellingRequestResult(dataStore);
 		askBehaviour = new SellingAskBehaviour(this, dataStore);
 
 		registerHandleRequest(new SellingDecisionBehaviour(this, dataStore));

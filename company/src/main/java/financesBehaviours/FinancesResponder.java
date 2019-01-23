@@ -13,7 +13,7 @@ public class FinancesResponder extends ResponderBehaviour {
 
 	public FinancesResponder(Agent a, OrderDataStore dataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
-		interactor = new FinancesRequestResult(dataStore);
+		requestResult = new FinancesRequestResult(dataStore);
 		askBehaviour = new FinancesAskBehaviour(this, dataStore);
 
 		registerHandleRequest(new FinancesDecisionBehaviour(this, dataStore));

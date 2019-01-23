@@ -15,7 +15,7 @@ public class ProductionResponder extends ResponderBehaviour {
 	public ProductionResponder(Agent a, OrderDataStore dataStore) {
 		super(a, MessageTemplate.and(MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST),
 				MessageTemplate.MatchPerformative(ACLMessage.REQUEST)), dataStore);
-		interactor = new ProductionRequestResult(dataStore);
+		requestResult = new ProductionRequestResult(dataStore);
 		askBehaviour = new ProductionAskBehaviour(this, dataStore);
 
 		registerHandleRequest(new ProductionDecisionBehaviour(this, dataStore));

@@ -65,9 +65,4 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
 		orderMsg.setContent(testGson);
 		myAgent.send(orderMsg);
 	}
-
-	@Override
-	public void stop() {
-		super.stop();
-	}
 }

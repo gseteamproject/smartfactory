@@ -9,14 +9,14 @@ public class ResponderBehaviour extends AchieveREResponder {
 
 	private static final long serialVersionUID = -6424797507265885988L;
 
-	protected RequestResult interactor;
+	protected RequestResult requestResult;
 
-	protected DeadlineBehaviour deadline;
+	protected DeadlineBehaviour deadlineBehaviour;
 
 	protected AskBehaviour askBehaviour;
 
 	public RequestResult getRequestResult() {
-		return interactor;
+		return requestResult;
 	}
 
 	public AskBehaviour getAskBehaviour() {
@@ -24,7 +24,7 @@ public class ResponderBehaviour extends AchieveREResponder {
 	}
 
 	public DeadlineBehaviour getDeadlineBehaviour() {
-		return deadline;
+		return deadlineBehaviour;
 	}
 
 	public ACLMessage getRequest() {
@@ -41,6 +41,6 @@ public class ResponderBehaviour extends AchieveREResponder {
 
 	public ResponderBehaviour(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
 		super(a, mt);
-		deadline = new DeadlineBehaviour(this, dataStore);
+		deadlineBehaviour = new DeadlineBehaviour(this, dataStore);
 	}
 }

@@ -13,7 +13,7 @@ public class ProcurementResponder extends ResponderBehaviour {
 
 	public ProcurementResponder(Agent a, OrderDataStore dataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
-		interactor = new ProcurementRequestResult(dataStore);
+		requestResult = new ProcurementRequestResult(dataStore);
 		askBehaviour = new ProcurementAskBehaviour(this, dataStore);
 
 		registerHandleRequest(new ProcurementDecisionBehaviour(this, dataStore));

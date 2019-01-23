@@ -19,15 +19,14 @@ public class MessageObject {
 
 	private String orderText;
 
-	private String performative;
+	private int performative;
 
 	private String message;
 
 	public MessageObject(ACLMessage acl, String orderText) {
-		this.setOrderText(orderText);
-		this.setPerformative(acl.getPerformative());
-		this.setSender(acl.getSender().getLocalName());
-		this.setReceiver(((AID) acl.getAllReceiver().next()).getLocalName());
+		this(acl.getSender().getLocalName(), orderText);
+		this.performative = acl.getPerformative();
+		this.receiver = ((AID) acl.getAllReceiver().next()).getLocalName();
 	}
 
 	public MessageObject(String actingAgent, String actionMessage) {
@@ -60,11 +59,11 @@ public class MessageObject {
 	}
 
 	public String getPerformative() {
-		return performative;
+		return ACLMessage.getPerformative(performative);
 	}
 
 	public void setPerformative(int performative) {
-		this.performative = ACLMessage.getPerformative(performative);
+		this.performative = performative;
 	}
 
 	private static final Map<String, String> colorForAgent = new HashMap<String, String>();
@@ -111,29 +110,23 @@ public class MessageObject {
 		return color;
 	}
 
+	private static final Map<Integer, String> colorForPerformative = new HashMap<Integer, String>();
+	static {
+		colorForPerformative.put(ACLMessage.ACCEPT_PROPOSAL, "3CAD00");
+		colorForPerformative.put(ACLMessage.AGREE, "52EA00");
+		colorForPerformative.put(ACLMessage.CANCEL, "00A6C4");
+		colorForPerformative.put(ACLMessage.FAILURE, "C40000");
+		colorForPerformative.put(ACLMessage.INFORM, "F2EE00");
+		colorForPerformative.put(ACLMessage.REFUSE, "8EB19D");
+		colorForPerformative.put(ACLMessage.REQUEST, "BC00BC");
+	}
+
 	public String getColorForPerformative() {
-		if ("ACCEPT_PROPOSAL".equals(performative)) {
-			return "3CAD00";
+		String color = colorForPerformative.get(performative);
+		if (color == null) {
+			return "FFFFFF";
 		}
-		if ("AGREE".equals(performative)) {
-			return "52EA00";
-		}
-		if ("CANCEL".equals(performative)) {
-			return "00A6C4";
-		}
-		if ("FAILURE".equals(performative)) {
-			return "C40000";
-		}
-		if ("INFORM".equals(performative)) {
-			return "F2EE00";
-		}
-		if ("REFUSE".equals(performative)) {
-			return "8EB19D";
-		}
-		if ("REQUEST".equals(performative)) {
-			return "BC00BC";
-		}
-		return "FFFFFF";
+		return color;
 	}
 
 	public String getMessage() {
@@ -142,11 +135,6 @@ public class MessageObject {
 
 	public void setMessage(String message) {
 		this.message = message;
-	}
-
-	public String getReceivedMessage() {
-		return String.format("%s received a Message of Type [%s] from %s. Order: %s;", receiver, performative, sender,
-				orderText);
 	}
 
 	public String getActionMessage() {
