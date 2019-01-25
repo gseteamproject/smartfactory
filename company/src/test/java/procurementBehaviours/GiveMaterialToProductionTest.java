@@ -7,7 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
@@ -24,7 +24,7 @@ public class GiveMaterialToProductionTest {
 
 	ResponderBehaviour responderBehaviour_mock;
 
-	OrderDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	Agent agent_mock;
 
@@ -33,7 +33,7 @@ public class GiveMaterialToProductionTest {
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
-		dataStore_mock = context.mock(OrderDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
 		message_mock = context.mock(ACLMessage.class);
 

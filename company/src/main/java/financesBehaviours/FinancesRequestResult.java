@@ -1,12 +1,12 @@
 package financesBehaviours;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
 
 public class FinancesRequestResult extends RequestResult {
 
-	public FinancesRequestResult(OrderDataStore dataStore) {
+	public FinancesRequestResult(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

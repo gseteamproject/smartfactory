@@ -1,7 +1,7 @@
 package financesBehaviours;
 
+import common.AgentDataStore;
 import interactors.ActivityBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
 import jade.domain.FIPANames;
@@ -11,7 +11,7 @@ public class FinancesResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = 3805964860244663233L;
 
-	public FinancesResponder(Agent a, OrderDataStore dataStore) {
+	public FinancesResponder(Agent a, AgentDataStore dataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
 		requestResult = new FinancesRequestResult(dataStore);
 		askBehaviour = new FinancesAskBehaviour(this, dataStore);

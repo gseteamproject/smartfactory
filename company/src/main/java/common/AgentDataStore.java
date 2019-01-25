@@ -1,4 +1,4 @@
-package interactors;
+package common;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import basicClasses.Order;
 import jade.core.behaviours.DataStore;
 import jade.lang.acl.ACLMessage;
 
-public class OrderDataStore extends DataStore {
+public class AgentDataStore extends DataStore {
 
 	private static final long serialVersionUID = 2340744686374901306L;
 
@@ -106,5 +106,13 @@ public class OrderDataStore extends DataStore {
 
 	public String getGoodName() {
 		return (String) get("goodName");
+	}
+
+	public void setAgentPlatform(AgentPlatform agentPlatform) {
+		put("agentPlatform", agentPlatform);
+	}
+
+	public AgentPlatform getAgentPlatform() {
+		return (AgentPlatform) get("agentPlatform");
 	}
 }

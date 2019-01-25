@@ -2,8 +2,8 @@ package procurementBehaviours;
 
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
+import common.AgentDataStore;
 import interactors.AskBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -11,7 +11,7 @@ public class ProcurementAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = -4443443755165652310L;
 
-	public ProcurementAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public ProcurementAskBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 

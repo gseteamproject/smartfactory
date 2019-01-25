@@ -5,7 +5,7 @@ import java.util.Vector;
 
 import basicClasses.CrossAgentData;
 import basicClasses.OrderPart;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import jade.core.AID;
 import jade.domain.FIPANames;
@@ -22,10 +22,13 @@ public class RequestToBuy extends ContractNetInitiator {
 
 	private int bestPrice = -1;
 
-	public RequestToBuy(List<AID> procurementAgents, OrderPart currentOrder) {
+	private AgentDataStore dataStore;
+
+	public RequestToBuy(List<AID> procurementAgents, OrderPart currentOrder, AgentDataStore dataStore) {
 		super(null, null);
 		this.procurementAgents = procurementAgents;
 		this.currentOrder = currentOrder;
+		this.dataStore = dataStore;
 	}
 
 	@SuppressWarnings("rawtypes")
@@ -73,7 +76,7 @@ public class RequestToBuy extends ContractNetInitiator {
 	protected void handleInform(ACLMessage inform) {
 		MessageObject msgObj = new MessageObject("AgentProcurementMarket",
 				currentOrder.getGood().getClass().getSimpleName() + " is found with " + bestPrice);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		for (int i = 0; i < currentOrder.getAmount(); i++) {
 			CrossAgentData.materialStorage.add(currentOrder.getGood());

@@ -2,11 +2,12 @@ package interactors;
 
 import java.util.Vector;
 
+import common.AgentDataStore;
 import jade.lang.acl.ACLMessage;
 
 public abstract class AchieveREInitiatorInteractor extends RequestInteractor {
 
-	public AchieveREInitiatorInteractor(OrderDataStore dataStore) {
+	public AchieveREInitiatorInteractor(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

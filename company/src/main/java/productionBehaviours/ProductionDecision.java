@@ -1,15 +1,14 @@
 package productionBehaviours;
 
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.Decision;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class ProductionDecision extends Decision {
 
-	public ProductionDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public ProductionDecision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -24,10 +23,7 @@ public class ProductionDecision extends Decision {
 		response.setSender(interactionBehaviour.getAgent().getAID());
 
 		msgObj = new MessageObject("AgentProduction", orderText + " will be produced");
-		Communication.server.sendMessageToClient(msgObj);
-		/*
-		 * System.out.println("ProductionAgent: [agree] I will produce " + orderText);
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		return response;
 	}

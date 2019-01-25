@@ -3,19 +3,22 @@ package interactors;
 import java.util.Vector;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 
 public class RequestInteractor {
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
+
 	protected String orderText;
+
 	protected MessageObject msgObj;
+
 	protected Vector<ACLMessage> l;
 
-	public RequestInteractor(OrderDataStore dataStore) {
+	public RequestInteractor(AgentDataStore dataStore) {
 		this.dataStore = dataStore;
 	}
 
@@ -33,11 +36,10 @@ public class RequestInteractor {
 	}
 
 	protected void handleResponse(ACLMessage message) {
-
 		Order order = Order.gson.fromJson(message.getContent(), Order.class);
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject(message, orderText);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 	}
 }

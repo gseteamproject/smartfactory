@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import basicAgents.ProcurementMarketAgent;
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 
 public class ProcurementMarketResponderTest {
 
@@ -19,13 +19,13 @@ public class ProcurementMarketResponderTest {
 
 	ProcurementMarketResponder testable;
 
-	OrderDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	ProcurementMarketAgent agent_mock;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(OrderDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(ProcurementMarketAgent.class);
 
 		testable = new ProcurementMarketResponder(agent_mock, dataStore_mock);

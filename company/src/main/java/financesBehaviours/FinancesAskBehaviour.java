@@ -2,19 +2,19 @@ package financesBehaviours;
 
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.AskBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class FinancesAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = 2249201124835167657L;
+
 	private MessageObject msgObj;
 
-	public FinancesAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public FinancesAskBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -27,35 +27,27 @@ public class FinancesAskBehaviour extends AskBehaviour {
 
 			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 				if (request.getConversationId() == "Order") {
-					// if (!this.isStarted()) {
 					this.interactor.isDone = false;
+
 					msgObj = new MessageObject(request, " has accepted selling of " + orderText);
-					Communication.server.sendMessageToClient(msgObj);
+					dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 					CrossAgentData.orderQueue
-							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
-									.getAgent().getLocalName();
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
+									.getLocalName();
 
 					myAgent.addBehaviour(new TransferMoneyToBank(interactionBehaviour));
-					// myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder)
-					// interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
-					// }
-					// this.setStarted(true);
 				} else if (request.getConversationId() == "Materials") {
-					// if (this.isStarted()) {
 					this.interactor.isDone = false;
+
 					msgObj = new MessageObject(request, "has accepted buying of " + orderText);
-					Communication.server.sendMessageToClient(msgObj);
+					dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 					CrossAgentData.orderQueue
-							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
-									.getAgent().getLocalName();
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
+									.getLocalName();
 
 					myAgent.addBehaviour(new TransferMoneyFromBank(interactionBehaviour));
-					// myAgent.addBehaviour(new FinancesActivityBehaviour((FinancesResponder)
-					// interactionBehaviour, (FinancesRequestResult) interactor, dataStore));
-					// }
-					// this.setStarted(false);
 				}
 			}
 			this.setStarted(true);

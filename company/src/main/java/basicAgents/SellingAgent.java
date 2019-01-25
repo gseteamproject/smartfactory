@@ -2,7 +2,8 @@ package basicAgents;
 
 import java.util.ArrayList;
 import basicClasses.Order;
-import interactors.OrderDataStore;
+import common.AgentDataStore;
+import common.AgentPlatform;
 import jade.core.Agent;
 import sellingBehaviours.SellingResponder;
 
@@ -10,11 +11,12 @@ public class SellingAgent extends Agent {
 
 	private static final long serialVersionUID = 7150875080288668056L;
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
 	@Override
 	protected void setup() {
-		dataStore = new OrderDataStore();
+		dataStore = new AgentDataStore();
+		dataStore.setAgentPlatform(new AgentPlatform(this));
 		dataStore.setIsTaken(false);
 		dataStore.setIsInWarehouse(false);
 		dataStore.setProductionQueue(new ArrayList<Order>());

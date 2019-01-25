@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import common.AgentDataStore;
+
 public class DecisionTest {
 
 	private final Mockery context = new Mockery() {
@@ -18,12 +20,12 @@ public class DecisionTest {
 
 	ResponderBehaviour responderBehaviour_mock;
 
-	OrderDataStore orderDataStore_mock;
+	AgentDataStore orderDataStore_mock;
 
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
-		orderDataStore_mock = context.mock(OrderDataStore.class);
+		orderDataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new Decision(responderBehaviour_mock, orderDataStore_mock);
 	}

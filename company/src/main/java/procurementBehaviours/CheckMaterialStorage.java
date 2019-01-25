@@ -8,9 +8,8 @@ import basicClasses.Good;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -18,13 +17,18 @@ import jade.lang.acl.ACLMessage;
 public class CheckMaterialStorage extends OneShotBehaviour {
 
 	private static final long serialVersionUID = -4869963544017982955L;
+
 	private String requestedMaterial;
-	private OrderDataStore dataStore;
+
+	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
+
 	private ACLMessage request;
 
-	public CheckMaterialStorage(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public CheckMaterialStorage(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		request = interactionBehaviour.getRequest();
 		requestedMaterial = request.getContent();
@@ -62,11 +66,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 			List<Good> listToRemovePart = new ArrayList<Good>();
 
 			msgObj = new MessageObject("AgentProcurement", "Asking about " + orderPart.getTextOfOrderPart());
-			Communication.server.sendMessageToClient(msgObj);
-			/*
-			 * System.out.println("ProcurementAgent: Asking materialStorage about " +
-			 * orderPart.getTextOfOrderPart());
-			 */
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 			int paintAmountInMS = CrossAgentData.materialStorage.getAmountOfPaint(color);
 			int stoneAmountInMS = CrossAgentData.materialStorage.getAmountOfStones(size);
@@ -74,12 +74,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 			if (paintAmountInMS >= amount && stoneAmountInMS >= amount) {
 				msgObj = new MessageObject("AgentProcurement",
 						"I say that materials for " + orderPart.getTextOfOrderPart() + " are in materialStorage. ");
-				Communication.server.sendMessageToClient(msgObj);
-
-				/*
-				 * System.out.println("ProcurementAgent: I say that materials for " +
-				 * orderPart.getTextOfOrderPart() + " are in materialStorage");
-				 */
+				dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 			} else {
 				// need to describe multiple statements to check every material
 				dataStore.setIsInMaterialStorage(false);
@@ -91,10 +86,6 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 				CrossAgentData.materialStorage.removeAll(listToRemovePart);
 
 				listToRemove.addAll(listToRemovePart);
-				/*
-				 * System.out.println("paintOrderPart.getAmount() " +
-				 * paintOrderPart.getAmount());
-				 */
 			}
 		}
 
@@ -111,13 +102,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 
 			msgObj = new MessageObject("AgentProcurement",
 					"send info to ProcurementMarket to buy materials for " + orderToBuy.getTextOfOrder());
-			Communication.server.sendMessageToClient(msgObj);
-			/*
-			 * System.out.
-			 * println("ProcurementAgent: send info to ProcurementMarket to buy materials for "
-			 * + orderToBuy.getTextOfOrder());
-			 */
-			// TODO: create another Set method
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 			myAgent.addBehaviour(new AskForAuction(interactionBehaviour, dataStore));
 		}
 	}

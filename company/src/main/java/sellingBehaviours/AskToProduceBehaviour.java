@@ -1,21 +1,24 @@
 package sellingBehaviours;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class AskToProduceBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = -6365251601845699295L;
+
 	private String orderText;
-	private OrderDataStore dataStore;
+
+	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
 
-	public AskToProduceBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public AskToProduceBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
@@ -26,7 +29,7 @@ public class AskToProduceBehaviour extends OneShotBehaviour {
 		orderText = Order.gson.fromJson(dataStore.getSubMessage().getContent(), Order.class).getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is in production");
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		myAgent.addBehaviour(new AskToProduceInitiatorBehaviour(interactionBehaviour, dataStore));
 	}

@@ -2,15 +2,15 @@ package productionBehaviours;
 
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
+import common.AgentDataStore;
 import interactors.AskBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 
 public class ProductionAskBehaviour extends AskBehaviour {
 
 	private static final long serialVersionUID = -4443443755165652310L;
 
-	public ProductionAskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public ProductionAskBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 

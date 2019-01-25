@@ -4,7 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import communication.Server;
 import jade.lang.acl.ACLMessage;
@@ -13,13 +13,17 @@ public class Decision {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
+
 	protected ResponderBehaviour interactionBehaviour;
+
 	protected String orderText;
+
 	protected MessageObject msgObj;
+
 	protected ACLMessage response;
 
-	public Decision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public Decision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		this.dataStore = dataStore;
 		this.interactionBehaviour = interactionBehaviour;
 	}
@@ -56,10 +60,7 @@ public class Decision {
 		dataStore.setRequestMessage(request);
 
 		msgObj = new MessageObject(request, orderText);
-		Communication.server.sendMessageToClient(msgObj);
-		/*
-		 * System.out.println(msgObj.getReceivedMessage());
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		dataStore.setDeadlineResult(false);
 
 		interactionBehaviour.getDeadlineBehaviour().reset(dataStore.getDeadline() * Server.delaytime / 150);

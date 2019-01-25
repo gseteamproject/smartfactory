@@ -3,10 +3,9 @@ package procurementBehaviours;
 import java.util.Vector;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
@@ -14,9 +13,10 @@ import jade.lang.acl.ACLMessage;
 public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
 	private ResponderBehaviour interactionBehaviour;
-	public MessageObject msgObj;
 
-	public AskForAuctionInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	private MessageObject msgObj;
+
+	public AskForAuctionInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}
@@ -34,17 +34,9 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleInform(ACLMessage inform) {
-
 		orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
 		msgObj = new MessageObject(inform, "received [inform] order " + orderText + " is delivered to materialStorage");
-		Communication.server.sendMessageToClient(msgObj);
-
-		/*
-		 * System.out.println("ProcurementAgent: received [inform] " + orderText +
-		 * " is delivered to materialStorage");
-		 * Communication.server.sendMessageToClient("ProcurementAgent",
-		 * "received [inform] " + orderText + " is delivered to materialStorage");
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		dataStore.setIsInMaterialStorage(true);
 		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
@@ -52,17 +44,9 @@ public class AskForAuctionInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
-
 		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
 		msgObj = new MessageObject(failure, "received [failure] order " + orderText + " was not purchased");
-		Communication.server.sendMessageToClient(msgObj);
-
-		/*
-		 * System.out.println("ProcurementAgent: received [failure] were not purchased"
-		 * ); Communication.server.sendMessageToClient("ProcurementAgent",
-		 * "received [failure] were not purchased");
-		 */
-
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 	}
 
 	@Override

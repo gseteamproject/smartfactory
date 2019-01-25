@@ -2,6 +2,7 @@ package application;
 
 import communication.Communication;
 import communication.Server;
+import communication.WebServerService;
 import jade.Boot;
 
 public class Main {
@@ -12,20 +13,21 @@ public class Main {
 		new Communication();
 		// todo: maybe start the program, when the client is connected first?
 
-		String[] parameters = new String[3];
-		parameters[0] = "-gui";
-		parameters[1] = addAgent("AgentCustomer", basicAgents.CustomerAgent.class)
-				+ addAgent("AgentSalesMarket", basicAgents.SalesMarketAgent.class)
-				+ addAgent("AgentSelling", basicAgents.SellingAgent.class)
-				+ addAgent("AgentFinances", basicAgents.FinancesAgent.class)
-				+ addAgent("AgentProcurement", basicAgents.ProcurementAgent.class)
-				+ addAgent("AgentProcurementMarket", basicAgents.ProcurementMarketAgent.class)
-				+ addAgent("AgentStoneSelling", basicAgents.SellerAgent.class, "Stone")
-				+ addAgent("AgentPaintSelling", basicAgents.SellerAgent.class, "Paint")
-				+ addAgent("AgentProduction", basicAgents.ProductionAgent.class)
-				+ addAgent("sniffer", jade.tools.sniffer.Sniffer.class, "Agent*");
+		String[] parameters = new String[] { "-gui", "-services",
+				addService(jade.core.event.NotificationService.class)
+						+ addService(communication.WebServerService.class),
+				addParameter(WebServerService.DELAY_TIME), "10",
+				addAgent("AgentCustomer", basicAgents.CustomerAgent.class)
+						+ addAgent("AgentSalesMarket", basicAgents.SalesMarketAgent.class)
+						+ addAgent("AgentSelling", basicAgents.SellingAgent.class)
+						+ addAgent("AgentFinances", basicAgents.FinancesAgent.class)
+						+ addAgent("AgentProcurement", basicAgents.ProcurementAgent.class)
+						+ addAgent("AgentProcurementMarket", basicAgents.ProcurementMarketAgent.class)
+						+ addAgent("AgentStoneSelling", basicAgents.SellerAgent.class, "Stone")
+						+ addAgent("AgentPaintSelling", basicAgents.SellerAgent.class, "Paint")
+						+ addAgent("AgentProduction", basicAgents.ProductionAgent.class)
+						+ addAgent("sniffer", jade.tools.sniffer.Sniffer.class, "Agent*") };
 
-		parameters[2] = String.valueOf(DELAY_TIME_MS);
 		Server.delaytime = DELAY_TIME_MS;
 
 		Boot.main(parameters);
@@ -38,4 +40,12 @@ public class Main {
 	private static String addAgent(String agentName, Class<?> agentClass, String parameters) {
 		return agentName + ":" + agentClass.getName() + "(" + parameters + ");";
 	}
+
+	private static String addService(Class<?> serviceClass) {
+		return serviceClass.getName() + ";";
+	}
+
+	private static String addParameter(String name) {
+		return "-" + name;
+	};
 }

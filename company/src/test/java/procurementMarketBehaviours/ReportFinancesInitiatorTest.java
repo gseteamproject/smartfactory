@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.ResponderBehaviour;
 
 public class ReportFinancesInitiatorTest {
@@ -21,12 +21,12 @@ public class ReportFinancesInitiatorTest {
 
 	ResponderBehaviour interactionBehaviour_mock;
 
-	OrderDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	@Before
 	public void setUp() {
 		interactionBehaviour_mock = context.mock(ResponderBehaviour.class);
-		dataStore_mock = context.mock(OrderDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new ReportFinancesInitiator(interactionBehaviour_mock, dataStore_mock);
 	}

@@ -4,22 +4,26 @@ import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 class DeliverToSellingBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 313682933400751868L;
-	private String orderToGive;
-	private String orderText;
-	private ResponderBehaviour interactionBehaviour;
-	private MessageObject msgObj;
-	private OrderDataStore dataStore;
 
-	public DeliverToSellingBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	private String orderToGive;
+
+	private String orderText;
+
+	private ResponderBehaviour interactionBehaviour;
+
+	private MessageObject msgObj;
+
+	private AgentDataStore dataStore;
+
+	public DeliverToSellingBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
@@ -30,13 +34,9 @@ class DeliverToSellingBehaviour extends OneShotBehaviour {
 		orderToGive = interactionBehaviour.getRequest().getContent();
 		Order order = Order.gson.fromJson(orderToGive, Order.class);
 		orderText = order.getTextOfOrder();
-		/*
-		 * System.out.println("ProductionAgent: Delivering " + orderText +
-		 * " to warehouse");
-		 */
 
 		msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to warehouse");
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		for (OrderPart orderPart : order.orderList) {
 			Product productToGive = orderPart.getProduct();

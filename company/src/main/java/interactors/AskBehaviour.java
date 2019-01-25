@@ -3,6 +3,7 @@ package interactors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import common.AgentDataStore;
 import jade.core.behaviours.SimpleBehaviour;
 
 public class AskBehaviour extends SimpleBehaviour {
@@ -12,7 +13,7 @@ public class AskBehaviour extends SimpleBehaviour {
 	private static final long serialVersionUID = -4846116296001548998L;
 	protected RequestResult interactor;
 	protected ResponderBehaviour interactionBehaviour;
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 	protected boolean isStarted;
 
 	public boolean isStarted() {
@@ -23,7 +24,7 @@ public class AskBehaviour extends SimpleBehaviour {
 		this.isStarted = isStarted;
 	}
 
-	public AskBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public AskBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = interactionBehaviour.getRequestResult();

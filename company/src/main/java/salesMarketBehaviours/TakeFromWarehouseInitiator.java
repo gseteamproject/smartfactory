@@ -2,8 +2,8 @@ package salesMarketBehaviours;
 
 import java.util.Vector;
 
+import common.AgentDataStore;
 import interactors.AchieveREInitiatorInteractor;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.domain.FIPANames;
@@ -13,7 +13,7 @@ public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
 	private ResponderBehaviour interactionBehaviour;
 
-	public TakeFromWarehouseInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public TakeFromWarehouseInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}

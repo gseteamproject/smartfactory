@@ -1,18 +1,20 @@
 package basicAgents;
 
+import common.AgentDataStore;
+import common.AgentPlatform;
 import financesBehaviours.FinancesResponder;
-import interactors.OrderDataStore;
 import jade.core.Agent;
 
 public class FinancesAgent extends Agent {
 
 	private static final long serialVersionUID = 4773016963292343207L;
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
 	@Override
 	protected void setup() {
-		dataStore = new OrderDataStore();
+		dataStore = new AgentDataStore();
+		dataStore.setAgentPlatform(new AgentPlatform(this));
 
 		addBehaviour(new FinancesResponder(this, dataStore));
 	}

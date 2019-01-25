@@ -1,21 +1,19 @@
 package financesBehaviours;
 
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.Decision;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
 public class FinancesDecision extends Decision {
 
-	public FinancesDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public FinancesDecision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
 	public ACLMessage execute(ACLMessage request) {
-
 		setup(request);
 
 		response = request.createReply();
@@ -25,10 +23,10 @@ public class FinancesDecision extends Decision {
 
 		if (request.getConversationId() == "Order") {
 			msgObj = new MessageObject("AgentFinances", "has accepted selling of " + orderText);
-			Communication.server.sendMessageToClient(msgObj);
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		} else if (request.getConversationId() == "Materials") {
 			msgObj = new MessageObject("AgentFinances", "has accepted buying of " + orderText);
-			Communication.server.sendMessageToClient(msgObj);
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		}
 
 		return response;

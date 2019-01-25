@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import common.AgentDataStore;
 import jade.core.Agent;
 import jade.lang.acl.MessageTemplate;
 
@@ -19,7 +20,7 @@ public class ResponderBehaviourTest {
 
 	ResponderBehaviour testable;
 
-	OrderDataStore orderDataStore_mock;
+	AgentDataStore orderDataStore_mock;
 
 	Agent agent_mock;
 
@@ -27,7 +28,7 @@ public class ResponderBehaviourTest {
 
 	@Before
 	public void setUp() {
-		orderDataStore_mock = context.mock(OrderDataStore.class);
+		orderDataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
 		messageTemplate = MessageTemplate.MatchAll();
 

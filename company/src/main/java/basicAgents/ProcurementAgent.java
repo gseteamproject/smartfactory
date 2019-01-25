@@ -1,6 +1,7 @@
 package basicAgents;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
+import common.AgentPlatform;
 import jade.core.Agent;
 import procurementBehaviours.ProcurementResponder;
 
@@ -8,11 +9,12 @@ public class ProcurementAgent extends Agent {
 
 	private static final long serialVersionUID = 2923962894395399488L;
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
 	@Override
 	protected void setup() {
-		dataStore = new OrderDataStore();
+		dataStore = new AgentDataStore();
+		dataStore.setAgentPlatform(new AgentPlatform(this));
 		dataStore.setIsInMaterialStorage(false);
 		dataStore.setIsGiven(false);
 

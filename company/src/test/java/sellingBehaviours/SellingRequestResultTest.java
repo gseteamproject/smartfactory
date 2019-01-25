@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 
 public class SellingRequestResultTest {
 
@@ -18,11 +18,11 @@ public class SellingRequestResultTest {
 
 	SellingRequestResult testable;
 
-	OrderDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(OrderDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new SellingRequestResult(dataStore_mock);
 	}

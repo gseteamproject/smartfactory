@@ -1,9 +1,8 @@
 package procurementMarketBehaviours;
 
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.Decision;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -11,7 +10,7 @@ public class ProcurementMarketDecision extends Decision {
 
 	private MessageObject msgObj;
 
-	public ProcurementMarketDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public ProcurementMarketDecision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -26,7 +25,7 @@ public class ProcurementMarketDecision extends Decision {
 		response.setSender(interactionBehaviour.getAgent().getAID());
 
 		msgObj = new MessageObject("AgentProcurementMarket", "I will look for materials for " + orderText);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		return response;
 	}

@@ -6,6 +6,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import common.AgentDataStore;
+
 public class RequestResultTest {
 
 	private final Mockery context = new Mockery() {
@@ -16,11 +18,11 @@ public class RequestResultTest {
 
 	RequestResult testable;
 
-	OrderDataStore orderDataStore_mock;
+	AgentDataStore orderDataStore_mock;
 
 	@Before
 	public void setUp() {
-		orderDataStore_mock = context.mock(OrderDataStore.class);
+		orderDataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new RequestResult(orderDataStore_mock);
 	}

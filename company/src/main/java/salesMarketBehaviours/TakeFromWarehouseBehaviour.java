@@ -1,22 +1,26 @@
 package salesMarketBehaviours;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class TakeFromWarehouseBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 4233055394916376580L;
+
 	private String orderToTake;
+
 	private String orderText;
-	private OrderDataStore dataStore;
+
+	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
 
-	public TakeFromWarehouseBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public TakeFromWarehouseBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.dataStore = dataStore;
 		this.interactionBehaviour = interactionBehaviour;
@@ -24,18 +28,12 @@ public class TakeFromWarehouseBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-
 		orderToTake = dataStore.getRequestMessage().getContent();
-//        orderToTake = interactionBehaviour.getRequest().getContent();
 		orderText = Order.gson.fromJson(orderToTake, Order.class).getTextOfOrder();
 		dataStore.setRequestMessage(dataStore.getRequestMessage());
-//        dataStore.setRequestMessage(interactionBehaviour.getRequest());
 
 		msgObj = new MessageObject("AgentSalesMarket", orderText);
-		Communication.server.sendMessageToClient(msgObj);
-		/*
-		 * System.out.println(msgObj.getReceivedMessage());
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		myAgent.addBehaviour(new TakeFromWarehouseInitiatorBehaviour(interactionBehaviour, dataStore));
 	}
 }

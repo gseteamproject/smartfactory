@@ -1,9 +1,8 @@
 package procurementBehaviours;
 
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.Decision;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.lang.acl.ACLMessage;
 
@@ -11,7 +10,7 @@ public class ProcurementDecision extends Decision {
 
 	private MessageObject msgObj;
 
-	public ProcurementDecision(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public ProcurementDecision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
@@ -27,27 +26,11 @@ public class ProcurementDecision extends Decision {
 		if (request.getConversationId() == "Materials") {
 			msgObj = new MessageObject("AgentProcurement",
 					"I will check materialStorage for materials for " + orderText);
-			Communication.server.sendMessageToClient(msgObj);
-
-			/*
-			 * System.out.
-			 * println("ProcurementAgent: [request] ProductionAgent asks for materials for "
-			 * + orderText); System.out.
-			 * println("ProcurementAgent: [agree] I will check materialStorage for materials for "
-			 * + orderText);
-			 */
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		} else if (request.getConversationId() == "Take") {
 			msgObj = new MessageObject("AgentProcurement",
 					"I will give materials for " + orderText + " from materialStorage");
-			Communication.server.sendMessageToClient(msgObj);
-
-			/*
-			 * System.out.
-			 * println("ProcurementAgent: [request] ProductionAgent wants to get materials for "
-			 * + orderText + " from materialStorage"); System.out.println(
-			 * "ProcurementAgent: [agree] I will give you materials for " + orderText +
-			 * " from materialStorage");
-			 */
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		}
 
 		return response;

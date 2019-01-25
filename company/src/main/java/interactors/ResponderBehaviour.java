@@ -1,5 +1,6 @@
 package interactors;
 
+import common.AgentDataStore;
 import jade.core.Agent;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
@@ -39,7 +40,7 @@ public class ResponderBehaviour extends AchieveREResponder {
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	public ResponderBehaviour(Agent a, MessageTemplate mt, OrderDataStore dataStore) {
+	public ResponderBehaviour(Agent a, MessageTemplate mt, AgentDataStore dataStore) {
 		super(a, mt);
 		deadlineBehaviour = new DeadlineBehaviour(this, dataStore);
 	}

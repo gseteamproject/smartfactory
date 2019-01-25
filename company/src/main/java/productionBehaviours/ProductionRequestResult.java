@@ -1,12 +1,12 @@
 package productionBehaviours;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
 
 public class ProductionRequestResult extends RequestResult {
 
-	public ProductionRequestResult(OrderDataStore dataStore) {
+	public ProductionRequestResult(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

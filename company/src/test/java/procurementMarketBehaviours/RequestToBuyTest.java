@@ -10,6 +10,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import basicClasses.OrderPart;
+import common.AgentDataStore;
 import jade.core.AID;
 
 public class RequestToBuyTest {
@@ -26,12 +27,15 @@ public class RequestToBuyTest {
 
 	OrderPart orderPart_mock;
 
+	AgentDataStore dataStore_mock;
+
 	@Before
 	public void setUp() {
 		procurementAgents = new ArrayList<AID>();
 		orderPart_mock = context.mock(OrderPart.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
-		testable = new RequestToBuy(procurementAgents, orderPart_mock);
+		testable = new RequestToBuy(procurementAgents, orderPart_mock, dataStore_mock);
 	}
 
 	@After

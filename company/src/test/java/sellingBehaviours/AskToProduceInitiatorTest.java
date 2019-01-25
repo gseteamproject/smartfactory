@@ -6,7 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.ResponderBehaviour;
 
 public class AskToProduceInitiatorTest {
@@ -21,12 +21,12 @@ public class AskToProduceInitiatorTest {
 
 	ResponderBehaviour responderBehaviour_mock;
 
-	OrderDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
-		dataStore_mock = context.mock(OrderDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
 		testable = new AskToProduceInitiator(responderBehaviour_mock, dataStore_mock);
 	}

@@ -1,22 +1,26 @@
 package procurementBehaviours;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class AskForAuction extends OneShotBehaviour {
 
 	private static final long serialVersionUID = -4435715111290249737L;
+
 	private String materialsToRequest;
+
 	private String orderText;
-	private OrderDataStore dataStore;
+
+	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
 
-	public AskForAuction(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public AskForAuction(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
@@ -27,7 +31,7 @@ public class AskForAuction extends OneShotBehaviour {
 		materialsToRequest = interactionBehaviour.getRequest().getContent();
 		orderText = Order.gson.fromJson(materialsToRequest, Order.class).getTextOfOrder();
 		msgObj = new MessageObject("AgentProduction", "is asking to get materials for " + orderText);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		myAgent.addBehaviour(new AskForAuctionInitiatorBehaviour(interactionBehaviour, dataStore));
 	}
 }

@@ -2,22 +2,26 @@ package salesMarketBehaviours;
 
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 class DeliverToCustomerBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 313682933400751868L;
+
 	private String orderToGive;
+
 	private String orderText;
-	private OrderDataStore dataStore;
+
+	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
 
-	public DeliverToCustomerBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public DeliverToCustomerBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.dataStore = dataStore;
 		this.interactionBehaviour = interactionBehaviour;
@@ -30,12 +34,12 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to customer");
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		CrossAgentData.orderQueue.remove(order);
 
 		msgObj = new MessageObject("AgentSalesMarket", orderText + " is removed from Order queue.");
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}

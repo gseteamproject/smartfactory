@@ -1,6 +1,7 @@
 package basicAgents;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
+import common.AgentPlatform;
 import jade.core.Agent;
 import procurementMarketBehaviours.ProcurementMarketResponder;
 
@@ -8,11 +9,12 @@ public class ProcurementMarketAgent extends Agent {
 
 	private static final long serialVersionUID = -7418692714860762106L;
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
 	@Override
 	protected void setup() {
-		dataStore = new OrderDataStore();
+		dataStore = new AgentDataStore();
+		dataStore.setAgentPlatform(new AgentPlatform(this));
 
 		addBehaviour(new ProcurementMarketResponder(this, dataStore));
 	}

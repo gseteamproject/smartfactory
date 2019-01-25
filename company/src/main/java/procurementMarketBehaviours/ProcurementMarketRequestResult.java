@@ -1,12 +1,12 @@
 package procurementMarketBehaviours;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
 
 public class ProcurementMarketRequestResult extends RequestResult {
 
-	public ProcurementMarketRequestResult(OrderDataStore dataStore) {
+	public ProcurementMarketRequestResult(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

@@ -4,9 +4,8 @@ import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import basicClasses.OrderPart;
 import basicClasses.Product;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 import jade.lang.acl.ACLMessage;
@@ -15,11 +14,11 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 3856126876248315456L;
 	private ACLMessage requestMessage;
-	private OrderDataStore dataStore;
+	private AgentDataStore dataStore;
 	private ResponderBehaviour interactionBehaviour;
 	private MessageObject msgObj;
 
-	public CheckWarehouseBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public CheckWarehouseBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		requestMessage = dataStore.getRequestMessage();
 
@@ -48,32 +47,12 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 		for (OrderPart orderPart : order.orderList) {
 			Product productToCheck = orderPart.getProduct();
 			int amount = orderPart.getAmount();
-			/*
-			 * msgObj = new MessageObject("AgentSelling", "Asking warehouse about " +
-			 * orderPart.getTextOfOrderPart());
-			 * 
-			 * System.out.println("SellingAgent: Asking warehouse about " +
-			 * orderPart.getTextOfOrderPart());
-			 * Communication.server.sendMessageToClient("SellingAgent",
-			 * "Asking warehouse about " + orderPart.getTextOfOrderPart());
-			 */
-
 			int amountInWH = CrossAgentData.warehouse.getAmountOfProduct(productToCheck);
 
 			if (amountInWH >= amount) {
 				if (dataStore.getIsInWarehouse()) {
 					dataStore.setIsInWarehouse(true);
 				}
-
-				/*
-				 * msgObj = new MessageObject("AgentSelling", "I say that " +
-				 * orderPart.getTextOfOrderPart() + " is in warehouse");
-				 * 
-				 * System.out.println("SellingAgent: I say that " +
-				 * orderPart.getTextOfOrderPart() + " is in warehouse");
-				 * Communication.server.sendMessageToClient("SellingAgent", "I say that " +
-				 * orderPart.getTextOfOrderPart() + " is in warehouse");
-				 */
 			} else {
 				dataStore.setIsInWarehouse(false);
 
@@ -93,21 +72,9 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 			msgToFinances.setContent(testGson);
 			dataStore.setSubMessage(msgToFinances);
 
-			// // add order to queue
-			// Selling.productionQueue.add(order);
-
 			msgObj = new MessageObject("AgentSelling",
 					"Sending an info to Finance Agent to produce " + orderToProduce.getTextOfOrder());
-			Communication.server.sendMessageToClient(msgObj);
-
-			/*
-			 * System.out.println(
-			 * "SellingAgent: Sending an info to Finance Agent to produce " +
-			 * orderToProduce.getTextOfOrder());
-			 * Communication.server.sendMessageToClient("SellingAgent",
-			 * "Sending an info to Finance Agent to produce " +
-			 * orderToProduce.getTextOfOrder());
-			 */
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 			myAgent.addBehaviour(new AskFinancesBehaviour(interactionBehaviour, dataStore));
 		}

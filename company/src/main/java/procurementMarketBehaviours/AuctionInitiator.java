@@ -8,9 +8,8 @@ import org.slf4j.LoggerFactory;
 
 import basicClasses.Order;
 import basicClasses.OrderPart;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.core.Agent;
@@ -31,9 +30,9 @@ public class AuctionInitiator extends OneShotBehaviour {
 
 	private ResponderBehaviour interactionBehaviour;
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
-	public AuctionInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public AuctionInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
@@ -65,24 +64,24 @@ public class AuctionInitiator extends OneShotBehaviour {
 		String orderText = order.getTextOfOrder();
 
 		MessageObject msgObj = new MessageObject(materialToBuy, orderText);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		ParallelBehaviour allRequestsToBuy = new ParallelBehaviour(myAgent, ParallelBehaviour.WHEN_ALL);
 		for (OrderPart orderPart : order.orderList) {
 			msgObj = new MessageObject("AgentProcurementMarket",
 					"looking for agents with procurement service " + orderPart.getGood().getClass().getSimpleName());
-			Communication.server.sendMessageToClient(msgObj);
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 			List<AID> agents = findAgents(myAgent, orderPart.getGood().getClass().getSimpleName());
 			if (!agents.isEmpty()) {
 				msgObj = new MessageObject("AgentProcurementMarket",
 						"agents providing service are found. Trying to get infromation...");
-				allRequestsToBuy.addSubBehaviour(new RequestToBuy(agents, orderPart));
+				allRequestsToBuy.addSubBehaviour(new RequestToBuy(agents, orderPart, dataStore));
 				// TODO: Check if material is really bought
 			} else {
 				msgObj = new MessageObject("AgentProcurementMarket", "No agents providing service are found.");
 			}
-			Communication.server.sendMessageToClient(msgObj);
+			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		}
 
 		SequentialBehaviour sequence = new SequentialBehaviour(myAgent);

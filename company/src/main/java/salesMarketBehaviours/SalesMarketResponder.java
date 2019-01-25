@@ -1,7 +1,7 @@
 package salesMarketBehaviours;
 
+import common.AgentDataStore;
 import interactors.ActivityBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
 import jade.domain.FIPANames;
@@ -12,7 +12,7 @@ public class SalesMarketResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = 7386418031416044376L;
 
-	public SalesMarketResponder(Agent a, OrderDataStore dataStore) {
+	public SalesMarketResponder(Agent a, AgentDataStore dataStore) {
 		super(a, MessageTemplate.and(MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST),
 				MessageTemplate.MatchPerformative(ACLMessage.REQUEST)), dataStore);
 		requestResult = new SalesMarketRequestResult(dataStore);

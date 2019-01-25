@@ -3,10 +3,9 @@ package sellingBehaviours;
 import java.util.Vector;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
@@ -16,7 +15,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 
-	public AskFinancesInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public AskFinancesInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}
@@ -41,7 +40,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is allowed to produce");
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		ACLMessage msgToProduction = (ACLMessage) inform.clone();
 		dataStore.setSubMessage(msgToProduction);
@@ -60,8 +59,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is forbidden to produce");
-		Communication.server.sendMessageToClient(msgObj);
-
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 	}
 
 	@Override
@@ -72,8 +70,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 		orderText = Order.gson.fromJson(agree.getContent(), Order.class).getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", "Asking finances about " + orderText);
-		Communication.server.sendMessageToClient(msgObj);
-
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 	}
 
 	@Override

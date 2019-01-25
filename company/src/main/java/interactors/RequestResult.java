@@ -1,14 +1,15 @@
 package interactors;
 
+import common.AgentDataStore;
 import jade.lang.acl.ACLMessage;
 
 public class RequestResult {
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
 	public boolean isDone;
 
-	public RequestResult(OrderDataStore dataStore) {
+	public RequestResult(AgentDataStore dataStore) {
 		this.dataStore = dataStore;
 	}
 

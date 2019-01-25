@@ -1,7 +1,7 @@
 package procurementBehaviours;
 
+import common.AgentDataStore;
 import interactors.ActivityBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
 import jade.domain.FIPANames;
@@ -11,7 +11,7 @@ public class ProcurementResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = -5804509731381843266L;
 
-	public ProcurementResponder(Agent a, OrderDataStore dataStore) {
+	public ProcurementResponder(Agent a, AgentDataStore dataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
 		requestResult = new ProcurementRequestResult(dataStore);
 		askBehaviour = new ProcurementAskBehaviour(this, dataStore);

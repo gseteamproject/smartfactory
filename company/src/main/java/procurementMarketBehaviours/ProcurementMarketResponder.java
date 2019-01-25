@@ -1,7 +1,7 @@
 package procurementMarketBehaviours;
 
+import common.AgentDataStore;
 import interactors.ActivityBehaviour;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
 import jade.domain.FIPANames;
@@ -11,7 +11,7 @@ public class ProcurementMarketResponder extends ResponderBehaviour {
 
 	private static final long serialVersionUID = 8819328566657528097L;
 
-	public ProcurementMarketResponder(Agent a, OrderDataStore dataStore) {
+	public ProcurementMarketResponder(Agent a, AgentDataStore dataStore) {
 		super(a, AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST), dataStore);
 		requestResult = new ProcurementMarketRequestResult(dataStore);
 		askBehaviour = new ProcurementMarketAskBehaviour(this, dataStore);

@@ -2,9 +2,8 @@ package sellerBehaviours;
 
 import java.util.Random;
 
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import jade.core.Agent;
 import jade.domain.FIPANames;
 import jade.domain.FIPAAgentManagement.FailureException;
@@ -17,9 +16,9 @@ public class RespondToBuy extends ContractNetResponder {
 
 	private static final long serialVersionUID = -6600650210336116167L;
 
-	private OrderDataStore dataStore;
+	private AgentDataStore dataStore;
 
-	public RespondToBuy(Agent agent, OrderDataStore dataStore) {
+	public RespondToBuy(Agent agent, AgentDataStore dataStore) {
 		super(agent, createMessageTemplate(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET));
 		this.dataStore = dataStore;
 	}
@@ -30,7 +29,7 @@ public class RespondToBuy extends ContractNetResponder {
 
 		MessageObject msgObj = new MessageObject("AgentProcurementMarket",
 				dataStore.getGoodName() + " price is " + price);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		ACLMessage reply = cfp.createReply();
 		reply.setPerformative(ACLMessage.PROPOSE);
@@ -43,7 +42,7 @@ public class RespondToBuy extends ContractNetResponder {
 			throws FailureException {
 		MessageObject msgObj = new MessageObject("AgentProcurementMarket",
 				"Delivering " + dataStore.getGoodName() + "(s).");
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		ACLMessage reply = accept.createReply();
 		reply.setPerformative(ACLMessage.INFORM);

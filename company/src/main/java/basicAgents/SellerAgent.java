@@ -3,7 +3,8 @@ package basicAgents;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
+import common.AgentPlatform;
 import jade.core.Agent;
 import jade.domain.DFService;
 import jade.domain.FIPAException;
@@ -17,11 +18,12 @@ public class SellerAgent extends Agent {
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
-	protected OrderDataStore dataStore;
+	protected AgentDataStore dataStore;
 
 	@Override
 	protected void setup() {
-		dataStore = new OrderDataStore();
+		dataStore = new AgentDataStore();
+		dataStore.setAgentPlatform(new AgentPlatform(this));
 		dataStore.setGoodName(getArguments()[0].toString());
 
 		registerServices();

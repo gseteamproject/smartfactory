@@ -1,12 +1,12 @@
 package salesMarketBehaviours;
 
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 import interactors.RequestResult;
 import jade.lang.acl.ACLMessage;
 
 public class SalesMarketRequestResult extends RequestResult {
 
-	public SalesMarketRequestResult(OrderDataStore dataStore) {
+	public SalesMarketRequestResult(AgentDataStore dataStore) {
 		super(dataStore);
 	}
 

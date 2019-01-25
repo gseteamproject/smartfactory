@@ -3,10 +3,9 @@ package productionBehaviours;
 import java.util.Vector;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
@@ -14,9 +13,10 @@ import jade.lang.acl.ACLMessage;
 public class TakeFromStorageInitiator extends AchieveREInitiatorInteractor {
 
 	private ResponderBehaviour interactionBehaviour;
-	public MessageObject msgObj;
 
-	public TakeFromStorageInitiator(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	private MessageObject msgObj;
+
+	public TakeFromStorageInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(dataStore);
 		this.interactionBehaviour = interactionBehaviour;
 	}
@@ -36,41 +36,25 @@ public class TakeFromStorageInitiator extends AchieveREInitiatorInteractor {
 	public void handleInform(ACLMessage inform) {
 		// TODO if deadline was called earlier than inform received message appears to
 		// be null. Try to fix this
-
 		orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
 
 		msgObj = new MessageObject(inform, orderText);
-		Communication.server.sendMessageToClient(msgObj);
-
-		/*
-		 * System.out.println( "ProductionAgent: received [inform] materials for " +
-		 * orderText + " will be taken from storage");
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		msgObj = new MessageObject("AgentProduction", "now have materials for " + orderText);
-		Communication.server.sendMessageToClient(msgObj);
-
-		/*
-		 * System.out.println("ProductionAgent: Now I have materials for " + orderText);
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		interactionBehaviour.getAgent().addBehaviour(new DeliverToSellingBehaviour(interactionBehaviour, dataStore));
 	}
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
-
 		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
 
 		msgObj = new MessageObject(failure, orderText);
-		Communication.server.sendMessageToClient(msgObj);
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		msgObj = new MessageObject("AgentProduction", "materials for " + orderText + " will not be taken from storage");
-		Communication.server.sendMessageToClient(msgObj);
-
-		/*
-		 * System.out.println( "ProductionAgent: received [failure] materials for " +
-		 * orderText + " will not be taken from storage");
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 	}
 
 	@Override

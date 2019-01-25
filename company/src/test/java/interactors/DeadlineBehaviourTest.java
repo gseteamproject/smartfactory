@@ -7,6 +7,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import common.AgentDataStore;
 import jade.core.Agent;
 
 public class DeadlineBehaviourTest {
@@ -21,14 +22,14 @@ public class DeadlineBehaviourTest {
 
 	ResponderBehaviour responderBehaviour_mock;
 
-	OrderDataStore orderDataStore_mock;
+	AgentDataStore orderDataStore_mock;
 
 	Agent agent_mock;
 
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
-		orderDataStore_mock = context.mock(OrderDataStore.class);
+		orderDataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
 		context.checking(new Expectations() {

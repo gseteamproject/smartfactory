@@ -1,22 +1,26 @@
 package productionBehaviours;
 
 import basicClasses.Order;
-import communication.Communication;
+import common.AgentDataStore;
 import communication.MessageObject;
-import interactors.OrderDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
 public class AskForMaterialsBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 8495802171064457305L;
+
 	private String materialsToRequest;
+
 	private String orderText;
-	private OrderDataStore dataStore;
+
+	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
 
-	public AskForMaterialsBehaviour(ResponderBehaviour interactionBehaviour, OrderDataStore dataStore) {
+	public AskForMaterialsBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
@@ -29,12 +33,7 @@ public class AskForMaterialsBehaviour extends OneShotBehaviour {
 		dataStore.setRequestMessage(interactionBehaviour.getRequest());
 
 		msgObj = new MessageObject("AgentProduction", "Asking ProcurementAgent to get materials for " + orderText);
-		Communication.server.sendMessageToClient(msgObj);
-		/*
-		 * System.out.
-		 * println("ProductionAgent: Asking ProcurementAgent to get materials for " +
-		 * orderText);
-		 */
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		myAgent.addBehaviour(new AskForMaterialsInitiatorBehaviour(interactionBehaviour, dataStore));
 	}
 }

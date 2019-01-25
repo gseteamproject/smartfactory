@@ -1,4 +1,4 @@
-package interactors;
+package common;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +11,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import basicClasses.Order;
+import common.AgentDataStore;
 
-public class OrderDataStoreTest {
+public class AgentDataStoreTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -20,11 +21,11 @@ public class OrderDataStoreTest {
 		}
 	};
 
-	OrderDataStore testable;
+	AgentDataStore testable;
 
 	@Before
 	public void setUp() {
-		testable = new OrderDataStore();
+		testable = new AgentDataStore();
 	}
 
 	@After
@@ -156,5 +157,23 @@ public class OrderDataStoreTest {
 		testable.put("goodName", value);
 
 		Assert.assertEquals(value, testable.getGoodName());
+	}
+
+	@Test
+	public void setAgentPlatform() {
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+
+		testable.setAgentPlatform(agentPlatform_mock);
+
+		Assert.assertEquals(agentPlatform_mock, testable.get("agentPlatform"));
+	}
+
+	@Test
+	public void getAgentPlatform() {
+		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
+
+		testable.put("agentPlatform", agentPlatform_mock);
+
+		Assert.assertEquals(agentPlatform_mock, testable.getAgentPlatform());
 	}
 }

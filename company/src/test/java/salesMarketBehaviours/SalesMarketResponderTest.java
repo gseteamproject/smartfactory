@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import basicAgents.SalesMarketAgent;
-import interactors.OrderDataStore;
+import common.AgentDataStore;
 
 public class SalesMarketResponderTest {
 
@@ -19,13 +19,13 @@ public class SalesMarketResponderTest {
 
 	SalesMarketResponder testable;
 
-	OrderDataStore dataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	SalesMarketAgent agent_mock;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(OrderDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(SalesMarketAgent.class);
 
 		testable = new SalesMarketResponder(agent_mock, dataStore_mock);
