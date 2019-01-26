@@ -1,22 +1,17 @@
 package application;
 
-import communication.Communication;
-import communication.Server;
-import communication.WebServerService;
+import communication.ServerService;
 import jade.Boot;
 
 public class Main {
 
-	private final static long DELAY_TIME_MS = 10; // delayTime for the GUI-Messages of the Agent-Communication
+	public final static long SERVER_DELAY_TIME = 10;
 
 	public static void main(String[] args) {
-		new Communication();
-		// todo: maybe start the program, when the client is connected first?
-
 		String[] parameters = new String[] { "-gui", "-services",
 				addService(jade.core.event.NotificationService.class)
-						+ addService(communication.WebServerService.class),
-				addParameter(WebServerService.DELAY_TIME), "10",
+						+ addService(communication.ServerService.class),
+				addParameter(ServerService.DELAY_TIME), Long.toString(SERVER_DELAY_TIME),
 				addAgent("AgentCustomer", basicAgents.CustomerAgent.class)
 						+ addAgent("AgentSalesMarket", basicAgents.SalesMarketAgent.class)
 						+ addAgent("AgentSelling", basicAgents.SellingAgent.class)
@@ -27,8 +22,6 @@ public class Main {
 						+ addAgent("AgentPaintSelling", basicAgents.SellerAgent.class, "Paint")
 						+ addAgent("AgentProduction", basicAgents.ProductionAgent.class)
 						+ addAgent("sniffer", jade.tools.sniffer.Sniffer.class, "Agent*") };
-
-		Server.delaytime = DELAY_TIME_MS;
 
 		Boot.main(parameters);
 	}

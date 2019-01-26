@@ -3,10 +3,10 @@ package interactors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import application.Main;
 import basicClasses.Order;
 import common.AgentDataStore;
 import communication.MessageObject;
-import communication.Server;
 import jade.lang.acl.ACLMessage;
 
 public class Decision {
@@ -63,7 +63,7 @@ public class Decision {
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		dataStore.setDeadlineResult(false);
 
-		interactionBehaviour.getDeadlineBehaviour().reset(dataStore.getDeadline() * Server.delaytime / 150);
+		interactionBehaviour.getDeadlineBehaviour().reset(dataStore.getDeadline() * Main.SERVER_DELAY_TIME / 150);
 
 		interactionBehaviour.getRequestResult().reset();
 		interactionBehaviour.getAskBehaviour().setStarted(false);

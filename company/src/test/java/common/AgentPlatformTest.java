@@ -8,8 +8,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import communication.MessageObject;
-import communication.WebServerHelper;
-import communication.WebServerService;
+import communication.ServerServiceHelper;
+import communication.ServerService;
 import jade.core.Agent;
 import jade.core.ServiceException;
 
@@ -40,11 +40,11 @@ public class AgentPlatformTest {
 	@Test
 	public void sendMessageToWebClient() throws ServiceException {
 		final MessageObject message_mock = context.mock(MessageObject.class);
-		final WebServerHelper helper_mock = context.mock(WebServerHelper.class);
+		final ServerServiceHelper helper_mock = context.mock(ServerServiceHelper.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(agent_mock).getHelper(WebServerService.NAME);
+				oneOf(agent_mock).getHelper(ServerService.NAME);
 				will(returnValue(helper_mock));
 
 				oneOf(helper_mock).sendMessageToClient(message_mock);

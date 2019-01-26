@@ -20,14 +20,14 @@ public class DecisionTest {
 
 	ResponderBehaviour responderBehaviour_mock;
 
-	AgentDataStore orderDataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
-		orderDataStore_mock = context.mock(AgentDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 
-		testable = new Decision(responderBehaviour_mock, orderDataStore_mock);
+		testable = new Decision(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After

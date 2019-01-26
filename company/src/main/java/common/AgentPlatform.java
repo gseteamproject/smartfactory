@@ -4,8 +4,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import communication.MessageObject;
-import communication.WebServerHelper;
-import communication.WebServerService;
+import communication.ServerServiceHelper;
+import communication.ServerService;
 import jade.core.Agent;
 import jade.core.ServiceException;
 
@@ -21,7 +21,7 @@ public class AgentPlatform {
 
 	public void sendMessageToWebClient(MessageObject msgObj) {
 		try {
-			((WebServerHelper) agent.getHelper(WebServerService.NAME)).sendMessageToClient(msgObj);
+			((ServerServiceHelper) agent.getHelper(ServerService.NAME)).sendMessageToClient(msgObj);
 		} catch (ServiceException e) {
 			logger.error("", e);
 		}

@@ -21,13 +21,17 @@ public class Server implements Runnable {
 
 	private final String server = "localhost";
 	private final int port = 9092;
-	public static long delaytime;
+	private long delayTime;
 
 	private SocketIOServer conServer;
 	private SocketIOClient conClient;
 	private int connectionCounter;
 
 	private Map<String, JsonWrapper> arrows;
+
+	public void start() {
+		new Thread(this).start();
+	}
 
 	@Override
 	/*
@@ -72,7 +76,7 @@ public class Server implements Runnable {
 		conServer.addEventListener("msgevent", MessageObject.class, (socketIOClient, messageObject, ackRequest) -> {
 			if (messageObject.getMessage().equals("stop_server")) {
 				logger.info("Client stopped the server!");
-				stopServer();
+				stop();
 			}
 		});
 
@@ -88,7 +92,7 @@ public class Server implements Runnable {
 		MessageWrapper wrapper = new MessageWrapper(msgObj);
 
 		try {
-			Thread.sleep(delaytime);
+			Thread.sleep(delayTime);
 		} catch (InterruptedException e) {
 			logger.error("sleep failed", e);
 		}
@@ -153,11 +157,19 @@ public class Server implements Runnable {
 		return config;
 	}
 
-	private void stopServer() {
+	public void stop() {
 		if (conClient != null)
 			conClient.disconnect();
 
 		if (conServer != null)
 			conServer.stop();
+	}
+
+	public void setDelayTime(long delayTime) {
+		this.delayTime = delayTime;
+	}
+
+	public long getDelayTime() {
+		return this.delayTime;
 	}
 }

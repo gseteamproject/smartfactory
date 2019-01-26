@@ -22,14 +22,14 @@ public class DeadlineBehaviourTest {
 
 	ResponderBehaviour responderBehaviour_mock;
 
-	AgentDataStore orderDataStore_mock;
+	AgentDataStore dataStore_mock;
 
 	Agent agent_mock;
 
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
-		orderDataStore_mock = context.mock(AgentDataStore.class);
+		dataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
 		context.checking(new Expectations() {
@@ -39,7 +39,7 @@ public class DeadlineBehaviourTest {
 			}
 		});
 
-		testable = new DeadlineBehaviour(responderBehaviour_mock, orderDataStore_mock);
+		testable = new DeadlineBehaviour(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After

@@ -3,11 +3,11 @@ package interactors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import application.Main;
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import common.AgentDataStore;
 import communication.MessageObject;
-import communication.Server;
 import jade.core.behaviours.WakerBehaviour;
 
 public class DeadlineBehaviour extends WakerBehaviour {
@@ -28,7 +28,7 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
 	@Override
 	protected void onWake() {
-		logger.info("{}", dataStore.getDeadline() * Server.delaytime / 150);
+		logger.info("{}", dataStore.getDeadline() * Main.SERVER_DELAY_TIME / 150);
 		Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
 		logger.info("{}", CrossAgentData.orderQueue);
 		logger.info("{}", dataStore.getRequestMessage().getContent());
