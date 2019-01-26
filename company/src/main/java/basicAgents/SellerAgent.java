@@ -1,13 +1,8 @@
 package basicAgents;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import common.AgentDataStore;
 import common.AgentPlatform;
 import jade.core.Agent;
-import jade.domain.DFService;
-import jade.domain.FIPAException;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
 import sellerBehaviours.RespondToBuy;
@@ -15,8 +10,6 @@ import sellerBehaviours.RespondToBuy;
 public class SellerAgent extends Agent {
 
 	private static final long serialVersionUID = -7418692714860762106L;
-
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	protected AgentDataStore dataStore;
 
@@ -35,26 +28,16 @@ public class SellerAgent extends Agent {
 		ServiceDescription serviceDescription = new ServiceDescription();
 		serviceDescription.setName(dataStore.getGoodName());
 		serviceDescription.setType("procurement-service");
+
 		DFAgentDescription agentDescription = new DFAgentDescription();
 		agentDescription.setName(getAID());
 		agentDescription.addServices(serviceDescription);
-		try {
-			DFService.register(this, agentDescription);
-		} catch (FIPAException exception) {
-			logger.error("register failed", exception);
-		}
+
+		dataStore.getAgentPlatform().registerAgentServices(agentDescription);
 	}
 
 	@Override
 	protected void takeDown() {
-		deregisterServices();
-	}
-
-	private void deregisterServices() {
-		try {
-			DFService.deregister(this);
-		} catch (FIPAException exception) {
-			logger.error("deregister failed", exception);
-		}
+		dataStore.getAgentPlatform().deregisterAgentServices();
 	}
 }
