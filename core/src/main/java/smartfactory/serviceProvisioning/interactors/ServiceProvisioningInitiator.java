@@ -26,7 +26,6 @@ public class ServiceProvisioningInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public Vector<ACLMessage> prepareRequests(ACLMessage request) {
-
 		Action action = prepareRequestContent();
 
 		ACLMessage message = new ACLMessage(ACLMessage.REQUEST);
@@ -43,7 +42,6 @@ public class ServiceProvisioningInitiator extends AchieveREInitiatorInteractor {
 
 	private Action prepareRequestContent() {
 		AID receiver = agentDataStore.getProcessOperation().agentDescription.getName();
-		// content = operation name
 		String serviceName = agentDataStore.getProcessOperation().serviceName;
 		ServiceRequest serviceRequest = new ServiceRequest();
 		serviceRequest.setServiceName(serviceName);
