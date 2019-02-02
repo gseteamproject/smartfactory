@@ -29,9 +29,9 @@ public class DeadlineBehaviour extends WakerBehaviour {
 	@Override
 	protected void onWake() {
 		logger.info("{}", dataStore.getDeadline() * Main.SERVER_DELAY_TIME / 150);
-		Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
+		Order order = dataStore.getOrder();
 		logger.info("{}", CrossAgentData.orderQueue);
-		logger.info("{}", dataStore.getRequestMessage().getContent());
+		logger.info("{}", interactionBehaviour.getRequest().getContent());
 		dataStore.setDeadlineResult(true);
 		if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 			logger.info("Deadline of {}", interactionBehaviour.getAgent().getLocalName());

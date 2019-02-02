@@ -11,11 +11,8 @@ import jade.lang.acl.ACLMessage;
 
 public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
-	private ResponderBehaviour interactionBehaviour;
-
 	public TakeFromWarehouseInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(dataStore);
-		this.interactionBehaviour = interactionBehaviour;
+		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
@@ -26,7 +23,7 @@ public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 		message.setConversationId(requestedAction);
 		message.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
 		message.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-		message.setContent(dataStore.getRequestMessage().getContent());
+		message.setContent(interactionBehaviour.getRequest().getContent());
 
 		Vector<ACLMessage> l = new Vector<ACLMessage>(1);
 		l.addElement(message);
@@ -35,7 +32,6 @@ public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleInform(ACLMessage inform) {
-
 		handleResponse(inform);
 
 		interactionBehaviour.getAgent().addBehaviour(new DeliverToCustomerBehaviour(interactionBehaviour, dataStore));
@@ -43,7 +39,6 @@ public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
-
 		handleResponse(failure);
 	}
 

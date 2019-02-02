@@ -19,36 +19,20 @@ public class ProcurementAskBehaviour extends AskBehaviour {
 	public void action() {
 		if (!this.isStarted()) {
 			ACLMessage request = interactionBehaviour.getRequest();
-			Order order = Order.gson.fromJson(request.getContent(), Order.class);
+			Order order = Order.fromJson(request.getContent());
 			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 				if (request.getConversationId() == "Materials") {
-					// if (!this.isStarted()) {
 					this.interactor.isDone = false;
-
 					CrossAgentData.orderQueue
-							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
-									.getAgent().getLocalName();
-
-					// myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
-					// interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
-					myAgent.addBehaviour(
-							new CheckMaterialStorage(interactionBehaviour, dataStore));
-					// }
-					// this.setStarted(true);
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
+									.getLocalName();
+					myAgent.addBehaviour(new CheckMaterialStorage(interactionBehaviour, dataStore));
 				} else if (request.getConversationId() == "Take") {
-					// if (this.isStarted()) {
 					this.interactor.isDone = false;
-
 					CrossAgentData.orderQueue
-							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
-									.getAgent().getLocalName();
-
-					// myAgent.addBehaviour(new ProcurementActivityBehaviour((ProcurementResponder)
-					// interactionBehaviour, (ProcurementRequestResult) interactor, dataStore));
-					myAgent.addBehaviour(
-							new GiveMaterialToProduction(interactionBehaviour, dataStore));
-					// }
-					// this.setStarted(false);
+							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
+									.getLocalName();
+					myAgent.addBehaviour(new GiveMaterialToProduction(interactionBehaviour, dataStore));
 				}
 			}
 			this.setStarted(true);

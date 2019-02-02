@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 /* Orders are Product-Orders (Red Small Stones or Big Blue Stones and so on) from Customers which
    are safed in this Class and are used by different Agents
@@ -13,9 +12,6 @@ import com.google.gson.GsonBuilder;
 
 public class Order implements Serializable {
 	private static final long serialVersionUID = 8348788729049247785L;
-
-	public static GsonBuilder builder = new GsonBuilder();
-	public static Gson gson = builder.create();
 
 	public int id;
 	public List<OrderPart> orderList = new ArrayList<OrderPart>();
@@ -126,5 +122,15 @@ public class Order implements Serializable {
 		}
 
 		return true;
+	}
+
+	private static final Gson gsonBuilder = new Gson();
+
+	public String toJson() {
+		return gsonBuilder.toJson(this);
+	}
+
+	public static Order fromJson(String jsonString) {
+		return gsonBuilder.fromJson(jsonString, Order.class);
 	}
 }

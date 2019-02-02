@@ -21,33 +21,32 @@ public class FinancesAskBehaviour extends AskBehaviour {
 	@Override
 	public void action() {
 		if (!this.isStarted()) {
+			Order order = dataStore.getOrder();
 			ACLMessage request = interactionBehaviour.getRequest();
-			Order order = Order.gson.fromJson(request.getContent(), Order.class);
-			String orderText = order.getTextOfOrder();
 
 			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
 				if (request.getConversationId() == "Order") {
 					this.interactor.isDone = false;
 
-					msgObj = new MessageObject(request, " has accepted selling of " + orderText);
+					msgObj = new MessageObject(request, " has accepted selling of " + order.getTextOfOrder());
 					dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 					CrossAgentData.orderQueue
 							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
 									.getLocalName();
 
-					myAgent.addBehaviour(new TransferMoneyToBank(interactionBehaviour));
+					myAgent.addBehaviour(new TransferMoneyToBank(interactionBehaviour, dataStore));
 				} else if (request.getConversationId() == "Materials") {
 					this.interactor.isDone = false;
 
-					msgObj = new MessageObject(request, "has accepted buying of " + orderText);
+					msgObj = new MessageObject(request, "has accepted buying of " + order.getTextOfOrder());
 					dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 					CrossAgentData.orderQueue
 							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
 									.getLocalName();
 
-					myAgent.addBehaviour(new TransferMoneyFromBank(interactionBehaviour));
+					myAgent.addBehaviour(new TransferMoneyFromBank(interactionBehaviour, dataStore));
 				}
 			}
 			this.setStarted(true);

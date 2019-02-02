@@ -15,8 +15,6 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
 
 	private ResponderBehaviour interactionBehaviour;
 
-	private String orderToGive;
-
 	private MessageObject msgObj;
 
 	private AgentDataStore dataStore;
@@ -24,13 +22,12 @@ public class GiveProductToMarketBehaviour extends OneShotBehaviour {
 	public GiveProductToMarketBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
-		orderToGive = dataStore.getRequestMessage().getContent();
 		this.dataStore = dataStore;
 	}
 
 	@Override
 	public void action() {
-		Order order = Order.gson.fromJson(orderToGive, Order.class);
+		Order order = dataStore.getOrder();
 
 		dataStore.setIsTaken(false);
 		int takeCount = 0;

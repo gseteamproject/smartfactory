@@ -176,4 +176,22 @@ public class AgentDataStoreTest {
 
 		Assert.assertEquals(agentPlatform_mock, testable.getAgentPlatform());
 	}
+
+	@Test
+	public void setOrder() {
+		final Order order_mock = context.mock(Order.class);
+
+		testable.setOrder(order_mock);
+
+		Assert.assertEquals(order_mock, testable.get("order"));
+	}
+
+	@Test
+	public void getOrder() {
+		final Order order_mock = context.mock(Order.class);
+
+		testable.put("order", order_mock);
+
+		Assert.assertEquals(order_mock, testable.getOrder());
+	}
 }

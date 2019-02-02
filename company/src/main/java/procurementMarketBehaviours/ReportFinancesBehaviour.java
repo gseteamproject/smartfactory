@@ -1,6 +1,5 @@
 package procurementMarketBehaviours;
 
-import basicClasses.Order;
 import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.ResponderBehaviour;
@@ -26,7 +25,7 @@ public class ReportFinancesBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		orderText = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class).getTextOfOrder();
+		orderText = dataStore.getOrder().getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProcurementMarket", orderText + " is in finances");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);

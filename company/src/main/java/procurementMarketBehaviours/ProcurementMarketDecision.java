@@ -8,25 +8,22 @@ import jade.lang.acl.ACLMessage;
 
 public class ProcurementMarketDecision extends Decision {
 
-	private MessageObject msgObj;
-
 	public ProcurementMarketDecision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
 	public ACLMessage execute(ACLMessage request) {
-
 		setup(request);
 
-		response = request.createReply();
+		MessageObject msgObj = new MessageObject("AgentProcurementMarket",
+				"I will look for materials for " + order.getTextOfOrder());
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+
+		ACLMessage response = request.createReply();
 		response.setContent(request.getContent());
 		response.setPerformative(ACLMessage.AGREE);
 		response.setSender(interactionBehaviour.getAgent().getAID());
-
-		msgObj = new MessageObject("AgentProcurementMarket", "I will look for materials for " + orderText);
-		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-
 		return response;
 	}
 }

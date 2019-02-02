@@ -12,12 +12,10 @@ import jade.lang.acl.ACLMessage;
 
 public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
-	private ResponderBehaviour interactionBehaviour;
 	public MessageObject msgObj;
 
 	public AskFinancesInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(dataStore);
-		this.interactionBehaviour = interactionBehaviour;
+		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
@@ -36,7 +34,7 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
 		handleResponse(inform);
 
-		Order order = Order.gson.fromJson(inform.getContent(), Order.class);
+		Order order = Order.fromJson(inform.getContent());
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is allowed to produce");
@@ -56,7 +54,8 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
 		handleResponse(failure);
 
-		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
+		Order order = Order.fromJson(failure.getContent());
+		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is forbidden to produce");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
@@ -67,7 +66,8 @@ public class AskFinancesInitiator extends AchieveREInitiatorInteractor {
 
 		handleResponse(agree);
 
-		orderText = Order.gson.fromJson(agree.getContent(), Order.class).getTextOfOrder();
+		Order order = Order.fromJson(agree.getContent());
+		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", "Asking finances about " + orderText);
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);

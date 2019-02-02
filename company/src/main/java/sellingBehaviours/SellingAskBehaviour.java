@@ -22,7 +22,7 @@ public class SellingAskBehaviour extends AskBehaviour {
 	public void action() {
 		if (!this.isStarted()) {
 			ACLMessage request = interactionBehaviour.getRequest();
-			Order order = Order.gson.fromJson(request.getContent(), Order.class);
+			Order order = Order.fromJson(request.getContent());
 			String orderText = order.getTextOfOrder();
 
 			if (order.searchInList(CrossAgentData.orderQueue) > -1) {

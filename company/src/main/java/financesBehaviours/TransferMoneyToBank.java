@@ -3,7 +3,7 @@ package financesBehaviours;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import basicClasses.Order;
+import common.AgentDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.behaviours.OneShotBehaviour;
 
@@ -12,21 +12,19 @@ public class TransferMoneyToBank extends OneShotBehaviour {
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private static final long serialVersionUID = 6133055540457867642L;
-	private ResponderBehaviour interactionBehaviour;
-	private String orderToSell;
-	private String orderText;
 
-	public TransferMoneyToBank(ResponderBehaviour interactionBehaviour) {
+	private ResponderBehaviour interactionBehaviour;
+
+	private AgentDataStore dataStore;
+
+	public TransferMoneyToBank(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		this.interactionBehaviour = interactionBehaviour;
-		orderToSell = interactionBehaviour.getRequest().getContent();
+		this.dataStore = dataStore;
 	}
 
 	@Override
 	public void action() {
-		Order order = Order.gson.fromJson(orderToSell, Order.class);
-		orderText = order.getTextOfOrder();
-
-		logger.info("Sell {}", orderText);
+		logger.info("Sell {}", dataStore.getOrder().getTextOfOrder());
 		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}
 }

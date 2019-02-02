@@ -10,7 +10,6 @@ import org.junit.Test;
 import common.AgentDataStore;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
 
 public class GiveMaterialToProductionTest {
 
@@ -28,25 +27,16 @@ public class GiveMaterialToProductionTest {
 
 	Agent agent_mock;
 
-	ACLMessage message_mock;
-
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
-		message_mock = context.mock(ACLMessage.class);
 
 		context.checking(new Expectations() {
 			{
 				oneOf(responderBehaviour_mock).getAgent();
 				will(returnValue(agent_mock));
-
-				oneOf(dataStore_mock).getRequestMessage();
-				will(returnValue(message_mock));
-
-				oneOf(message_mock).getContent();
-				will(returnValue("request-content"));
 			}
 		});
 

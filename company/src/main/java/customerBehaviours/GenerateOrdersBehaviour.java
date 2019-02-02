@@ -59,7 +59,7 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
 			order.addGood(new Product(randSize, randColS), randAmount);
 		}
 
-		String testGson = Order.gson.toJson(order);
+		String testGson = order.toJson();
 		// {"id":1,"orderList":[{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"blue","price":0},"price":0},"amount":2},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"red","price":0},"price":0},"amount":2}]}
 
 		orderMsg.setContent(testGson);

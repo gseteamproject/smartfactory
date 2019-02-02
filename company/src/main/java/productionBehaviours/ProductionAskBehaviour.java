@@ -17,7 +17,7 @@ public class ProductionAskBehaviour extends AskBehaviour {
 	@Override
 	public void action() {
 		if (!this.isStarted()) {
-			Order orderToProduce = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+			Order orderToProduce = Order.fromJson(interactionBehaviour.getRequest().getContent());
 			if (orderToProduce.searchInList(CrossAgentData.orderQueue) > -1) {
 				// if (!this.isStarted()) {
 				CrossAgentData.orderQueue

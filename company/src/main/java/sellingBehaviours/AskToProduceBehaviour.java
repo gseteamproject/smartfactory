@@ -26,7 +26,7 @@ public class AskToProduceBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		orderText = Order.gson.fromJson(dataStore.getSubMessage().getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(dataStore.getSubMessage().getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject("AgentSelling", orderText + " is in production");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);

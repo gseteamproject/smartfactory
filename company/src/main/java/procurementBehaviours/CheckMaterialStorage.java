@@ -38,7 +38,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		Order order = Order.gson.fromJson(requestedMaterial, Order.class);
+		Order order = Order.fromJson(requestedMaterial);
 
 		dataStore.setIsInMaterialStorage(true);
 		boolean isInQueue = false;
@@ -92,7 +92,7 @@ public class CheckMaterialStorage extends OneShotBehaviour {
 		CrossAgentData.materialStorage.addAll(listToRemove);
 
 		if (!isInQueue && orderToBuy.orderList.size() > 0) {
-			String testGson = Order.gson.toJson(orderToBuy);
+			String testGson = orderToBuy.toJson();
 			ACLMessage msgToMarket = (ACLMessage) request.clone();
 			msgToMarket.setContent(testGson);
 			dataStore.setSubMessage(msgToMarket);

@@ -17,15 +17,13 @@ public class SalesMarketAskBehaviour extends AskBehaviour {
 	@Override
 	public void action() {
 		if (!this.isStarted()) {
-			Order order = Order.gson.fromJson(dataStore.getRequestMessage().getContent(), Order.class);
+			Order order = Order.fromJson(interactionBehaviour.getRequest().getContent());
 			if (!CrossAgentData.orderQueue.contains(order)) {
 				CrossAgentData.orderQueue.add(order);
 				CrossAgentData.orderQueue
 						.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
 								.getLocalName();
 				// if agent agrees it starts executing request
-				// myAgent.addBehaviour(new SalesMarketActivityBehaviour((SalesMarketResponder)
-				// interactionBehaviour, (SalesMarketRequestResult) interactor, dataStore));
 				myAgent.addBehaviour(new AskForOrderBehaviour(interactionBehaviour, dataStore));
 			}
 			this.setStarted(true);

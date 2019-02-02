@@ -14,13 +14,10 @@ import jade.lang.acl.MessageTemplate;
 
 public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
-	private ResponderBehaviour interactionBehaviour;
-
 	private MessageObject msgObj;
 
 	public AskForMaterialsInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(dataStore);
-		this.interactionBehaviour = interactionBehaviour;
+		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
@@ -36,7 +33,7 @@ public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleInform(ACLMessage inform) {
-		orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(inform.getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject(inform, "received [inform] materials for " + orderText + " are in storage");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
@@ -45,7 +42,7 @@ public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
-		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(failure.getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject(failure, "received [failure] materials for " + orderText + " are not in storage");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);

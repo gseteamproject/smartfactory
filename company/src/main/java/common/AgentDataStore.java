@@ -10,14 +10,6 @@ public class AgentDataStore extends DataStore {
 
 	private static final long serialVersionUID = 2340744686374901306L;
 
-	public void setRequestMessage(ACLMessage msg) {
-		put("request-message", msg);
-	}
-
-	public ACLMessage getRequestMessage() {
-		return (ACLMessage) get("request-message");
-	}
-
 	public void setSubMessage(ACLMessage msg) {
 		put("sub-message", msg);
 	}
@@ -114,5 +106,13 @@ public class AgentDataStore extends DataStore {
 
 	public AgentPlatform getAgentPlatform() {
 		return (AgentPlatform) get("agentPlatform");
+	}
+
+	public void setOrder(Order order) {
+		put("order", order);
+	}
+
+	public Order getOrder() {
+		return (Order) get("order");
 	}
 }

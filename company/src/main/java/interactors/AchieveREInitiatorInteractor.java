@@ -7,8 +7,8 @@ import jade.lang.acl.ACLMessage;
 
 public abstract class AchieveREInitiatorInteractor extends RequestInteractor {
 
-	public AchieveREInitiatorInteractor(AgentDataStore dataStore) {
-		super(dataStore);
+	public AchieveREInitiatorInteractor(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
+		super(interactionBehaviour, dataStore);
 	}
 
 	public abstract Vector<ACLMessage> prepareRequests(ACLMessage request);

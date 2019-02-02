@@ -15,8 +15,6 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
 
 	private ResponderBehaviour interactionBehaviour;
 
-	private String materialsToGive;
-
 	private String orderText;
 
 	private MessageObject msgObj;
@@ -26,13 +24,12 @@ public class GiveMaterialToProduction extends OneShotBehaviour {
 	public GiveMaterialToProduction(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
-		this.materialsToGive = dataStore.getRequestMessage().getContent();
 		this.dataStore = dataStore;
 	}
 
 	@Override
 	public void action() {
-		Order order = Order.gson.fromJson(materialsToGive, Order.class);
+		Order order = dataStore.getOrder();
 		orderText = order.getTextOfOrder();
 		msgObj = new MessageObject("AgentProcurement", "Taking " + orderText + " from materialStorage.");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);

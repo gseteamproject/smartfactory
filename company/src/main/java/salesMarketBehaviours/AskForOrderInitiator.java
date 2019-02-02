@@ -12,11 +12,8 @@ import jade.lang.acl.MessageTemplate;
 
 public class AskForOrderInitiator extends AchieveREInitiatorInteractor {
 
-	private ResponderBehaviour interactionBehaviour;
-
 	public AskForOrderInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(dataStore);
-		this.interactionBehaviour = interactionBehaviour;
+		super(interactionBehaviour, dataStore);
 	}
 
 	@Override

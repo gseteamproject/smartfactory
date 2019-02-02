@@ -11,17 +11,11 @@ import jade.lang.acl.ACLMessage;
 
 public class Decision {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	protected AgentDataStore dataStore;
 
 	protected ResponderBehaviour interactionBehaviour;
 
-	protected String orderText;
-
-	protected MessageObject msgObj;
-
-	protected ACLMessage response;
+	protected Order order;
 
 	public Decision(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		this.dataStore = dataStore;
@@ -33,8 +27,8 @@ public class Decision {
 	}
 
 	public void setup(ACLMessage request) {
-		Order order = Order.gson.fromJson(request.getContent(), Order.class);
-		orderText = order.getTextOfOrder();
+		order = Order.fromJson(request.getContent());
+		dataStore.setOrder(order);
 
 		// Agent should send agree or refuse
 		// TODO: Add refuse answer (some conditions should be added)
@@ -54,18 +48,17 @@ public class Decision {
 
 		order.agent = dataStore.getAgentName();
 
-		String orderGson = Order.gson.toJson(order);
+		String orderGson = order.toJson();
 		request.setContent(orderGson);
 
-		dataStore.setRequestMessage(request);
-
-		msgObj = new MessageObject(request, orderText);
+		MessageObject msgObj = new MessageObject(request, order.getTextOfOrder());
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		dataStore.setDeadlineResult(false);
 
 		interactionBehaviour.getDeadlineBehaviour().reset(dataStore.getDeadline() * Main.SERVER_DELAY_TIME / 150);
-
 		interactionBehaviour.getRequestResult().reset();
 		interactionBehaviour.getAskBehaviour().setStarted(false);
 	}
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

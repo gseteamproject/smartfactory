@@ -22,7 +22,7 @@ public class AskFinancesBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		String orderText = Order.gson.fromJson(dataStore.getSubMessage().getContent(), Order.class).getTextOfOrder();
+		String orderText = Order.fromJson(dataStore.getSubMessage().getContent()).getTextOfOrder();
 
 		MessageObject msgObj = new MessageObject("AgentSelling", orderText + " is in finances");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);

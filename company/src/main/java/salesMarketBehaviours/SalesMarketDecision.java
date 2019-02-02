@@ -1,7 +1,6 @@
 package salesMarketBehaviours;
 
 import basicClasses.CrossAgentData;
-import basicClasses.Order;
 import common.AgentDataStore;
 import communication.MessageObject;
 import interactors.Decision;
@@ -16,26 +15,23 @@ public class SalesMarketDecision extends Decision {
 
 	@Override
 	public ACLMessage execute(ACLMessage request) {
-		Order order = Order.gson.fromJson(request.getContent(), Order.class);
-		orderText = order.getTextOfOrder();
-
-		MessageObject msgObj = new MessageObject(request, "has ordered " + orderText);
-		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-
 		setup(request);
 
+		MessageObject msgObj = new MessageObject(request, "has ordered " + order.getTextOfOrder());
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+
 		// Agent should send agree or refuse
-		response = request.createReply();
+		ACLMessage response = request.createReply();
 		response.setContent(request.getContent());
 		response.setSender(interactionBehaviour.getAgent().getAID());
 
 		if (!CrossAgentData.orderQueue.contains(order)) {
 			response.setPerformative(ACLMessage.AGREE);
-			msgObj = new MessageObject(response, "has accepted order of " + orderText);
+			msgObj = new MessageObject(response, "has accepted order of " + order.getTextOfOrder());
 			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		} else {
 			response.setPerformative(ACLMessage.REFUSE);
-			msgObj = new MessageObject(response, "has rejected order of " + orderText);
+			msgObj = new MessageObject(response, "has rejected order of " + order.getTextOfOrder());
 			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 		}
 

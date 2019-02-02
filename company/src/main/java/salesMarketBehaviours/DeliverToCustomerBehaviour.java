@@ -11,8 +11,6 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 313682933400751868L;
 
-	private String orderToGive;
-
 	private String orderText;
 
 	private AgentDataStore dataStore;
@@ -29,8 +27,7 @@ class DeliverToCustomerBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		orderToGive = dataStore.getRequestMessage().getContent();
-		Order order = Order.gson.fromJson(orderToGive, Order.class);
+		Order order = dataStore.getOrder();
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to customer");

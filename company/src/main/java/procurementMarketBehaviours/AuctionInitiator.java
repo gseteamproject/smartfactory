@@ -60,7 +60,7 @@ public class AuctionInitiator extends OneShotBehaviour {
 	@Override
 	public void action() {
 		ACLMessage materialToBuy = interactionBehaviour.getRequest();
-		Order order = Order.gson.fromJson(materialToBuy.getContent(), Order.class);
+		Order order = Order.fromJson(materialToBuy.getContent());
 		String orderText = order.getTextOfOrder();
 
 		MessageObject msgObj = new MessageObject(materialToBuy, orderText);

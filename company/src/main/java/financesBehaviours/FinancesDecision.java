@@ -16,19 +16,20 @@ public class FinancesDecision extends Decision {
 	public ACLMessage execute(ACLMessage request) {
 		setup(request);
 
-		response = request.createReply();
+		MessageObject msgObj;
+		if (request.getConversationId() == "Order") {
+			msgObj = new MessageObject("AgentFinances", "has accepted selling of " + order.getTextOfOrder());
+		} else if (request.getConversationId() == "Materials") {
+			msgObj = new MessageObject("AgentFinances", "has accepted buying of " + order.getTextOfOrder());
+		} else {
+			msgObj = null;
+		}
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+
+		ACLMessage response = request.createReply();
 		response.setContent(request.getContent());
 		response.setPerformative(ACLMessage.AGREE);
 		response.setSender(interactionBehaviour.getAgent().getAID());
-
-		if (request.getConversationId() == "Order") {
-			msgObj = new MessageObject("AgentFinances", "has accepted selling of " + orderText);
-			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-		} else if (request.getConversationId() == "Materials") {
-			msgObj = new MessageObject("AgentFinances", "has accepted buying of " + orderText);
-			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-		}
-
 		return response;
 	}
 }

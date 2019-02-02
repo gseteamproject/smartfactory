@@ -14,17 +14,15 @@ public class ProductionDecision extends Decision {
 
 	@Override
 	public ACLMessage execute(ACLMessage request) {
-
 		setup(request);
 
-		response = request.createReply();
+		MessageObject msgObj = new MessageObject("AgentProduction", order.getTextOfOrder() + " will be produced");
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+
+		ACLMessage response = request.createReply();
 		response.setContent(request.getContent());
 		response.setPerformative(ACLMessage.AGREE);
 		response.setSender(interactionBehaviour.getAgent().getAID());
-
-		msgObj = new MessageObject("AgentProduction", orderText + " will be produced");
-		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-
 		return response;
 	}
 }

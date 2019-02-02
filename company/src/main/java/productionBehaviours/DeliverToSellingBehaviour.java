@@ -32,7 +32,7 @@ class DeliverToSellingBehaviour extends OneShotBehaviour {
 	@Override
 	public void action() {
 		orderToGive = interactionBehaviour.getRequest().getContent();
-		Order order = Order.gson.fromJson(orderToGive, Order.class);
+		Order order = Order.fromJson(orderToGive);
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProduction", "Delivering " + orderText + " to warehouse");

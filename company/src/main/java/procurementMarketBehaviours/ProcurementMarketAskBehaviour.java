@@ -17,23 +17,12 @@ public class ProcurementMarketAskBehaviour extends AskBehaviour {
 	@Override
 	public void action() {
 		if (!this.isStarted()) {
-			Order order = Order.gson.fromJson(interactionBehaviour.getRequest().getContent(), Order.class);
+			Order order = Order.fromJson(interactionBehaviour.getRequest().getContent());
 			if (order.searchInList(CrossAgentData.orderQueue) > -1) {
-				// if (!this.isStarted()) {
 				CrossAgentData.orderQueue
 						.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
 								.getLocalName();
-
-				// myAgent.addBehaviour(new
-				// ProcurementMarketActivityBehaviour((ProcurementMarketResponder)
-				// interactionBehaviour, (ProcurementMarketRequestResult) interactor,
-				// dataStore));
-				// myAgent.addBehaviour(new AuctionInitiator((ProcurementMarketResponder)
-				// interactionBehaviour));
-				myAgent.addBehaviour(
-						new ReportFinancesBehaviour(interactionBehaviour, dataStore));
-				// }
-				// this.setStarted(true);
+				myAgent.addBehaviour(new ReportFinancesBehaviour(interactionBehaviour, dataStore));
 			}
 			this.setStarted(true);
 		}

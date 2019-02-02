@@ -16,18 +16,20 @@ public class SellingDecision extends Decision {
 	public ACLMessage execute(ACLMessage request) {
 		setup(request);
 
-		response = request.createReply();
+		ACLMessage response = request.createReply();
 		response.setContent(request.getContent());
 		response.setPerformative(ACLMessage.AGREE);
 		response.setSender(interactionBehaviour.getAgent().getAID());
 
+		MessageObject msgObj;
 		if (request.getConversationId() == "Ask") {
-			msgObj = new MessageObject(response, orderText);
-			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+			msgObj = new MessageObject(response, order.getTextOfOrder());
 		} else if (request.getConversationId() == "Take") {
-			msgObj = new MessageObject(response, orderText);
-			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+			msgObj = new MessageObject(response, order.getTextOfOrder());
+		} else {
+			msgObj = null;
 		}
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
 		return response;
 	}

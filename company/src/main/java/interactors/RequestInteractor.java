@@ -12,13 +12,16 @@ public class RequestInteractor {
 
 	protected AgentDataStore dataStore;
 
+	protected ResponderBehaviour interactionBehaviour;
+
 	protected String orderText;
 
 	protected MessageObject msgObj;
 
 	protected Vector<ACLMessage> l;
 
-	public RequestInteractor(AgentDataStore dataStore) {
+	public RequestInteractor(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
+		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
 	}
 
@@ -28,7 +31,7 @@ public class RequestInteractor {
 		if (isSub) {
 			request.setContent(dataStore.getSubMessage().getContent());
 		} else {
-			request.setContent(dataStore.getRequestMessage().getContent());
+			request.setContent(interactionBehaviour.getRequest().getContent());
 		}
 
 		l = new Vector<ACLMessage>(1);
@@ -36,7 +39,7 @@ public class RequestInteractor {
 	}
 
 	protected void handleResponse(ACLMessage message) {
-		Order order = Order.gson.fromJson(message.getContent(), Order.class);
+		Order order = Order.fromJson(message.getContent());
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject(message, orderText);

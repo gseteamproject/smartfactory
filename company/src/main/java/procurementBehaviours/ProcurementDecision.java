@@ -16,23 +16,20 @@ public class ProcurementDecision extends Decision {
 
 	@Override
 	public ACLMessage execute(ACLMessage request) {
-
 		setup(request);
-
-		response = request.createReply();
-		response.setContent(request.getContent());
-		response.setPerformative(ACLMessage.AGREE);
 
 		if (request.getConversationId() == "Materials") {
 			msgObj = new MessageObject("AgentProcurement",
-					"I will check materialStorage for materials for " + orderText);
-			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+					"I will check materialStorage for materials for " + order.getTextOfOrder());
 		} else if (request.getConversationId() == "Take") {
 			msgObj = new MessageObject("AgentProcurement",
-					"I will give materials for " + orderText + " from materialStorage");
-			dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
+					"I will give materials for " + order.getTextOfOrder() + " from materialStorage");
 		}
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
+		ACLMessage response = request.createReply();
+		response.setContent(request.getContent());
+		response.setPerformative(ACLMessage.AGREE);
 		return response;
 	}
 }

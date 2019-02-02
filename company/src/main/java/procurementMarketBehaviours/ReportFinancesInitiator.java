@@ -15,15 +15,10 @@ import jade.lang.acl.ACLMessage;
 
 public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
-	private ResponderBehaviour interactionBehaviour;
-
 	private MessageObject msgObj;
 
 	public ReportFinancesInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(dataStore);
-		this.interactionBehaviour = interactionBehaviour;
+		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
@@ -32,7 +27,7 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 
 		String requestedAction = "Materials";
 		message.addReceiver(new AID(("AgentFinances"), AID.ISLOCALNAME));
-		logger.info("{}", dataStore.getRequestMessage().getContent());
+		logger.info("{}", interactionBehaviour.getRequest().getContent());
 		setup(message, requestedAction, false);
 
 		return l;
@@ -40,10 +35,9 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleInform(ACLMessage inform) {
-
 		handleResponse(inform);
 
-		Order order = Order.gson.fromJson(inform.getContent(), Order.class);
+		Order order = Order.fromJson(inform.getContent());
 		orderText = order.getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProcurementMarket", orderText + " is allowed to purchase");
@@ -62,7 +56,7 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 	public void handleFailure(ACLMessage failure) {
 		handleResponse(failure);
 
-		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(failure.getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProcurementMarket", orderText + " is forbidden to purchase");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
@@ -72,7 +66,7 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 	public void handleAgree(ACLMessage agree) {
 		handleResponse(agree);
 
-		orderText = Order.gson.fromJson(agree.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(agree.getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject("AgentProcurementMarket", "Purchase of " + orderText + " is initiated.");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
@@ -86,4 +80,6 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 	public int next() {
 		return 0;
 	}
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

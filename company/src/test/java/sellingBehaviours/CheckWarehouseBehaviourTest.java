@@ -42,7 +42,7 @@ public class CheckWarehouseBehaviourTest {
 				oneOf(responderBehaviour_mock).getAgent();
 				will(returnValue(agent_mock));
 
-				oneOf(dataStore_mock).getRequestMessage();
+				oneOf(responderBehaviour_mock).getRequest();
 				will(returnValue(message_mock));
 			}
 		});

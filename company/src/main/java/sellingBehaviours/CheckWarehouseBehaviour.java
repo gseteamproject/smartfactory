@@ -13,14 +13,18 @@ import jade.lang.acl.ACLMessage;
 public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
 	private static final long serialVersionUID = 3856126876248315456L;
+
 	private ACLMessage requestMessage;
+
 	private AgentDataStore dataStore;
+
 	private ResponderBehaviour interactionBehaviour;
+
 	private MessageObject msgObj;
 
 	public CheckWarehouseBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
 		super(interactionBehaviour.getAgent());
-		requestMessage = dataStore.getRequestMessage();
+		requestMessage = interactionBehaviour.getRequest();
 
 		this.interactionBehaviour = interactionBehaviour;
 		this.dataStore = dataStore;
@@ -28,8 +32,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
 	@Override
 	public void action() {
-		// save this request message to reply on it later
-		Order order = Order.gson.fromJson(requestMessage.getContent(), Order.class);
+		Order order = dataStore.getOrder();
 
 		dataStore.setIsInWarehouse(true);
 		boolean isInQueue = false;
@@ -67,7 +70,7 @@ public class CheckWarehouseBehaviour extends OneShotBehaviour {
 
 		// productToCheck needs to be produced
 		if (!isInQueue && (orderToProduce.orderList.size() > 0)) {
-			String testGson = Order.gson.toJson(orderToProduce);
+			String testGson = orderToProduce.toJson();
 			ACLMessage msgToFinances = (ACLMessage) requestMessage.clone();
 			msgToFinances.setContent(testGson);
 			dataStore.setSubMessage(msgToFinances);

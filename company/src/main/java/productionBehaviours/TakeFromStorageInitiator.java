@@ -12,13 +12,10 @@ import jade.lang.acl.ACLMessage;
 
 public class TakeFromStorageInitiator extends AchieveREInitiatorInteractor {
 
-	private ResponderBehaviour interactionBehaviour;
-
 	private MessageObject msgObj;
 
 	public TakeFromStorageInitiator(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(dataStore);
-		this.interactionBehaviour = interactionBehaviour;
+		super(interactionBehaviour, dataStore);
 	}
 
 	@Override
@@ -36,7 +33,7 @@ public class TakeFromStorageInitiator extends AchieveREInitiatorInteractor {
 	public void handleInform(ACLMessage inform) {
 		// TODO if deadline was called earlier than inform received message appears to
 		// be null. Try to fix this
-		orderText = Order.gson.fromJson(inform.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(inform.getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject(inform, orderText);
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
@@ -48,7 +45,7 @@ public class TakeFromStorageInitiator extends AchieveREInitiatorInteractor {
 
 	@Override
 	public void handleFailure(ACLMessage failure) {
-		orderText = Order.gson.fromJson(failure.getContent(), Order.class).getTextOfOrder();
+		orderText = Order.fromJson(failure.getContent()).getTextOfOrder();
 
 		msgObj = new MessageObject(failure, orderText);
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
