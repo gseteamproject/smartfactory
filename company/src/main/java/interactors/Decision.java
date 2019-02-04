@@ -30,32 +30,21 @@ public class Decision {
 		order = Order.fromJson(request.getContent());
 		dataStore.setOrder(order);
 
-		// Agent should send agree or refuse
-		// TODO: Add refuse answer (some conditions should be added)
-
-		dataStore.setAgentName(interactionBehaviour.getAgent().getLocalName());
-		logger.info("currentAgent: {}", dataStore.getAgentName());
-
-		if (dataStore.getAgentName().equals("AgentSalesMarket")) {
-			dataStore.setDeadline(order.deadline);
-			long currentDeadline = System.currentTimeMillis() + order.deadline;
-			order.deadline = currentDeadline;
-		} else {
-			dataStore.setDeadline(order.deadline - System.currentTimeMillis());
-		}
-
-		logger.info("currentDeadline: {}", order.deadline);
-
-		order.agent = dataStore.getAgentName();
+		final String agentName = dataStore.getAgentName();
+		logger.info("currentAgent: {}", agentName);
+		order.agent = agentName;
 
 		String orderGson = order.toJson();
 		request.setContent(orderGson);
 
 		MessageObject msgObj = new MessageObject(request, order.getTextOfOrder());
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-		dataStore.setDeadlineResult(false);
 
-		interactionBehaviour.getDeadlineBehaviour().reset(dataStore.getDeadline() * Main.SERVER_DELAY_TIME / 150);
+		long timeout = (order.deadline - System.currentTimeMillis()) * Main.SERVER_DELAY_TIME / 150;
+		logger.info("currentDeadline: {}", timeout);
+
+		interactionBehaviour.getDeadlineBehaviour().reset(timeout);
+		dataStore.setDeadlineResult(false);
 		interactionBehaviour.getRequestResult().reset();
 		interactionBehaviour.getAskBehaviour().setStarted(false);
 	}

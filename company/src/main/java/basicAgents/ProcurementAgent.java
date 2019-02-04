@@ -15,6 +15,7 @@ public class ProcurementAgent extends Agent {
 	protected void setup() {
 		dataStore = new AgentDataStore();
 		dataStore.setAgentPlatform(new AgentPlatform(this));
+		dataStore.setAgentName(getLocalName());
 		dataStore.setIsInMaterialStorage(false);
 		dataStore.setIsGiven(false);
 

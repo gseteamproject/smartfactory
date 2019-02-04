@@ -3,7 +3,6 @@ package interactors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import application.Main;
 import basicClasses.CrossAgentData;
 import basicClasses.Order;
 import common.AgentDataStore;
@@ -28,7 +27,6 @@ public class DeadlineBehaviour extends WakerBehaviour {
 
 	@Override
 	protected void onWake() {
-		logger.info("{}", dataStore.getDeadline() * Main.SERVER_DELAY_TIME / 150);
 		Order order = dataStore.getOrder();
 		logger.info("{}", CrossAgentData.orderQueue);
 		logger.info("{}", interactionBehaviour.getRequest().getContent());

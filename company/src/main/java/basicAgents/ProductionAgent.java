@@ -15,6 +15,7 @@ public class ProductionAgent extends Agent {
 	protected void setup() {
 		dataStore = new AgentDataStore();
 		dataStore.setAgentPlatform(new AgentPlatform(this));
+		dataStore.setAgentName(getLocalName());
 		dataStore.setIsProduced(false);
 
 		addBehaviour(new ProductionResponder(this, dataStore));

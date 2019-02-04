@@ -17,6 +17,7 @@ public class SellerAgent extends Agent {
 	protected void setup() {
 		dataStore = new AgentDataStore();
 		dataStore.setAgentPlatform(new AgentPlatform(this));
+		dataStore.setAgentName(getLocalName());
 		dataStore.setGoodName(getArguments()[0].toString());
 
 		registerServices();

@@ -44,7 +44,7 @@ public class OneOrderBehaviour extends WakerBehaviour {
 		order.addGood(new Product(10, "blue"), 2);
 		order.addGood(new Product(10, "green"), 3);
 
-		order.deadline = 60000; // 60 seconds
+		order.deadline = System.currentTimeMillis() + 60000; // 60 seconds
 		order.price = 100;
 		order.agent = getAgent().getLocalName();
 

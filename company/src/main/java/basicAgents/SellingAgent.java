@@ -17,6 +17,7 @@ public class SellingAgent extends Agent {
 	protected void setup() {
 		dataStore = new AgentDataStore();
 		dataStore.setAgentPlatform(new AgentPlatform(this));
+		dataStore.setAgentName(getLocalName());
 		dataStore.setIsTaken(false);
 		dataStore.setIsInWarehouse(false);
 		dataStore.setProductionQueue(new ArrayList<Order>());

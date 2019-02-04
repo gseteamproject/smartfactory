@@ -15,6 +15,7 @@ public class FinancesAgent extends Agent {
 	protected void setup() {
 		dataStore = new AgentDataStore();
 		dataStore.setAgentPlatform(new AgentPlatform(this));
+		dataStore.setAgentName(getLocalName());
 
 		addBehaviour(new FinancesResponder(this, dataStore));
 	}

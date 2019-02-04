@@ -18,14 +18,6 @@ public class AgentDataStore extends DataStore {
 		return (ACLMessage) get("sub-message");
 	}
 
-	public void setDeadline(long deadline) {
-		put("deadline", deadline);
-	}
-
-	public long getDeadline() {
-		return (long) get("deadline");
-	}
-
 	public void setAgentName(String agentName) {
 		put("agentName", agentName);
 	}
