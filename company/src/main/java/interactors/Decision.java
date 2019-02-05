@@ -46,7 +46,7 @@ public class Decision {
 		interactionBehaviour.getDeadlineBehaviour().reset(timeout);
 		dataStore.setDeadlineResult(false);
 		interactionBehaviour.getRequestResult().reset();
-		interactionBehaviour.getAskBehaviour().setStarted(false);
+		interactionBehaviour.getAskBehaviour().reset();
 	}
 
 	private final Logger logger = LoggerFactory.getLogger(this.getClass());

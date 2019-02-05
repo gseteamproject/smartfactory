@@ -105,7 +105,7 @@ public class DecisionTest {
 				oneOf(responderBehaviour_mock).getAskBehaviour();
 				will(returnValue(askBehaviour_mock));
 
-				oneOf(askBehaviour_mock).setStarted(false);
+				oneOf(askBehaviour_mock).reset();
 			}
 		});
 
