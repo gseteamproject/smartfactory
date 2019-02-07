@@ -3,10 +3,12 @@ package interactors;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import common.AgentDataStore;
+import jade.lang.acl.ACLMessage;
 
 public class RequestResultTest {
 
@@ -33,6 +35,22 @@ public class RequestResultTest {
 	}
 
 	@Test
-	public void setup() {
+	public void execute() {
+		final ACLMessage message_mock = context.mock(ACLMessage.class);
+
+		Assert.assertEquals(null, testable.execute(message_mock));
+	}
+
+	@Test
+	public void done() {
+		Assert.assertEquals(false, testable.done());
+	}
+
+	@Test
+	public void reset() {
+		testable.isDone = true;
+
+		testable.reset();
+		Assert.assertEquals(false, testable.isDone);
 	}
 }

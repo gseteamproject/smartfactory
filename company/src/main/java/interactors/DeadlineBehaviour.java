@@ -31,15 +31,13 @@ public class DeadlineBehaviour extends WakerBehaviour {
 		logger.info("{}", CrossAgentData.orderQueue);
 		logger.info("{}", interactionBehaviour.getRequest().getContent());
 		dataStore.setDeadlineResult(true);
-		if (order.searchInList(CrossAgentData.orderQueue) > -1) {
-			logger.info("Deadline of {}", interactionBehaviour.getAgent().getLocalName());
-			interactionBehaviour
-					.setResult(interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest()));
-			if (CrossAgentData.orderQueue.remove(order)) {
-				MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
-						order.getTextOfOrder() + " is removed from Order queue.");
-				dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-			}
-		}
+
+		logger.info("Deadline of {}", interactionBehaviour.getAgent().getLocalName());
+		interactionBehaviour
+				.setResult(interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest()));
+		CrossAgentData.orderQueue.remove(order);
+		MessageObject msgObj = new MessageObject(interactionBehaviour.getAgent().getLocalName(),
+				order.getTextOfOrder() + " is removed from Order queue.");
+		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 	}
 }

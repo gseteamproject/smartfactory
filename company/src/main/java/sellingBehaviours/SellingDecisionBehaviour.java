@@ -9,7 +9,6 @@ public class SellingDecisionBehaviour extends DecisionBehaviour {
 	private static final long serialVersionUID = 1860338194487186607L;
 
 	public SellingDecisionBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(interactionBehaviour);
-		this.interactor = new SellingDecision(interactionBehaviour, dataStore);
+		super(interactionBehaviour, new SellingDecision(interactionBehaviour, dataStore));
 	}
 }

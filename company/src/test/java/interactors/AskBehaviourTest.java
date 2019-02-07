@@ -102,7 +102,6 @@ public class AskBehaviourTest {
 
 	@Test
 	public void done_false() {
-
 		context.checking(new Expectations() {
 			{
 				oneOf(requestResult_mock).done();
