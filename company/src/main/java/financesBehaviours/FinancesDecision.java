@@ -16,13 +16,11 @@ public class FinancesDecision extends Decision {
 	public ACLMessage execute(ACLMessage request) {
 		setup(request);
 
-		MessageObject msgObj;
+		MessageObject msgObj = null;
 		if (request.getConversationId() == "Order") {
 			msgObj = new MessageObject("AgentFinances", "has accepted selling of " + order.getTextOfOrder());
 		} else if (request.getConversationId() == "Materials") {
 			msgObj = new MessageObject("AgentFinances", "has accepted buying of " + order.getTextOfOrder());
-		} else {
-			msgObj = null;
 		}
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 

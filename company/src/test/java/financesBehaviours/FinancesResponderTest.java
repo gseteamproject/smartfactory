@@ -3,6 +3,7 @@ package financesBehaviours;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,16 +20,16 @@ public class FinancesResponderTest {
 
 	FinancesResponder testable;
 
-	AgentDataStore dataStore_mock;
+	AgentDataStore agentDataStore_mock;
 
 	Agent agent_mock;
 
 	@Before
 	public void setUp() {
-		dataStore_mock = context.mock(AgentDataStore.class);
+		agentDataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
 
-		testable = new FinancesResponder(agent_mock, dataStore_mock);
+		testable = new FinancesResponder(agent_mock, agentDataStore_mock);
 	}
 
 	@After
@@ -38,5 +39,7 @@ public class FinancesResponderTest {
 
 	@Test
 	public void constructor() {
+		Assert.assertEquals(true, testable.getAskBehaviour() instanceof FinancesAskBehaviour);
+		Assert.assertEquals(true, testable.getRequestResult() instanceof FinancesRequestResult);
 	}
 }

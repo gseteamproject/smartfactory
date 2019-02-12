@@ -28,14 +28,20 @@ public class AskBehaviourTest {
 
 	RequestResult requestResult_mock;
 
+	Agent agent_mock;
+
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		agentDataStore_mock = context.mock(AgentDataStore.class);
 		requestResult_mock = context.mock(RequestResult.class);
+		agent_mock = context.mock(Agent.class);
 
 		context.checking(new Expectations() {
 			{
+				oneOf(responderBehaviour_mock).getAgent();
+				will(returnValue(agent_mock));
+
 				oneOf(responderBehaviour_mock).getRequestResult();
 				will(returnValue(requestResult_mock));
 			}
@@ -68,6 +74,14 @@ public class AskBehaviourTest {
 
 	@Test
 	public void reset() {
+		context.checking(new Expectations() {
+			{
+				oneOf(agent_mock).removeTimer(testable);
+
+				oneOf(agent_mock).notifyRestarted(testable);
+			}
+		});
+
 		testable.reset();
 
 		Assert.assertEquals(false, testable.isStarted());
@@ -75,7 +89,6 @@ public class AskBehaviourTest {
 
 	@Test
 	public void done() {
-		final Agent agent_mock = context.mock(Agent.class);
 		final ACLMessage requestMessage_mock = context.mock(ACLMessage.class, "request");
 		final ACLMessage responseMessage_mock = context.mock(ACLMessage.class, "response");
 

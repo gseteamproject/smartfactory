@@ -54,13 +54,13 @@ public class DecisionTest {
 
 		final String agentName = "AgentSelling";
 		final long deadline = 120000;
-		final String json = "{\"id\":0,\"orderList\":[],\"deadline\":" + (System.currentTimeMillis() + deadline)
+		final String content = "{\"id\":0,\"orderList\":[],\"deadline\":" + (System.currentTimeMillis() + deadline)
 				+ ",\"price\":0}";
 
 		context.checking(new Expectations() {
 			{
 				oneOf(request_mock).getContent();
-				will(returnValue(json));
+				will(returnValue(content));
 
 				// TODO : add Order matcher
 				oneOf(dataStore_mock).setOrder(with(any(Order.class)));

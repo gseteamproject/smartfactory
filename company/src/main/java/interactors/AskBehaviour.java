@@ -27,7 +27,7 @@ public class AskBehaviour extends SimpleBehaviour {
 	}
 
 	public AskBehaviour(ResponderBehaviour interactionBehaviour, AgentDataStore dataStore) {
-		super(null);
+		super(interactionBehaviour.getAgent());
 		this.interactionBehaviour = interactionBehaviour;
 		this.interactor = interactionBehaviour.getRequestResult();
 		this.dataStore = dataStore;

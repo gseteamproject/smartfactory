@@ -31,9 +31,8 @@ public class FinancesAskBehaviour extends AskBehaviour {
 					msgObj = new MessageObject(request, " has accepted selling of " + order.getTextOfOrder());
 					dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
-					CrossAgentData.orderQueue
-							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
-									.getLocalName();
+					CrossAgentData.orderQueue.get(order.searchInList(CrossAgentData.orderQueue)).agent = myAgent
+							.getLocalName();
 
 					myAgent.addBehaviour(new TransferMoneyToBank(interactionBehaviour, dataStore));
 				} else if (request.getConversationId() == "Materials") {
@@ -42,9 +41,8 @@ public class FinancesAskBehaviour extends AskBehaviour {
 					msgObj = new MessageObject(request, "has accepted buying of " + order.getTextOfOrder());
 					dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 
-					CrossAgentData.orderQueue
-							.get(order.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour.getAgent()
-									.getLocalName();
+					CrossAgentData.orderQueue.get(order.searchInList(CrossAgentData.orderQueue)).agent = myAgent
+							.getLocalName();
 
 					myAgent.addBehaviour(new TransferMoneyFromBank(interactionBehaviour, dataStore));
 				}

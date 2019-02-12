@@ -10,6 +10,7 @@ import org.junit.Test;
 import common.AgentDataStore;
 import interactors.RequestResult;
 import interactors.ResponderBehaviour;
+import jade.core.Agent;
 
 public class SalesMarketAskBehaviourTest {
 
@@ -27,6 +28,8 @@ public class SalesMarketAskBehaviourTest {
 
 	RequestResult requestResult_mock;
 
+	Agent agent_mock;
+
 	@Before
 	public void setUp() {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
@@ -35,6 +38,9 @@ public class SalesMarketAskBehaviourTest {
 
 		context.checking(new Expectations() {
 			{
+				oneOf(responderBehaviour_mock).getAgent();
+				will(returnValue(agent_mock));
+
 				oneOf(responderBehaviour_mock).getRequestResult();
 				will(returnValue(requestResult_mock));
 			}

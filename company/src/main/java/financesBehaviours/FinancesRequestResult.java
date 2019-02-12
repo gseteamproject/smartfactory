@@ -16,18 +16,20 @@ public class FinancesRequestResult extends RequestResult {
 		response.setContent(request.getContent());
 
 		if (!dataStore.getDeadlineResult()) {
-			if (request.getConversationId() == "Order") {
+			String conversationId = request.getConversationId();
+			if ("Order".equals(conversationId)) {
 				response.setPerformative(ACLMessage.INFORM);
 				this.isDone = true;
-			} else if (request.getConversationId() == "Materials") {
+				return response;
+			} else if ("Materials".equals(conversationId)) {
 				response.setPerformative(ACLMessage.INFORM);
 				this.isDone = true;
+				return response;
 			}
-		} else {
-			response.setPerformative(ACLMessage.FAILURE);
-			this.isDone = false;
 		}
 
+		response.setPerformative(ACLMessage.FAILURE);
+		this.isDone = false;
 		return response;
 	}
 }

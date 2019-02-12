@@ -9,8 +9,6 @@ import jade.core.behaviours.OneShotBehaviour;
 
 public class TransferMoneyFromBank extends OneShotBehaviour {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	private static final long serialVersionUID = -8355136234160671855L;
 
 	private ResponderBehaviour interactionBehaviour;
@@ -27,4 +25,6 @@ public class TransferMoneyFromBank extends OneShotBehaviour {
 		logger.info("Buy {}", dataStore.getOrder().getTextOfOrder());
 		interactionBehaviour.getRequestResult().execute(interactionBehaviour.getRequest());
 	}
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }
