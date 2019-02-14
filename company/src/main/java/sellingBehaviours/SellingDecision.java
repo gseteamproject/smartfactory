@@ -21,13 +21,11 @@ public class SellingDecision extends Decision {
 		response.setPerformative(ACLMessage.AGREE);
 		response.setSender(interactionBehaviour.getAgent().getAID());
 
-		MessageObject msgObj;
+		MessageObject msgObj = null;
 		if (request.getConversationId() == "Ask") {
 			msgObj = new MessageObject(response, order.getTextOfOrder());
 		} else if (request.getConversationId() == "Take") {
 			msgObj = new MessageObject(response, order.getTextOfOrder());
-		} else {
-			msgObj = null;
 		}
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
 

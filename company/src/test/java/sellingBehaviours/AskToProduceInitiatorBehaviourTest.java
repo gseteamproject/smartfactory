@@ -3,14 +3,13 @@ package sellingBehaviours;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import common.AgentDataStore;
-import jade.core.Agent;
+import interactors.ResponderBehaviour;
 
-public class SellingResponderTest {
+public class AskToProduceInitiatorBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -18,18 +17,18 @@ public class SellingResponderTest {
 		}
 	};
 
-	SellingResponder testable;
+	AskToProduceInitiatorBehaviour testable;
+
+	ResponderBehaviour responderBehaviour_mock;
 
 	AgentDataStore dataStore_mock;
 
-	Agent agent_mock;
-
 	@Before
 	public void setUp() {
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(AgentDataStore.class);
-		agent_mock = context.mock(Agent.class);
 
-		testable = new SellingResponder(agent_mock, dataStore_mock);
+		testable = new AskToProduceInitiatorBehaviour(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After
@@ -39,7 +38,5 @@ public class SellingResponderTest {
 
 	@Test
 	public void constructor() {
-		Assert.assertEquals(true, testable.getAskBehaviour() instanceof SellingAskBehaviour);
-		Assert.assertEquals(true, testable.getRequestResult() instanceof SellingRequestResult);
 	}
 }

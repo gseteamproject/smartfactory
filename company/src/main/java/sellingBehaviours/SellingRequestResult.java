@@ -14,9 +14,10 @@ public class SellingRequestResult extends RequestResult {
 	public ACLMessage execute(ACLMessage request) {
 		ACLMessage response = request.createReply();
 		response.setContent(request.getContent());
-		// TODO: Need to check if in warehouse here?
+
 		if (!dataStore.getDeadlineResult()) {
-			if (request.getConversationId() == "Ask") {
+			String conversationId = request.getConversationId();
+			if ("Ask".equals(conversationId)) {
 				if (dataStore.getIsInWarehouse()) {
 					response.setPerformative(ACLMessage.INFORM);
 					this.isDone = true;
@@ -24,7 +25,8 @@ public class SellingRequestResult extends RequestResult {
 					response.setPerformative(ACLMessage.FAILURE);
 					this.isDone = false;
 				}
-			} else if (request.getConversationId() == "Take") {
+				return response;
+			} else if ("Take".equals(conversationId)) {
 				if (dataStore.getIsTaken()) {
 					response.setPerformative(ACLMessage.INFORM);
 					this.isDone = true;
@@ -32,12 +34,12 @@ public class SellingRequestResult extends RequestResult {
 					response.setPerformative(ACLMessage.FAILURE);
 					this.isDone = false;
 				}
+				return response;
 			}
-		} else {
-			response.setPerformative(ACLMessage.FAILURE);
-			this.isDone = false;
 		}
 
+		response.setPerformative(ACLMessage.FAILURE);
+		this.isDone = false;
 		return response;
 	}
 }
