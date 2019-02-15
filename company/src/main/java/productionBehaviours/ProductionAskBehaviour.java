@@ -19,16 +19,10 @@ public class ProductionAskBehaviour extends AskBehaviour {
 		if (!this.isStarted()) {
 			Order orderToProduce = Order.fromJson(interactionBehaviour.getRequest().getContent());
 			if (orderToProduce.searchInList(CrossAgentData.orderQueue) > -1) {
-				// if (!this.isStarted()) {
 				CrossAgentData.orderQueue
 						.get(orderToProduce.searchInList(CrossAgentData.orderQueue)).agent = interactionBehaviour
 								.getAgent().getLocalName();
-
-				// myAgent.addBehaviour(new ProductionActivityBehaviour((ProductionResponder)
-				// interactionBehaviour, (ProductionRequestResult) interactor, dataStore));
 				myAgent.addBehaviour(new AskForMaterialsBehaviour(interactionBehaviour, dataStore));
-				// }
-				// this.setStarted(true);
 			}
 			this.setStarted(true);
 		}

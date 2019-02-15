@@ -71,4 +71,8 @@ public class ProductStorage implements iStorage {
 	public void clear() {
 		products.clear();
 	}
+
+	public int size() {
+		return products.size();
+	}
 }

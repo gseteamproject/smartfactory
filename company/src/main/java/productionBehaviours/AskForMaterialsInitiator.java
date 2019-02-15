@@ -8,9 +8,7 @@ import communication.MessageObject;
 import interactors.AchieveREInitiatorInteractor;
 import interactors.ResponderBehaviour;
 import jade.core.AID;
-import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 
 public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
@@ -46,10 +44,6 @@ public class AskForMaterialsInitiator extends AchieveREInitiatorInteractor {
 
 		msgObj = new MessageObject(failure, "received [failure] materials for " + orderText + " are not in storage");
 		dataStore.getAgentPlatform().sendMessageToWebClient(msgObj);
-
-		MessageTemplate temp = MessageTemplate.MatchProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
-		MessageTemplate infTemp = MessageTemplate.and(temp, MessageTemplate.MatchPerformative(ACLMessage.INFORM));
-		infTemp = MessageTemplate.and(infTemp, MessageTemplate.MatchConversationId("Materials"));
 	}
 
 	@Override

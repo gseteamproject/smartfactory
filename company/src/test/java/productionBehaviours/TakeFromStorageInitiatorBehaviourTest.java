@@ -3,14 +3,13 @@ package productionBehaviours;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 import common.AgentDataStore;
-import jade.core.Agent;
+import interactors.ResponderBehaviour;
 
-public class ProductionResponderTest {
+public class TakeFromStorageInitiatorBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -18,18 +17,18 @@ public class ProductionResponderTest {
 		}
 	};
 
-	ProductionResponder testable;
+	TakeFromStorageInitiatorBehaviour testable;
+
+	ResponderBehaviour responderBehaviour_mock;
 
 	AgentDataStore dataStore_mock;
 
-	Agent agent_mock;
-
 	@Before
 	public void setUp() {
+		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		dataStore_mock = context.mock(AgentDataStore.class);
-		agent_mock = context.mock(Agent.class);
 
-		testable = new ProductionResponder(agent_mock, dataStore_mock);
+		testable = new TakeFromStorageInitiatorBehaviour(responderBehaviour_mock, dataStore_mock);
 	}
 
 	@After
@@ -39,7 +38,5 @@ public class ProductionResponderTest {
 
 	@Test
 	public void constructor() {
-		Assert.assertEquals(true, testable.getAskBehaviour() instanceof ProductionAskBehaviour);
-		Assert.assertEquals(true, testable.getRequestResult() instanceof ProductionRequestResult);
 	}
 }
