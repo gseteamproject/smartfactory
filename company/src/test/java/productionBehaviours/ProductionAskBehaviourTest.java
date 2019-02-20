@@ -39,6 +39,7 @@ public class ProductionAskBehaviourTest {
 		responderBehaviour_mock = context.mock(ResponderBehaviour.class);
 		agentDataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
+		requestResult_mock = context.mock(RequestResult.class);
 
 		context.checking(new Expectations() {
 			{

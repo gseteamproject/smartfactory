@@ -57,7 +57,7 @@ public class ProductionDecisionTest {
 		final Iterator allReceiver_mock = context.mock(Iterator.class);
 		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 		final DeadlineBehaviour deadlineBehaviour_mock = context.mock(DeadlineBehaviour.class);
-		final RequestResult requestResultBehaviour_mock = context.mock(RequestResult.class);
+		final RequestResult requestResult_mock = context.mock(RequestResult.class);
 		final AskBehaviour askBehaviour_mock = context.mock(AskBehaviour.class);
 		final Agent agent_mock = context.mock(Agent.class);
 
@@ -102,9 +102,9 @@ public class ProductionDecisionTest {
 				oneOf(deadlineBehaviour_mock).reset(with(any(long.class)));
 
 				oneOf(responderBehaviour_mock).getRequestResult();
-				will(returnValue(requestResultBehaviour_mock));
+				will(returnValue(requestResult_mock));
 
-				oneOf(requestResultBehaviour_mock).reset();
+				oneOf(requestResult_mock).reset();
 
 				oneOf(responderBehaviour_mock).getAskBehaviour();
 				will(returnValue(askBehaviour_mock));
