@@ -3,6 +3,7 @@ package procurementMarketBehaviours;
 import org.jmock.Mockery;
 import org.jmock.lib.legacy.ClassImposteriser;
 import org.junit.After;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -38,5 +39,7 @@ public class ProcurementMarketResponderTest {
 
 	@Test
 	public void constructor() {
+		Assert.assertEquals(true, testable.getAskBehaviour() instanceof ProcurementMarketAskBehaviour);
+		Assert.assertEquals(true, testable.getRequestResult() instanceof ProcurementMarketRequestResult);
 	}
 }

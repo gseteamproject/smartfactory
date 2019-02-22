@@ -1,4 +1,4 @@
-package procurementBehaviours;
+package procurementMarketBehaviours;
 
 import org.jmock.Expectations;
 import org.jmock.Mockery;
@@ -7,14 +7,14 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import basicClasses.Order;
 import common.AgentDataStore;
 import common.AgentPlatform;
 import communication.MessageObject;
 import interactors.ResponderBehaviour;
 import jade.core.Agent;
-import jade.lang.acl.ACLMessage;
 
-public class AskForAuctionTest {
+public class ReportFinancesBehaviourTest {
 
 	private final Mockery context = new Mockery() {
 		{
@@ -22,7 +22,7 @@ public class AskForAuctionTest {
 		}
 	};
 
-	AskForAuction testable;
+	ReportFinancesBehaviour testable;
 
 	ResponderBehaviour responderBehaviour_mock;
 
@@ -43,7 +43,7 @@ public class AskForAuctionTest {
 			}
 		});
 
-		testable = new AskForAuction(responderBehaviour_mock, agentDataStore_mock);
+		testable = new ReportFinancesBehaviour(responderBehaviour_mock, agentDataStore_mock);
 	}
 
 	@After
@@ -53,16 +53,16 @@ public class AskForAuctionTest {
 
 	@Test
 	public void action() {
-		final ACLMessage request_mock = context.mock(ACLMessage.class, "request");
+		final Order order_mock = context.mock(Order.class);
 		final String content = "{\"id\":1,\"orderList\":[{\"product\":{\"stone\":{\"size\":10.0,\"price\":0},\"paint\":{\"color\":\"red\",\"price\":0},\"price\":0},\"amount\":1},{\"product\":{\"stone\":{\"size\":10.0,\"price\":0},\"paint\":{\"color\":\"blue\",\"price\":0},\"price\":0},\"amount\":2},{\"product\":{\"stone\":{\"size\":10.0,\"price\":0},\"paint\":{\"color\":\"green\",\"price\":0},\"price\":0},\"amount\":3}],\"deadline\":60000,\"price\":100}";
 		final AgentPlatform agentPlatform_mock = context.mock(AgentPlatform.class);
 
 		context.checking(new Expectations() {
 			{
-				oneOf(responderBehaviour_mock).getRequest();
-				will(returnValue(request_mock));
+				oneOf(agentDataStore_mock).getOrder();
+				will(returnValue(order_mock));
 
-				oneOf(request_mock).getContent();
+				oneOf(order_mock).getTextOfOrder();
 				will(returnValue(content));
 
 				oneOf(agentDataStore_mock).getAgentPlatform();
@@ -72,7 +72,7 @@ public class AskForAuctionTest {
 				oneOf(agentPlatform_mock).sendMessageToWebClient(with(any(MessageObject.class)));
 
 				// TODO : add Matcher
-				oneOf(agent_mock).addBehaviour(with(any(AskForAuctionInitiatorBehaviour.class)));
+				oneOf(agent_mock).addBehaviour(with(any(ReportFinancesInitiatorBehaviour.class)));
 			}
 		});
 

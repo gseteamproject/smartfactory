@@ -46,9 +46,6 @@ public class ReportFinancesInitiator extends AchieveREInitiatorInteractor {
 		ACLMessage msgToPurchase = (ACLMessage) inform.clone();
 		dataStore.setSubMessage(msgToPurchase);
 
-		// add order to queue
-		// Selling.procurementQueue.add(order);
-
 		interactionBehaviour.getAgent().addBehaviour(new AuctionInitiator(interactionBehaviour, dataStore));
 	}
 

@@ -1,5 +1,9 @@
 package common;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +24,15 @@ public class AgentPlatform {
 
 	public AgentPlatform(Agent agent) {
 		this.agent = agent;
+	}
+
+	public List<DFAgentDescription> search(DFAgentDescription dfd) {
+		try {
+			return new ArrayList<DFAgentDescription>(Arrays.asList(DFService.search(agent, dfd)));
+		} catch (FIPAException e) {
+			logger.error("search failed", e);
+		}
+		return new ArrayList<DFAgentDescription>();
 	}
 
 	public void sendMessageToWebClient(MessageObject msgObj) {
