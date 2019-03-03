@@ -8,20 +8,23 @@ import basicClasses.Order;
 import basicClasses.Paint;
 import basicClasses.Product;
 import basicClasses.Stone;
+import common.AgentDataStore;
 import jade.core.AID;
 import jade.core.Agent;
 import jade.core.behaviours.WakerBehaviour;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
+import ontology.CompanyOntology;
 
 public class OneOrderBehaviour extends WakerBehaviour {
 
-	private final Logger logger = LoggerFactory.getLogger(this.getClass());
-
 	private static final long serialVersionUID = 3327849748177688933L;
 
-	public OneOrderBehaviour(Agent a, long timeout) {
-		super(a, timeout);
+	protected AgentDataStore dataStore;
+
+	public OneOrderBehaviour(Agent a, AgentDataStore dataStore) {
+		super(a, 4000);
+		this.dataStore = dataStore;
 	}
 
 	@Override
@@ -53,6 +56,8 @@ public class OneOrderBehaviour extends WakerBehaviour {
 		// {"id":1,"orderList":[{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"red","price":0},"price":0},"amount":1},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"blue","price":0},"price":0},"amount":2},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"green","price":0},"price":0},"amount":3}],"deadline":60000,"price":100}
 
 		testMsg.setContent(testGson);
+		testMsg.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		testMsg.setOntology(CompanyOntology.ONTOLOGY_NAME);
 		myAgent.send(testMsg);
 
 		/**
@@ -88,4 +93,6 @@ public class OneOrderBehaviour extends WakerBehaviour {
 		// materials for 1 green stone will be bought
 		// materials for 2 green stones will be taken from storage
 	}
+
+	private final Logger logger = LoggerFactory.getLogger(this.getClass());
 }

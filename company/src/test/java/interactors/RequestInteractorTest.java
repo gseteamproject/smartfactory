@@ -15,6 +15,7 @@ import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.util.leap.Iterator;
+import ontology.CompanyOntology;
 
 public class RequestInteractorTest {
 
@@ -57,6 +58,10 @@ public class RequestInteractorTest {
 
 				oneOf(message_mock).setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
 
+				oneOf(message_mock).setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+
+				oneOf(message_mock).setOntology(CompanyOntology.ONTOLOGY_NAME);
+
 				oneOf(responderBehaviour_mock).getRequest();
 				will(returnValue(request_mock));
 
@@ -86,6 +91,10 @@ public class RequestInteractorTest {
 				oneOf(message_mock).setConversationId(action);
 
 				oneOf(message_mock).setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+
+				oneOf(message_mock).setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+
+				oneOf(message_mock).setOntology(CompanyOntology.ONTOLOGY_NAME);
 
 				oneOf(agentDataStore_mock).getSubMessage();
 				will(returnValue(request_mock));

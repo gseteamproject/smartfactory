@@ -6,6 +6,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import common.AgentDataStore;
 import jade.core.Agent;
 
 public class OneOrderBehaviourTest {
@@ -20,13 +21,14 @@ public class OneOrderBehaviourTest {
 
 	Agent agent_mock;
 
-	long timeout;
+	AgentDataStore agentDataStore_mock;
 
 	@Before
 	public void setUp() {
 		agent_mock = context.mock(Agent.class);
+		agentDataStore_mock = context.mock(AgentDataStore.class);
 
-		testable = new OneOrderBehaviour(agent_mock, timeout);
+		testable = new OneOrderBehaviour(agent_mock, agentDataStore_mock);
 	}
 
 	@After

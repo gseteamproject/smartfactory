@@ -8,6 +8,7 @@ import interactors.ResponderBehaviour;
 import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
+import ontology.CompanyOntology;
 
 public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 
@@ -23,6 +24,8 @@ public class TakeFromWarehouseInitiator extends AchieveREInitiatorInteractor {
 		message.setConversationId(requestedAction);
 		message.addReceiver(new AID(("AgentSelling"), AID.ISLOCALNAME));
 		message.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		message.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		message.setOntology(CompanyOntology.ONTOLOGY_NAME);
 		message.setContent(interactionBehaviour.getRequest().getContent());
 
 		Vector<ACLMessage> l = new Vector<ACLMessage>(1);

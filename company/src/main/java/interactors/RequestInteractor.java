@@ -7,6 +7,7 @@ import common.AgentDataStore;
 import communication.MessageObject;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
+import ontology.CompanyOntology;
 
 public class RequestInteractor {
 
@@ -28,6 +29,8 @@ public class RequestInteractor {
 	protected void setup(ACLMessage request, String requestedAction, boolean isSub) {
 		request.setConversationId(requestedAction);
 		request.setProtocol(FIPANames.InteractionProtocol.FIPA_REQUEST);
+		request.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		request.setOntology(CompanyOntology.ONTOLOGY_NAME);
 		if (isSub) {
 			request.setContent(dataStore.getSubMessage().getContent());
 		} else {

@@ -11,6 +11,7 @@ import jade.core.AID;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.proto.ContractNetInitiator;
+import ontology.CompanyOntology;
 
 public class RequestToBuy extends ContractNetInitiator {
 
@@ -40,6 +41,8 @@ public class RequestToBuy extends ContractNetInitiator {
 		}
 		msg.setContent("material");
 		msg.setProtocol(FIPANames.InteractionProtocol.FIPA_CONTRACT_NET);
+		msg.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		msg.setOntology(CompanyOntology.ONTOLOGY_NAME);
 
 		Vector<ACLMessage> v = new Vector<ACLMessage>();
 		v.add(msg);

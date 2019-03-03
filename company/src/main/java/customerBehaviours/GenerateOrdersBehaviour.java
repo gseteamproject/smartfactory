@@ -10,6 +10,7 @@ import jade.core.Agent;
 import jade.core.behaviours.TickerBehaviour;
 import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
+import ontology.CompanyOntology;
 
 public class GenerateOrdersBehaviour extends TickerBehaviour {
 
@@ -63,6 +64,8 @@ public class GenerateOrdersBehaviour extends TickerBehaviour {
 		// {"id":1,"orderList":[{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"blue","price":0},"price":0},"amount":2},{"product":{"stone":{"size":10.0,"price":0},"paint":{"color":"red","price":0},"price":0},"amount":2}]}
 
 		orderMsg.setContent(testGson);
+		orderMsg.setLanguage(FIPANames.ContentLanguage.FIPA_SL);
+		orderMsg.setOntology(CompanyOntology.ONTOLOGY_NAME);
 		myAgent.send(orderMsg);
 	}
 }

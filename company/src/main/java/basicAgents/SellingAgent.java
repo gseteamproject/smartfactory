@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import basicClasses.Order;
 import common.AgentDataStore;
 import common.AgentPlatform;
+import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
+import ontology.CompanyOntology;
 import sellingBehaviours.SellingResponder;
 
 public class SellingAgent extends Agent {
@@ -21,6 +23,9 @@ public class SellingAgent extends Agent {
 		dataStore.setIsTaken(false);
 		dataStore.setIsInWarehouse(false);
 		dataStore.setProductionQueue(new ArrayList<Order>());
+
+		getContentManager().registerLanguage(new SLCodec());
+		getContentManager().registerOntology(CompanyOntology.getInstance());
 
 		addBehaviour(new SellingResponder(this, dataStore));
 	}

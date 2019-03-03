@@ -2,9 +2,11 @@ package interactors;
 
 import common.AgentDataStore;
 import jade.core.Agent;
+import jade.domain.FIPANames;
 import jade.lang.acl.ACLMessage;
 import jade.lang.acl.MessageTemplate;
 import jade.proto.AchieveREResponder;
+import ontology.CompanyOntology;
 
 public class ResponderBehaviour extends AchieveREResponder {
 
@@ -40,8 +42,10 @@ public class ResponderBehaviour extends AchieveREResponder {
 		getDataStore().put(RESULT_NOTIFICATION_KEY, result);
 	}
 
-	public ResponderBehaviour(Agent a, MessageTemplate mt, AgentDataStore dataStore) {
-		super(a, mt);
+	public ResponderBehaviour(Agent a, AgentDataStore dataStore) {
+		super(a, MessageTemplate.and(
+				AchieveREResponder.createMessageTemplate(FIPANames.InteractionProtocol.FIPA_REQUEST),
+				MessageTemplate.MatchOntology(CompanyOntology.ONTOLOGY_NAME)));
 		deadlineBehaviour = new DeadlineBehaviour(this, dataStore);
 	}
 }

@@ -2,9 +2,11 @@ package basicAgents;
 
 import common.AgentDataStore;
 import common.AgentPlatform;
+import jade.content.lang.sl.SLCodec;
 import jade.core.Agent;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
+import ontology.CompanyOntology;
 import sellerBehaviours.RespondToBuy;
 
 public class SellerAgent extends Agent {
@@ -21,6 +23,9 @@ public class SellerAgent extends Agent {
 		dataStore.setGoodName(getArguments()[0].toString());
 
 		registerServices();
+
+		getContentManager().registerLanguage(new SLCodec());
+		getContentManager().registerOntology(CompanyOntology.getInstance());
 
 		addBehaviour(new RespondToBuy(this, dataStore));
 	}

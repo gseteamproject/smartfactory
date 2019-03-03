@@ -12,7 +12,6 @@ import common.AgentDataStore;
 import jade.core.Agent;
 import jade.core.behaviours.DataStore;
 import jade.lang.acl.ACLMessage;
-import jade.lang.acl.MessageTemplate;
 
 public class ResponderBehaviourTest {
 
@@ -28,15 +27,12 @@ public class ResponderBehaviourTest {
 
 	Agent agent_mock;
 
-	MessageTemplate messageTemplate;
-
 	@Before
 	public void setUp() {
 		agentDataStore_mock = context.mock(AgentDataStore.class);
 		agent_mock = context.mock(Agent.class);
-		messageTemplate = MessageTemplate.MatchAll();
 
-		testable = new ResponderBehaviour(agent_mock, messageTemplate, agentDataStore_mock);
+		testable = new ResponderBehaviour(agent_mock, agentDataStore_mock);
 	}
 
 	@After
