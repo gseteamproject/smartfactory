@@ -157,10 +157,10 @@ class Application:
         }
 
     def run(self):
-        parser = argparse.ArgumentParser()
-        parser.add_argument("action", help="action that will be performed", choices=self.__actions)
-        parser.add_argument("-t", "--target", choices=self.__targets, default=TARGET_ALL)
-        parser.add_argument("-c", "--config", choices=self.__configs, default=CFG_TEST)
+        parser = argparse.ArgumentParser(description="automation deploy script")
+        parser.add_argument("action", help="action to perform", choices=self.__actions)
+        parser.add_argument("-t", "--target", help="part of software to deploy", choices=self.__targets, default=TARGET_ALL)
+        parser.add_argument("-c", "--config", help="configuration file to use", choices=self.__configs, default=CFG_TEST)
         args = parser.parse_args()
         print("args=", args)
 
