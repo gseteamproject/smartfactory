@@ -28,7 +28,7 @@
 		</repository>
 		<repository>
 			<id>tilab</id>
-			<url>http://jade.tilab.com/maven/</url>
+			<url>https://jade.tilab.com/maven/</url>
 		</repository>
 	</repositories>
 	<dependencies>
