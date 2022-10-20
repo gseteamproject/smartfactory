@@ -8,8 +8,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import jade.core.Agent;
-import smartfactory.serviceProvisioning.behaviours.ExecutionBehaviour;
-import smartfactory.serviceProvisioning.behaviours.ServiceProvisioningResponderBehaviour;
 import smartfactory.utility.AgentDataStore;
 
 public class ExecutionBehaviourTest {

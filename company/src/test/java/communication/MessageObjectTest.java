@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import communication.MessageObject;
 import jade.core.AID;
 import jade.lang.acl.ACLMessage;
 import jade.util.leap.Iterator;

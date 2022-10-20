@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import smartfactory.eventSubscription.EventSubscribers;
 import smartfactory.eventSubscription.ontology.Event;
-import smartfactory.interactors.process.ProcessIsCompleted;
 import smartfactory.utility.AgentDataStore;
 
 public class ProcessIsCompletedTest {

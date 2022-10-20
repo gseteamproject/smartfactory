@@ -16,7 +16,6 @@ import smartfactory.models.ProcessOperation;
 import smartfactory.models.Product;
 import smartfactory.models.Resource;
 import smartfactory.platform.AgentPlatform;
-import smartfactory.utility.AgentDataStore;
 
 public class AgentDataStoreTest {
 

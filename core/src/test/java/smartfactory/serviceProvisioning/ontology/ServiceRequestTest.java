@@ -13,7 +13,6 @@ import jade.content.onto.Ontology;
 import jade.content.onto.OntologyException;
 import jade.content.schema.AgentActionSchema;
 import jade.content.schema.PrimitiveSchema;
-import smartfactory.serviceProvisioning.ontology.ServiceRequest;
 
 public class ServiceRequestTest {
 

@@ -6,7 +6,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.behaviours.process.DetermineRequiredServiceBehaviour;
 import smartfactory.utility.AgentDataStore;
 
 public class DetermineRequiredServiceBehaviourTest {

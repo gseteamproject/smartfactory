@@ -17,7 +17,6 @@ import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.lang.acl.ACLMessage;
 import smartfactory.models.ProcessOperation;
 import smartfactory.platform.AgentPlatform;
-import smartfactory.serviceProvisioning.interactors.ServiceProvisioningInitiator;
 import smartfactory.serviceProvisioning.ontology.ServiceCompleted;
 import smartfactory.serviceProvisioning.ontology.ServiceFailed;
 import smartfactory.serviceProvisioning.ontology.ServiceProposal;

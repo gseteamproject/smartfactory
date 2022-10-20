@@ -14,7 +14,6 @@ import jade.domain.FIPAAgentManagement.NotUnderstoodException;
 import jade.domain.FIPAAgentManagement.RefuseException;
 import jade.lang.acl.ACLMessage;
 import jade.proto.SubscriptionResponder.Subscription;
-import smartfactory.eventSubscription.EventSubscribers;
 import smartfactory.eventSubscription.ontology.Event;
 import smartfactory.eventSubscription.ontology.EventSubscriptionOntology;
 import smartfactory.matchers.ACLMessageMatcher;

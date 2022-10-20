@@ -15,7 +15,6 @@ import org.junit.Test;
 
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
 import jade.domain.FIPAAgentManagement.ServiceDescription;
-import smartfactory.interactors.process.FindAgentsProvidingService;
 import smartfactory.models.ProcessOperation;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.utility.AgentDataStore;

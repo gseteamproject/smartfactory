@@ -7,7 +7,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.behaviours.process.ProcessBehaviour;
 import smartfactory.utility.AgentDataStore;
 
 public class ProcessBehaviourTest {

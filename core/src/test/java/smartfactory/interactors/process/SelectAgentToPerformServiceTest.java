@@ -13,7 +13,6 @@ import org.junit.Test;
 
 import jade.core.AID;
 import jade.domain.FIPAAgentManagement.DFAgentDescription;
-import smartfactory.interactors.process.SelectAgentToPerformService;
 import smartfactory.models.ProcessOperation;
 import smartfactory.utility.AgentDataStore;
 

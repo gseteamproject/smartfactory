@@ -8,7 +8,6 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import smartfactory.interactors.process.DetermineRequiredService;
 import smartfactory.models.ProcessOperation;
 import smartfactory.utility.AgentDataStore;
 import smartfactory.models.Process;

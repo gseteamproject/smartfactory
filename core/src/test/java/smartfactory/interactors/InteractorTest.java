@@ -10,7 +10,6 @@ import org.junit.Test;
 
 import jade.content.ContentElement;
 import jade.lang.acl.ACLMessage;
-import smartfactory.interactors.Interactor;
 import smartfactory.platform.AgentPlatform;
 import smartfactory.utility.AgentDataStore;
 
